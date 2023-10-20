@@ -16,7 +16,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ecc24323-e45b-4800-a8a9-387eedfbd6b1" name="Changes" comment="feat: add java-example with unit test">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/java-example/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ferment-example/src/fermented.rs" beforeDir="false" afterPath="$PROJECT_DIR$/ferment-example/src/fermented.rs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

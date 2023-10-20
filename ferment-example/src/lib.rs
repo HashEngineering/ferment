@@ -344,6 +344,7 @@ pub mod nested {
     PartialOrd,
     Hash,
     )]
+    #[ferment_macro::export]
     pub struct IdentityPublicKeyV0 {
         pub id: KeyID,
         pub purpose: Purpose,
