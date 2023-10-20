@@ -9,6 +9,18 @@
 package org.dash.sdk;
 
 public class example {
+  public static String get_chain_hashes_by_map(std_collections_Map_keys_crate_chain_common_chain_type_ChainType_values_crate_nested_HashID_FFI map) {
+    return exampleJNI.get_chain_hashes_by_map(std_collections_Map_keys_crate_chain_common_chain_type_ChainType_values_crate_nested_HashID_FFI.getCPtr(map), map);
+  }
+
+  public static String get_chain_type_string(SWIGTYPE_p_ChainType_FFI chain_type) {
+    return exampleJNI.get_chain_type_string(SWIGTYPE_p_ChainType_FFI.getCPtr(chain_type));
+  }
+
+  public static String address_with_script_pubkey(Vec_u8_FFI script) {
+    return exampleJNI.address_with_script_pubkey(Vec_u8_FFI.getCPtr(script), script);
+  }
+
   public static Identity get_an_identity() {
     long cPtr = exampleJNI.get_an_identity();
     return (cPtr == 0) ? null : new Identity(cPtr, false);
@@ -22,18 +34,6 @@ public class example {
   public static Identity get_identity(Identifier identifier) {
     long cPtr = exampleJNI.get_identity(Identifier.getCPtr(identifier), identifier);
     return (cPtr == 0) ? null : new Identity(cPtr, false);
-  }
-
-  public static String get_chain_type_string(SWIGTYPE_p_ChainType_FFI chain_type) {
-    return exampleJNI.get_chain_type_string(SWIGTYPE_p_ChainType_FFI.getCPtr(chain_type));
-  }
-
-  public static String address_with_script_pubkey(Vec_u8_FFI script) {
-    return exampleJNI.address_with_script_pubkey(Vec_u8_FFI.getCPtr(script), script);
-  }
-
-  public static String get_chain_hashes_by_map(std_collections_Map_keys_crate_chain_common_chain_type_ChainType_values_crate_nested_HashID_FFI map) {
-    return exampleJNI.get_chain_hashes_by_map(std_collections_Map_keys_crate_chain_common_chain_type_ChainType_values_crate_nested_HashID_FFI.getCPtr(map), map);
   }
 
 }

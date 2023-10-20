@@ -8,18 +8,18 @@
 
 package org.dash.sdk;
 
-public class SWIGTYPE_p_Purpose_FFI {
+public class SWIGTYPE_p_IdentityPublicKeyV0_FFI {
   private transient long swigCPtr;
 
-  protected SWIGTYPE_p_Purpose_FFI(long cPtr, @SuppressWarnings("unused") boolean futureUse) {
+  protected SWIGTYPE_p_IdentityPublicKeyV0_FFI(long cPtr, @SuppressWarnings("unused") boolean futureUse) {
     swigCPtr = cPtr;
   }
 
-  protected SWIGTYPE_p_Purpose_FFI() {
+  protected SWIGTYPE_p_IdentityPublicKeyV0_FFI() {
     swigCPtr = 0;
   }
 
-  protected static long getCPtr(SWIGTYPE_p_Purpose_FFI obj) {
+  protected static long getCPtr(SWIGTYPE_p_IdentityPublicKeyV0_FFI obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 }

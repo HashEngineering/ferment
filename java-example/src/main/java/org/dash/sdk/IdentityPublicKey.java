@@ -44,13 +44,13 @@ public class IdentityPublicKey {
     return IdentityPublicKeyTag.swigToEnum(exampleJNI.IdentityPublicKey_tag_get(swigCPtr, this));
   }
 
-  public void setV0(IdentityPublicKeyV0 value) {
-    exampleJNI.IdentityPublicKey_v0_set(swigCPtr, this, IdentityPublicKeyV0.getCPtr(value), value);
+  public void setV0(SWIGTYPE_p_IdentityPublicKeyV0_FFI value) {
+    exampleJNI.IdentityPublicKey_v0_set(swigCPtr, this, SWIGTYPE_p_IdentityPublicKeyV0_FFI.getCPtr(value));
   }
 
-  public IdentityPublicKeyV0 getV0() {
+  public SWIGTYPE_p_IdentityPublicKeyV0_FFI getV0() {
     long cPtr = exampleJNI.IdentityPublicKey_v0_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new IdentityPublicKeyV0(cPtr, false);
+    return (cPtr == 0) ? null : new SWIGTYPE_p_IdentityPublicKeyV0_FFI(cPtr, false);
   }
 
   public IdentityPublicKey() {

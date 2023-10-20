@@ -44,14 +44,6 @@ public class IdentifierBytes32 {
     return exampleJNI.IdentifierBytes32__0_get(swigCPtr, this);
   }
 
-  public void setOwnsMemory(boolean value) {
-    exampleJNI.IdentifierBytes32_ownsMemory_set(swigCPtr, this, value);
-  }
-
-  public boolean getOwnsMemory() {
-    return exampleJNI.IdentifierBytes32_ownsMemory_get(swigCPtr, this);
-  }
-
   public IdentifierBytes32() {
     this(exampleJNI.new_IdentifierBytes32(), true);
   }
