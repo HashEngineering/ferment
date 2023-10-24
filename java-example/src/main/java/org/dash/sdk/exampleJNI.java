@@ -26,7 +26,7 @@ public class exampleJNI {
   public final static native int SecurityLevel_FFI_MEDIUM_get();
   public final static native void IdentifierBytes32__0_set(long jarg1, IdentifierBytes32 jarg1_, byte[] jarg2);
   public final static native byte[] IdentifierBytes32__0_get(long jarg1, IdentifierBytes32 jarg1_);
-  public final static native long new_IdentifierBytes32();
+  public final static native long new_IdentifierBytes32(short[] jarg1);
   public final static native void delete_IdentifierBytes32(long jarg1);
   public final static native void Identifier__0_set(long jarg1, Identifier jarg1_, long jarg2, IdentifierBytes32 jarg2_);
   public final static native long Identifier__0_get(long jarg1, Identifier jarg1_);
@@ -66,8 +66,6 @@ public class exampleJNI {
   public final static native void delete_TimestampMillis_FFI(long jarg1);
   public final static native void IdentityPublicKeyV0_id_set(long jarg1, IdentityPublicKeyV0 jarg1_, long jarg2, KeyID jarg2_);
   public final static native long IdentityPublicKeyV0_id_get(long jarg1, IdentityPublicKeyV0 jarg1_);
-  public final static native void IdentityPublicKeyV0_purpose_set(long jarg1, IdentityPublicKeyV0 jarg1_, long jarg2);
-  public final static native long IdentityPublicKeyV0_purpose_get(long jarg1, IdentityPublicKeyV0 jarg1_);
   public final static native void IdentityPublicKeyV0_security_level_set(long jarg1, IdentityPublicKeyV0 jarg1_, long jarg2);
   public final static native long IdentityPublicKeyV0_security_level_get(long jarg1, IdentityPublicKeyV0 jarg1_);
   public final static native void IdentityPublicKeyV0_contract_bounds_set(long jarg1, IdentityPublicKeyV0 jarg1_, long jarg2, ContractBounds_FFI jarg2_);
@@ -80,6 +78,8 @@ public class exampleJNI {
   public final static native long IdentityPublicKeyV0_data_get(long jarg1, IdentityPublicKeyV0 jarg1_);
   public final static native void IdentityPublicKeyV0_disabled_at_set(long jarg1, IdentityPublicKeyV0 jarg1_, long jarg2, TimestampMillis_FFI jarg2_);
   public final static native long IdentityPublicKeyV0_disabled_at_get(long jarg1, IdentityPublicKeyV0 jarg1_);
+  public final static native int IdentityPublicKeyV0_getPurpose(long jarg1, IdentityPublicKeyV0 jarg1_);
+  public final static native void IdentityPublicKeyV0_setPurpose(long jarg1, IdentityPublicKeyV0 jarg1_, int jarg2);
   public final static native long new_IdentityPublicKeyV0();
   public final static native void delete_IdentityPublicKeyV0(long jarg1);
   public final static native void IdentityPublicKey_tag_set(long jarg1, IdentityPublicKey jarg1_, int jarg2);
@@ -108,6 +108,8 @@ public class exampleJNI {
   public final static native java.math.BigInteger IdentityV0_balance_get(long jarg1, IdentityV0 jarg1_);
   public final static native void IdentityV0_revision_set(long jarg1, IdentityV0 jarg1_, long jarg2, Revision jarg2_);
   public final static native long IdentityV0_revision_get(long jarg1, IdentityV0 jarg1_);
+  public final static native long IdentityV0_getPublicKey(long jarg1, IdentityV0 jarg1_, long jarg2);
+  public final static native long IdentityV0_getPublicKeyById(long jarg1, IdentityV0 jarg1_, long jarg2);
   public final static native long new_IdentityV0();
   public final static native void delete_IdentityV0(long jarg1);
   public final static native void Identity_tag_set(long jarg1, Identity jarg1_, int jarg2);
@@ -136,10 +138,10 @@ public class exampleJNI {
   public final static native long std_collections_Map_keys_crate_chain_common_chain_type_ChainType_values_crate_nested_HashID_FFI_values_get(long jarg1, std_collections_Map_keys_crate_chain_common_chain_type_ChainType_values_crate_nested_HashID_FFI jarg1_);
   public final static native long new_std_collections_Map_keys_crate_chain_common_chain_type_ChainType_values_crate_nested_HashID_FFI();
   public final static native void delete_std_collections_Map_keys_crate_chain_common_chain_type_ChainType_values_crate_nested_HashID_FFI(long jarg1);
-  public final static native long get_identity(long jarg1, Identifier jarg1_);
-  public final static native long find_hash_by_u32(long jarg1, long jarg2, std_collections_Map_keys_u32_values_crate_nested_HashID_FFI jarg2_);
-  public final static native long get_an_identity();
-  public final static native String address_with_script_pubkey(long jarg1, Vec_u8_FFI jarg1_);
-  public final static native String get_chain_hashes_by_map(long jarg1, std_collections_Map_keys_crate_chain_common_chain_type_ChainType_values_crate_nested_HashID_FFI jarg1_);
-  public final static native String get_chain_type_string(long jarg1);
+  public final static native long ffiGetAnIdentity();
+  public final static native long ffiFindHashByU32(long jarg1, long jarg2, std_collections_Map_keys_u32_values_crate_nested_HashID_FFI jarg2_);
+  public final static native long ffiGetIdentity(long jarg1, Identifier jarg1_);
+  public final static native String ffiGetChainHashesByMap(long jarg1, std_collections_Map_keys_crate_chain_common_chain_type_ChainType_values_crate_nested_HashID_FFI jarg1_);
+  public final static native String ffiAddressWithScriptPubkey(long jarg1, Vec_u8_FFI jarg1_);
+  public final static native String ffiGetChainTypeString(long jarg1);
 }

@@ -209,6 +209,7 @@ static void SWIGUNUSED SWIG_JavaThrowException(JNIEnv *jenv, SWIG_JavaExceptionC
 
 
 #include "../../../../ferment-example/target/example.h"
+#include <stdlib.h>
 
 
 #include <stdint.h>		// Use the C99 official header
@@ -783,6 +784,32 @@ static jdoubleArray SWIG_JavaArrayOutDouble (JNIEnv *jenv, double *result, jsize
 
 #endif
 
+SWIGINTERN struct IdentifierBytes32_FFI *new_IdentifierBytes32_FFI(uint8_t identifierBytes[32]){
+        struct IdentifierBytes32_FFI * identifierBytes32 = (struct IdentifierBytes32_FFI*)calloc(1, sizeof(struct IdentifierBytes32_FFI));
+        identifierBytes32->_0 = (uint8_t (*)[32])calloc(1, sizeof(uint8_t[32]));
+        memcpy(identifierBytes32->_0, identifierBytes, sizeof(uint8_t[32]));
+        return identifierBytes32;
+    }
+SWIGINTERN void delete_IdentifierBytes32_FFI(struct IdentifierBytes32_FFI *self){
+        free(self->_0); // Deallocate the memory when the object is destroyed
+        free(self);
+    }
+SWIGINTERN enum Purpose_FFI IdentityPublicKeyV0_FFI_getPurpose(struct IdentityPublicKeyV0_FFI *self){
+        return *self->purpose;
+    }
+SWIGINTERN void IdentityPublicKeyV0_FFI_setPurpose(struct IdentityPublicKeyV0_FFI *self,enum Purpose_FFI purpose){
+
+    }
+SWIGINTERN struct IdentityPublicKeyV0_FFI *IdentityV0_FFI_getPublicKey(struct IdentityV0_FFI *self,uint32_t index){
+        return self->public_keys->values[index]->v0;
+    }
+SWIGINTERN struct IdentityPublicKeyV0_FFI *IdentityV0_FFI_getPublicKeyById(struct IdentityV0_FFI *self,uint32_t id){
+        for (int i = 0; i < self->public_keys->count; ++i) {
+            if(self->public_keys->keys[i]->_0 == id)
+                return self->public_keys->values[i]->v0;
+        }
+        return NULL;
+    }
 
 #ifdef __cplusplus
 extern "C" {
@@ -1017,14 +1044,23 @@ SWIGEXPORT jbyteArray JNICALL Java_org_dash_sdk_exampleJNI_IdentifierBytes32_1_1
 }
 
 
-SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_new_1IdentifierBytes32(JNIEnv *jenv, jclass jcls) {
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_new_1IdentifierBytes32(JNIEnv *jenv, jclass jcls, jshortArray jarg1) {
   jlong jresult = 0 ;
+  uint8_t *arg1 ;
+  jshort *jarr1 ;
   struct IdentifierBytes32_FFI *result = 0 ;
   
   (void)jenv;
   (void)jcls;
-  result = (struct IdentifierBytes32_FFI *)calloc(1, sizeof(struct IdentifierBytes32_FFI));
+  if (jarg1 && (*jenv)->GetArrayLength(jenv, jarg1) != 32) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+    return 0;
+  }
+  if (!SWIG_JavaArrayInUchar(jenv, &jarr1, (unsigned char **)&arg1, jarg1)) return 0; 
+  result = (struct IdentifierBytes32_FFI *)new_IdentifierBytes32_FFI(arg1);
   *(struct IdentifierBytes32_FFI **)&jresult = result; 
+  SWIG_JavaArrayArgoutUchar(jenv, jarr1, (unsigned char *)arg1, jarg1); 
+  free(arg1); 
   return jresult;
 }
 
@@ -1035,7 +1071,7 @@ SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_delete_1IdentifierBytes32(J
   (void)jenv;
   (void)jcls;
   arg1 = *(struct IdentifierBytes32_FFI **)&jarg1; 
-  free((char *) arg1);
+  delete_IdentifierBytes32_FFI(arg1);
 }
 
 
@@ -1590,34 +1626,6 @@ SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_IdentityPublicKeyV0_1id_1g
 }
 
 
-SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_IdentityPublicKeyV0_1purpose_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
-  struct IdentityPublicKeyV0_FFI *arg1 = (struct IdentityPublicKeyV0_FFI *) 0 ;
-  enum Purpose_FFI *arg2 = (enum Purpose_FFI *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(struct IdentityPublicKeyV0_FFI **)&jarg1; 
-  arg2 = *(enum Purpose_FFI **)&jarg2; 
-  if (arg1) (arg1)->purpose = arg2;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_IdentityPublicKeyV0_1purpose_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  struct IdentityPublicKeyV0_FFI *arg1 = (struct IdentityPublicKeyV0_FFI *) 0 ;
-  enum Purpose_FFI *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(struct IdentityPublicKeyV0_FFI **)&jarg1; 
-  result = (enum Purpose_FFI *) ((arg1)->purpose);
-  *(enum Purpose_FFI **)&jresult = result; 
-  return jresult;
-}
-
-
 SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_IdentityPublicKeyV0_1security_1level_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
   struct IdentityPublicKeyV0_FFI *arg1 = (struct IdentityPublicKeyV0_FFI *) 0 ;
   enum SecurityLevel_FFI *arg2 = (enum SecurityLevel_FFI *) 0 ;
@@ -1786,6 +1794,34 @@ SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_IdentityPublicKeyV0_1disab
   result = (struct TimestampMillis_FFI *) ((arg1)->disabled_at);
   *(struct TimestampMillis_FFI **)&jresult = result; 
   return jresult;
+}
+
+
+SWIGEXPORT jint JNICALL Java_org_dash_sdk_exampleJNI_IdentityPublicKeyV0_1getPurpose(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  struct IdentityPublicKeyV0_FFI *arg1 = (struct IdentityPublicKeyV0_FFI *) 0 ;
+  enum Purpose_FFI result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(struct IdentityPublicKeyV0_FFI **)&jarg1; 
+  result = (enum Purpose_FFI)IdentityPublicKeyV0_FFI_getPurpose(arg1);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_IdentityPublicKeyV0_1setPurpose(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  struct IdentityPublicKeyV0_FFI *arg1 = (struct IdentityPublicKeyV0_FFI *) 0 ;
+  enum Purpose_FFI arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(struct IdentityPublicKeyV0_FFI **)&jarg1; 
+  arg2 = (enum Purpose_FFI)jarg2; 
+  IdentityPublicKeyV0_FFI_setPurpose(arg1,arg2);
 }
 
 
@@ -2245,6 +2281,40 @@ SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_IdentityV0_1revision_1get(
 }
 
 
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_IdentityV0_1getPublicKey(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  jlong jresult = 0 ;
+  struct IdentityV0_FFI *arg1 = (struct IdentityV0_FFI *) 0 ;
+  uint32_t arg2 ;
+  struct IdentityPublicKeyV0_FFI *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(struct IdentityV0_FFI **)&jarg1; 
+  arg2 = (uint32_t)jarg2; 
+  result = (struct IdentityPublicKeyV0_FFI *)IdentityV0_FFI_getPublicKey(arg1,arg2);
+  *(struct IdentityPublicKeyV0_FFI **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_IdentityV0_1getPublicKeyById(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  jlong jresult = 0 ;
+  struct IdentityV0_FFI *arg1 = (struct IdentityV0_FFI *) 0 ;
+  uint32_t arg2 ;
+  struct IdentityPublicKeyV0_FFI *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(struct IdentityV0_FFI **)&jarg1; 
+  arg2 = (uint32_t)jarg2; 
+  result = (struct IdentityPublicKeyV0_FFI *)IdentityV0_FFI_getPublicKeyById(arg1,arg2);
+  *(struct IdentityPublicKeyV0_FFI **)&jresult = result; 
+  return jresult;
+}
+
+
 SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_new_1IdentityV0(JNIEnv *jenv, jclass jcls) {
   jlong jresult = 0 ;
   struct IdentityV0_FFI *result = 0 ;
@@ -2629,22 +2699,19 @@ SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_delete_1std_1collections_1M
 }
 
 
-SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_get_1identity(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_ffiGetAnIdentity(JNIEnv *jenv, jclass jcls) {
   jlong jresult = 0 ;
-  struct Identifier_FFI *arg1 = (struct Identifier_FFI *) 0 ;
   struct Identity_FFI *result = 0 ;
   
   (void)jenv;
   (void)jcls;
-  (void)jarg1_;
-  arg1 = *(struct Identifier_FFI **)&jarg1; 
-  result = (struct Identity_FFI *)ffi_get_identity(arg1);
+  result = (struct Identity_FFI *)ffi_get_an_identity();
   *(struct Identity_FFI **)&jresult = result; 
   return jresult;
 }
 
 
-SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_find_1hash_1by_1u32(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2, jobject jarg2_) {
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_ffiFindHashByU32(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2, jobject jarg2_) {
   jlong jresult = 0 ;
   uint32_t arg1 ;
   struct std_collections_Map_keys_u32_values_crate_nested_HashID_FFI *arg2 = (struct std_collections_Map_keys_u32_values_crate_nested_HashID_FFI *) 0 ;
@@ -2661,34 +2728,22 @@ SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_find_1hash_1by_1u32(JNIEnv
 }
 
 
-SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_get_1an_1identity(JNIEnv *jenv, jclass jcls) {
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_ffiGetIdentity(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jlong jresult = 0 ;
+  struct Identifier_FFI *arg1 = (struct Identifier_FFI *) 0 ;
   struct Identity_FFI *result = 0 ;
   
   (void)jenv;
   (void)jcls;
-  result = (struct Identity_FFI *)ffi_get_an_identity();
+  (void)jarg1_;
+  arg1 = *(struct Identifier_FFI **)&jarg1; 
+  result = (struct Identity_FFI *)ffi_get_identity(arg1);
   *(struct Identity_FFI **)&jresult = result; 
   return jresult;
 }
 
 
-SWIGEXPORT jstring JNICALL Java_org_dash_sdk_exampleJNI_address_1with_1script_1pubkey(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jstring jresult = 0 ;
-  struct Vec_u8_FFI *arg1 = (struct Vec_u8_FFI *) 0 ;
-  char *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(struct Vec_u8_FFI **)&jarg1; 
-  result = (char *)ffi_address_with_script_pubkey(arg1);
-  if (result) jresult = (*jenv)->NewStringUTF(jenv, (const char *)result);
-  return jresult;
-}
-
-
-SWIGEXPORT jstring JNICALL Java_org_dash_sdk_exampleJNI_get_1chain_1hashes_1by_1map(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jstring JNICALL Java_org_dash_sdk_exampleJNI_ffiGetChainHashesByMap(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jstring jresult = 0 ;
   struct std_collections_Map_keys_crate_chain_common_chain_type_ChainType_values_crate_nested_HashID_FFI *arg1 = (struct std_collections_Map_keys_crate_chain_common_chain_type_ChainType_values_crate_nested_HashID_FFI *) 0 ;
   char *result = 0 ;
@@ -2703,7 +2758,22 @@ SWIGEXPORT jstring JNICALL Java_org_dash_sdk_exampleJNI_get_1chain_1hashes_1by_1
 }
 
 
-SWIGEXPORT jstring JNICALL Java_org_dash_sdk_exampleJNI_get_1chain_1type_1string(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+SWIGEXPORT jstring JNICALL Java_org_dash_sdk_exampleJNI_ffiAddressWithScriptPubkey(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jstring jresult = 0 ;
+  struct Vec_u8_FFI *arg1 = (struct Vec_u8_FFI *) 0 ;
+  char *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(struct Vec_u8_FFI **)&jarg1; 
+  result = (char *)ffi_address_with_script_pubkey(arg1);
+  if (result) jresult = (*jenv)->NewStringUTF(jenv, (const char *)result);
+  return jresult;
+}
+
+
+SWIGEXPORT jstring JNICALL Java_org_dash_sdk_exampleJNI_ffiGetChainTypeString(JNIEnv *jenv, jclass jcls, jlong jarg1) {
   jstring jresult = 0 ;
   enum ChainType_FFI *arg1 = (enum ChainType_FFI *) 0 ;
   char *result = 0 ;

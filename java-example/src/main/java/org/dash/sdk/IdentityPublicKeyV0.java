@@ -45,15 +45,6 @@ public class IdentityPublicKeyV0 {
     return (cPtr == 0) ? null : new KeyID(cPtr, false);
   }
 
-  public void setPurpose(SWIGTYPE_p_Purpose_FFI value) {
-    exampleJNI.IdentityPublicKeyV0_purpose_set(swigCPtr, this, SWIGTYPE_p_Purpose_FFI.getCPtr(value));
-  }
-
-  public SWIGTYPE_p_Purpose_FFI getPurpose() {
-    long cPtr = exampleJNI.IdentityPublicKeyV0_purpose_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new SWIGTYPE_p_Purpose_FFI(cPtr, false);
-  }
-
   public void setSecurity_level(SWIGTYPE_p_SecurityLevel_FFI value) {
     exampleJNI.IdentityPublicKeyV0_security_level_set(swigCPtr, this, SWIGTYPE_p_SecurityLevel_FFI.getCPtr(value));
   }
@@ -105,6 +96,14 @@ public class IdentityPublicKeyV0 {
   public TimestampMillis_FFI getDisabled_at() {
     long cPtr = exampleJNI.IdentityPublicKeyV0_disabled_at_get(swigCPtr, this);
     return (cPtr == 0) ? null : new TimestampMillis_FFI(cPtr, false);
+  }
+
+  public Purpose getPurpose() {
+    return Purpose.swigToEnum(exampleJNI.IdentityPublicKeyV0_getPurpose(swigCPtr, this));
+  }
+
+  public void setPurpose(Purpose purpose) {
+    exampleJNI.IdentityPublicKeyV0_setPurpose(swigCPtr, this, purpose.swigValue());
   }
 
   public IdentityPublicKeyV0() {

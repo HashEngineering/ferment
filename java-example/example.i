@@ -2,16 +2,22 @@
 
 %{
 #include "../../../../ferment-example/target/example.h"
+#include <stdlib.h>
 %}
-%rename("%(strip:[ffi_])s") "";
+//%rename("%(strip:[ffi_])s") "";
+//%rename("%(regex:/^(ffi_)?(.+)/\\2/;s/_(.)/\\U\\1/g)sn") "";
+//%rename(renameCamelCase) "";
+//%rename("renameCamelCase") "^(ffi_)?(.+)$";
+//%rename("%(camelcase)s",%$isfunction) "";
+%rename("%(lowercamelcase)s", %$isfunction) "";
 %rename(HashID) HashID_FFI;
 %rename(SecurityLevel) SecurityLevel_FFI;
 %rename(KeyID) KeyID_FFI;
 %rename(Revision) Revision_FFI;
 %rename(Purpose) Purpose_FFI;
 %rename(Identifier) Identifier_FFI;
-//%ignore IdentifierBytes32_FFI;
-%rename(IdentifierBytes32) IdentifierBytes32_FFI;
+//%ignore IdentifierBinaryData32_FFI;
+%rename(IdentifierBinaryData32) IdentifierBinaryData32_FFI;
 
 %rename(IdentityPublicKey) IdentityPublicKey_FFI;
 %rename(IdentityPublicKeyTag) IdentityPublicKey_FFI_Tag;
@@ -21,6 +27,8 @@
 %rename(BinaryData) BinaryData_FFI;
 %rename(KeyType) KeyType_FFI;
 %rename(IntegerHashIDMap) Map_keys_u32_values_HashID_FFI;
+
+%ignore IdentityPublicKeyV0_FFI::purpose;
 //%rename("%(lowercamelcase)s") "";
 %include "stdint.i"
 %include "arrays_java.i"
@@ -67,7 +75,7 @@
 // %typemap(jtype) uint8_t (*)[32] "byte[]"
 // %typemap(in) uint8_t (*)[32] {
 //   //if (JLENGTH($input) != 32) {
-//   //  SWIG_JavaThrowException(jenv, SWIG_JavaArithmeticError, "Input array must have exactly 32 bytes.");
+//   //  SWIG_JavaThrowException(jenv, SWIG_JavaArithmeticError, "Input array must have exactly 32 BinaryData.");
 //   //  return $null;
 //   //}
 //   $1 = ($1_ltype)$input;
@@ -83,22 +91,19 @@
 //   return $jnicall;
 // }
 
-// %extend IdentifierBytes32_FFI {
-//     bool ownsMemory;
-//
-//     IdentifierBytes32_FFI() {
-//         struct IdentifierBytes32_FFI * identifierBytes32 = (struct IdentifierBytes32_FFI*)calloc(1, sizeof(struct IdentifierBytes32_FFI));
-//         identifierBytes32->_0 = (uint8_t(*)[32])malloc(32); // Allocate memory for _0
-//         ownsMemory = true;
-//         return identifierBytes32;
-//     }
-//
-//     ~IdentifierBytes32_FFI() {
-//         if (ownsMemory)
-//             free($self->_0); // Deallocate the memory when the object is destroyed
-//         free(self);
-//     }
-// };
+%extend IdentifierBinaryData32_FFI {
+    IdentifierBinaryData32_FFI(uint8_t identifierBinaryData[32]) {
+        struct IdentifierBinaryData32_FFI * identifierBinaryData32 = (struct IdentifierBinaryData32_FFI*)calloc(1, sizeof(struct IdentifierBinaryData32_FFI));
+        identifierBinaryData32->_0 = (uint8_t (*)[32])calloc(1, sizeof(uint8_t[32]));
+        memcpy(identifierBinaryData32->_0, identifierBinaryData, sizeof(uint8_t[32]));
+        return identifierBinaryData32;
+    }
+
+    ~IdentifierBinaryData32_FFI() {
+        free($self->_0); // Deallocate the memory when the object is destroyed
+        free(self);
+    }
+};
 
 // uint8_t [] to byte []
 %typemap(jni) (uint8_t (*)[32]) "jbyteArray"
@@ -134,41 +139,70 @@
 
 
 
-// %naturalvar IdentifierBytes32_FFI;
-// struct IdentifierBytes32_FFI;
-// %feature("valuewrapper") IdentifierBytes32_FFI;
+
+
+%extend IdentityV0_FFI {
+    struct IdentityPublicKeyV0_FFI * getPublicKey(uint32_t index) {
+        return $self->public_keys->values[index]->v0;
+    }
+
+    struct IdentityPublicKeyV0_FFI * getPublicKeyById(uint32_t id) {
+        for (int i = 0; i < $self->public_keys->count; ++i) {
+            if($self->public_keys->keys[i]->_0 == id)
+                return $self->public_keys->values[i]->v0;
+        }
+        return NULL;
+    }
+}
+
+%extend IdentityPublicKeyV0_FFI {
+    enum Purpose_FFI getPurpose() {
+        return *$self->purpose;
+    }
+    void setPurpose(enum Purpose_FFI purpose) {
+
+    }
+}
+
+
+// %naturalvar BinaryData;
 //
-// %typemap(jni) IdentifierBytes32_FFI* "jbyteArray"
-// %typemap(jtype) (IdentifierBytes32_FFI*) "byte[]"
-// %typemap(jstype) (IdentifierBytes32_FFI*) "byte[]"
-// %typemap(in) (IdentifierBytes32_FFI*) (jbyteArray byteArray) {
-//   //$1 = (uint8_t (*)[32]) JCALL2(GetByteArrayElements, jenv, $input, 0);
-//     if (!$input) {
-//       SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null array");
-//       return $null;
-//     }
-//     const jsize sz = JCALL1(GetArrayLength, jenv, $input);
-//     jbyte* const jarr = JCALL2(GetByteArrayElements, jenv, $input, 0);
-//     if (!jarr) return $null;
-//     memcpy(byteArray, jarr, sz);
-//     JCALL3(ReleaseByteArrayElements, jenv, $input, jarr, JNI_ABORT);
-//     $1 = (uint8_t (*)[32])byteArray;
-// }
-// %typemap(out) (IdentifierBytes32_FFI*) {
-//   $result = JCALL1(NewByteArray, jenv, 32);
-//   JCALL4(SetByteArrayRegion, jenv, $result, 0, 32, (jbyte *)($1));
-// }
-// %typemap(argout) (IdentifierBytes32_FFI*) {
-//   JCALL3(ReleaseByteArrayElements, jenv, $input, (jbyte *) $1, 0);
+// class BinaryData;
+//
+// %feature("valuewrapper") BinaryData;
+//
+// // BinaryData
+// %typemap(jni) BinaryData "jbyteArray"
+// %typemap(jtype) BinaryData "byte[]"
+// %typemap(jstype) BinaryData "byte[]"
+//
+//
+// %typemap(in) BinaryData
+// %{
+//     BinaryData $1_BinaryDataObject((const uint8_t *)jenv->GetByteArrayElements($input, 0), jenv->GetArrayLength($input));
+//     $1 = $1_BinaryDataObject;
+// %}
+//
+// %typemap(argout) BinaryData {
+//     JCALL3(ReleaseByteArrayElements, jenv, $input, (jbyte *) $1.begin(), 0);
 // }
 //
-// %typemap(javain) (IdentifierBytes32_FFI*) "$javainput"
-// %typemap(javaout) (IdentifierBytes32_FFI*) {
+// %typemap(out) BinaryData {
+//     $result = JCALL1(NewByteArray, jenv, $1.size());
+//    JCALL4(SetByteArrayRegion, jenv, $result, 0, $1.size(), (jbyte *) $1.begin());
+// }
+//
+// %typemap(javain) BinaryData "$javainput"
+//
+// %typemap(javaout) BinaryData {
 //     return $jnicall;
 //   }
-// %typemap(freearg) (IdentifierBytes32_FFI*) ""
-//%typemap(typecheck) IdentifierBytes32_FFI = uint8_t (*)[32];
-
+//
+// %typemap(typecheck) BinaryData = char *;
+//
+// %typemap(throws) BinaryData
+// %{ SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "null BinaryData");
+//    return $null; %}
 
 
 %include "../ferment-example/target/example.h"

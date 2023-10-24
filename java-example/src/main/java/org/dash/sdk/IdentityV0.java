@@ -71,6 +71,16 @@ public class IdentityV0 {
     return (cPtr == 0) ? null : new Revision(cPtr, false);
   }
 
+  public IdentityPublicKeyV0 getPublicKey(long index) {
+    long cPtr = exampleJNI.IdentityV0_getPublicKey(swigCPtr, this, index);
+    return (cPtr == 0) ? null : new IdentityPublicKeyV0(cPtr, false);
+  }
+
+  public IdentityPublicKeyV0 getPublicKeyById(long id) {
+    long cPtr = exampleJNI.IdentityV0_getPublicKeyById(swigCPtr, this, id);
+    return (cPtr == 0) ? null : new IdentityPublicKeyV0(cPtr, false);
+  }
+
   public IdentityV0() {
     this(exampleJNI.new_IdentityV0(), true);
   }
