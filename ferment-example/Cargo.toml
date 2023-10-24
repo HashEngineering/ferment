@@ -7,6 +7,14 @@ build = "build.rs"
 [dependencies]
 ferment-interfaces = { path = "../ferment-interfaces" }
 ferment-macro = { path = "../ferment-macro" }
+rand = { version = "0.8.4", features = ["small_rng"] }
+dashcore = { git = "https://github.com/dashpay/rust-dashcore", features = [
+    "std",
+    "secp-recovery",
+    "rand",
+    "signer",
+    "serde",
+], default-features = false, branch = "master" }
 
 [build-dependencies]
 cbindgen = "0.26.0"

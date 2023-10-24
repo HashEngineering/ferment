@@ -1,8 +1,10 @@
 mod chain;
 mod example;
 mod fermented;
+use rand::rngs::StdRng;
 
 extern crate ferment_macro;
+extern crate core;
 
 #[ferment_macro::export]
 pub struct RootStruct {
@@ -14,7 +16,13 @@ pub struct ExcludedStruct {
 }
 
 pub mod nested {
+    use dashcore::secp256k1::rand::rngs::StdRng as EcdsaRng;
     use std::collections::BTreeMap;
+    use dashcore::Network;
+    use dashcore::secp256k1::Secp256k1;
+    use dashcore::signer::ripemd160_sha256;
+    use rand::rngs::StdRng;
+    use rand::SeedableRng;
 
     #[ferment_macro::export]
     pub type KeyID = u32;
@@ -52,6 +60,18 @@ pub mod nested {
     )]
     #[ferment_macro::export]
     pub struct BinaryData(pub Vec<u8>);
+
+    impl From<Vec<u8>> for BinaryData {
+        fn from(value: Vec<u8>) -> Self {
+            BinaryData::new(value)
+        }
+    }
+
+    impl BinaryData {
+        pub fn new(buffer: Vec<u8>) -> BinaryData {
+            BinaryData(buffer)
+        }
+    }
 
     #[ferment_macro::export]
     pub struct SimpleData(pub Vec<u32>);
@@ -179,6 +199,7 @@ pub mod nested {
     }
 
     #[ferment_macro::export]
+    #[derive(Debug)]
     pub enum ProtocolError {
         IdentifierError(String),
         StringDecodeError(String),
@@ -190,7 +211,8 @@ pub mod nested {
         },
         EncodingError(String),
         EncodingError2(&'static str),
-        DataContractNotPresentError(DataContractNotPresentError),
+        //DataContractNotPresentError(DataContractNotPresentError),
+        UnknownVersionMismatch,
     }
 
     #[ferment_macro::export]
@@ -300,6 +322,55 @@ pub mod nested {
         EDDSA_25519_HASH160 = 4,
     }
 
+    impl KeyType {
+        /// Gets the default size of the public key
+        pub fn random_public_and_private_key_data_v0(&self, rng: &mut StdRng) -> (Vec<u8>, Vec<u8>) {
+            match self {
+                KeyType::ECDSA_SECP256K1 => {
+                    let secp = Secp256k1::new();
+                    let mut rng = EcdsaRng::from_rng(rng).unwrap();
+                    let secret_key = dashcore::secp256k1::SecretKey::new(&mut rng);
+                    let private_key = dashcore::PrivateKey::new(secret_key, Network::Dash);
+                    (
+                        private_key.public_key(&secp).to_bytes(),
+                        private_key.to_bytes(),
+                    )
+                }
+                KeyType::BLS12_381 => {
+                    panic!("BLS not supported")
+                }
+                KeyType::ECDSA_HASH160 => {
+                    let secp = Secp256k1::new();
+                    let mut rng = EcdsaRng::from_rng(rng).unwrap();
+                    let secret_key = dashcore::secp256k1::SecretKey::new(&mut rng);
+                    let private_key = dashcore::PrivateKey::new(secret_key, Network::Dash);
+                    (
+                        ripemd160_sha256(private_key.public_key(&secp).to_bytes().as_slice()).to_vec(),
+                        private_key.to_bytes(),
+                    )
+                }
+                KeyType::EDDSA_25519_HASH160 => {
+                    panic!("eddsa not supported")
+                }
+                KeyType::BIP13_SCRIPT_HASH => {
+                    panic!("bip13 not supported")
+                }
+            }
+        }
+
+        pub fn random_public_and_private_key_data(
+            &self,
+            rng: &mut StdRng,
+            platform_version: i32,
+        ) -> Result<(Vec<u8>, Vec<u8>), ProtocolError> {
+            match platform_version
+            {
+                0 => Ok(self.random_public_and_private_key_data_v0(rng)),
+                version => Err(ProtocolError::UnknownVersionMismatch),
+            }
+        }
+    }
+
     #[ferment_macro::export]
     pub type TimestampMillis = u64;
 
@@ -356,6 +427,34 @@ pub mod nested {
         pub disabled_at: Option<TimestampMillis>,
     }
 
+    impl IdentityPublicKeyV0 {
+        pub fn random_ecdsa_master_authentication_key_with_rng(
+            id: KeyID,
+            rng: &mut StdRng,
+            platform_version: i32,
+        ) -> Result<(Self, Vec<u8>), ProtocolError> {
+            let key_type = KeyType::ECDSA_SECP256K1;
+            let purpose = Purpose::AUTHENTICATION;
+            let security_level = SecurityLevel::MASTER;
+            let read_only = false;
+            let (data, private_data) =
+                key_type.random_public_and_private_key_data(rng, platform_version)?;
+            Ok((
+                IdentityPublicKeyV0 {
+                    id,
+                    key_type,
+                    purpose,
+                    security_level,
+                    read_only,
+                    disabled_at: None,
+                    data: data.into(),
+                    contract_bounds: None,
+                },
+                private_data,
+            ))
+        }
+    }
+
     #[ferment_macro::export]
     pub enum Identity {
         V0(IdentityV0),
@@ -387,16 +486,41 @@ pub mod nested {
         };
         Identity::V0(identity)
     }
-
+    const LATEST_PLATFORM_VERSION: i32 = 0;
     #[ferment_macro::export]
     pub fn get_identity(identifier: Identifier) -> Identity {
 
         let id = Identifier::from_bytes(&identifier.as_slice()).expect("parse identity id");
 
+        let mut keys: BTreeMap<KeyID, IdentityPublicKey> = BTreeMap::new();
+        let mut rng = rand::rngs::StdRng::from_entropy();
+
+        let key: IdentityPublicKey = IdentityPublicKey::V0(
+            IdentityPublicKeyV0::random_ecdsa_master_authentication_key_with_rng(
+                1,
+                &mut rng,
+                LATEST_PLATFORM_VERSION,
+            )
+                .expect("expected a random key")
+                .0
+        );
+
+        let key2: IdentityPublicKey = IdentityPublicKey::V0(
+            IdentityPublicKeyV0::random_ecdsa_master_authentication_key_with_rng(
+                1,
+                &mut rng,
+                LATEST_PLATFORM_VERSION,
+            )
+                .expect("expected a random key")
+                .0
+        );
+
+        keys.insert(1, key);
+        keys.insert(2, key2);
 
         let identity = IdentityV0 {
             id: id,
-            public_keys: Default::default(),
+            public_keys: keys,
             balance: 2,
             revision: 1,
         };
