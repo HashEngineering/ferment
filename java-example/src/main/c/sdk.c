@@ -1376,100 +1376,22 @@ SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_delete_1ContractBounds_1FFI
 }
 
 
-SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_Vec_1u8_1FFI_1count_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
-  struct Vec_u8_FFI *arg1 = (struct Vec_u8_FFI *) 0 ;
-  uintptr_t arg2 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(struct Vec_u8_FFI **)&jarg1; 
-  arg2 = (uintptr_t)jarg2; 
-  if (arg1) (arg1)->count = arg2;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_Vec_1u8_1FFI_1count_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  struct Vec_u8_FFI *arg1 = (struct Vec_u8_FFI *) 0 ;
-  uintptr_t result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(struct Vec_u8_FFI **)&jarg1; 
-  result = (uintptr_t) ((arg1)->count);
-  jresult = (jlong)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_Vec_1u8_1FFI_1values_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
-  struct Vec_u8_FFI *arg1 = (struct Vec_u8_FFI *) 0 ;
-  uint8_t *arg2 = (uint8_t *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(struct Vec_u8_FFI **)&jarg1; 
-  arg2 = *(uint8_t **)&jarg2; 
-  if (arg1) (arg1)->values = arg2;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_Vec_1u8_1FFI_1values_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  struct Vec_u8_FFI *arg1 = (struct Vec_u8_FFI *) 0 ;
-  uint8_t *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(struct Vec_u8_FFI **)&jarg1; 
-  result = (uint8_t *) ((arg1)->values);
-  *(uint8_t **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_new_1Vec_1u8_1FFI(JNIEnv *jenv, jclass jcls) {
-  jlong jresult = 0 ;
-  struct Vec_u8_FFI *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  result = (struct Vec_u8_FFI *)calloc(1, sizeof(struct Vec_u8_FFI));
-  *(struct Vec_u8_FFI **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_delete_1Vec_1u8_1FFI(JNIEnv *jenv, jclass jcls, jlong jarg1) {
-  struct Vec_u8_FFI *arg1 = (struct Vec_u8_FFI *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  arg1 = *(struct Vec_u8_FFI **)&jarg1; 
-  free((char *) arg1);
-}
-
-
-SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_BinaryData_1_10_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_BinaryData_1_10_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jbyteArray jarg2) {
   struct BinaryData_FFI *arg1 = (struct BinaryData_FFI *) 0 ;
   struct Vec_u8_FFI *arg2 = (struct Vec_u8_FFI *) 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  (void)jarg2_;
   arg1 = *(struct BinaryData_FFI **)&jarg1; 
-  arg2 = *(struct Vec_u8_FFI **)&jarg2; 
+  
   if (arg1) (arg1)->_0 = arg2;
+  
 }
 
 
-SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_BinaryData_1_10_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
+SWIGEXPORT jbyteArray JNICALL Java_org_dash_sdk_exampleJNI_BinaryData_1_10_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jbyteArray jresult = 0 ;
   struct BinaryData_FFI *arg1 = (struct BinaryData_FFI *) 0 ;
   struct Vec_u8_FFI *result = 0 ;
   
@@ -1478,7 +1400,10 @@ SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_BinaryData_1_10_1get(JNIEn
   (void)jarg1_;
   arg1 = *(struct BinaryData_FFI **)&jarg1; 
   result = (struct Vec_u8_FFI *) ((arg1)->_0);
-  *(struct Vec_u8_FFI **)&jresult = result; 
+  {
+    jresult = (*jenv)->NewByteArray(jenv, result->count);
+    (*jenv)->SetByteArrayRegion(jenv, jresult, 0, result->count, (jbyte *) result->values);
+  }
   return jresult;
 }
 
@@ -2758,17 +2683,17 @@ SWIGEXPORT jstring JNICALL Java_org_dash_sdk_exampleJNI_ffiGetChainHashesByMap(J
 }
 
 
-SWIGEXPORT jstring JNICALL Java_org_dash_sdk_exampleJNI_ffiAddressWithScriptPubkey(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jstring JNICALL Java_org_dash_sdk_exampleJNI_ffiAddressWithScriptPubkey(JNIEnv *jenv, jclass jcls, jbyteArray jarg1) {
   jstring jresult = 0 ;
   struct Vec_u8_FFI *arg1 = (struct Vec_u8_FFI *) 0 ;
   char *result = 0 ;
   
   (void)jenv;
   (void)jcls;
-  (void)jarg1_;
-  arg1 = *(struct Vec_u8_FFI **)&jarg1; 
+  
   result = (char *)ffi_address_with_script_pubkey(arg1);
   if (result) jresult = (*jenv)->NewStringUTF(jenv, (const char *)result);
+  
   return jresult;
 }
 

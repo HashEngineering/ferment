@@ -50,14 +50,8 @@ public class exampleJNI {
   public final static native long ContractBounds_FFI_single_contract_document_type_get(long jarg1, ContractBounds_FFI jarg1_);
   public final static native long new_ContractBounds_FFI();
   public final static native void delete_ContractBounds_FFI(long jarg1);
-  public final static native void Vec_u8_FFI_count_set(long jarg1, Vec_u8_FFI jarg1_, long jarg2);
-  public final static native long Vec_u8_FFI_count_get(long jarg1, Vec_u8_FFI jarg1_);
-  public final static native void Vec_u8_FFI_values_set(long jarg1, Vec_u8_FFI jarg1_, long jarg2);
-  public final static native long Vec_u8_FFI_values_get(long jarg1, Vec_u8_FFI jarg1_);
-  public final static native long new_Vec_u8_FFI();
-  public final static native void delete_Vec_u8_FFI(long jarg1);
-  public final static native void BinaryData__0_set(long jarg1, BinaryData jarg1_, long jarg2, Vec_u8_FFI jarg2_);
-  public final static native long BinaryData__0_get(long jarg1, BinaryData jarg1_);
+  public final static native void BinaryData__0_set(long jarg1, BinaryData jarg1_, byte[] jarg2);
+  public final static native byte[] BinaryData__0_get(long jarg1, BinaryData jarg1_);
   public final static native long new_BinaryData();
   public final static native void delete_BinaryData(long jarg1);
   public final static native void TimestampMillis_FFI__0_set(long jarg1, TimestampMillis_FFI jarg1_, java.math.BigInteger jarg2);
@@ -142,6 +136,6 @@ public class exampleJNI {
   public final static native long ffiFindHashByU32(long jarg1, long jarg2, std_collections_Map_keys_u32_values_crate_nested_HashID_FFI jarg2_);
   public final static native long ffiGetIdentity(long jarg1, Identifier jarg1_);
   public final static native String ffiGetChainHashesByMap(long jarg1, std_collections_Map_keys_crate_chain_common_chain_type_ChainType_values_crate_nested_HashID_FFI jarg1_);
-  public final static native String ffiAddressWithScriptPubkey(long jarg1, Vec_u8_FFI jarg1_);
+  public final static native String ffiAddressWithScriptPubkey(byte[] jarg1);
   public final static native String ffiGetChainTypeString(long jarg1);
 }

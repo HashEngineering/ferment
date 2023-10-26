@@ -28,8 +28,8 @@ public class example {
     return exampleJNI.ffiGetChainHashesByMap(std_collections_Map_keys_crate_chain_common_chain_type_ChainType_values_crate_nested_HashID_FFI.getCPtr(map), map);
   }
 
-  public static String ffiAddressWithScriptPubkey(Vec_u8_FFI script) {
-    return exampleJNI.ffiAddressWithScriptPubkey(Vec_u8_FFI.getCPtr(script), script);
+  public static String ffiAddressWithScriptPubkey(byte[] script) {
+    return exampleJNI.ffiAddressWithScriptPubkey(script);
   }
 
   public static String ffiGetChainTypeString(SWIGTYPE_p_ChainType_FFI chain_type) {

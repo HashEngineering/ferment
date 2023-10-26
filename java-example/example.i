@@ -16,8 +16,8 @@
 %rename(Revision) Revision_FFI;
 %rename(Purpose) Purpose_FFI;
 %rename(Identifier) Identifier_FFI;
-//%ignore IdentifierBinaryData32_FFI;
-%rename(IdentifierBinaryData32) IdentifierBinaryData32_FFI;
+//%ignore IdentifierBytes32_FFI;
+%rename(IdentifierBytes32) IdentifierBytes32_FFI;
 
 %rename(IdentityPublicKey) IdentityPublicKey_FFI;
 %rename(IdentityPublicKeyTag) IdentityPublicKey_FFI_Tag;
@@ -29,6 +29,7 @@
 %rename(IntegerHashIDMap) Map_keys_u32_values_HashID_FFI;
 
 %ignore IdentityPublicKeyV0_FFI::purpose;
+%ignore Vec_u8_FFI;
 //%rename("%(lowercamelcase)s") "";
 %include "stdint.i"
 %include "arrays_java.i"
@@ -75,7 +76,7 @@
 // %typemap(jtype) uint8_t (*)[32] "byte[]"
 // %typemap(in) uint8_t (*)[32] {
 //   //if (JLENGTH($input) != 32) {
-//   //  SWIG_JavaThrowException(jenv, SWIG_JavaArithmeticError, "Input array must have exactly 32 BinaryData.");
+//   //  SWIG_JavaThrowException(jenv, SWIG_JavaArithmeticError, "Input array must have exactly 32 bytes.");
 //   //  return $null;
 //   //}
 //   $1 = ($1_ltype)$input;
@@ -91,15 +92,15 @@
 //   return $jnicall;
 // }
 
-%extend IdentifierBinaryData32_FFI {
-    IdentifierBinaryData32_FFI(uint8_t identifierBinaryData[32]) {
-        struct IdentifierBinaryData32_FFI * identifierBinaryData32 = (struct IdentifierBinaryData32_FFI*)calloc(1, sizeof(struct IdentifierBinaryData32_FFI));
-        identifierBinaryData32->_0 = (uint8_t (*)[32])calloc(1, sizeof(uint8_t[32]));
-        memcpy(identifierBinaryData32->_0, identifierBinaryData, sizeof(uint8_t[32]));
-        return identifierBinaryData32;
+%extend IdentifierBytes32_FFI {
+    IdentifierBytes32_FFI(uint8_t identifierBytes[32]) {
+        struct IdentifierBytes32_FFI * identifierBytes32 = (struct IdentifierBytes32_FFI*)calloc(1, sizeof(struct IdentifierBytes32_FFI));
+        identifierBytes32->_0 = (uint8_t (*)[32])calloc(1, sizeof(uint8_t[32]));
+        memcpy(identifierBytes32->_0, identifierBytes, sizeof(uint8_t[32]));
+        return identifierBytes32;
     }
 
-    ~IdentifierBinaryData32_FFI() {
+    ~IdentifierBytes32_FFI() {
         free($self->_0); // Deallocate the memory when the object is destroyed
         free(self);
     }
@@ -148,7 +149,7 @@
 
     struct IdentityPublicKeyV0_FFI * getPublicKeyById(uint32_t id) {
         for (int i = 0; i < $self->public_keys->count; ++i) {
-            if($self->public_keys->keys[i]->_0 == id)
+            if ($self->public_keys->keys[i]->_0 == id)
                 return $self->public_keys->values[i]->v0;
         }
         return NULL;
@@ -165,44 +166,47 @@
 }
 
 
-// %naturalvar BinaryData;
-//
-// class BinaryData;
-//
-// %feature("valuewrapper") BinaryData;
-//
-// // BinaryData
-// %typemap(jni) BinaryData "jbyteArray"
-// %typemap(jtype) BinaryData "byte[]"
-// %typemap(jstype) BinaryData "byte[]"
-//
-//
-// %typemap(in) BinaryData
+%naturalvar Vec_u8_FFI;
+
+struct Vec_u8_FFI;
+
+//%feature("valuewrapper") struct Vec_u8_FFI *;
+
+// Vec_u8_FFI
+%typemap(jni) struct Vec_u8_FFI * "jbyteArray"
+%typemap(jtype) struct Vec_u8_FFI * "byte[]"
+%typemap(jstype) struct Vec_u8_FFI * "byte[]"
+
+
+%typemap(in) struct Vec_u8_FFI * ""
 // %{
-//     BinaryData $1_BinaryDataObject((const uint8_t *)jenv->GetByteArrayElements($input, 0), jenv->GetArrayLength($input));
-//     $1 = $1_BinaryDataObject;
+//     struct Vec_u8_FFI = $1_object = (struct Vec_u8_FFI*)calloc(1, sizeof(struct struct Vec_u8_FFI));
+//     $1_object.values = ((const uint8_t *)JCALL2(GetByteArrayElements, jenv, $input, 0), JCALL1(GetArrayLength, jenv, $input));
+//     $1 = $1_object;
 // %}
-//
-// %typemap(argout) BinaryData {
-//     JCALL3(ReleaseByteArrayElements, jenv, $input, (jbyte *) $1.begin(), 0);
+
+%typemap(argout) struct Vec_u8_FFI * ""
+// {
+//     JCALL3(ReleaseByteArrayElements, jenv, $input, (jbyte *) $1->values, 0);
 // }
-//
-// %typemap(out) BinaryData {
-//     $result = JCALL1(NewByteArray, jenv, $1.size());
-//    JCALL4(SetByteArrayRegion, jenv, $result, 0, $1.size(), (jbyte *) $1.begin());
-// }
-//
-// %typemap(javain) BinaryData "$javainput"
-//
-// %typemap(javaout) BinaryData {
-//     return $jnicall;
-//   }
-//
-// %typemap(typecheck) BinaryData = char *;
-//
-// %typemap(throws) BinaryData
-// %{ SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "null BinaryData");
-//    return $null; %}
+
+%typemap(out) struct Vec_u8_FFI * {
+    $result = JCALL1(NewByteArray, jenv, $1->count);
+   JCALL4(SetByteArrayRegion, jenv, $result, 0, $1->count, (jbyte *) $1->values);
+}
+
+%typemap(javain) struct Vec_u8_FFI * "$javainput"
+
+%typemap(javaout) struct Vec_u8_FFI * {
+    return $jnicall;
+  }
+
+%typemap(typecheck) struct Vec_u8_FFI * = char *;
+
+%typemap(throws) struct Vec_u8_FFI *
+%{ SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "null Vec_u8_FFI");
+   return $null; %}
+
 
 
 %include "../ferment-example/target/example.h"

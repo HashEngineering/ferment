@@ -45,8 +45,8 @@ public class IdentityTest {
         assertEquals(Purpose.Purpose_FFI_AUTHENTICATION, ipkv0.getPurpose());
 
         IdentityPublicKeyV0 identityPublicKeyV0ById = identity.getV0().getPublicKeyById(1);
-        assertEquals(ipkv0.getData().get_0().getCount(), identityPublicKeyV0ById.getData().get_0().getCount());
-        //assertArrayEquals(ipkv0.getData().get_0(), identityPublicKeyV0ById.getData().get_0());
+        assertEquals(ipkv0.getData().get_0().length, identityPublicKeyV0ById.getData().get_0().length);
+        assertArrayEquals(ipkv0.getData().get_0(), identityPublicKeyV0ById.getData().get_0());
 
     }
 }

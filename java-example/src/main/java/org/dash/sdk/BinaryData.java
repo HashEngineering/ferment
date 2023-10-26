@@ -36,13 +36,12 @@ public class BinaryData {
     }
   }
 
-  public void set_0(Vec_u8_FFI value) {
-    exampleJNI.BinaryData__0_set(swigCPtr, this, Vec_u8_FFI.getCPtr(value), value);
+  public void set_0(byte[] value) {
+    exampleJNI.BinaryData__0_set(swigCPtr, this, value);
   }
 
-  public Vec_u8_FFI get_0() {
-    long cPtr = exampleJNI.BinaryData__0_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new Vec_u8_FFI(cPtr, false);
+  public byte[] get_0() {
+    return exampleJNI.BinaryData__0_get(swigCPtr, this);
   }
 
   public BinaryData() {
