@@ -1,7 +1,7 @@
 mod chain;
 mod example;
-mod fermented;
 use rand::rngs::StdRng;
+pub mod fermented;
 
 extern crate ferment_macro;
 extern crate core;

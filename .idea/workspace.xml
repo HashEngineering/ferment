@@ -17,15 +17,11 @@
   <component name="ChangeListManager">
     <list default="true" id="ecc24323-e45b-4800-a8a9-387eedfbd6b1" name="Changes" comment="feat: add java-example with unit test">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ferment-example/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/ferment-example/Cargo.toml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ferment-example/src/fermented.rs" beforeDir="false" afterPath="$PROJECT_DIR$/ferment-example/src/fermented.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ferment-example/src/lib.rs" beforeDir="false" afterPath="$PROJECT_DIR$/ferment-example/src/lib.rs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/java-example/example.i" beforeDir="false" afterPath="$PROJECT_DIR$/java-example/example.i" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/java-example/src/main/c/sdk.c" beforeDir="false" afterPath="$PROJECT_DIR$/java-example/src/main/c/sdk.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/IdentifierBytes32.java" beforeDir="false" afterPath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/IdentifierBytes32.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/IdentityPublicKeyV0.java" beforeDir="false" afterPath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/IdentityPublicKeyV0.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/IdentityV0.java" beforeDir="false" afterPath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/IdentityV0.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/SWIGTYPE_p_Purpose_FFI.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/BinaryData.java" beforeDir="false" afterPath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/BinaryData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/SWIGTYPE_p_unsigned_char.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/Vec_u8_FFI.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/example.java" beforeDir="false" afterPath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/example.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/exampleJNI.java" beforeDir="false" afterPath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/exampleJNI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/java-example/src/test/java/org/dash/sdk/IdentityTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/java-example/src/test/java/org/dash/sdk/IdentityTest.java" afterDir="false" />
@@ -197,7 +193,7 @@
       <workItem from="1697361795694" duration="156000" />
       <workItem from="1697361967054" duration="11820000" />
       <workItem from="1697654852328" duration="19025000" />
-      <workItem from="1697847891229" duration="4976000" />
+      <workItem from="1697847891229" duration="9499000" />
     </task>
     <task id="LOCAL-00001" summary="feat: add java-example with unit test">
       <created>1697836028030</created>

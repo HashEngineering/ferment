@@ -6,6 +6,7 @@
       <sourceFolder url="file://$MODULE_DIR$/ferment-interfaces/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/ferment-macro/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/ferment/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/ferment-example-nested/src" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/target" />
       <excludeFolder url="file://$MODULE_DIR$/ferment-example/target" />
     </content>
