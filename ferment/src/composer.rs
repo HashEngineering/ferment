@@ -7,7 +7,7 @@ use syn::__private::TokenStream2;
 use syn::{Type, TypePath};
 use crate::interface::{CURLY_BRACES_FIELDS_PRESENTER, DEFAULT_DESTROY_FIELDS_PRESENTER, DEFAULT_DICT_FIELD_PRESENTER, DEFAULT_DICT_FIELD_TYPE_PRESENTER, DEFAULT_DOC_PRESENTER, DEREF_FIELD_PATH, EMPTY_DESTROY_PRESENTER, EMPTY_DICT_FIELD_TYPED_PRESENTER, EMPTY_ITERATOR_PRESENTER, EMPTY_MAP_PRESENTER, EMPTY_PAIR_PRESENTER, FFI_DEREF_FIELD_NAME, FFI_FROM_ROOT_PRESENTER, FFI_TO_ROOT_PRESENTER, IteratorPresenter, LAMBDA_CONVERSION_PRESENTER, MapPairPresenter, MapPresenter, NAMED_CONVERSION_PRESENTER, NAMED_DICT_FIELD_TYPE_PRESENTER, NAMED_STRUCT_PRESENTER, NO_FIELDS_PRESENTER, OBJ_FIELD_NAME, OwnerIteratorPresenter, Presentable, ROOT_DESTROY_CONTEXT_PRESENTER, ROUND_BRACES_FIELDS_PRESENTER, ScopeTreeFieldTypedPresenter, SIMPLE_CONVERSION_PRESENTER, SIMPLE_PRESENTER, SIMPLE_TERMINATED_PRESENTER, STRUCT_DESTROY_PRESENTER, TYPE_ALIAS_CONVERSION_FROM_PRESENTER, TYPE_ALIAS_CONVERSION_TO_PRESENTER, TYPE_ALIAS_PRESENTER, UNNAMED_STRUCT_PRESENTER};
 use crate::interface::{obj};
-use crate::presentation::{ConversionInterfacePresentation, DocPresentation, DropInterfacePresentation, Expansion, FFIObjectPresentation};
+use crate::presentation::{ConversionInterfacePresentation, DocPresentation, DropInterfacePresentation, Expansion, FFIObjectPresentation, TraitVTablePresentation};
 use crate::helper::{destroy_array, destroy_path, destroy_ptr, destroy_reference, from_array, from_path, from_ptr, from_reference, to_array, to_path, to_ptr, to_reference};
 use crate::type_conversion::TypeConversion;
 
@@ -58,6 +58,7 @@ pub struct ItemComposer {
 }
 
 impl ItemComposer {
+
     pub(crate) fn type_alias_composer<'a, I: IntoIterator<Item = (&'a Type, TokenStream2)>>(
         ffi_name: TokenStream2,
         target_name: TokenStream2,
@@ -444,23 +445,30 @@ impl ItemComposer {
     pub(crate) fn compose_drop(&self) -> TokenStream2 {
         self.ffi_conversions_composer.drop_composer.compose()
     }
-    pub(crate) fn make_expansion(&self, input: TokenStream2) -> Expansion {
+    pub(crate) fn make_expansion(&self, input: TokenStream2, destructor_ident: TokenStream2, traits: Vec<TraitVTablePresentation>) -> Expansion {
+        let ffi_name = self.ffi_name_composer.compose();
+        let target_name = self.target_name_composer.compose();
         Expansion::Full {
             input,
             comment: DocPresentation::Default(self.doc_composer.compose()),
             ffi_presentation: FFIObjectPresentation::Full(self.ffi_object_composer.compose()),
             conversion: ConversionInterfacePresentation::Interface {
-                ffi_name: self.ffi_name_composer.compose(),
-                target_name: self.target_name_composer.compose(),
+                ffi_name: ffi_name.clone(),
+                target_name: target_name.clone(),
                 from_presentation: self.compose_from(),
                 to_presentation: self.compose_to(),
                 destroy_presentation: self.compose_destroy()
+            },
+            destructor: ConversionInterfacePresentation::Destructor {
+                ffi_name: ffi_name.clone(),
+                destructor_ident
             },
             drop: if self.need_drop_presentation {
                 DropInterfacePresentation::Full(self.ffi_name_composer.compose(), self.compose_drop())
             } else {
                 DropInterfacePresentation::Empty
             },
+            traits
         }
     }
 }

@@ -2,6 +2,7 @@ mod chain;
 mod example;
 use rand::rngs::StdRng;
 pub mod fermented;
+mod traits;
 
 extern crate ferment_macro;
 extern crate core;
