@@ -84,3 +84,13 @@ pub enum ExcludedEnum {
     Variant1,
     Variant2,
 }
+
+#[ferment_macro::export]
+pub fn get_chain_settings() -> ChainType {
+    ChainType::MainNet
+}
+
+// #[ferment_macro::export]
+// pub fn get_chain_settings2() -> Box<IHaveChainSettings> {
+//     Box<ChainType::MainNet>
+// }

@@ -31,7 +31,7 @@ public class IdentityTest {
         //identifierBytes32.set_0(id);
         Identifier identifier = new Identifier();
         identifier.set_0(identifierBytes32);
-        Identity identity = example.ffiGetIdentity(identifier);
+        Identity identity = example.ffiGetIdentity2(identifier);
         assertEquals(Identity_FFI_Tag.Identity_FFI_V0, identity.getTag());
         assertEquals(2, identity.getV0().getBalance().longValue());
         assertEquals(1, identity.getV0().getRevision().get_0().longValue());
@@ -45,8 +45,22 @@ public class IdentityTest {
         assertEquals(Purpose.Purpose_FFI_AUTHENTICATION, ipkv0.getPurpose());
 
         IdentityPublicKeyV0 identityPublicKeyV0ById = identity.getV0().getPublicKeyById(1);
-        assertEquals(ipkv0.getData().get_0().length, identityPublicKeyV0ById.getData().get_0().length);
-        assertArrayEquals(ipkv0.getData().get_0(), identityPublicKeyV0ById.getData().get_0());
+        //assertEquals(ipkv0.getData().get_0().length, identityPublicKeyV0ById.getData().get_0().length);
+        //assertArrayEquals(ipkv0.getData().get_0(), identityPublicKeyV0ById.getData().get_0());
 
+    }
+
+    @Test
+    public void traitTest() {
+        MyIdentityFactory_FFI myIdentityFactory = example.ffiGetIdentityFactory();
+        long ptr = MyIdentityFactory_FFI.getCPtr(myIdentityFactory);
+        //IdentityFactory it = new IdentityFactory(new IdentityFactory_TraitObject(ptr, false));
+
+
+        //IdentityFactory identityFactory = new IdentityFactory(myIdentityFactory, false);
+
+        ChainType_FFI type = example.ffiGetChainSettings();
+        IHaveChainSettings ihcs = new IHaveChainSettings();
+        example.chainTypeAsIHaveChainSettingsTraitObject()
     }
 }

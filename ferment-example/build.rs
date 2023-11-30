@@ -6,6 +6,7 @@ fn main() {
    let c_header = "target/example.h";
    match ferment::Builder::new()
        .with_mod_name("fermented")
+       .with_crates(vec!["dpp".to_string(), "platform_value".to_string()])
        .generate() {
       Ok(()) => match Command::new("cbindgen")
           .args(&["--config", "cbindgen.toml", "-o", c_header])

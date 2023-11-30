@@ -8,7 +8,7 @@ SET(CMAKE_CXX_FLAGS_RELEASE "-O3")
 project(sdk)
 
 # Define the C source file
-set(C_SOURCE_FILE sdk.c)
+set(C_SOURCE_FILE sdk.cpp)
 
 # Define the pre-built Rust library
 set(RUST_LIBRARY ${CMAKE_SOURCE_DIR}/../../../../target/debug/libferment_example.a)

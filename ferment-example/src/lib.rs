@@ -1,6 +1,8 @@
 mod chain;
 mod example;
 use rand::rngs::StdRng;
+use crate::nested::get_identity2;
+
 pub mod fermented;
 mod traits;
 
@@ -22,8 +24,10 @@ pub mod nested {
     use dashcore::Network;
     use dashcore::secp256k1::Secp256k1;
     use dashcore::signer::ripemd160_sha256;
+    //use platform_value::Identifier;
     use rand::rngs::StdRng;
     use rand::SeedableRng;
+    //use rs_sdk::platform::Identifier;
 
     #[ferment_macro::export]
     pub type KeyID = u32;
@@ -141,11 +145,11 @@ pub mod nested {
 
 
         pub fn as_bytes(&self) -> &[u8; 32] {
-            &self.0 .0
+            &self.0.0
         }
 
         pub fn as_slice(&self) -> &[u8] {
-            self.0 .0.as_slice()
+            self.0.0.as_slice()
         }
 
         // TODO the constructor "From" shouldn't use the reference to collection
@@ -171,18 +175,17 @@ pub mod nested {
 
         // TODO - consider to change the name to 'asBuffer`
         pub fn to_buffer(&self) -> [u8; 32] {
-            self.0 .0
+            self.0.0
         }
 
         pub fn into_buffer(self) -> [u8; 32] {
-            self.0 .0
+            self.0.0
         }
 
         /// Convenience method to get underlying buffer as a vec
         pub fn to_vec(&self) -> Vec<u8> {
-            self.0 .0.to_vec()
+            self.0.0.to_vec()
         }
-
     }
 
     #[ferment_macro::export]
@@ -487,10 +490,11 @@ pub mod nested {
         };
         Identity::V0(identity)
     }
-    const LATEST_PLATFORM_VERSION: i32 = 0;
-    #[ferment_macro::export]
-    pub fn get_identity(identifier: Identifier) -> Identity {
 
+    const LATEST_PLATFORM_VERSION: i32 = 0;
+
+    #[ferment_macro::export]
+    pub fn get_identity2(identifier: Identifier) -> Identity {
         let id = Identifier::from_bytes(&identifier.as_slice()).expect("parse identity id");
 
         let mut keys: BTreeMap<KeyID, IdentityPublicKey> = BTreeMap::new();
@@ -527,5 +531,27 @@ pub mod nested {
         };
         Identity::V0(identity)
     }
+
+    #[ferment_macro::export]
+    pub trait IdentityFactory {
+        fn get_identity(&self, identifier: Identifier) -> Identity;
+    }
+
+    #[ferment_macro::export(IdentityFactory)]
+    pub struct MyIdentityFactory {
+        pub first: u32
+    }
+
+    impl IdentityFactory for MyIdentityFactory {
+        fn get_identity(&self, identifier: Identifier) -> Identity {
+            get_identity2(identifier)
+        }
+    }
+
+    #[ferment_macro::export]
+    pub fn get_identity_factory() -> MyIdentityFactory {
+        return MyIdentityFactory { first: 0 }
+    }
 }
+
 

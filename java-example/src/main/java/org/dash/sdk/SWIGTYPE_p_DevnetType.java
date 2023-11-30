@@ -8,18 +8,18 @@
 
 package org.dash.sdk;
 
-public class SWIGTYPE_p_ChainType_FFI {
+public class SWIGTYPE_p_DevnetType {
   private transient long swigCPtr;
 
-  protected SWIGTYPE_p_ChainType_FFI(long cPtr, @SuppressWarnings("unused") boolean futureUse) {
+  protected SWIGTYPE_p_DevnetType(long cPtr, @SuppressWarnings("unused") boolean futureUse) {
     swigCPtr = cPtr;
   }
 
-  protected SWIGTYPE_p_ChainType_FFI() {
+  protected SWIGTYPE_p_DevnetType() {
     swigCPtr = 0;
   }
 
-  protected static long getCPtr(SWIGTYPE_p_ChainType_FFI obj) {
+  protected static long getCPtr(SWIGTYPE_p_DevnetType obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 }

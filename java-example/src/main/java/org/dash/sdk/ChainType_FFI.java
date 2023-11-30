@@ -8,47 +8,53 @@
 
 package org.dash.sdk;
 
-public final class ChainType_FFI {
-  public final static ChainType_FFI ChainType_FFI_MainNet = new ChainType_FFI("ChainType_FFI_MainNet");
-  public final static ChainType_FFI ChainType_FFI_TestNet = new ChainType_FFI("ChainType_FFI_TestNet");
+public class ChainType_FFI {
+  private transient long swigCPtr;
+  protected transient boolean swigCMemOwn;
 
-  public final int swigValue() {
-    return swigValue;
+  protected ChainType_FFI(long cPtr, boolean cMemoryOwn) {
+    swigCMemOwn = cMemoryOwn;
+    swigCPtr = cPtr;
   }
 
-  public String toString() {
-    return swigName;
+  protected static long getCPtr(ChainType_FFI obj) {
+    return (obj == null) ? 0 : obj.swigCPtr;
   }
 
-  public static ChainType_FFI swigToEnum(int swigValue) {
-    if (swigValue < swigValues.length && swigValue >= 0 && swigValues[swigValue].swigValue == swigValue)
-      return swigValues[swigValue];
-    for (int i = 0; i < swigValues.length; i++)
-      if (swigValues[i].swigValue == swigValue)
-        return swigValues[i];
-    throw new IllegalArgumentException("No enum " + ChainType_FFI.class + " with value " + swigValue);
+  @SuppressWarnings("deprecation")
+  protected void finalize() {
+    delete();
   }
 
-  private ChainType_FFI(String swigName) {
-    this.swigName = swigName;
-    this.swigValue = swigNext++;
+  public synchronized void delete() {
+    if (swigCPtr != 0) {
+      if (swigCMemOwn) {
+        swigCMemOwn = false;
+        exampleJNI.delete_ChainType_FFI(swigCPtr);
+      }
+      swigCPtr = 0;
+    }
   }
 
-  private ChainType_FFI(String swigName, int swigValue) {
-    this.swigName = swigName;
-    this.swigValue = swigValue;
-    swigNext = swigValue+1;
+  public void setTag(ChainType_FFI_Tag value) {
+    exampleJNI.ChainType_FFI_tag_set(swigCPtr, this, value.swigValue());
   }
 
-  private ChainType_FFI(String swigName, ChainType_FFI swigEnum) {
-    this.swigName = swigName;
-    this.swigValue = swigEnum.swigValue;
-    swigNext = this.swigValue+1;
+  public ChainType_FFI_Tag getTag() {
+    return ChainType_FFI_Tag.swigToEnum(exampleJNI.ChainType_FFI_tag_get(swigCPtr, this));
   }
 
-  private static ChainType_FFI[] swigValues = { ChainType_FFI_MainNet, ChainType_FFI_TestNet };
-  private static int swigNext = 0;
-  private final int swigValue;
-  private final String swigName;
+  public void setDev_net(SWIGTYPE_p_DevnetType_FFI value) {
+    exampleJNI.ChainType_FFI_dev_net_set(swigCPtr, this, SWIGTYPE_p_DevnetType_FFI.getCPtr(value));
+  }
+
+  public SWIGTYPE_p_DevnetType_FFI getDev_net() {
+    long cPtr = exampleJNI.ChainType_FFI_dev_net_get(swigCPtr, this);
+    return (cPtr == 0) ? null : new SWIGTYPE_p_DevnetType_FFI(cPtr, false);
+  }
+
+  public ChainType_FFI() {
+    this(exampleJNI.new_ChainType_FFI(), true);
+  }
+
 }
-

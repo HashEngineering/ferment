@@ -15,6 +15,9 @@ dashcore = { git = "https://github.com/dashpay/rust-dashcore", features = [
     "signer",
     "serde",
 ], default-features = false, branch = "master" }
+# rs-sdk = { path = "../../platform/packages/rs-sdk"}
+dpp = { path = "../../platform/packages/rs-dpp"}
+platform-value = { path = "../../platform/packages/rs-platform-value"}
 
 [build-dependencies]
 cbindgen = "0.26.0"

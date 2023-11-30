@@ -1,7 +1,10 @@
 %module example
 
 %{
+extern "C" {
 #include "../../../../ferment-example/target/example.h"
+}
+#include "dpp.h"
 #include <stdlib.h>
 %}
 //%rename("%(strip:[ffi_])s") "";
@@ -119,7 +122,7 @@
     const jsize sz = JCALL1(GetArrayLength, jenv, $input);
     jbyte* const jarr = JCALL2(GetByteArrayElements, jenv, $input, 0);
     if (!jarr) return $null;
-    byteArray = calloc(1, 32); // this is a memory leak?
+    byteArray = (uint8_t *)calloc(1, 32); // this is a memory leak?
     memcpy(byteArray, jarr, sz);
     JCALL3(ReleaseByteArrayElements, jenv, $input, jarr, JNI_ABORT);
     $1 = (uint8_t (*) [32])byteArray;
@@ -208,5 +211,7 @@ struct Vec_u8_FFI;
    return $null; %}
 
 
-
+extern "C" {
 %include "../ferment-example/target/example.h"
+}
+%include "src/main/c/dpp.h"

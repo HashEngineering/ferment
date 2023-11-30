@@ -9,9 +9,93 @@
 package org.dash.sdk;
 
 public class example {
-  public static Identity ffiGetAnIdentity() {
-    long cPtr = exampleJNI.ffiGetAnIdentity();
-    return (cPtr == 0) ? null : new Identity(cPtr, false);
+  public static void rootStructFFIDestroy(RootStruct_FFI ffi) {
+    exampleJNI.rootStructFFIDestroy(RootStruct_FFI.getCPtr(ffi), ffi);
+  }
+
+  public static String ffiAddressWithScriptPubkey(SWIGTYPE_p_Vec_u8_FFI script) {
+    return exampleJNI.ffiAddressWithScriptPubkey(SWIGTYPE_p_Vec_u8_FFI.getCPtr(script));
+  }
+
+  public static String ffiGetChainHashesByMap(std_collections_Map_keys_crate_chain_common_chain_type_ChainType_values_crate_nested_HashID_FFI map) {
+    return exampleJNI.ffiGetChainHashesByMap(std_collections_Map_keys_crate_chain_common_chain_type_ChainType_values_crate_nested_HashID_FFI.getCPtr(map), map);
+  }
+
+  public static String ffiGetChainTypeString(ChainType_FFI chain_type) {
+    return exampleJNI.ffiGetChainTypeString(ChainType_FFI.getCPtr(chain_type), chain_type);
+  }
+
+  public static ChainType_FFI ffiGetChainSettings() {
+    long cPtr = exampleJNI.ffiGetChainSettings();
+    return (cPtr == 0) ? null : new ChainType_FFI(cPtr, false);
+  }
+
+  public static void chainTypeFFIDestroy(ChainType_FFI ffi) {
+    exampleJNI.chainTypeFFIDestroy(ChainType_FFI.getCPtr(ffi), ffi);
+  }
+
+  public static IHaveChainSettings_TraitObject chainTypeAsIHaveChainSettingsTraitObject(SWIGTYPE_p_ChainType obj) {
+    return new IHaveChainSettings_TraitObject(exampleJNI.chainTypeAsIHaveChainSettingsTraitObject(SWIGTYPE_p_ChainType.getCPtr(obj)), true);
+  }
+
+  public static void chainTypeAsIHaveChainSettingsTraitObjectDestroy(IHaveChainSettings_TraitObject obj) {
+    exampleJNI.chainTypeAsIHaveChainSettingsTraitObjectDestroy(IHaveChainSettings_TraitObject.getCPtr(obj), obj);
+  }
+
+  public static void devnetTypeFFIDestroy(SWIGTYPE_p_DevnetType_FFI ffi) {
+    exampleJNI.devnetTypeFFIDestroy(SWIGTYPE_p_DevnetType_FFI.getCPtr(ffi));
+  }
+
+  public static IHaveChainSettings_TraitObject devnetTypeAsIHaveChainSettingsTraitObject(SWIGTYPE_p_DevnetType obj) {
+    return new IHaveChainSettings_TraitObject(exampleJNI.devnetTypeAsIHaveChainSettingsTraitObject(SWIGTYPE_p_DevnetType.getCPtr(obj)), true);
+  }
+
+  public static void devnetTypeAsIHaveChainSettingsTraitObjectDestroy(IHaveChainSettings_TraitObject obj) {
+    exampleJNI.devnetTypeAsIHaveChainSettingsTraitObjectDestroy(IHaveChainSettings_TraitObject.getCPtr(obj), obj);
+  }
+
+  public static void dataContractNotPresentErrorFFIDestroy(DataContractNotPresentError_FFI ffi) {
+    exampleJNI.dataContractNotPresentErrorFFIDestroy(DataContractNotPresentError_FFI.getCPtr(ffi), ffi);
+  }
+
+  public static void mapOfVecHashesFFIDestroy(MapOfVecHashes_FFI ffi) {
+    exampleJNI.mapOfVecHashesFFIDestroy(MapOfVecHashes_FFI.getCPtr(ffi), ffi);
+  }
+
+  public static void timestampMillisFFIDestroy(TimestampMillis_FFI ffi) {
+    exampleJNI.timestampMillisFFIDestroy(TimestampMillis_FFI.getCPtr(ffi), ffi);
+  }
+
+  public static void identityPublicKeyFFIDestroy(IdentityPublicKey ffi) {
+    exampleJNI.identityPublicKeyFFIDestroy(IdentityPublicKey.getCPtr(ffi), ffi);
+  }
+
+  public static void mapOfHashesFFIDestroy(MapOfHashes_FFI ffi) {
+    exampleJNI.mapOfHashesFFIDestroy(MapOfHashes_FFI.getCPtr(ffi), ffi);
+  }
+
+  public static void hashIDFFIDestroy(HashID ffi) {
+    exampleJNI.hashIDFFIDestroy(HashID.getCPtr(ffi), ffi);
+  }
+
+  public static void protocolErrorFFIDestroy(ProtocolError_FFI ffi) {
+    exampleJNI.protocolErrorFFIDestroy(ProtocolError_FFI.getCPtr(ffi), ffi);
+  }
+
+  public static void usedStructFFIDestroy(UsedStruct_FFI ffi) {
+    exampleJNI.usedStructFFIDestroy(UsedStruct_FFI.getCPtr(ffi), ffi);
+  }
+
+  public static void keyIDFFIDestroy(KeyID ffi) {
+    exampleJNI.keyIDFFIDestroy(KeyID.getCPtr(ffi), ffi);
+  }
+
+  public static void identityFFIDestroy(Identity ffi) {
+    exampleJNI.identityFFIDestroy(Identity.getCPtr(ffi), ffi);
+  }
+
+  public static void identityPublicKeyV0FFIDestroy(IdentityPublicKeyV0 ffi) {
+    exampleJNI.identityPublicKeyV0FFIDestroy(IdentityPublicKeyV0.getCPtr(ffi), ffi);
   }
 
   public static HashID ffiFindHashByU32(long key, std_collections_Map_keys_u32_values_crate_nested_HashID_FFI map) {
@@ -19,21 +103,95 @@ public class example {
     return (cPtr == 0) ? null : new HashID(cPtr, false);
   }
 
-  public static Identity ffiGetIdentity(Identifier identifier) {
-    long cPtr = exampleJNI.ffiGetIdentity(Identifier.getCPtr(identifier), identifier);
+  public static void identifierBytes32FFIDestroy(IdentifierBytes32 ffi) {
+    exampleJNI.identifierBytes32FFIDestroy(IdentifierBytes32.getCPtr(ffi), ffi);
+  }
+
+  public static void securityLevelFFIDestroy(SWIGTYPE_p_SecurityLevel_FFI ffi) {
+    exampleJNI.securityLevelFFIDestroy(SWIGTYPE_p_SecurityLevel_FFI.getCPtr(ffi));
+  }
+
+  public static void myIdentityFactoryFFIDestroy(MyIdentityFactory_FFI ffi) {
+    exampleJNI.myIdentityFactoryFFIDestroy(MyIdentityFactory_FFI.getCPtr(ffi), ffi);
+  }
+
+  public static IdentityFactory_TraitObject myIdentityFactoryAsIdentityFactoryTraitObject(SWIGTYPE_p_MyIdentityFactory obj) {
+    return new IdentityFactory_TraitObject(exampleJNI.myIdentityFactoryAsIdentityFactoryTraitObject(SWIGTYPE_p_MyIdentityFactory.getCPtr(obj)), true);
+  }
+
+  public static void myIdentityFactoryAsIdentityFactoryTraitObjectDestroy(IdentityFactory_TraitObject obj) {
+    exampleJNI.myIdentityFactoryAsIdentityFactoryTraitObjectDestroy(IdentityFactory_TraitObject.getCPtr(obj), obj);
+  }
+
+  public static void unnamedPairFFIDestroy(UnnamedPair_FFI ffi) {
+    exampleJNI.unnamedPairFFIDestroy(UnnamedPair_FFI.getCPtr(ffi), ffi);
+  }
+
+  public static void keyTypeFFIDestroy(SWIGTYPE_p_KeyType_FFI ffi) {
+    exampleJNI.keyTypeFFIDestroy(SWIGTYPE_p_KeyType_FFI.getCPtr(ffi));
+  }
+
+  public static void revisionFFIDestroy(Revision ffi) {
+    exampleJNI.revisionFFIDestroy(Revision.getCPtr(ffi), ffi);
+  }
+
+  public static void simpleDataFFIDestroy(SimpleData_FFI ffi) {
+    exampleJNI.simpleDataFFIDestroy(SimpleData_FFI.getCPtr(ffi), ffi);
+  }
+
+  public static void binaryDataFFIDestroy(BinaryData ffi) {
+    exampleJNI.binaryDataFFIDestroy(BinaryData.getCPtr(ffi), ffi);
+  }
+
+  public static Identity ffiGetIdentity2(Identifier identifier) {
+    long cPtr = exampleJNI.ffiGetIdentity2(Identifier.getCPtr(identifier), identifier);
     return (cPtr == 0) ? null : new Identity(cPtr, false);
   }
 
-  public static String ffiGetChainHashesByMap(std_collections_Map_keys_crate_chain_common_chain_type_ChainType_values_crate_nested_HashID_FFI map) {
-    return exampleJNI.ffiGetChainHashesByMap(std_collections_Map_keys_crate_chain_common_chain_type_ChainType_values_crate_nested_HashID_FFI.getCPtr(map), map);
+  public static void usedKeyMatrixFFIDestroy(UsedKeyMatrix_FFI ffi) {
+    exampleJNI.usedKeyMatrixFFIDestroy(UsedKeyMatrix_FFI.getCPtr(ffi), ffi);
   }
 
-  public static String ffiAddressWithScriptPubkey(byte[] script) {
-    return exampleJNI.ffiAddressWithScriptPubkey(script);
+  public static void testEnumFFIDestroy(TestEnum_FFI ffi) {
+    exampleJNI.testEnumFFIDestroy(TestEnum_FFI.getCPtr(ffi), ffi);
   }
 
-  public static String ffiGetChainTypeString(SWIGTYPE_p_ChainType_FFI chain_type) {
-    return exampleJNI.ffiGetChainTypeString(SWIGTYPE_p_ChainType_FFI.getCPtr(chain_type));
+  public static Identity ffiGetAnIdentity() {
+    long cPtr = exampleJNI.ffiGetAnIdentity();
+    return (cPtr == 0) ? null : new Identity(cPtr, false);
+  }
+
+  public static void testStructFFIDestroy(TestStruct_FFI ffi) {
+    exampleJNI.testStructFFIDestroy(TestStruct_FFI.getCPtr(ffi), ffi);
+  }
+
+  public static void identifierFFIDestroy(Identifier ffi) {
+    exampleJNI.identifierFFIDestroy(Identifier.getCPtr(ffi), ffi);
+  }
+
+  public static void arrayOfArraysOfHashesFFIDestroy(ArrayOfArraysOfHashes_FFI ffi) {
+    exampleJNI.arrayOfArraysOfHashesFFIDestroy(ArrayOfArraysOfHashes_FFI.getCPtr(ffi), ffi);
+  }
+
+  public static MyIdentityFactory_FFI ffiGetIdentityFactory() {
+    long cPtr = exampleJNI.ffiGetIdentityFactory();
+    return (cPtr == 0) ? null : new MyIdentityFactory_FFI(cPtr, false);
+  }
+
+  public static void contractBoundsFFIDestroy(ContractBounds_FFI ffi) {
+    exampleJNI.contractBoundsFFIDestroy(ContractBounds_FFI.getCPtr(ffi), ffi);
+  }
+
+  public static void identityV0FFIDestroy(IdentityV0 ffi) {
+    exampleJNI.identityV0FFIDestroy(IdentityV0.getCPtr(ffi), ffi);
+  }
+
+  public static void hash160FFIDestroy(Hash160_FFI ffi) {
+    exampleJNI.hash160FFIDestroy(Hash160_FFI.getCPtr(ffi), ffi);
+  }
+
+  public static void purposeFFIDestroy(SWIGTYPE_p_Purpose_FFI ffi) {
+    exampleJNI.purposeFFIDestroy(SWIGTYPE_p_Purpose_FFI.getCPtr(ffi));
   }
 
 }
