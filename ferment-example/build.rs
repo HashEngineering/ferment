@@ -9,7 +9,7 @@ fn main() {
        .with_crates(vec!["dpp".to_string(), "platform_value".to_string()])
        .generate() {
       Ok(()) => match Command::new("cbindgen")
-          .args(&["--config", "cbindgen.toml", "-o", c_header])
+          .args(["--config", "cbindgen.toml", "-o", c_header])
           .status() {
          Ok(status) => println!("Bindings generated into {c_header} with status: {status}"),
          Err(err) => panic!("Can't generate bindings: {}", err)

@@ -1,1 +1,2246 @@
-# [allow (dead_code , redundant_semicolons , unused_braces , unused_imports , unused_unsafe , unused_variables)] pub mod types { use crate :: RootStruct ; # [doc = "FFI-representation of the # [doc = \"FFI-representation of the RootStruct\"]"] # [repr (C)] # [derive (Clone)] # [allow (non_camel_case_types)] pub struct RootStruct_FFI { pub name : * mut std :: os :: raw :: c_char , } impl ferment_interfaces :: FFIConversion < RootStruct > for RootStruct_FFI { unsafe fn ffi_from_const (ffi : * const RootStruct_FFI) -> RootStruct { let ffi_ref = & * ffi ; RootStruct { name : ferment_interfaces :: FFIConversion :: ffi_from (ffi_ref . name) , } } unsafe fn ffi_to_const (obj : RootStruct) -> * const RootStruct_FFI { ferment_interfaces :: boxed (RootStruct_FFI { name : ferment_interfaces :: FFIConversion :: ffi_to (obj . name) , }) } unsafe fn destroy (ffi : * mut RootStruct_FFI) { ferment_interfaces :: unbox_any (ffi) ; } } impl Drop for RootStruct_FFI { fn drop (& mut self) { unsafe { let ffi_ref = self ; < std :: os :: raw :: c_char as ferment_interfaces :: FFIConversion < String >> :: destroy (ffi_ref . name) ; } } } # [allow (non_snake_case)] # [no_mangle] pub unsafe extern "C" fn RootStruct_FFI_destroy (ffi : * mut RootStruct_FFI) { ferment_interfaces :: unbox_any (ffi) ; } pub mod example { use dpp :: identity :: Identity ; use platform_value :: Identifier ; use crate :: example :: dpp_get_identity ; use dpp :: fermented :: types :: identity :: Identity_FFI ; use platform_value :: fermented :: types :: Identifier_FFI ; # [doc = "FFI-representation of the dpp_get_identity"] # [doc = r" # Safety"] # [no_mangle] pub unsafe extern "C" fn ffi_dpp_get_identity (identifier : * mut Identifier_FFI ,) -> * mut Identity_FFI { let obj = dpp_get_identity (ferment_interfaces :: FFIConversion :: ffi_from (identifier) ,) ; ferment_interfaces :: FFIConversion :: ffi_to (obj) } pub mod address { use std :: collections :: BTreeMap ; use crate :: fermented :: types :: chain :: common :: chain_type :: ChainType_FFI ; use crate :: fermented :: types :: nested :: HashID_FFI ; use crate :: example :: address :: get_chain_type_string ; use crate :: nested :: HashID ; use crate :: chain :: common :: chain_type :: ChainType ; use crate :: example :: address :: get_chain_hashes_by_map ; use crate :: example :: address :: address_with_script_pubkey ; use crate :: fermented :: generics :: Vec_u8_FFI ; use crate :: fermented :: generics :: std_collections_Map_keys_crate_chain_common_chain_type_ChainType_values_crate_nested_HashID_FFI ; # [doc = "FFI-representation of the address_with_script_pubkey"] # [doc = r" # Safety"] # [no_mangle] pub unsafe extern "C" fn ffi_address_with_script_pubkey (script : * mut Vec_u8_FFI ,) -> * mut std :: os :: raw :: c_char { let obj = address_with_script_pubkey ({ let vec = & * script ; { let vec = vec ; ferment_interfaces :: from_simple_vec (vec . values , vec . count) } } ,) ; ferment_interfaces :: FFIConversion :: ffi_to_opt (obj) } # [doc = "FFI-representation of the get_chain_hashes_by_map"] # [doc = r" # Safety"] # [no_mangle] pub unsafe extern "C" fn ffi_get_chain_hashes_by_map (map : * mut std_collections_Map_keys_crate_chain_common_chain_type_ChainType_values_crate_nested_HashID_FFI ,) -> * mut std :: os :: raw :: c_char { let obj = get_chain_hashes_by_map (ferment_interfaces :: FFIConversion :: ffi_from (map) ,) ; ferment_interfaces :: FFIConversion :: ffi_to (obj) } # [doc = "FFI-representation of the get_chain_type_string"] # [doc = r" # Safety"] # [no_mangle] pub unsafe extern "C" fn ffi_get_chain_type_string (chain_type : * mut ChainType_FFI ,) -> * mut std :: os :: raw :: c_char { let obj = get_chain_type_string (ferment_interfaces :: FFIConversion :: ffi_from (chain_type) ,) ; ferment_interfaces :: FFIConversion :: ffi_to (obj) } } } pub mod chain { pub mod common { pub mod chain_type { use crate :: fermented :: types :: nested :: HashID_FFI ; use crate :: chain :: common :: chain_type :: ChainType ; use crate :: chain :: common :: chain_type :: IHaveChainSettings ; use crate :: chain :: common :: chain_type :: get_chain_settings ; use crate :: nested :: HashID ; use crate :: chain :: common :: chain_type :: DevnetType ; # [repr (C)] # [derive (Clone)] # [allow (non_camel_case_types)] pub struct IHaveChainSettings_VTable { pub name : unsafe extern "C" fn (obj : * const () ,) -> * mut std :: os :: raw :: c_char , pub genesis_hash : unsafe extern "C" fn (obj : * const () ,) -> * mut HashID_FFI , pub genesis_height : unsafe extern "C" fn (obj : * const () ,) -> u32 , pub has_genesis_hash : unsafe extern "C" fn (obj : * const () , hash : * mut HashID_FFI ,) -> bool , pub get_hash_by_hash : unsafe extern "C" fn (obj : * const () , hash : * mut HashID_FFI ,) -> * mut HashID_FFI , pub should_process_llmq_of_type : unsafe extern "C" fn (obj : * const () , llmq_type : u16 ,) -> bool , } # [repr (C)] # [derive (Clone)] # [allow (non_camel_case_types)] pub struct IHaveChainSettings_TraitObject { pub object : * const () , pub vtable : * const IHaveChainSettings_VTable , } # [doc = "FFI-representation of the DevnetType"] # [repr (C)] # [allow (non_camel_case_types)] # [derive (Clone)] pub enum DevnetType_FFI { JackDaniels = 0 , Devnet333 = 1 , Chacha = 2 , Mojito = 3 , WhiteRussian = 4 , } impl ferment_interfaces :: FFIConversion < DevnetType > for DevnetType_FFI { unsafe fn ffi_from_const (ffi : * const DevnetType_FFI) -> DevnetType { let ffi_ref = & * ffi ; match ffi_ref { DevnetType_FFI :: JackDaniels => DevnetType :: JackDaniels , DevnetType_FFI :: Devnet333 => DevnetType :: Devnet333 , DevnetType_FFI :: Chacha => DevnetType :: Chacha , DevnetType_FFI :: Mojito => DevnetType :: Mojito , DevnetType_FFI :: WhiteRussian => DevnetType :: WhiteRussian , } } unsafe fn ffi_to_const (obj : DevnetType) -> * const DevnetType_FFI { ferment_interfaces :: boxed (match obj { DevnetType :: JackDaniels => DevnetType_FFI :: JackDaniels , DevnetType :: Devnet333 => DevnetType_FFI :: Devnet333 , DevnetType :: Chacha => DevnetType_FFI :: Chacha , DevnetType :: Mojito => DevnetType_FFI :: Mojito , DevnetType :: WhiteRussian => DevnetType_FFI :: WhiteRussian , }) } unsafe fn destroy (ffi : * mut DevnetType_FFI) { ferment_interfaces :: unbox_any (ffi) ; } } impl Drop for DevnetType_FFI { fn drop (& mut self) { unsafe { match self { DevnetType_FFI :: JackDaniels => { } , DevnetType_FFI :: Devnet333 => { } , DevnetType_FFI :: Chacha => { } , DevnetType_FFI :: Mojito => { } , DevnetType_FFI :: WhiteRussian => { } , } } } } # [allow (non_snake_case)] # [no_mangle] pub unsafe extern "C" fn DevnetType_FFI_destroy (ffi : * mut DevnetType_FFI) { ferment_interfaces :: unbox_any (ffi) ; } # [allow (non_snake_case , non_upper_case_globals)] static DevnetType_IHaveChainSettings_VTable : IHaveChainSettings_VTable = { unsafe extern "C" fn DevnetType_name (obj : * const () ,) -> * mut std :: os :: raw :: c_char { let cast_obj = & (* (obj as * const DevnetType)) ; let obj = cast_obj . name () ; ferment_interfaces :: FFIConversion :: ffi_to (obj) } unsafe extern "C" fn DevnetType_genesis_hash (obj : * const () ,) -> * mut HashID_FFI { let cast_obj = & (* (obj as * const DevnetType)) ; let obj = cast_obj . genesis_hash () ; ferment_interfaces :: FFIConversion :: ffi_to (obj) } unsafe extern "C" fn DevnetType_genesis_height (obj : * const () ,) -> u32 { let cast_obj = & (* (obj as * const DevnetType)) ; let obj = cast_obj . genesis_height () ; obj } unsafe extern "C" fn DevnetType_has_genesis_hash (obj : * const () , hash : * mut HashID_FFI ,) -> bool { let cast_obj = & (* (obj as * const DevnetType)) ; let obj = cast_obj . has_genesis_hash (ferment_interfaces :: FFIConversion :: ffi_from (hash) ,) ; obj } unsafe extern "C" fn DevnetType_get_hash_by_hash (obj : * const () , hash : * mut HashID_FFI ,) -> * mut HashID_FFI { let cast_obj = & (* (obj as * const DevnetType)) ; let obj = cast_obj . get_hash_by_hash (ferment_interfaces :: FFIConversion :: ffi_from (hash) ,) ; ferment_interfaces :: FFIConversion :: ffi_to (obj) } unsafe extern "C" fn DevnetType_should_process_llmq_of_type (obj : * const () , llmq_type : u16 ,) -> bool { let cast_obj = & (* (obj as * const DevnetType)) ; let obj = cast_obj . should_process_llmq_of_type (llmq_type ,) ; obj } IHaveChainSettings_VTable { name : DevnetType_name , genesis_hash : DevnetType_genesis_hash , genesis_height : DevnetType_genesis_height , has_genesis_hash : DevnetType_has_genesis_hash , get_hash_by_hash : DevnetType_get_hash_by_hash , should_process_llmq_of_type : DevnetType_should_process_llmq_of_type , } } ; # [allow (non_snake_case)] # [no_mangle] pub extern "C" fn DevnetType_as_IHaveChainSettings_TraitObject (obj : * const DevnetType) -> IHaveChainSettings_TraitObject { IHaveChainSettings_TraitObject { object : obj as * const () , vtable : & DevnetType_IHaveChainSettings_VTable , } } # [allow (non_snake_case)] # [no_mangle] pub unsafe extern "C" fn DevnetType_as_IHaveChainSettings_TraitObject_destroy (obj : IHaveChainSettings_TraitObject) { ferment_interfaces :: unbox_any (obj . object as * mut DevnetType) ; } # [doc = "FFI-representation of the get_chain_settings"] # [doc = r" # Safety"] # [no_mangle] pub unsafe extern "C" fn ffi_get_chain_settings () -> * mut ChainType_FFI { let obj = get_chain_settings () ; ferment_interfaces :: FFIConversion :: ffi_to (obj) } # [doc = "FFI-representation of the ChainType"] # [repr (C)] # [allow (non_camel_case_types)] # [derive (Clone)] pub enum ChainType_FFI { MainNet , TestNet , DevNet (* mut DevnetType_FFI ,) , } impl ferment_interfaces :: FFIConversion < ChainType > for ChainType_FFI { unsafe fn ffi_from_const (ffi : * const ChainType_FFI) -> ChainType { let ffi_ref = & * ffi ; match ffi_ref { ChainType_FFI :: MainNet => ChainType :: MainNet , ChainType_FFI :: TestNet => ChainType :: TestNet , ChainType_FFI :: DevNet (o_0 ,) => ChainType :: DevNet (ferment_interfaces :: FFIConversion :: ffi_from (* o_0) ,) , } } unsafe fn ffi_to_const (obj : ChainType) -> * const ChainType_FFI { ferment_interfaces :: boxed (match obj { ChainType :: MainNet => ChainType_FFI :: MainNet , ChainType :: TestNet => ChainType_FFI :: TestNet , ChainType :: DevNet (o_0 ,) => ChainType_FFI :: DevNet (ferment_interfaces :: FFIConversion :: ffi_to (o_0) ,) , }) } unsafe fn destroy (ffi : * mut ChainType_FFI) { ferment_interfaces :: unbox_any (ffi) ; } } impl Drop for ChainType_FFI { fn drop (& mut self) { unsafe { match self { ChainType_FFI :: MainNet => { } , ChainType_FFI :: TestNet => { } , ChainType_FFI :: DevNet (o_0 ,) => { < DevnetType_FFI as ferment_interfaces :: FFIConversion < DevnetType >> :: destroy (o_0 . to_owned ()) ; } , } } } } # [allow (non_snake_case)] # [no_mangle] pub unsafe extern "C" fn ChainType_FFI_destroy (ffi : * mut ChainType_FFI) { ferment_interfaces :: unbox_any (ffi) ; } # [allow (non_snake_case , non_upper_case_globals)] static ChainType_IHaveChainSettings_VTable : IHaveChainSettings_VTable = { unsafe extern "C" fn ChainType_name (obj : * const () ,) -> * mut std :: os :: raw :: c_char { let cast_obj = & (* (obj as * const ChainType)) ; let obj = cast_obj . name () ; ferment_interfaces :: FFIConversion :: ffi_to (obj) } unsafe extern "C" fn ChainType_genesis_hash (obj : * const () ,) -> * mut HashID_FFI { let cast_obj = & (* (obj as * const ChainType)) ; let obj = cast_obj . genesis_hash () ; ferment_interfaces :: FFIConversion :: ffi_to (obj) } unsafe extern "C" fn ChainType_genesis_height (obj : * const () ,) -> u32 { let cast_obj = & (* (obj as * const ChainType)) ; let obj = cast_obj . genesis_height () ; obj } unsafe extern "C" fn ChainType_has_genesis_hash (obj : * const () , hash : * mut HashID_FFI ,) -> bool { let cast_obj = & (* (obj as * const ChainType)) ; let obj = cast_obj . has_genesis_hash (ferment_interfaces :: FFIConversion :: ffi_from (hash) ,) ; obj } unsafe extern "C" fn ChainType_get_hash_by_hash (obj : * const () , hash : * mut HashID_FFI ,) -> * mut HashID_FFI { let cast_obj = & (* (obj as * const ChainType)) ; let obj = cast_obj . get_hash_by_hash (ferment_interfaces :: FFIConversion :: ffi_from (hash) ,) ; ferment_interfaces :: FFIConversion :: ffi_to (obj) } unsafe extern "C" fn ChainType_should_process_llmq_of_type (obj : * const () , llmq_type : u16 ,) -> bool { let cast_obj = & (* (obj as * const ChainType)) ; let obj = cast_obj . should_process_llmq_of_type (llmq_type ,) ; obj } IHaveChainSettings_VTable { name : ChainType_name , genesis_hash : ChainType_genesis_hash , genesis_height : ChainType_genesis_height , has_genesis_hash : ChainType_has_genesis_hash , get_hash_by_hash : ChainType_get_hash_by_hash , should_process_llmq_of_type : ChainType_should_process_llmq_of_type , } } ; # [allow (non_snake_case)] # [no_mangle] pub extern "C" fn ChainType_as_IHaveChainSettings_TraitObject (obj : * const ChainType) -> IHaveChainSettings_TraitObject { IHaveChainSettings_TraitObject { object : obj as * const () , vtable : & ChainType_IHaveChainSettings_VTable , } } # [allow (non_snake_case)] # [no_mangle] pub unsafe extern "C" fn ChainType_as_IHaveChainSettings_TraitObject_destroy (obj : IHaveChainSettings_TraitObject) { ferment_interfaces :: unbox_any (obj . object as * mut ChainType) ; } } } } pub mod nested { use crate :: nested :: get_identity2 ; use crate :: nested :: MyIdentityFactory ; use crate :: nested :: Identifier ; use crate :: nested :: KeyType ; use crate :: nested :: MapOfHashes ; use crate :: nested :: IdentifierBytes32 ; use crate :: nested :: Purpose ; use crate :: nested :: DataContractNotPresentError ; use crate :: nested :: ProtocolError ; use crate :: nested :: UnnamedPair ; use crate :: nested :: TimestampMillis ; use crate :: nested :: Revision ; use crate :: nested :: IdentityV0 ; use crate :: nested :: TestStruct ; use crate :: nested :: UsedStruct ; use crate :: nested :: UsedKeyMatrix ; use crate :: nested :: ShouldProcessDiffWithRangeCallback ; use crate :: nested :: get_identity_factory ; use crate :: nested :: find_hash_by_u32 ; use crate :: nested :: SecurityLevel ; use crate :: nested :: MapOfVecHashes ; use crate :: nested :: Hash160 ; use crate :: nested :: BinaryData ; use crate :: nested :: Identity ; use crate :: nested :: HashID ; use crate :: nested :: TestEnum ; use crate :: nested :: ArrayOfArraysOfHashes ; use crate :: nested :: KeyID ; use crate :: nested :: AddInsightCallback ; use crate :: nested :: IdentityPublicKeyV0 ; use crate :: nested :: IdentityFactory ; use crate :: nested :: ContractBounds ; use crate :: nested :: SimpleData ; use crate :: nested :: get_an_identity ; use crate :: nested :: IdentityPublicKey ; use ferment_interfaces ; use std :: collections :: BTreeMap ; use crate :: fermented :: generics :: Vec_u8_FFI ; use crate :: fermented :: generics :: Vec_Vec_crate_nested_HashID_FFI ; use crate :: fermented :: generics :: std_collections_Map_keys_crate_nested_HashID_values_std_collections_Map_keys_u32_values_Vec_crate_nested_HashID_FFI ; use crate :: fermented :: generics :: std_collections_Map_keys_crate_nested_HashID_values_Vec_crate_nested_HashID_FFI ; use crate :: fermented :: generics :: std_collections_Map_keys_u32_values_Vec_crate_nested_HashID_FFI ; use crate :: fermented :: generics :: Vec_bool_FFI ; use crate :: fermented :: generics :: std_collections_Map_keys_u32_values_crate_nested_HashID_FFI ; use crate :: fermented :: generics :: Vec_u32_FFI ; use crate :: fermented :: generics :: std_collections_Map_keys_u32_values_std_collections_Map_keys_crate_nested_HashID_values_crate_nested_HashID_FFI ; use crate :: fermented :: generics :: std_collections_Map_keys_crate_nested_HashID_values_Vec_u32_FFI ; use crate :: fermented :: generics :: std_collections_Map_keys_crate_nested_HashID_values_crate_nested_HashID_FFI ; use crate :: fermented :: generics :: std_collections_Map_keys_String_values_crate_nested_HashID_FFI ; use crate :: fermented :: generics :: std_collections_Map_keys_u32_values_std_collections_Map_keys_u32_values_u32_FFI ; use crate :: fermented :: generics :: Vec_Vec_u32_FFI ; use crate :: fermented :: generics :: std_collections_Map_keys_u32_values_u32_FFI ; use crate :: fermented :: generics :: std_collections_Map_keys_u32_values_std_collections_Map_keys_u32_values_Vec_u32_FFI ; use crate :: fermented :: generics :: std_collections_Map_keys_u32_values_std_collections_Map_keys_u32_values_Vec_crate_nested_HashID_FFI ; use crate :: fermented :: generics :: std_collections_Map_keys_u32_values_Vec_u32_FFI ; use crate :: fermented :: generics :: std_collections_Map_keys_crate_nested_HashID_values_std_collections_Map_keys_u32_values_std_collections_Map_keys_crate_nested_HashID_values_crate_nested_HashID_FFI ; use crate :: fermented :: generics :: std_collections_Map_keys_crate_nested_HashID_values_std_collections_Map_keys_u32_values_Vec_u32_FFI ; use crate :: fermented :: generics :: std_collections_Map_keys_crate_nested_KeyID_values_crate_nested_IdentityPublicKey_FFI ; use crate :: fermented :: generics :: std_collections_Map_keys_crate_nested_HashID_values_u32_FFI ; use crate :: fermented :: generics :: Vec_crate_nested_HashID_FFI ; use crate :: fermented :: generics :: std_collections_Map_keys_u32_values_std_collections_Map_keys_u32_values_crate_nested_HashID_FFI ; # [doc = "FFI-representation of the # [doc = \"FFI-representation of the BinaryData\"]"] # [repr (C)] # [derive (Clone)] # [allow (non_camel_case_types)] pub struct BinaryData_FFI (* mut Vec_u8_FFI ,) ; impl ferment_interfaces :: FFIConversion < BinaryData > for BinaryData_FFI { unsafe fn ffi_from_const (ffi : * const BinaryData_FFI) -> BinaryData { let ffi_ref = & * ffi ; BinaryData ({ let vec = & * ffi_ref . 0 ; { let vec = vec ; ferment_interfaces :: from_simple_vec (vec . values , vec . count) } } ,) } unsafe fn ffi_to_const (obj : BinaryData) -> * const BinaryData_FFI { ferment_interfaces :: boxed (BinaryData_FFI (ferment_interfaces :: FFIConversion :: ffi_to (obj . 0) ,)) } unsafe fn destroy (ffi : * mut BinaryData_FFI) { ferment_interfaces :: unbox_any (ffi) ; } } impl Drop for BinaryData_FFI { fn drop (& mut self) { unsafe { let ffi_ref = self ; ferment_interfaces :: unbox_any (ffi_ref . 0) ; ; } } } # [allow (non_snake_case)] # [no_mangle] pub unsafe extern "C" fn BinaryData_FFI_destroy (ffi : * mut BinaryData_FFI) { ferment_interfaces :: unbox_any (ffi) ; } # [doc = "FFI-representation of the get_identity_factory"] # [doc = r" # Safety"] # [no_mangle] pub unsafe extern "C" fn ffi_get_identity_factory () -> * mut MyIdentityFactory_FFI { let obj = get_identity_factory () ; ferment_interfaces :: FFIConversion :: ffi_to (obj) } # [doc = "FFI-representation of the # [doc = \"FFI-representation of the Identifier\"]"] # [repr (C)] # [derive (Clone)] # [allow (non_camel_case_types)] pub struct Identifier_FFI (* mut IdentifierBytes32_FFI ,) ; impl ferment_interfaces :: FFIConversion < Identifier > for Identifier_FFI { unsafe fn ffi_from_const (ffi : * const Identifier_FFI) -> Identifier { let ffi_ref = & * ffi ; Identifier (ferment_interfaces :: FFIConversion :: ffi_from (ffi_ref . 0) ,) } unsafe fn ffi_to_const (obj : Identifier) -> * const Identifier_FFI { ferment_interfaces :: boxed (Identifier_FFI (ferment_interfaces :: FFIConversion :: ffi_to (obj . 0) ,)) } unsafe fn destroy (ffi : * mut Identifier_FFI) { ferment_interfaces :: unbox_any (ffi) ; } } impl Drop for Identifier_FFI { fn drop (& mut self) { unsafe { let ffi_ref = self ; < IdentifierBytes32_FFI as ferment_interfaces :: FFIConversion < IdentifierBytes32 >> :: destroy (ffi_ref . 0) ; } } } # [allow (non_snake_case)] # [no_mangle] pub unsafe extern "C" fn Identifier_FFI_destroy (ffi : * mut Identifier_FFI) { ferment_interfaces :: unbox_any (ffi) ; } # [doc = "FFI-representation of the # [doc = \"FFI-representation of the KeyID\"]"] # [repr (C)] # [derive (Clone)] # [allow (non_camel_case_types)] pub struct KeyID_FFI (u32 ,) ; impl ferment_interfaces :: FFIConversion < KeyID > for KeyID_FFI { unsafe fn ffi_from_const (ffi : * const KeyID_FFI) -> KeyID { let ffi_ref = & * ffi ; ffi_ref . 0 } unsafe fn ffi_to_const (obj : KeyID) -> * const KeyID_FFI { ferment_interfaces :: boxed (KeyID_FFI (obj)) } unsafe fn destroy (ffi : * mut KeyID_FFI) { ferment_interfaces :: unbox_any (ffi) ; } } impl Drop for KeyID_FFI { fn drop (& mut self) { unsafe { let ffi_ref = self ; { } ; } } } # [allow (non_snake_case)] # [no_mangle] pub unsafe extern "C" fn KeyID_FFI_destroy (ffi : * mut KeyID_FFI) { ferment_interfaces :: unbox_any (ffi) ; } # [doc = "FFI-representation of the get_identity2"] # [doc = r" # Safety"] # [no_mangle] pub unsafe extern "C" fn ffi_get_identity2 (identifier : * mut Identifier_FFI ,) -> * mut Identity_FFI { let obj = get_identity2 (ferment_interfaces :: FFIConversion :: ffi_from (identifier) ,) ; ferment_interfaces :: FFIConversion :: ffi_to (obj) } # [doc = "FFI-representation of the # [doc = \"FFI-representation of the DataContractNotPresentError\"]"] # [repr (C)] # [derive (Clone)] # [allow (non_camel_case_types)] pub struct DataContractNotPresentError_FFI { pub data_contract_id : * mut Identifier_FFI , } impl ferment_interfaces :: FFIConversion < DataContractNotPresentError > for DataContractNotPresentError_FFI { unsafe fn ffi_from_const (ffi : * const DataContractNotPresentError_FFI) -> DataContractNotPresentError { let ffi_ref = & * ffi ; DataContractNotPresentError { data_contract_id : ferment_interfaces :: FFIConversion :: ffi_from (ffi_ref . data_contract_id) , } } unsafe fn ffi_to_const (obj : DataContractNotPresentError) -> * const DataContractNotPresentError_FFI { ferment_interfaces :: boxed (DataContractNotPresentError_FFI { data_contract_id : ferment_interfaces :: FFIConversion :: ffi_to (obj . data_contract_id) , }) } unsafe fn destroy (ffi : * mut DataContractNotPresentError_FFI) { ferment_interfaces :: unbox_any (ffi) ; } } impl Drop for DataContractNotPresentError_FFI { fn drop (& mut self) { unsafe { let ffi_ref = self ; < Identifier_FFI as ferment_interfaces :: FFIConversion < Identifier >> :: destroy (ffi_ref . data_contract_id) ; } } } # [allow (non_snake_case)] # [no_mangle] pub unsafe extern "C" fn DataContractNotPresentError_FFI_destroy (ffi : * mut DataContractNotPresentError_FFI) { ferment_interfaces :: unbox_any (ffi) ; } # [doc = "FFI-representation of the Identity"] # [repr (C)] # [allow (non_camel_case_types)] # [derive (Clone)] pub enum Identity_FFI { V0 (* mut IdentityV0_FFI ,) , } impl ferment_interfaces :: FFIConversion < Identity > for Identity_FFI { unsafe fn ffi_from_const (ffi : * const Identity_FFI) -> Identity { let ffi_ref = & * ffi ; match ffi_ref { Identity_FFI :: V0 (o_0 ,) => Identity :: V0 (ferment_interfaces :: FFIConversion :: ffi_from (* o_0) ,) , } } unsafe fn ffi_to_const (obj : Identity) -> * const Identity_FFI { ferment_interfaces :: boxed (match obj { Identity :: V0 (o_0 ,) => Identity_FFI :: V0 (ferment_interfaces :: FFIConversion :: ffi_to (o_0) ,) , }) } unsafe fn destroy (ffi : * mut Identity_FFI) { ferment_interfaces :: unbox_any (ffi) ; } } impl Drop for Identity_FFI { fn drop (& mut self) { unsafe { match self { Identity_FFI :: V0 (o_0 ,) => { < IdentityV0_FFI as ferment_interfaces :: FFIConversion < IdentityV0 >> :: destroy (o_0 . to_owned ()) ; } , } } } } # [allow (non_snake_case)] # [no_mangle] pub unsafe extern "C" fn Identity_FFI_destroy (ffi : * mut Identity_FFI) { ferment_interfaces :: unbox_any (ffi) ; } # [repr (C)] # [derive (Clone)] # [allow (non_camel_case_types)] pub struct IdentityFactory_VTable { pub get_identity : unsafe extern "C" fn (obj : * const () , identifier : * mut Identifier_FFI ,) -> * mut Identity_FFI , } # [repr (C)] # [derive (Clone)] # [allow (non_camel_case_types)] pub struct IdentityFactory_TraitObject { pub object : * const () , pub vtable : * const IdentityFactory_VTable , } # [doc = "FFI-representation of the get_an_identity"] # [doc = r" # Safety"] # [no_mangle] pub unsafe extern "C" fn ffi_get_an_identity () -> * mut Identity_FFI { let obj = get_an_identity () ; ferment_interfaces :: FFIConversion :: ffi_to (obj) } # [doc = "FFI-representation of the SecurityLevel"] # [repr (C)] # [allow (non_camel_case_types)] # [derive (Clone)] pub enum SecurityLevel_FFI { MASTER = 0 , CRITICAL = 1 , HIGH = 2 , MEDIUM = 3 , } impl ferment_interfaces :: FFIConversion < SecurityLevel > for SecurityLevel_FFI { unsafe fn ffi_from_const (ffi : * const SecurityLevel_FFI) -> SecurityLevel { let ffi_ref = & * ffi ; match ffi_ref { SecurityLevel_FFI :: MASTER => SecurityLevel :: MASTER , SecurityLevel_FFI :: CRITICAL => SecurityLevel :: CRITICAL , SecurityLevel_FFI :: HIGH => SecurityLevel :: HIGH , SecurityLevel_FFI :: MEDIUM => SecurityLevel :: MEDIUM , } } unsafe fn ffi_to_const (obj : SecurityLevel) -> * const SecurityLevel_FFI { ferment_interfaces :: boxed (match obj { SecurityLevel :: MASTER => SecurityLevel_FFI :: MASTER , SecurityLevel :: CRITICAL => SecurityLevel_FFI :: CRITICAL , SecurityLevel :: HIGH => SecurityLevel_FFI :: HIGH , SecurityLevel :: MEDIUM => SecurityLevel_FFI :: MEDIUM , }) } unsafe fn destroy (ffi : * mut SecurityLevel_FFI) { ferment_interfaces :: unbox_any (ffi) ; } } impl Drop for SecurityLevel_FFI { fn drop (& mut self) { unsafe { match self { SecurityLevel_FFI :: MASTER => { } , SecurityLevel_FFI :: CRITICAL => { } , SecurityLevel_FFI :: HIGH => { } , SecurityLevel_FFI :: MEDIUM => { } , } } } } # [allow (non_snake_case)] # [no_mangle] pub unsafe extern "C" fn SecurityLevel_FFI_destroy (ffi : * mut SecurityLevel_FFI) { ferment_interfaces :: unbox_any (ffi) ; } # [doc = "FFI-representation of the # [doc = \"FFI-representation of the UsedStruct\"]"] # [repr (C)] # [derive (Clone)] # [allow (non_camel_case_types)] pub struct UsedStruct_FFI (* mut HashID_FFI ,) ; impl ferment_interfaces :: FFIConversion < UsedStruct > for UsedStruct_FFI { unsafe fn ffi_from_const (ffi : * const UsedStruct_FFI) -> UsedStruct { let ffi_ref = & * ffi ; ferment_interfaces :: FFIConversion :: ffi_from (ffi_ref . 0) } unsafe fn ffi_to_const (obj : UsedStruct) -> * const UsedStruct_FFI { ferment_interfaces :: boxed (UsedStruct_FFI (ferment_interfaces :: FFIConversion :: ffi_to (obj))) } unsafe fn destroy (ffi : * mut UsedStruct_FFI) { ferment_interfaces :: unbox_any (ffi) ; } } impl Drop for UsedStruct_FFI { fn drop (& mut self) { unsafe { let ffi_ref = self ; < HashID_FFI as ferment_interfaces :: FFIConversion < HashID >> :: destroy (ffi_ref . 0) ; } } } # [allow (non_snake_case)] # [no_mangle] pub unsafe extern "C" fn UsedStruct_FFI_destroy (ffi : * mut UsedStruct_FFI) { ferment_interfaces :: unbox_any (ffi) ; } # [doc = "FFI-representation of the # [doc = \"FFI-representation of the MyIdentityFactory\"]"] # [repr (C)] # [derive (Clone)] # [allow (non_camel_case_types)] pub struct MyIdentityFactory_FFI { pub first : u32 , } impl ferment_interfaces :: FFIConversion < MyIdentityFactory > for MyIdentityFactory_FFI { unsafe fn ffi_from_const (ffi : * const MyIdentityFactory_FFI) -> MyIdentityFactory { let ffi_ref = & * ffi ; MyIdentityFactory { first : ffi_ref . first , } } unsafe fn ffi_to_const (obj : MyIdentityFactory) -> * const MyIdentityFactory_FFI { ferment_interfaces :: boxed (MyIdentityFactory_FFI { first : obj . first , }) } unsafe fn destroy (ffi : * mut MyIdentityFactory_FFI) { ferment_interfaces :: unbox_any (ffi) ; } } impl Drop for MyIdentityFactory_FFI { fn drop (& mut self) { unsafe { let ffi_ref = self ; { } ; } } } # [allow (non_snake_case)] # [no_mangle] pub unsafe extern "C" fn MyIdentityFactory_FFI_destroy (ffi : * mut MyIdentityFactory_FFI) { ferment_interfaces :: unbox_any (ffi) ; } # [allow (non_snake_case , non_upper_case_globals)] static MyIdentityFactory_IdentityFactory_VTable : IdentityFactory_VTable = { unsafe extern "C" fn MyIdentityFactory_get_identity (obj : * const () , identifier : * mut Identifier_FFI ,) -> * mut Identity_FFI { let cast_obj = & (* (obj as * const MyIdentityFactory)) ; let obj = cast_obj . get_identity (ferment_interfaces :: FFIConversion :: ffi_from (identifier) ,) ; ferment_interfaces :: FFIConversion :: ffi_to (obj) } IdentityFactory_VTable { get_identity : MyIdentityFactory_get_identity , } } ; # [allow (non_snake_case)] # [no_mangle] pub extern "C" fn MyIdentityFactory_as_IdentityFactory_TraitObject (obj : * const MyIdentityFactory) -> IdentityFactory_TraitObject { IdentityFactory_TraitObject { object : obj as * const () , vtable : & MyIdentityFactory_IdentityFactory_VTable , } } # [allow (non_snake_case)] # [no_mangle] pub unsafe extern "C" fn MyIdentityFactory_as_IdentityFactory_TraitObject_destroy (obj : IdentityFactory_TraitObject) { ferment_interfaces :: unbox_any (obj . object as * mut MyIdentityFactory) ; } # [doc = "FFI-representation of the # [doc = \"FFI-representation of the UnnamedPair\"]"] # [repr (C)] # [derive (Clone)] # [allow (non_camel_case_types)] pub struct UnnamedPair_FFI (* mut [u8 ; 32] , u32 ,) ; impl ferment_interfaces :: FFIConversion < UnnamedPair > for UnnamedPair_FFI { unsafe fn ffi_from_const (ffi : * const UnnamedPair_FFI) -> UnnamedPair { let ffi_ref = & * ffi ; UnnamedPair (* ffi_ref . 0 , ffi_ref . 1 ,) } unsafe fn ffi_to_const (obj : UnnamedPair) -> * const UnnamedPair_FFI { ferment_interfaces :: boxed (UnnamedPair_FFI (ferment_interfaces :: boxed (obj . 0) , obj . 1 ,)) } unsafe fn destroy (ffi : * mut UnnamedPair_FFI) { ferment_interfaces :: unbox_any (ffi) ; } } impl Drop for UnnamedPair_FFI { fn drop (& mut self) { unsafe { let ffi_ref = self ; ferment_interfaces :: unbox_any (ffi_ref . 0) ; { } ; } } } # [allow (non_snake_case)] # [no_mangle] pub unsafe extern "C" fn UnnamedPair_FFI_destroy (ffi : * mut UnnamedPair_FFI) { ferment_interfaces :: unbox_any (ffi) ; } # [doc = "FFI-representation of the # [doc = \"FFI-representation of the IdentityPublicKeyV0\"]"] # [repr (C)] # [derive (Clone)] # [allow (non_camel_case_types)] pub struct IdentityPublicKeyV0_FFI { pub id : * mut KeyID_FFI , pub purpose : * mut Purpose_FFI , pub security_level : * mut SecurityLevel_FFI , pub contract_bounds : * mut ContractBounds_FFI , pub key_type : * mut KeyType_FFI , pub read_only : bool , pub data : * mut BinaryData_FFI , pub disabled_at : * mut TimestampMillis_FFI , } impl ferment_interfaces :: FFIConversion < IdentityPublicKeyV0 > for IdentityPublicKeyV0_FFI { unsafe fn ffi_from_const (ffi : * const IdentityPublicKeyV0_FFI) -> IdentityPublicKeyV0 { let ffi_ref = & * ffi ; IdentityPublicKeyV0 { id : ferment_interfaces :: FFIConversion :: ffi_from (ffi_ref . id) , purpose : ferment_interfaces :: FFIConversion :: ffi_from (ffi_ref . purpose) , security_level : ferment_interfaces :: FFIConversion :: ffi_from (ffi_ref . security_level) , contract_bounds : ferment_interfaces :: FFIConversion :: ffi_from_opt (ffi_ref . contract_bounds) , key_type : ferment_interfaces :: FFIConversion :: ffi_from (ffi_ref . key_type) , read_only : ffi_ref . read_only , data : ferment_interfaces :: FFIConversion :: ffi_from (ffi_ref . data) , disabled_at : ferment_interfaces :: FFIConversion :: ffi_from_opt (ffi_ref . disabled_at) , } } unsafe fn ffi_to_const (obj : IdentityPublicKeyV0) -> * const IdentityPublicKeyV0_FFI { ferment_interfaces :: boxed (IdentityPublicKeyV0_FFI { id : ferment_interfaces :: FFIConversion :: ffi_to (obj . id) , purpose : ferment_interfaces :: FFIConversion :: ffi_to (obj . purpose) , security_level : ferment_interfaces :: FFIConversion :: ffi_to (obj . security_level) , contract_bounds : ferment_interfaces :: FFIConversion :: ffi_to_opt (obj . contract_bounds) , key_type : ferment_interfaces :: FFIConversion :: ffi_to (obj . key_type) , read_only : obj . read_only , data : ferment_interfaces :: FFIConversion :: ffi_to (obj . data) , disabled_at : ferment_interfaces :: FFIConversion :: ffi_to_opt (obj . disabled_at) , }) } unsafe fn destroy (ffi : * mut IdentityPublicKeyV0_FFI) { ferment_interfaces :: unbox_any (ffi) ; } } impl Drop for IdentityPublicKeyV0_FFI { fn drop (& mut self) { unsafe { let ffi_ref = self ; < KeyID_FFI as ferment_interfaces :: FFIConversion < KeyID >> :: destroy (ffi_ref . id) ; < Purpose_FFI as ferment_interfaces :: FFIConversion < Purpose >> :: destroy (ffi_ref . purpose) ; < SecurityLevel_FFI as ferment_interfaces :: FFIConversion < SecurityLevel >> :: destroy (ffi_ref . security_level) ; if ! ffi_ref . contract_bounds . is_null () { ferment_interfaces :: unbox_any (ffi_ref . contract_bounds) ; } ; < KeyType_FFI as ferment_interfaces :: FFIConversion < KeyType >> :: destroy (ffi_ref . key_type) ; { } ; < BinaryData_FFI as ferment_interfaces :: FFIConversion < BinaryData >> :: destroy (ffi_ref . data) ; if ! ffi_ref . disabled_at . is_null () { ferment_interfaces :: unbox_any (ffi_ref . disabled_at) ; } ; } } } # [allow (non_snake_case)] # [no_mangle] pub unsafe extern "C" fn IdentityPublicKeyV0_FFI_destroy (ffi : * mut IdentityPublicKeyV0_FFI) { ferment_interfaces :: unbox_any (ffi) ; } # [doc = "FFI-representation of the KeyType"] # [repr (C)] # [allow (non_camel_case_types)] # [derive (Clone)] pub enum KeyType_FFI { ECDSA_SECP256K1 = 0 , BLS12_381 = 1 , ECDSA_HASH160 = 2 , BIP13_SCRIPT_HASH = 3 , EDDSA_25519_HASH160 = 4 , } impl ferment_interfaces :: FFIConversion < KeyType > for KeyType_FFI { unsafe fn ffi_from_const (ffi : * const KeyType_FFI) -> KeyType { let ffi_ref = & * ffi ; match ffi_ref { KeyType_FFI :: ECDSA_SECP256K1 => KeyType :: ECDSA_SECP256K1 , KeyType_FFI :: BLS12_381 => KeyType :: BLS12_381 , KeyType_FFI :: ECDSA_HASH160 => KeyType :: ECDSA_HASH160 , KeyType_FFI :: BIP13_SCRIPT_HASH => KeyType :: BIP13_SCRIPT_HASH , KeyType_FFI :: EDDSA_25519_HASH160 => KeyType :: EDDSA_25519_HASH160 , } } unsafe fn ffi_to_const (obj : KeyType) -> * const KeyType_FFI { ferment_interfaces :: boxed (match obj { KeyType :: ECDSA_SECP256K1 => KeyType_FFI :: ECDSA_SECP256K1 , KeyType :: BLS12_381 => KeyType_FFI :: BLS12_381 , KeyType :: ECDSA_HASH160 => KeyType_FFI :: ECDSA_HASH160 , KeyType :: BIP13_SCRIPT_HASH => KeyType_FFI :: BIP13_SCRIPT_HASH , KeyType :: EDDSA_25519_HASH160 => KeyType_FFI :: EDDSA_25519_HASH160 , }) } unsafe fn destroy (ffi : * mut KeyType_FFI) { ferment_interfaces :: unbox_any (ffi) ; } } impl Drop for KeyType_FFI { fn drop (& mut self) { unsafe { match self { KeyType_FFI :: ECDSA_SECP256K1 => { } , KeyType_FFI :: BLS12_381 => { } , KeyType_FFI :: ECDSA_HASH160 => { } , KeyType_FFI :: BIP13_SCRIPT_HASH => { } , KeyType_FFI :: EDDSA_25519_HASH160 => { } , } } } } # [allow (non_snake_case)] # [no_mangle] pub unsafe extern "C" fn KeyType_FFI_destroy (ffi : * mut KeyType_FFI) { ferment_interfaces :: unbox_any (ffi) ; } # [doc = "FFI-representation of the Purpose"] # [repr (C)] # [allow (non_camel_case_types)] # [derive (Clone)] pub enum Purpose_FFI { AUTHENTICATION = 0 , ENCRYPTION = 1 , DECRYPTION = 2 , WITHDRAW = 3 , SYSTEM = 4 , VOTING = 5 , } impl ferment_interfaces :: FFIConversion < Purpose > for Purpose_FFI { unsafe fn ffi_from_const (ffi : * const Purpose_FFI) -> Purpose { let ffi_ref = & * ffi ; match ffi_ref { Purpose_FFI :: AUTHENTICATION => Purpose :: AUTHENTICATION , Purpose_FFI :: ENCRYPTION => Purpose :: ENCRYPTION , Purpose_FFI :: DECRYPTION => Purpose :: DECRYPTION , Purpose_FFI :: WITHDRAW => Purpose :: WITHDRAW , Purpose_FFI :: SYSTEM => Purpose :: SYSTEM , Purpose_FFI :: VOTING => Purpose :: VOTING , } } unsafe fn ffi_to_const (obj : Purpose) -> * const Purpose_FFI { ferment_interfaces :: boxed (match obj { Purpose :: AUTHENTICATION => Purpose_FFI :: AUTHENTICATION , Purpose :: ENCRYPTION => Purpose_FFI :: ENCRYPTION , Purpose :: DECRYPTION => Purpose_FFI :: DECRYPTION , Purpose :: WITHDRAW => Purpose_FFI :: WITHDRAW , Purpose :: SYSTEM => Purpose_FFI :: SYSTEM , Purpose :: VOTING => Purpose_FFI :: VOTING , }) } unsafe fn destroy (ffi : * mut Purpose_FFI) { ferment_interfaces :: unbox_any (ffi) ; } } impl Drop for Purpose_FFI { fn drop (& mut self) { unsafe { match self { Purpose_FFI :: AUTHENTICATION => { } , Purpose_FFI :: ENCRYPTION => { } , Purpose_FFI :: DECRYPTION => { } , Purpose_FFI :: WITHDRAW => { } , Purpose_FFI :: SYSTEM => { } , Purpose_FFI :: VOTING => { } , } } } } # [allow (non_snake_case)] # [no_mangle] pub unsafe extern "C" fn Purpose_FFI_destroy (ffi : * mut Purpose_FFI) { ferment_interfaces :: unbox_any (ffi) ; } # [doc = "FFI-representation of the ShouldProcessDiffWithRangeCallback_FFI"] # [allow (non_camel_case_types)] pub type ShouldProcessDiffWithRangeCallback_FFI = unsafe extern "C" fn (base_block_hash : * mut HashID_FFI , block_hash : * mut HashID_FFI , context : ferment_interfaces :: OpaqueContextFFI) -> * mut ProtocolError_FFI ; # [doc = "FFI-representation of the AddInsightCallback_FFI"] # [allow (non_camel_case_types)] pub type AddInsightCallback_FFI = unsafe extern "C" fn (block_hash : * mut HashID_FFI , context : ferment_interfaces :: OpaqueContextFFI) ; # [doc = "FFI-representation of the # [doc = \"FFI-representation of the TimestampMillis\"]"] # [repr (C)] # [derive (Clone)] # [allow (non_camel_case_types)] pub struct TimestampMillis_FFI (u64 ,) ; impl ferment_interfaces :: FFIConversion < TimestampMillis > for TimestampMillis_FFI { unsafe fn ffi_from_const (ffi : * const TimestampMillis_FFI) -> TimestampMillis { let ffi_ref = & * ffi ; ffi_ref . 0 } unsafe fn ffi_to_const (obj : TimestampMillis) -> * const TimestampMillis_FFI { ferment_interfaces :: boxed (TimestampMillis_FFI (obj)) } unsafe fn destroy (ffi : * mut TimestampMillis_FFI) { ferment_interfaces :: unbox_any (ffi) ; } } impl Drop for TimestampMillis_FFI { fn drop (& mut self) { unsafe { let ffi_ref = self ; { } ; } } } # [allow (non_snake_case)] # [no_mangle] pub unsafe extern "C" fn TimestampMillis_FFI_destroy (ffi : * mut TimestampMillis_FFI) { ferment_interfaces :: unbox_any (ffi) ; } # [doc = "FFI-representation of the # [doc = \"FFI-representation of the IdentifierBytes32\"]"] # [repr (C)] # [derive (Clone)] # [allow (non_camel_case_types)] pub struct IdentifierBytes32_FFI (* mut [u8 ; 32] ,) ; impl ferment_interfaces :: FFIConversion < IdentifierBytes32 > for IdentifierBytes32_FFI { unsafe fn ffi_from_const (ffi : * const IdentifierBytes32_FFI) -> IdentifierBytes32 { let ffi_ref = & * ffi ; IdentifierBytes32 (* ffi_ref . 0 ,) } unsafe fn ffi_to_const (obj : IdentifierBytes32) -> * const IdentifierBytes32_FFI { ferment_interfaces :: boxed (IdentifierBytes32_FFI (ferment_interfaces :: boxed (obj . 0) ,)) } unsafe fn destroy (ffi : * mut IdentifierBytes32_FFI) { ferment_interfaces :: unbox_any (ffi) ; } } impl Drop for IdentifierBytes32_FFI { fn drop (& mut self) { unsafe { let ffi_ref = self ; ferment_interfaces :: unbox_any (ffi_ref . 0) ; } } } # [allow (non_snake_case)] # [no_mangle] pub unsafe extern "C" fn IdentifierBytes32_FFI_destroy (ffi : * mut IdentifierBytes32_FFI) { ferment_interfaces :: unbox_any (ffi) ; } # [doc = "FFI-representation of the # [doc = \"FFI-representation of the UsedKeyMatrix\"]"] # [repr (C)] # [derive (Clone)] # [allow (non_camel_case_types)] pub struct UsedKeyMatrix_FFI (* mut Vec_bool_FFI ,) ; impl ferment_interfaces :: FFIConversion < UsedKeyMatrix > for UsedKeyMatrix_FFI { unsafe fn ffi_from_const (ffi : * const UsedKeyMatrix_FFI) -> UsedKeyMatrix { let ffi_ref = & * ffi ; { let vec = & * ffi_ref . 0 ; { let vec = vec ; ferment_interfaces :: from_simple_vec (vec . values , vec . count) } } } unsafe fn ffi_to_const (obj : UsedKeyMatrix) -> * const UsedKeyMatrix_FFI { ferment_interfaces :: boxed (UsedKeyMatrix_FFI (ferment_interfaces :: FFIConversion :: ffi_to (obj))) } unsafe fn destroy (ffi : * mut UsedKeyMatrix_FFI) { ferment_interfaces :: unbox_any (ffi) ; } } impl Drop for UsedKeyMatrix_FFI { fn drop (& mut self) { unsafe { let ffi_ref = self ; ferment_interfaces :: unbox_any (ffi_ref . 0) ; ; } } } # [allow (non_snake_case)] # [no_mangle] pub unsafe extern "C" fn UsedKeyMatrix_FFI_destroy (ffi : * mut UsedKeyMatrix_FFI) { ferment_interfaces :: unbox_any (ffi) ; } # [doc = "FFI-representation of the # [doc = \"FFI-representation of the Revision\"]"] # [repr (C)] # [derive (Clone)] # [allow (non_camel_case_types)] pub struct Revision_FFI (u64 ,) ; impl ferment_interfaces :: FFIConversion < Revision > for Revision_FFI { unsafe fn ffi_from_const (ffi : * const Revision_FFI) -> Revision { let ffi_ref = & * ffi ; ffi_ref . 0 } unsafe fn ffi_to_const (obj : Revision) -> * const Revision_FFI { ferment_interfaces :: boxed (Revision_FFI (obj)) } unsafe fn destroy (ffi : * mut Revision_FFI) { ferment_interfaces :: unbox_any (ffi) ; } } impl Drop for Revision_FFI { fn drop (& mut self) { unsafe { let ffi_ref = self ; { } ; } } } # [allow (non_snake_case)] # [no_mangle] pub unsafe extern "C" fn Revision_FFI_destroy (ffi : * mut Revision_FFI) { ferment_interfaces :: unbox_any (ffi) ; } # [doc = "FFI-representation of the # [doc = \"FFI-representation of the HashID\"]"] # [repr (C)] # [derive (Clone)] # [allow (non_camel_case_types)] pub struct HashID_FFI (* mut [u8 ; 32] ,) ; impl ferment_interfaces :: FFIConversion < HashID > for HashID_FFI { unsafe fn ffi_from_const (ffi : * const HashID_FFI) -> HashID { let ffi_ref = & * ffi ; * ffi_ref . 0 } unsafe fn ffi_to_const (obj : HashID) -> * const HashID_FFI { ferment_interfaces :: boxed (HashID_FFI (ferment_interfaces :: boxed (obj))) } unsafe fn destroy (ffi : * mut HashID_FFI) { ferment_interfaces :: unbox_any (ffi) ; } } impl Drop for HashID_FFI { fn drop (& mut self) { unsafe { let ffi_ref = self ; ferment_interfaces :: unbox_any (ffi_ref . 0) ; } } } # [allow (non_snake_case)] # [no_mangle] pub unsafe extern "C" fn HashID_FFI_destroy (ffi : * mut HashID_FFI) { ferment_interfaces :: unbox_any (ffi) ; } # [doc = "FFI-representation of the # [doc = \"FFI-representation of the SimpleData\"]"] # [repr (C)] # [derive (Clone)] # [allow (non_camel_case_types)] pub struct SimpleData_FFI (* mut Vec_u32_FFI ,) ; impl ferment_interfaces :: FFIConversion < SimpleData > for SimpleData_FFI { unsafe fn ffi_from_const (ffi : * const SimpleData_FFI) -> SimpleData { let ffi_ref = & * ffi ; SimpleData ({ let vec = & * ffi_ref . 0 ; { let vec = vec ; ferment_interfaces :: from_simple_vec (vec . values , vec . count) } } ,) } unsafe fn ffi_to_const (obj : SimpleData) -> * const SimpleData_FFI { ferment_interfaces :: boxed (SimpleData_FFI (ferment_interfaces :: FFIConversion :: ffi_to (obj . 0) ,)) } unsafe fn destroy (ffi : * mut SimpleData_FFI) { ferment_interfaces :: unbox_any (ffi) ; } } impl Drop for SimpleData_FFI { fn drop (& mut self) { unsafe { let ffi_ref = self ; ferment_interfaces :: unbox_any (ffi_ref . 0) ; ; } } } # [allow (non_snake_case)] # [no_mangle] pub unsafe extern "C" fn SimpleData_FFI_destroy (ffi : * mut SimpleData_FFI) { ferment_interfaces :: unbox_any (ffi) ; } # [doc = "FFI-representation of the ProtocolError"] # [repr (C)] # [allow (non_camel_case_types)] # [derive (Clone)] pub enum ProtocolError_FFI { IdentifierError (* mut std :: os :: raw :: c_char ,) , StringDecodeError (* mut std :: os :: raw :: c_char ,) , StringDecodeError2 (* mut std :: os :: raw :: c_char , u32 ,) , EmptyPublicKeyDataError , MaxEncodedBytesReachedError { max_size_kbytes : usize , size_hit : usize , } , EncodingError (* mut std :: os :: raw :: c_char ,) , EncodingError2 (* mut std :: os :: raw :: c_char ,) , UnknownVersionMismatch , } impl ferment_interfaces :: FFIConversion < ProtocolError > for ProtocolError_FFI { unsafe fn ffi_from_const (ffi : * const ProtocolError_FFI) -> ProtocolError { let ffi_ref = & * ffi ; match ffi_ref { ProtocolError_FFI :: IdentifierError (o_0 ,) => ProtocolError :: IdentifierError (ferment_interfaces :: FFIConversion :: ffi_from (* o_0) ,) , ProtocolError_FFI :: StringDecodeError (o_0 ,) => ProtocolError :: StringDecodeError (ferment_interfaces :: FFIConversion :: ffi_from (* o_0) ,) , ProtocolError_FFI :: StringDecodeError2 (o_0 , o_1 ,) => ProtocolError :: StringDecodeError2 (ferment_interfaces :: FFIConversion :: ffi_from (* o_0) , * o_1 ,) , ProtocolError_FFI :: EmptyPublicKeyDataError => ProtocolError :: EmptyPublicKeyDataError , ProtocolError_FFI :: MaxEncodedBytesReachedError { max_size_kbytes , size_hit , } => ProtocolError :: MaxEncodedBytesReachedError { max_size_kbytes : * max_size_kbytes , size_hit : * size_hit , } , ProtocolError_FFI :: EncodingError (o_0 ,) => ProtocolError :: EncodingError (ferment_interfaces :: FFIConversion :: ffi_from (* o_0) ,) , ProtocolError_FFI :: EncodingError2 (o_0 ,) => ProtocolError :: EncodingError2 (ferment_interfaces :: FFIConversion :: ffi_from (* o_0) ,) , ProtocolError_FFI :: UnknownVersionMismatch => ProtocolError :: UnknownVersionMismatch , } } unsafe fn ffi_to_const (obj : ProtocolError) -> * const ProtocolError_FFI { ferment_interfaces :: boxed (match obj { ProtocolError :: IdentifierError (o_0 ,) => ProtocolError_FFI :: IdentifierError (ferment_interfaces :: FFIConversion :: ffi_to (o_0) ,) , ProtocolError :: StringDecodeError (o_0 ,) => ProtocolError_FFI :: StringDecodeError (ferment_interfaces :: FFIConversion :: ffi_to (o_0) ,) , ProtocolError :: StringDecodeError2 (o_0 , o_1 ,) => ProtocolError_FFI :: StringDecodeError2 (ferment_interfaces :: FFIConversion :: ffi_to (o_0) , o_1 ,) , ProtocolError :: EmptyPublicKeyDataError => ProtocolError_FFI :: EmptyPublicKeyDataError , ProtocolError :: MaxEncodedBytesReachedError { max_size_kbytes , size_hit , } => ProtocolError_FFI :: MaxEncodedBytesReachedError { max_size_kbytes : max_size_kbytes , size_hit : size_hit , } , ProtocolError :: EncodingError (o_0 ,) => ProtocolError_FFI :: EncodingError (ferment_interfaces :: FFIConversion :: ffi_to (o_0) ,) , ProtocolError :: EncodingError2 (o_0 ,) => ProtocolError_FFI :: EncodingError2 (ferment_interfaces :: FFIConversion :: ffi_to (o_0) ,) , ProtocolError :: UnknownVersionMismatch => ProtocolError_FFI :: UnknownVersionMismatch , }) } unsafe fn destroy (ffi : * mut ProtocolError_FFI) { ferment_interfaces :: unbox_any (ffi) ; } } impl Drop for ProtocolError_FFI { fn drop (& mut self) { unsafe { match self { ProtocolError_FFI :: IdentifierError (o_0 ,) => { < std :: os :: raw :: c_char as ferment_interfaces :: FFIConversion < String >> :: destroy (o_0 . to_owned ()) ; } , ProtocolError_FFI :: StringDecodeError (o_0 ,) => { < std :: os :: raw :: c_char as ferment_interfaces :: FFIConversion < String >> :: destroy (o_0 . to_owned ()) ; } , ProtocolError_FFI :: StringDecodeError2 (o_0 , o_1 ,) => { < std :: os :: raw :: c_char as ferment_interfaces :: FFIConversion < String >> :: destroy (o_0 . to_owned ()) ; { } ; } , ProtocolError_FFI :: EmptyPublicKeyDataError => { } , ProtocolError_FFI :: MaxEncodedBytesReachedError { max_size_kbytes , size_hit , } => { { } { } } , ProtocolError_FFI :: EncodingError (o_0 ,) => { < std :: os :: raw :: c_char as ferment_interfaces :: FFIConversion < String >> :: destroy (o_0 . to_owned ()) ; } , ProtocolError_FFI :: EncodingError2 (o_0 ,) => { < std :: os :: raw :: c_char as ferment_interfaces :: FFIConversion < & str >> :: destroy (o_0 . to_owned ()) ; } , ProtocolError_FFI :: UnknownVersionMismatch => { } , } } } } # [allow (non_snake_case)] # [no_mangle] pub unsafe extern "C" fn ProtocolError_FFI_destroy (ffi : * mut ProtocolError_FFI) { ferment_interfaces :: unbox_any (ffi) ; } # [doc = "FFI-representation of the # [doc = \"FFI-representation of the TestStruct\"]"] # [repr (C)] # [derive (Clone)] # [allow (non_camel_case_types)] pub struct TestStruct_FFI { pub vec_u8 : * mut Vec_u8_FFI , pub vec_u32 : * mut Vec_u32_FFI , pub vec_vec_u32 : * mut Vec_Vec_u32_FFI , pub map_key_simple_value_simple : * mut std_collections_Map_keys_u32_values_u32_FFI , pub map_key_simple_value_complex : * mut std_collections_Map_keys_u32_values_crate_nested_HashID_FFI , pub map_key_simple_value_vec_simple : * mut std_collections_Map_keys_u32_values_Vec_u32_FFI , pub map_key_simple_value_vec_complex : * mut std_collections_Map_keys_u32_values_Vec_crate_nested_HashID_FFI , pub map_key_simple_value_map_key_simple_value_simple : * mut std_collections_Map_keys_u32_values_std_collections_Map_keys_u32_values_u32_FFI , pub map_key_simple_value_map_key_simple_value_complex : * mut std_collections_Map_keys_u32_values_std_collections_Map_keys_u32_values_crate_nested_HashID_FFI , pub map_key_simple_value_map_key_simple_value_vec_simple : * mut std_collections_Map_keys_u32_values_std_collections_Map_keys_u32_values_Vec_u32_FFI , pub map_key_simple_value_map_key_simple_value_vec_complex : * mut std_collections_Map_keys_u32_values_std_collections_Map_keys_u32_values_Vec_crate_nested_HashID_FFI , pub map_key_complex_value_simple : * mut std_collections_Map_keys_crate_nested_HashID_values_u32_FFI , pub map_key_complex_value_complex : * mut std_collections_Map_keys_crate_nested_HashID_values_crate_nested_HashID_FFI , pub map_key_complex_value_vec_simple : * mut std_collections_Map_keys_crate_nested_HashID_values_Vec_u32_FFI , pub map_key_complex_value_vec_complex : * mut std_collections_Map_keys_crate_nested_HashID_values_Vec_crate_nested_HashID_FFI , pub map_key_complex_value_map_key_simple_value_vec_simple : * mut std_collections_Map_keys_crate_nested_HashID_values_std_collections_Map_keys_u32_values_Vec_u32_FFI , pub map_key_complex_value_map_key_simple_value_vec_complex : * mut std_collections_Map_keys_crate_nested_HashID_values_std_collections_Map_keys_u32_values_Vec_crate_nested_HashID_FFI , pub map_key_complex_value_map_key_simple_value_map_key_complex_value_complex : * mut std_collections_Map_keys_crate_nested_HashID_values_std_collections_Map_keys_u32_values_std_collections_Map_keys_crate_nested_HashID_values_crate_nested_HashID_FFI , } impl ferment_interfaces :: FFIConversion < TestStruct > for TestStruct_FFI { unsafe fn ffi_from_const (ffi : * const TestStruct_FFI) -> TestStruct { let ffi_ref = & * ffi ; TestStruct { vec_u8 : { let vec = & * ffi_ref . vec_u8 ; { let vec = vec ; ferment_interfaces :: from_simple_vec (vec . values , vec . count) } } , vec_u32 : { let vec = & * ffi_ref . vec_u32 ; { let vec = vec ; ferment_interfaces :: from_simple_vec (vec . values , vec . count) } } , vec_vec_u32 : { let vec = & * ffi_ref . vec_vec_u32 ; let count = vec . count ; let values = vec . values ; (0 .. count) . map (| i | ferment_interfaces :: FFIConversion :: ffi_from_const (* values . add (i))) . collect () } , map_key_simple_value_simple : ferment_interfaces :: FFIConversion :: ffi_from (ffi_ref . map_key_simple_value_simple) , map_key_simple_value_complex : ferment_interfaces :: FFIConversion :: ffi_from (ffi_ref . map_key_simple_value_complex) , map_key_simple_value_vec_simple : ferment_interfaces :: FFIConversion :: ffi_from (ffi_ref . map_key_simple_value_vec_simple) , map_key_simple_value_vec_complex : ferment_interfaces :: FFIConversion :: ffi_from (ffi_ref . map_key_simple_value_vec_complex) , map_key_simple_value_map_key_simple_value_simple : ferment_interfaces :: FFIConversion :: ffi_from (ffi_ref . map_key_simple_value_map_key_simple_value_simple) , map_key_simple_value_map_key_simple_value_complex : ferment_interfaces :: FFIConversion :: ffi_from (ffi_ref . map_key_simple_value_map_key_simple_value_complex) , map_key_simple_value_map_key_simple_value_vec_simple : ferment_interfaces :: FFIConversion :: ffi_from (ffi_ref . map_key_simple_value_map_key_simple_value_vec_simple) , map_key_simple_value_map_key_simple_value_vec_complex : ferment_interfaces :: FFIConversion :: ffi_from (ffi_ref . map_key_simple_value_map_key_simple_value_vec_complex) , map_key_complex_value_simple : ferment_interfaces :: FFIConversion :: ffi_from (ffi_ref . map_key_complex_value_simple) , map_key_complex_value_complex : ferment_interfaces :: FFIConversion :: ffi_from (ffi_ref . map_key_complex_value_complex) , map_key_complex_value_vec_simple : ferment_interfaces :: FFIConversion :: ffi_from (ffi_ref . map_key_complex_value_vec_simple) , map_key_complex_value_vec_complex : ferment_interfaces :: FFIConversion :: ffi_from (ffi_ref . map_key_complex_value_vec_complex) , map_key_complex_value_map_key_simple_value_vec_simple : ferment_interfaces :: FFIConversion :: ffi_from (ffi_ref . map_key_complex_value_map_key_simple_value_vec_simple) , map_key_complex_value_map_key_simple_value_vec_complex : ferment_interfaces :: FFIConversion :: ffi_from (ffi_ref . map_key_complex_value_map_key_simple_value_vec_complex) , map_key_complex_value_map_key_simple_value_map_key_complex_value_complex : ferment_interfaces :: FFIConversion :: ffi_from (ffi_ref . map_key_complex_value_map_key_simple_value_map_key_complex_value_complex) , } } unsafe fn ffi_to_const (obj : TestStruct) -> * const TestStruct_FFI { ferment_interfaces :: boxed (TestStruct_FFI { vec_u8 : ferment_interfaces :: FFIConversion :: ffi_to (obj . vec_u8) , vec_u32 : ferment_interfaces :: FFIConversion :: ffi_to (obj . vec_u32) , vec_vec_u32 : ferment_interfaces :: FFIConversion :: ffi_to (obj . vec_vec_u32) , map_key_simple_value_simple : ferment_interfaces :: FFIConversion :: ffi_to (obj . map_key_simple_value_simple) , map_key_simple_value_complex : ferment_interfaces :: FFIConversion :: ffi_to (obj . map_key_simple_value_complex) , map_key_simple_value_vec_simple : ferment_interfaces :: FFIConversion :: ffi_to (obj . map_key_simple_value_vec_simple) , map_key_simple_value_vec_complex : ferment_interfaces :: FFIConversion :: ffi_to (obj . map_key_simple_value_vec_complex) , map_key_simple_value_map_key_simple_value_simple : ferment_interfaces :: FFIConversion :: ffi_to (obj . map_key_simple_value_map_key_simple_value_simple) , map_key_simple_value_map_key_simple_value_complex : ferment_interfaces :: FFIConversion :: ffi_to (obj . map_key_simple_value_map_key_simple_value_complex) , map_key_simple_value_map_key_simple_value_vec_simple : ferment_interfaces :: FFIConversion :: ffi_to (obj . map_key_simple_value_map_key_simple_value_vec_simple) , map_key_simple_value_map_key_simple_value_vec_complex : ferment_interfaces :: FFIConversion :: ffi_to (obj . map_key_simple_value_map_key_simple_value_vec_complex) , map_key_complex_value_simple : ferment_interfaces :: FFIConversion :: ffi_to (obj . map_key_complex_value_simple) , map_key_complex_value_complex : ferment_interfaces :: FFIConversion :: ffi_to (obj . map_key_complex_value_complex) , map_key_complex_value_vec_simple : ferment_interfaces :: FFIConversion :: ffi_to (obj . map_key_complex_value_vec_simple) , map_key_complex_value_vec_complex : ferment_interfaces :: FFIConversion :: ffi_to (obj . map_key_complex_value_vec_complex) , map_key_complex_value_map_key_simple_value_vec_simple : ferment_interfaces :: FFIConversion :: ffi_to (obj . map_key_complex_value_map_key_simple_value_vec_simple) , map_key_complex_value_map_key_simple_value_vec_complex : ferment_interfaces :: FFIConversion :: ffi_to (obj . map_key_complex_value_map_key_simple_value_vec_complex) , map_key_complex_value_map_key_simple_value_map_key_complex_value_complex : ferment_interfaces :: FFIConversion :: ffi_to (obj . map_key_complex_value_map_key_simple_value_map_key_complex_value_complex) , }) } unsafe fn destroy (ffi : * mut TestStruct_FFI) { ferment_interfaces :: unbox_any (ffi) ; } } impl Drop for TestStruct_FFI { fn drop (& mut self) { unsafe { let ffi_ref = self ; ferment_interfaces :: unbox_any (ffi_ref . vec_u8) ; ; ferment_interfaces :: unbox_any (ffi_ref . vec_u32) ; ; ferment_interfaces :: unbox_any (ffi_ref . vec_vec_u32) ; ; ferment_interfaces :: unbox_any (ffi_ref . map_key_simple_value_simple) ; ; ferment_interfaces :: unbox_any (ffi_ref . map_key_simple_value_complex) ; ; ferment_interfaces :: unbox_any (ffi_ref . map_key_simple_value_vec_simple) ; ; ferment_interfaces :: unbox_any (ffi_ref . map_key_simple_value_vec_complex) ; ; ferment_interfaces :: unbox_any (ffi_ref . map_key_simple_value_map_key_simple_value_simple) ; ; ferment_interfaces :: unbox_any (ffi_ref . map_key_simple_value_map_key_simple_value_complex) ; ; ferment_interfaces :: unbox_any (ffi_ref . map_key_simple_value_map_key_simple_value_vec_simple) ; ; ferment_interfaces :: unbox_any (ffi_ref . map_key_simple_value_map_key_simple_value_vec_complex) ; ; ferment_interfaces :: unbox_any (ffi_ref . map_key_complex_value_simple) ; ; ferment_interfaces :: unbox_any (ffi_ref . map_key_complex_value_complex) ; ; ferment_interfaces :: unbox_any (ffi_ref . map_key_complex_value_vec_simple) ; ; ferment_interfaces :: unbox_any (ffi_ref . map_key_complex_value_vec_complex) ; ; ferment_interfaces :: unbox_any (ffi_ref . map_key_complex_value_map_key_simple_value_vec_simple) ; ; ferment_interfaces :: unbox_any (ffi_ref . map_key_complex_value_map_key_simple_value_vec_complex) ; ; ferment_interfaces :: unbox_any (ffi_ref . map_key_complex_value_map_key_simple_value_map_key_complex_value_complex) ; ; } } } # [allow (non_snake_case)] # [no_mangle] pub unsafe extern "C" fn TestStruct_FFI_destroy (ffi : * mut TestStruct_FFI) { ferment_interfaces :: unbox_any (ffi) ; } # [doc = "FFI-representation of the ContractBounds"] # [repr (C)] # [allow (non_camel_case_types)] # [derive (Clone)] pub enum ContractBounds_FFI { SingleContract (* mut Identifier_FFI ,) , SingleContractDocumentType (* mut Identifier_FFI , * mut std :: os :: raw :: c_char ,) , } impl ferment_interfaces :: FFIConversion < ContractBounds > for ContractBounds_FFI { unsafe fn ffi_from_const (ffi : * const ContractBounds_FFI) -> ContractBounds { let ffi_ref = & * ffi ; match ffi_ref { ContractBounds_FFI :: SingleContract (o_0 ,) => ContractBounds :: SingleContract (ferment_interfaces :: FFIConversion :: ffi_from (* o_0) ,) , ContractBounds_FFI :: SingleContractDocumentType (o_0 , o_1 ,) => ContractBounds :: SingleContractDocumentType (ferment_interfaces :: FFIConversion :: ffi_from (* o_0) , ferment_interfaces :: FFIConversion :: ffi_from (* o_1) ,) , } } unsafe fn ffi_to_const (obj : ContractBounds) -> * const ContractBounds_FFI { ferment_interfaces :: boxed (match obj { ContractBounds :: SingleContract (o_0 ,) => ContractBounds_FFI :: SingleContract (ferment_interfaces :: FFIConversion :: ffi_to (o_0) ,) , ContractBounds :: SingleContractDocumentType (o_0 , o_1 ,) => ContractBounds_FFI :: SingleContractDocumentType (ferment_interfaces :: FFIConversion :: ffi_to (o_0) , ferment_interfaces :: FFIConversion :: ffi_to (o_1) ,) , }) } unsafe fn destroy (ffi : * mut ContractBounds_FFI) { ferment_interfaces :: unbox_any (ffi) ; } } impl Drop for ContractBounds_FFI { fn drop (& mut self) { unsafe { match self { ContractBounds_FFI :: SingleContract (o_0 ,) => { < Identifier_FFI as ferment_interfaces :: FFIConversion < Identifier >> :: destroy (o_0 . to_owned ()) ; } , ContractBounds_FFI :: SingleContractDocumentType (o_0 , o_1 ,) => { < Identifier_FFI as ferment_interfaces :: FFIConversion < Identifier >> :: destroy (o_0 . to_owned ()) ; < std :: os :: raw :: c_char as ferment_interfaces :: FFIConversion < String >> :: destroy (o_1 . to_owned ()) ; } , } } } } # [allow (non_snake_case)] # [no_mangle] pub unsafe extern "C" fn ContractBounds_FFI_destroy (ffi : * mut ContractBounds_FFI) { ferment_interfaces :: unbox_any (ffi) ; } # [doc = "FFI-representation of the IdentityPublicKey"] # [repr (C)] # [allow (non_camel_case_types)] # [derive (Clone)] pub enum IdentityPublicKey_FFI { V0 (* mut IdentityPublicKeyV0_FFI ,) , } impl ferment_interfaces :: FFIConversion < IdentityPublicKey > for IdentityPublicKey_FFI { unsafe fn ffi_from_const (ffi : * const IdentityPublicKey_FFI) -> IdentityPublicKey { let ffi_ref = & * ffi ; match ffi_ref { IdentityPublicKey_FFI :: V0 (o_0 ,) => IdentityPublicKey :: V0 (ferment_interfaces :: FFIConversion :: ffi_from (* o_0) ,) , } } unsafe fn ffi_to_const (obj : IdentityPublicKey) -> * const IdentityPublicKey_FFI { ferment_interfaces :: boxed (match obj { IdentityPublicKey :: V0 (o_0 ,) => IdentityPublicKey_FFI :: V0 (ferment_interfaces :: FFIConversion :: ffi_to (o_0) ,) , }) } unsafe fn destroy (ffi : * mut IdentityPublicKey_FFI) { ferment_interfaces :: unbox_any (ffi) ; } } impl Drop for IdentityPublicKey_FFI { fn drop (& mut self) { unsafe { match self { IdentityPublicKey_FFI :: V0 (o_0 ,) => { < IdentityPublicKeyV0_FFI as ferment_interfaces :: FFIConversion < IdentityPublicKeyV0 >> :: destroy (o_0 . to_owned ()) ; } , } } } } # [allow (non_snake_case)] # [no_mangle] pub unsafe extern "C" fn IdentityPublicKey_FFI_destroy (ffi : * mut IdentityPublicKey_FFI) { ferment_interfaces :: unbox_any (ffi) ; } # [doc = "FFI-representation of the TestEnum"] # [repr (C)] # [allow (non_camel_case_types)] # [derive (Clone)] pub enum TestEnum_FFI { Variant1 (* mut std :: os :: raw :: c_char ,) , Variant2 , Variant3 (* mut HashID_FFI , u32 ,) , Variant4 (* mut HashID_FFI , u32 , * mut std :: os :: raw :: c_char ,) , Variant5 (* mut std_collections_Map_keys_String_values_crate_nested_HashID_FFI , u32 , * mut std :: os :: raw :: c_char ,) , } impl ferment_interfaces :: FFIConversion < TestEnum > for TestEnum_FFI { unsafe fn ffi_from_const (ffi : * const TestEnum_FFI) -> TestEnum { let ffi_ref = & * ffi ; match ffi_ref { TestEnum_FFI :: Variant1 (o_0 ,) => TestEnum :: Variant1 (ferment_interfaces :: FFIConversion :: ffi_from (* o_0) ,) , TestEnum_FFI :: Variant2 => TestEnum :: Variant2 , TestEnum_FFI :: Variant3 (o_0 , o_1 ,) => TestEnum :: Variant3 (ferment_interfaces :: FFIConversion :: ffi_from (* o_0) , * o_1 ,) , TestEnum_FFI :: Variant4 (o_0 , o_1 , o_2 ,) => TestEnum :: Variant4 (ferment_interfaces :: FFIConversion :: ffi_from (* o_0) , * o_1 , ferment_interfaces :: FFIConversion :: ffi_from (* o_2) ,) , TestEnum_FFI :: Variant5 (o_0 , o_1 , o_2 ,) => TestEnum :: Variant5 (ferment_interfaces :: FFIConversion :: ffi_from (* o_0) , * o_1 , ferment_interfaces :: FFIConversion :: ffi_from (* o_2) ,) , } } unsafe fn ffi_to_const (obj : TestEnum) -> * const TestEnum_FFI { ferment_interfaces :: boxed (match obj { TestEnum :: Variant1 (o_0 ,) => TestEnum_FFI :: Variant1 (ferment_interfaces :: FFIConversion :: ffi_to (o_0) ,) , TestEnum :: Variant2 => TestEnum_FFI :: Variant2 , TestEnum :: Variant3 (o_0 , o_1 ,) => TestEnum_FFI :: Variant3 (ferment_interfaces :: FFIConversion :: ffi_to (o_0) , o_1 ,) , TestEnum :: Variant4 (o_0 , o_1 , o_2 ,) => TestEnum_FFI :: Variant4 (ferment_interfaces :: FFIConversion :: ffi_to (o_0) , o_1 , ferment_interfaces :: FFIConversion :: ffi_to (o_2) ,) , TestEnum :: Variant5 (o_0 , o_1 , o_2 ,) => TestEnum_FFI :: Variant5 (ferment_interfaces :: FFIConversion :: ffi_to (o_0) , o_1 , ferment_interfaces :: FFIConversion :: ffi_to (o_2) ,) , }) } unsafe fn destroy (ffi : * mut TestEnum_FFI) { ferment_interfaces :: unbox_any (ffi) ; } } impl Drop for TestEnum_FFI { fn drop (& mut self) { unsafe { match self { TestEnum_FFI :: Variant1 (o_0 ,) => { < std :: os :: raw :: c_char as ferment_interfaces :: FFIConversion < String >> :: destroy (o_0 . to_owned ()) ; } , TestEnum_FFI :: Variant2 => { } , TestEnum_FFI :: Variant3 (o_0 , o_1 ,) => { < HashID_FFI as ferment_interfaces :: FFIConversion < HashID >> :: destroy (o_0 . to_owned ()) ; { } ; } , TestEnum_FFI :: Variant4 (o_0 , o_1 , o_2 ,) => { < HashID_FFI as ferment_interfaces :: FFIConversion < HashID >> :: destroy (o_0 . to_owned ()) ; { } ; < std :: os :: raw :: c_char as ferment_interfaces :: FFIConversion < String >> :: destroy (o_2 . to_owned ()) ; } , TestEnum_FFI :: Variant5 (o_0 , o_1 , o_2 ,) => { ferment_interfaces :: unbox_any (o_0 . to_owned ()) ; ; { } ; < std :: os :: raw :: c_char as ferment_interfaces :: FFIConversion < String >> :: destroy (o_2 . to_owned ()) ; } , } } } } # [allow (non_snake_case)] # [no_mangle] pub unsafe extern "C" fn TestEnum_FFI_destroy (ffi : * mut TestEnum_FFI) { ferment_interfaces :: unbox_any (ffi) ; } # [doc = "FFI-representation of the # [doc = \"FFI-representation of the Hash160\"]"] # [repr (C)] # [derive (Clone)] # [allow (non_camel_case_types)] pub struct Hash160_FFI (* mut [u8 ; 20] ,) ; impl ferment_interfaces :: FFIConversion < Hash160 > for Hash160_FFI { unsafe fn ffi_from_const (ffi : * const Hash160_FFI) -> Hash160 { let ffi_ref = & * ffi ; * ffi_ref . 0 } unsafe fn ffi_to_const (obj : Hash160) -> * const Hash160_FFI { ferment_interfaces :: boxed (Hash160_FFI (ferment_interfaces :: boxed (obj))) } unsafe fn destroy (ffi : * mut Hash160_FFI) { ferment_interfaces :: unbox_any (ffi) ; } } impl Drop for Hash160_FFI { fn drop (& mut self) { unsafe { let ffi_ref = self ; ferment_interfaces :: unbox_any (ffi_ref . 0) ; } } } # [allow (non_snake_case)] # [no_mangle] pub unsafe extern "C" fn Hash160_FFI_destroy (ffi : * mut Hash160_FFI) { ferment_interfaces :: unbox_any (ffi) ; } # [doc = "FFI-representation of the # [doc = \"FFI-representation of the MapOfVecHashes\"]"] # [repr (C)] # [derive (Clone)] # [allow (non_camel_case_types)] pub struct MapOfVecHashes_FFI (* mut std_collections_Map_keys_crate_nested_HashID_values_Vec_crate_nested_HashID_FFI ,) ; impl ferment_interfaces :: FFIConversion < MapOfVecHashes > for MapOfVecHashes_FFI { unsafe fn ffi_from_const (ffi : * const MapOfVecHashes_FFI) -> MapOfVecHashes { let ffi_ref = & * ffi ; ferment_interfaces :: FFIConversion :: ffi_from (ffi_ref . 0) } unsafe fn ffi_to_const (obj : MapOfVecHashes) -> * const MapOfVecHashes_FFI { ferment_interfaces :: boxed (MapOfVecHashes_FFI (ferment_interfaces :: FFIConversion :: ffi_to (obj))) } unsafe fn destroy (ffi : * mut MapOfVecHashes_FFI) { ferment_interfaces :: unbox_any (ffi) ; } } impl Drop for MapOfVecHashes_FFI { fn drop (& mut self) { unsafe { let ffi_ref = self ; ferment_interfaces :: unbox_any (ffi_ref . 0) ; ; } } } # [allow (non_snake_case)] # [no_mangle] pub unsafe extern "C" fn MapOfVecHashes_FFI_destroy (ffi : * mut MapOfVecHashes_FFI) { ferment_interfaces :: unbox_any (ffi) ; } # [doc = "FFI-representation of the find_hash_by_u32"] # [doc = r" # Safety"] # [no_mangle] pub unsafe extern "C" fn ffi_find_hash_by_u32 (key : u32 , map : * mut std_collections_Map_keys_u32_values_crate_nested_HashID_FFI ,) -> * mut HashID_FFI { let obj = find_hash_by_u32 (key , ferment_interfaces :: FFIConversion :: ffi_from (map) ,) ; ferment_interfaces :: FFIConversion :: ffi_to_opt (obj) } # [doc = "FFI-representation of the # [doc = \"FFI-representation of the IdentityV0\"]"] # [repr (C)] # [derive (Clone)] # [allow (non_camel_case_types)] pub struct IdentityV0_FFI { pub id : * mut Identifier_FFI , pub public_keys : * mut std_collections_Map_keys_crate_nested_KeyID_values_crate_nested_IdentityPublicKey_FFI , pub balance : u64 , pub revision : * mut Revision_FFI , } impl ferment_interfaces :: FFIConversion < IdentityV0 > for IdentityV0_FFI { unsafe fn ffi_from_const (ffi : * const IdentityV0_FFI) -> IdentityV0 { let ffi_ref = & * ffi ; IdentityV0 { id : ferment_interfaces :: FFIConversion :: ffi_from (ffi_ref . id) , public_keys : ferment_interfaces :: FFIConversion :: ffi_from (ffi_ref . public_keys) , balance : ffi_ref . balance , revision : ferment_interfaces :: FFIConversion :: ffi_from (ffi_ref . revision) , } } unsafe fn ffi_to_const (obj : IdentityV0) -> * const IdentityV0_FFI { ferment_interfaces :: boxed (IdentityV0_FFI { id : ferment_interfaces :: FFIConversion :: ffi_to (obj . id) , public_keys : ferment_interfaces :: FFIConversion :: ffi_to (obj . public_keys) , balance : obj . balance , revision : ferment_interfaces :: FFIConversion :: ffi_to (obj . revision) , }) } unsafe fn destroy (ffi : * mut IdentityV0_FFI) { ferment_interfaces :: unbox_any (ffi) ; } } impl Drop for IdentityV0_FFI { fn drop (& mut self) { unsafe { let ffi_ref = self ; < Identifier_FFI as ferment_interfaces :: FFIConversion < Identifier >> :: destroy (ffi_ref . id) ; ferment_interfaces :: unbox_any (ffi_ref . public_keys) ; ; { } ; < Revision_FFI as ferment_interfaces :: FFIConversion < Revision >> :: destroy (ffi_ref . revision) ; } } } # [allow (non_snake_case)] # [no_mangle] pub unsafe extern "C" fn IdentityV0_FFI_destroy (ffi : * mut IdentityV0_FFI) { ferment_interfaces :: unbox_any (ffi) ; } # [doc = "FFI-representation of the # [doc = \"FFI-representation of the ArrayOfArraysOfHashes\"]"] # [repr (C)] # [derive (Clone)] # [allow (non_camel_case_types)] pub struct ArrayOfArraysOfHashes_FFI (* mut Vec_Vec_crate_nested_HashID_FFI ,) ; impl ferment_interfaces :: FFIConversion < ArrayOfArraysOfHashes > for ArrayOfArraysOfHashes_FFI { unsafe fn ffi_from_const (ffi : * const ArrayOfArraysOfHashes_FFI) -> ArrayOfArraysOfHashes { let ffi_ref = & * ffi ; { let vec = & * ffi_ref . 0 ; let count = vec . count ; let values = vec . values ; (0 .. count) . map (| i | ferment_interfaces :: FFIConversion :: ffi_from_const (* values . add (i))) . collect () } } unsafe fn ffi_to_const (obj : ArrayOfArraysOfHashes) -> * const ArrayOfArraysOfHashes_FFI { ferment_interfaces :: boxed (ArrayOfArraysOfHashes_FFI (ferment_interfaces :: FFIConversion :: ffi_to (obj))) } unsafe fn destroy (ffi : * mut ArrayOfArraysOfHashes_FFI) { ferment_interfaces :: unbox_any (ffi) ; } } impl Drop for ArrayOfArraysOfHashes_FFI { fn drop (& mut self) { unsafe { let ffi_ref = self ; ferment_interfaces :: unbox_any (ffi_ref . 0) ; ; } } } # [allow (non_snake_case)] # [no_mangle] pub unsafe extern "C" fn ArrayOfArraysOfHashes_FFI_destroy (ffi : * mut ArrayOfArraysOfHashes_FFI) { ferment_interfaces :: unbox_any (ffi) ; } # [doc = "FFI-representation of the # [doc = \"FFI-representation of the MapOfHashes\"]"] # [repr (C)] # [derive (Clone)] # [allow (non_camel_case_types)] pub struct MapOfHashes_FFI (* mut std_collections_Map_keys_crate_nested_HashID_values_crate_nested_HashID_FFI ,) ; impl ferment_interfaces :: FFIConversion < MapOfHashes > for MapOfHashes_FFI { unsafe fn ffi_from_const (ffi : * const MapOfHashes_FFI) -> MapOfHashes { let ffi_ref = & * ffi ; ferment_interfaces :: FFIConversion :: ffi_from (ffi_ref . 0) } unsafe fn ffi_to_const (obj : MapOfHashes) -> * const MapOfHashes_FFI { ferment_interfaces :: boxed (MapOfHashes_FFI (ferment_interfaces :: FFIConversion :: ffi_to (obj))) } unsafe fn destroy (ffi : * mut MapOfHashes_FFI) { ferment_interfaces :: unbox_any (ffi) ; } } impl Drop for MapOfHashes_FFI { fn drop (& mut self) { unsafe { let ffi_ref = self ; ferment_interfaces :: unbox_any (ffi_ref . 0) ; ; } } } # [allow (non_snake_case)] # [no_mangle] pub unsafe extern "C" fn MapOfHashes_FFI_destroy (ffi : * mut MapOfHashes_FFI) { ferment_interfaces :: unbox_any (ffi) ; } } } # [allow (dead_code , redundant_semicolons , unused_braces , unused_imports , unused_unsafe , unused_variables)] pub mod generics { # [repr (C)] # [derive (Clone)] # [allow (non_camel_case_types)] pub struct std_collections_Map_keys_u32_values_Vec_u32_FFI { pub count : usize , pub keys : * mut u32 , pub values : * mut * mut Vec_u32_FFI , } impl ferment_interfaces :: FFIConversion < std :: collections :: BTreeMap < u32 , Vec < u32 > > > for std_collections_Map_keys_u32_values_Vec_u32_FFI { unsafe fn ffi_from_const (ffi : * const std_collections_Map_keys_u32_values_Vec_u32_FFI) -> std :: collections :: BTreeMap < u32 , Vec < u32 > > { let ffi_ref = & * ffi ; ferment_interfaces :: from_simple_complex_map (ffi_ref . count , ffi_ref . keys , ffi_ref . values) } unsafe fn ffi_to_const (obj : std :: collections :: BTreeMap < u32 , Vec < u32 > >) -> * const std_collections_Map_keys_u32_values_Vec_u32_FFI { ferment_interfaces :: boxed (Self { count : obj . len () , keys : ferment_interfaces :: to_simple_vec (obj . keys () . cloned () . collect ()) , values : ferment_interfaces :: complex_vec_iterator :: < Vec < u32 > , Vec_u32_FFI > (obj . values () . cloned ()) }) } unsafe fn destroy (ffi : * mut std_collections_Map_keys_u32_values_Vec_u32_FFI) { ferment_interfaces :: unbox_any (ffi) ; } } impl Drop for std_collections_Map_keys_u32_values_Vec_u32_FFI { fn drop (& mut self) { unsafe { ferment_interfaces :: unbox_vec_ptr (self . keys , self . count) ; ferment_interfaces :: unbox_any_vec_ptr (self . values , self . count) ; } } } # [repr (C)] # [derive (Clone)] # [allow (non_camel_case_types)] pub struct std_collections_Map_keys_u32_values_std_collections_Map_keys_u32_values_Vec_u32_FFI { pub count : usize , pub keys : * mut u32 , pub values : * mut * mut std_collections_Map_keys_u32_values_Vec_u32_FFI , } impl ferment_interfaces :: FFIConversion < std :: collections :: BTreeMap < u32 , std :: collections :: BTreeMap < u32 , Vec < u32 > > > > for std_collections_Map_keys_u32_values_std_collections_Map_keys_u32_values_Vec_u32_FFI { unsafe fn ffi_from_const (ffi : * const std_collections_Map_keys_u32_values_std_collections_Map_keys_u32_values_Vec_u32_FFI) -> std :: collections :: BTreeMap < u32 , std :: collections :: BTreeMap < u32 , Vec < u32 > > > { let ffi_ref = & * ffi ; ferment_interfaces :: from_simple_complex_map (ffi_ref . count , ffi_ref . keys , ffi_ref . values) } unsafe fn ffi_to_const (obj : std :: collections :: BTreeMap < u32 , std :: collections :: BTreeMap < u32 , Vec < u32 > > >) -> * const std_collections_Map_keys_u32_values_std_collections_Map_keys_u32_values_Vec_u32_FFI { ferment_interfaces :: boxed (Self { count : obj . len () , keys : ferment_interfaces :: to_simple_vec (obj . keys () . cloned () . collect ()) , values : ferment_interfaces :: complex_vec_iterator :: < std :: collections :: BTreeMap < u32 , Vec < u32 > > , std_collections_Map_keys_u32_values_Vec_u32_FFI > (obj . values () . cloned ()) }) } unsafe fn destroy (ffi : * mut std_collections_Map_keys_u32_values_std_collections_Map_keys_u32_values_Vec_u32_FFI) { ferment_interfaces :: unbox_any (ffi) ; } } impl Drop for std_collections_Map_keys_u32_values_std_collections_Map_keys_u32_values_Vec_u32_FFI { fn drop (& mut self) { unsafe { ferment_interfaces :: unbox_vec_ptr (self . keys , self . count) ; ferment_interfaces :: unbox_any_vec_ptr (self . values , self . count) ; } } } # [repr (C)] # [derive (Clone)] # [allow (non_camel_case_types)] pub struct std_collections_Map_keys_crate_nested_HashID_values_crate_nested_HashID_FFI { pub count : usize , pub keys : * mut * mut crate :: fermented :: types :: nested :: HashID_FFI , pub values : * mut * mut crate :: fermented :: types :: nested :: HashID_FFI , } impl ferment_interfaces :: FFIConversion < std :: collections :: BTreeMap < crate :: nested :: HashID , crate :: nested :: HashID > > for std_collections_Map_keys_crate_nested_HashID_values_crate_nested_HashID_FFI { unsafe fn ffi_from_const (ffi : * const std_collections_Map_keys_crate_nested_HashID_values_crate_nested_HashID_FFI) -> std :: collections :: BTreeMap < crate :: nested :: HashID , crate :: nested :: HashID > { let ffi_ref = & * ffi ; ferment_interfaces :: from_complex_map (ffi_ref . count , ffi_ref . keys , ffi_ref . values) } unsafe fn ffi_to_const (obj : std :: collections :: BTreeMap < crate :: nested :: HashID , crate :: nested :: HashID >) -> * const std_collections_Map_keys_crate_nested_HashID_values_crate_nested_HashID_FFI { ferment_interfaces :: boxed (Self { count : obj . len () , keys : ferment_interfaces :: complex_vec_iterator :: < crate :: nested :: HashID , crate :: fermented :: types :: nested :: HashID_FFI > (obj . keys () . cloned ()) , values : ferment_interfaces :: complex_vec_iterator :: < crate :: nested :: HashID , crate :: fermented :: types :: nested :: HashID_FFI > (obj . values () . cloned ()) }) } unsafe fn destroy (ffi : * mut std_collections_Map_keys_crate_nested_HashID_values_crate_nested_HashID_FFI) { ferment_interfaces :: unbox_any (ffi) ; } } impl Drop for std_collections_Map_keys_crate_nested_HashID_values_crate_nested_HashID_FFI { fn drop (& mut self) { unsafe { ferment_interfaces :: unbox_any_vec_ptr (self . keys , self . count) ; ferment_interfaces :: unbox_any_vec_ptr (self . values , self . count) ; } } } # [repr (C)] # [derive (Clone)] # [allow (non_camel_case_types)] pub struct Vec_u32_FFI { pub count : usize , pub values : * mut u32 , } impl ferment_interfaces :: FFIConversion < Vec < u32 >> for Vec_u32_FFI { unsafe fn ffi_from_const (ffi : * const Vec_u32_FFI) -> Vec < u32 > { let ffi_ref = & * ffi ; ferment_interfaces :: FFIVecConversion :: decode (ffi_ref) } unsafe fn ffi_to_const (obj : Vec < u32 >) -> * const Vec_u32_FFI { ferment_interfaces :: FFIVecConversion :: encode (obj) } unsafe fn destroy (ffi : * mut Vec_u32_FFI) { ferment_interfaces :: unbox_any (ffi) ; } } impl ferment_interfaces :: FFIVecConversion for Vec_u32_FFI { type Value = u32 ; unsafe fn decode (& self) -> Vec < Self :: Value > { ferment_interfaces :: from_simple_vec (self . values as * const Self :: Value , self . count) } unsafe fn encode (obj : Vec < Self :: Value >) -> * mut Self { ferment_interfaces :: boxed (Self { count : obj . len () , values : ferment_interfaces :: boxed_vec (obj) }) } } impl Drop for Vec_u32_FFI { fn drop (& mut self) { unsafe { ferment_interfaces :: unbox_vec_ptr (self . values , self . count) ; } } } # [repr (C)] # [derive (Clone)] # [allow (non_camel_case_types)] pub struct std_collections_Map_keys_u32_values_std_collections_Map_keys_u32_values_crate_nested_HashID_FFI { pub count : usize , pub keys : * mut u32 , pub values : * mut * mut std_collections_Map_keys_u32_values_crate_nested_HashID_FFI , } impl ferment_interfaces :: FFIConversion < std :: collections :: BTreeMap < u32 , std :: collections :: BTreeMap < u32 , crate :: nested :: HashID > > > for std_collections_Map_keys_u32_values_std_collections_Map_keys_u32_values_crate_nested_HashID_FFI { unsafe fn ffi_from_const (ffi : * const std_collections_Map_keys_u32_values_std_collections_Map_keys_u32_values_crate_nested_HashID_FFI) -> std :: collections :: BTreeMap < u32 , std :: collections :: BTreeMap < u32 , crate :: nested :: HashID > > { let ffi_ref = & * ffi ; ferment_interfaces :: from_simple_complex_map (ffi_ref . count , ffi_ref . keys , ffi_ref . values) } unsafe fn ffi_to_const (obj : std :: collections :: BTreeMap < u32 , std :: collections :: BTreeMap < u32 , crate :: nested :: HashID > >) -> * const std_collections_Map_keys_u32_values_std_collections_Map_keys_u32_values_crate_nested_HashID_FFI { ferment_interfaces :: boxed (Self { count : obj . len () , keys : ferment_interfaces :: to_simple_vec (obj . keys () . cloned () . collect ()) , values : ferment_interfaces :: complex_vec_iterator :: < std :: collections :: BTreeMap < u32 , crate :: nested :: HashID > , std_collections_Map_keys_u32_values_crate_nested_HashID_FFI > (obj . values () . cloned ()) }) } unsafe fn destroy (ffi : * mut std_collections_Map_keys_u32_values_std_collections_Map_keys_u32_values_crate_nested_HashID_FFI) { ferment_interfaces :: unbox_any (ffi) ; } } impl Drop for std_collections_Map_keys_u32_values_std_collections_Map_keys_u32_values_crate_nested_HashID_FFI { fn drop (& mut self) { unsafe { ferment_interfaces :: unbox_vec_ptr (self . keys , self . count) ; ferment_interfaces :: unbox_any_vec_ptr (self . values , self . count) ; } } } # [repr (C)] # [derive (Clone)] # [allow (non_camel_case_types)] pub struct std_collections_Map_keys_crate_nested_HashID_values_std_collections_Map_keys_u32_values_Vec_u32_FFI { pub count : usize , pub keys : * mut * mut crate :: fermented :: types :: nested :: HashID_FFI , pub values : * mut * mut std_collections_Map_keys_u32_values_Vec_u32_FFI , } impl ferment_interfaces :: FFIConversion < std :: collections :: BTreeMap < crate :: nested :: HashID , std :: collections :: BTreeMap < u32 , Vec < u32 > > > > for std_collections_Map_keys_crate_nested_HashID_values_std_collections_Map_keys_u32_values_Vec_u32_FFI { unsafe fn ffi_from_const (ffi : * const std_collections_Map_keys_crate_nested_HashID_values_std_collections_Map_keys_u32_values_Vec_u32_FFI) -> std :: collections :: BTreeMap < crate :: nested :: HashID , std :: collections :: BTreeMap < u32 , Vec < u32 > > > { let ffi_ref = & * ffi ; ferment_interfaces :: from_complex_map (ffi_ref . count , ffi_ref . keys , ffi_ref . values) } unsafe fn ffi_to_const (obj : std :: collections :: BTreeMap < crate :: nested :: HashID , std :: collections :: BTreeMap < u32 , Vec < u32 > > >) -> * const std_collections_Map_keys_crate_nested_HashID_values_std_collections_Map_keys_u32_values_Vec_u32_FFI { ferment_interfaces :: boxed (Self { count : obj . len () , keys : ferment_interfaces :: complex_vec_iterator :: < crate :: nested :: HashID , crate :: fermented :: types :: nested :: HashID_FFI > (obj . keys () . cloned ()) , values : ferment_interfaces :: complex_vec_iterator :: < std :: collections :: BTreeMap < u32 , Vec < u32 > > , std_collections_Map_keys_u32_values_Vec_u32_FFI > (obj . values () . cloned ()) }) } unsafe fn destroy (ffi : * mut std_collections_Map_keys_crate_nested_HashID_values_std_collections_Map_keys_u32_values_Vec_u32_FFI) { ferment_interfaces :: unbox_any (ffi) ; } } impl Drop for std_collections_Map_keys_crate_nested_HashID_values_std_collections_Map_keys_u32_values_Vec_u32_FFI { fn drop (& mut self) { unsafe { ferment_interfaces :: unbox_any_vec_ptr (self . keys , self . count) ; ferment_interfaces :: unbox_any_vec_ptr (self . values , self . count) ; } } } # [repr (C)] # [derive (Clone)] # [allow (non_camel_case_types)] pub struct std_collections_Map_keys_crate_nested_KeyID_values_crate_nested_IdentityPublicKey_FFI { pub count : usize , pub keys : * mut * mut crate :: fermented :: types :: nested :: KeyID_FFI , pub values : * mut * mut crate :: fermented :: types :: nested :: IdentityPublicKey_FFI , } impl ferment_interfaces :: FFIConversion < std :: collections :: BTreeMap < crate :: nested :: KeyID , crate :: nested :: IdentityPublicKey > > for std_collections_Map_keys_crate_nested_KeyID_values_crate_nested_IdentityPublicKey_FFI { unsafe fn ffi_from_const (ffi : * const std_collections_Map_keys_crate_nested_KeyID_values_crate_nested_IdentityPublicKey_FFI) -> std :: collections :: BTreeMap < crate :: nested :: KeyID , crate :: nested :: IdentityPublicKey > { let ffi_ref = & * ffi ; ferment_interfaces :: from_complex_map (ffi_ref . count , ffi_ref . keys , ffi_ref . values) } unsafe fn ffi_to_const (obj : std :: collections :: BTreeMap < crate :: nested :: KeyID , crate :: nested :: IdentityPublicKey >) -> * const std_collections_Map_keys_crate_nested_KeyID_values_crate_nested_IdentityPublicKey_FFI { ferment_interfaces :: boxed (Self { count : obj . len () , keys : ferment_interfaces :: complex_vec_iterator :: < crate :: nested :: KeyID , crate :: fermented :: types :: nested :: KeyID_FFI > (obj . keys () . cloned ()) , values : ferment_interfaces :: complex_vec_iterator :: < crate :: nested :: IdentityPublicKey , crate :: fermented :: types :: nested :: IdentityPublicKey_FFI > (obj . values () . cloned ()) }) } unsafe fn destroy (ffi : * mut std_collections_Map_keys_crate_nested_KeyID_values_crate_nested_IdentityPublicKey_FFI) { ferment_interfaces :: unbox_any (ffi) ; } } impl Drop for std_collections_Map_keys_crate_nested_KeyID_values_crate_nested_IdentityPublicKey_FFI { fn drop (& mut self) { unsafe { ferment_interfaces :: unbox_any_vec_ptr (self . keys , self . count) ; ferment_interfaces :: unbox_any_vec_ptr (self . values , self . count) ; } } } # [repr (C)] # [derive (Clone)] # [allow (non_camel_case_types)] pub struct std_collections_Map_keys_crate_nested_HashID_values_std_collections_Map_keys_u32_values_std_collections_Map_keys_crate_nested_HashID_values_crate_nested_HashID_FFI { pub count : usize , pub keys : * mut * mut crate :: fermented :: types :: nested :: HashID_FFI , pub values : * mut * mut std_collections_Map_keys_u32_values_std_collections_Map_keys_crate_nested_HashID_values_crate_nested_HashID_FFI , } impl ferment_interfaces :: FFIConversion < std :: collections :: BTreeMap < crate :: nested :: HashID , std :: collections :: BTreeMap < u32 , std :: collections :: BTreeMap < crate :: nested :: HashID , crate :: nested :: HashID > > > > for std_collections_Map_keys_crate_nested_HashID_values_std_collections_Map_keys_u32_values_std_collections_Map_keys_crate_nested_HashID_values_crate_nested_HashID_FFI { unsafe fn ffi_from_const (ffi : * const std_collections_Map_keys_crate_nested_HashID_values_std_collections_Map_keys_u32_values_std_collections_Map_keys_crate_nested_HashID_values_crate_nested_HashID_FFI) -> std :: collections :: BTreeMap < crate :: nested :: HashID , std :: collections :: BTreeMap < u32 , std :: collections :: BTreeMap < crate :: nested :: HashID , crate :: nested :: HashID > > > { let ffi_ref = & * ffi ; ferment_interfaces :: from_complex_map (ffi_ref . count , ffi_ref . keys , ffi_ref . values) } unsafe fn ffi_to_const (obj : std :: collections :: BTreeMap < crate :: nested :: HashID , std :: collections :: BTreeMap < u32 , std :: collections :: BTreeMap < crate :: nested :: HashID , crate :: nested :: HashID > > >) -> * const std_collections_Map_keys_crate_nested_HashID_values_std_collections_Map_keys_u32_values_std_collections_Map_keys_crate_nested_HashID_values_crate_nested_HashID_FFI { ferment_interfaces :: boxed (Self { count : obj . len () , keys : ferment_interfaces :: complex_vec_iterator :: < crate :: nested :: HashID , crate :: fermented :: types :: nested :: HashID_FFI > (obj . keys () . cloned ()) , values : ferment_interfaces :: complex_vec_iterator :: < std :: collections :: BTreeMap < u32 , std :: collections :: BTreeMap < crate :: nested :: HashID , crate :: nested :: HashID > > , std_collections_Map_keys_u32_values_std_collections_Map_keys_crate_nested_HashID_values_crate_nested_HashID_FFI > (obj . values () . cloned ()) }) } unsafe fn destroy (ffi : * mut std_collections_Map_keys_crate_nested_HashID_values_std_collections_Map_keys_u32_values_std_collections_Map_keys_crate_nested_HashID_values_crate_nested_HashID_FFI) { ferment_interfaces :: unbox_any (ffi) ; } } impl Drop for std_collections_Map_keys_crate_nested_HashID_values_std_collections_Map_keys_u32_values_std_collections_Map_keys_crate_nested_HashID_values_crate_nested_HashID_FFI { fn drop (& mut self) { unsafe { ferment_interfaces :: unbox_any_vec_ptr (self . keys , self . count) ; ferment_interfaces :: unbox_any_vec_ptr (self . values , self . count) ; } } } # [repr (C)] # [derive (Clone)] # [allow (non_camel_case_types)] pub struct std_collections_Map_keys_u32_values_Vec_crate_nested_HashID_FFI { pub count : usize , pub keys : * mut u32 , pub values : * mut * mut Vec_crate_nested_HashID_FFI , } impl ferment_interfaces :: FFIConversion < std :: collections :: BTreeMap < u32 , Vec < crate :: nested :: HashID > > > for std_collections_Map_keys_u32_values_Vec_crate_nested_HashID_FFI { unsafe fn ffi_from_const (ffi : * const std_collections_Map_keys_u32_values_Vec_crate_nested_HashID_FFI) -> std :: collections :: BTreeMap < u32 , Vec < crate :: nested :: HashID > > { let ffi_ref = & * ffi ; ferment_interfaces :: from_simple_complex_map (ffi_ref . count , ffi_ref . keys , ffi_ref . values) } unsafe fn ffi_to_const (obj : std :: collections :: BTreeMap < u32 , Vec < crate :: nested :: HashID > >) -> * const std_collections_Map_keys_u32_values_Vec_crate_nested_HashID_FFI { ferment_interfaces :: boxed (Self { count : obj . len () , keys : ferment_interfaces :: to_simple_vec (obj . keys () . cloned () . collect ()) , values : ferment_interfaces :: complex_vec_iterator :: < Vec < crate :: nested :: HashID > , Vec_crate_nested_HashID_FFI > (obj . values () . cloned ()) }) } unsafe fn destroy (ffi : * mut std_collections_Map_keys_u32_values_Vec_crate_nested_HashID_FFI) { ferment_interfaces :: unbox_any (ffi) ; } } impl Drop for std_collections_Map_keys_u32_values_Vec_crate_nested_HashID_FFI { fn drop (& mut self) { unsafe { ferment_interfaces :: unbox_vec_ptr (self . keys , self . count) ; ferment_interfaces :: unbox_any_vec_ptr (self . values , self . count) ; } } } # [repr (C)] # [derive (Clone)] # [allow (non_camel_case_types)] pub struct std_collections_Map_keys_crate_nested_HashID_values_std_collections_Map_keys_u32_values_Vec_crate_nested_HashID_FFI { pub count : usize , pub keys : * mut * mut crate :: fermented :: types :: nested :: HashID_FFI , pub values : * mut * mut std_collections_Map_keys_u32_values_Vec_crate_nested_HashID_FFI , } impl ferment_interfaces :: FFIConversion < std :: collections :: BTreeMap < crate :: nested :: HashID , std :: collections :: BTreeMap < u32 , Vec < crate :: nested :: HashID > > > > for std_collections_Map_keys_crate_nested_HashID_values_std_collections_Map_keys_u32_values_Vec_crate_nested_HashID_FFI { unsafe fn ffi_from_const (ffi : * const std_collections_Map_keys_crate_nested_HashID_values_std_collections_Map_keys_u32_values_Vec_crate_nested_HashID_FFI) -> std :: collections :: BTreeMap < crate :: nested :: HashID , std :: collections :: BTreeMap < u32 , Vec < crate :: nested :: HashID > > > { let ffi_ref = & * ffi ; ferment_interfaces :: from_complex_map (ffi_ref . count , ffi_ref . keys , ffi_ref . values) } unsafe fn ffi_to_const (obj : std :: collections :: BTreeMap < crate :: nested :: HashID , std :: collections :: BTreeMap < u32 , Vec < crate :: nested :: HashID > > >) -> * const std_collections_Map_keys_crate_nested_HashID_values_std_collections_Map_keys_u32_values_Vec_crate_nested_HashID_FFI { ferment_interfaces :: boxed (Self { count : obj . len () , keys : ferment_interfaces :: complex_vec_iterator :: < crate :: nested :: HashID , crate :: fermented :: types :: nested :: HashID_FFI > (obj . keys () . cloned ()) , values : ferment_interfaces :: complex_vec_iterator :: < std :: collections :: BTreeMap < u32 , Vec < crate :: nested :: HashID > > , std_collections_Map_keys_u32_values_Vec_crate_nested_HashID_FFI > (obj . values () . cloned ()) }) } unsafe fn destroy (ffi : * mut std_collections_Map_keys_crate_nested_HashID_values_std_collections_Map_keys_u32_values_Vec_crate_nested_HashID_FFI) { ferment_interfaces :: unbox_any (ffi) ; } } impl Drop for std_collections_Map_keys_crate_nested_HashID_values_std_collections_Map_keys_u32_values_Vec_crate_nested_HashID_FFI { fn drop (& mut self) { unsafe { ferment_interfaces :: unbox_any_vec_ptr (self . keys , self . count) ; ferment_interfaces :: unbox_any_vec_ptr (self . values , self . count) ; } } } # [repr (C)] # [derive (Clone)] # [allow (non_camel_case_types)] pub struct Vec_bool_FFI { pub count : usize , pub values : * mut bool , } impl ferment_interfaces :: FFIConversion < Vec < bool >> for Vec_bool_FFI { unsafe fn ffi_from_const (ffi : * const Vec_bool_FFI) -> Vec < bool > { let ffi_ref = & * ffi ; ferment_interfaces :: FFIVecConversion :: decode (ffi_ref) } unsafe fn ffi_to_const (obj : Vec < bool >) -> * const Vec_bool_FFI { ferment_interfaces :: FFIVecConversion :: encode (obj) } unsafe fn destroy (ffi : * mut Vec_bool_FFI) { ferment_interfaces :: unbox_any (ffi) ; } } impl ferment_interfaces :: FFIVecConversion for Vec_bool_FFI { type Value = bool ; unsafe fn decode (& self) -> Vec < Self :: Value > { ferment_interfaces :: from_simple_vec (self . values as * const Self :: Value , self . count) } unsafe fn encode (obj : Vec < Self :: Value >) -> * mut Self { ferment_interfaces :: boxed (Self { count : obj . len () , values : ferment_interfaces :: boxed_vec (obj) }) } } impl Drop for Vec_bool_FFI { fn drop (& mut self) { unsafe { ferment_interfaces :: unbox_vec_ptr (self . values , self . count) ; } } } # [repr (C)] # [derive (Clone)] # [allow (non_camel_case_types)] pub struct std_collections_Map_keys_crate_nested_HashID_values_Vec_crate_nested_HashID_FFI { pub count : usize , pub keys : * mut * mut crate :: fermented :: types :: nested :: HashID_FFI , pub values : * mut * mut Vec_crate_nested_HashID_FFI , } impl ferment_interfaces :: FFIConversion < std :: collections :: BTreeMap < crate :: nested :: HashID , Vec < crate :: nested :: HashID > > > for std_collections_Map_keys_crate_nested_HashID_values_Vec_crate_nested_HashID_FFI { unsafe fn ffi_from_const (ffi : * const std_collections_Map_keys_crate_nested_HashID_values_Vec_crate_nested_HashID_FFI) -> std :: collections :: BTreeMap < crate :: nested :: HashID , Vec < crate :: nested :: HashID > > { let ffi_ref = & * ffi ; ferment_interfaces :: from_complex_map (ffi_ref . count , ffi_ref . keys , ffi_ref . values) } unsafe fn ffi_to_const (obj : std :: collections :: BTreeMap < crate :: nested :: HashID , Vec < crate :: nested :: HashID > >) -> * const std_collections_Map_keys_crate_nested_HashID_values_Vec_crate_nested_HashID_FFI { ferment_interfaces :: boxed (Self { count : obj . len () , keys : ferment_interfaces :: complex_vec_iterator :: < crate :: nested :: HashID , crate :: fermented :: types :: nested :: HashID_FFI > (obj . keys () . cloned ()) , values : ferment_interfaces :: complex_vec_iterator :: < Vec < crate :: nested :: HashID > , Vec_crate_nested_HashID_FFI > (obj . values () . cloned ()) }) } unsafe fn destroy (ffi : * mut std_collections_Map_keys_crate_nested_HashID_values_Vec_crate_nested_HashID_FFI) { ferment_interfaces :: unbox_any (ffi) ; } } impl Drop for std_collections_Map_keys_crate_nested_HashID_values_Vec_crate_nested_HashID_FFI { fn drop (& mut self) { unsafe { ferment_interfaces :: unbox_any_vec_ptr (self . keys , self . count) ; ferment_interfaces :: unbox_any_vec_ptr (self . values , self . count) ; } } } # [repr (C)] # [derive (Clone)] # [allow (non_camel_case_types)] pub struct std_collections_Map_keys_crate_chain_common_chain_type_ChainType_values_crate_nested_HashID_FFI { pub count : usize , pub keys : * mut * mut crate :: fermented :: types :: chain :: common :: chain_type :: ChainType_FFI , pub values : * mut * mut crate :: fermented :: types :: nested :: HashID_FFI , } impl ferment_interfaces :: FFIConversion < std :: collections :: BTreeMap < crate :: chain :: common :: chain_type :: ChainType , crate :: nested :: HashID > > for std_collections_Map_keys_crate_chain_common_chain_type_ChainType_values_crate_nested_HashID_FFI { unsafe fn ffi_from_const (ffi : * const std_collections_Map_keys_crate_chain_common_chain_type_ChainType_values_crate_nested_HashID_FFI) -> std :: collections :: BTreeMap < crate :: chain :: common :: chain_type :: ChainType , crate :: nested :: HashID > { let ffi_ref = & * ffi ; ferment_interfaces :: from_complex_map (ffi_ref . count , ffi_ref . keys , ffi_ref . values) } unsafe fn ffi_to_const (obj : std :: collections :: BTreeMap < crate :: chain :: common :: chain_type :: ChainType , crate :: nested :: HashID >) -> * const std_collections_Map_keys_crate_chain_common_chain_type_ChainType_values_crate_nested_HashID_FFI { ferment_interfaces :: boxed (Self { count : obj . len () , keys : ferment_interfaces :: complex_vec_iterator :: < crate :: chain :: common :: chain_type :: ChainType , crate :: fermented :: types :: chain :: common :: chain_type :: ChainType_FFI > (obj . keys () . cloned ()) , values : ferment_interfaces :: complex_vec_iterator :: < crate :: nested :: HashID , crate :: fermented :: types :: nested :: HashID_FFI > (obj . values () . cloned ()) }) } unsafe fn destroy (ffi : * mut std_collections_Map_keys_crate_chain_common_chain_type_ChainType_values_crate_nested_HashID_FFI) { ferment_interfaces :: unbox_any (ffi) ; } } impl Drop for std_collections_Map_keys_crate_chain_common_chain_type_ChainType_values_crate_nested_HashID_FFI { fn drop (& mut self) { unsafe { ferment_interfaces :: unbox_any_vec_ptr (self . keys , self . count) ; ferment_interfaces :: unbox_any_vec_ptr (self . values , self . count) ; } } } # [repr (C)] # [derive (Clone)] # [allow (non_camel_case_types)] pub struct std_collections_Map_keys_String_values_crate_nested_HashID_FFI { pub count : usize , pub keys : * mut * mut std :: os :: raw :: c_char , pub values : * mut * mut crate :: fermented :: types :: nested :: HashID_FFI , } impl ferment_interfaces :: FFIConversion < std :: collections :: BTreeMap < String , crate :: nested :: HashID > > for std_collections_Map_keys_String_values_crate_nested_HashID_FFI { unsafe fn ffi_from_const (ffi : * const std_collections_Map_keys_String_values_crate_nested_HashID_FFI) -> std :: collections :: BTreeMap < String , crate :: nested :: HashID > { let ffi_ref = & * ffi ; ferment_interfaces :: from_complex_map (ffi_ref . count , ffi_ref . keys , ffi_ref . values) } unsafe fn ffi_to_const (obj : std :: collections :: BTreeMap < String , crate :: nested :: HashID >) -> * const std_collections_Map_keys_String_values_crate_nested_HashID_FFI { ferment_interfaces :: boxed (Self { count : obj . len () , keys : ferment_interfaces :: complex_vec_iterator :: < String , std :: os :: raw :: c_char > (obj . keys () . cloned ()) , values : ferment_interfaces :: complex_vec_iterator :: < crate :: nested :: HashID , crate :: fermented :: types :: nested :: HashID_FFI > (obj . values () . cloned ()) }) } unsafe fn destroy (ffi : * mut std_collections_Map_keys_String_values_crate_nested_HashID_FFI) { ferment_interfaces :: unbox_any (ffi) ; } } impl Drop for std_collections_Map_keys_String_values_crate_nested_HashID_FFI { fn drop (& mut self) { unsafe { ferment_interfaces :: unbox_any_vec_ptr (self . keys , self . count) ; ferment_interfaces :: unbox_any_vec_ptr (self . values , self . count) ; } } } # [repr (C)] # [derive (Clone)] # [allow (non_camel_case_types)] pub struct std_collections_Map_keys_u32_values_std_collections_Map_keys_u32_values_Vec_crate_nested_HashID_FFI { pub count : usize , pub keys : * mut u32 , pub values : * mut * mut std_collections_Map_keys_u32_values_Vec_crate_nested_HashID_FFI , } impl ferment_interfaces :: FFIConversion < std :: collections :: BTreeMap < u32 , std :: collections :: BTreeMap < u32 , Vec < crate :: nested :: HashID > > > > for std_collections_Map_keys_u32_values_std_collections_Map_keys_u32_values_Vec_crate_nested_HashID_FFI { unsafe fn ffi_from_const (ffi : * const std_collections_Map_keys_u32_values_std_collections_Map_keys_u32_values_Vec_crate_nested_HashID_FFI) -> std :: collections :: BTreeMap < u32 , std :: collections :: BTreeMap < u32 , Vec < crate :: nested :: HashID > > > { let ffi_ref = & * ffi ; ferment_interfaces :: from_simple_complex_map (ffi_ref . count , ffi_ref . keys , ffi_ref . values) } unsafe fn ffi_to_const (obj : std :: collections :: BTreeMap < u32 , std :: collections :: BTreeMap < u32 , Vec < crate :: nested :: HashID > > >) -> * const std_collections_Map_keys_u32_values_std_collections_Map_keys_u32_values_Vec_crate_nested_HashID_FFI { ferment_interfaces :: boxed (Self { count : obj . len () , keys : ferment_interfaces :: to_simple_vec (obj . keys () . cloned () . collect ()) , values : ferment_interfaces :: complex_vec_iterator :: < std :: collections :: BTreeMap < u32 , Vec < crate :: nested :: HashID > > , std_collections_Map_keys_u32_values_Vec_crate_nested_HashID_FFI > (obj . values () . cloned ()) }) } unsafe fn destroy (ffi : * mut std_collections_Map_keys_u32_values_std_collections_Map_keys_u32_values_Vec_crate_nested_HashID_FFI) { ferment_interfaces :: unbox_any (ffi) ; } } impl Drop for std_collections_Map_keys_u32_values_std_collections_Map_keys_u32_values_Vec_crate_nested_HashID_FFI { fn drop (& mut self) { unsafe { ferment_interfaces :: unbox_vec_ptr (self . keys , self . count) ; ferment_interfaces :: unbox_any_vec_ptr (self . values , self . count) ; } } } # [repr (C)] # [derive (Clone)] # [allow (non_camel_case_types)] pub struct Vec_Vec_crate_nested_HashID_FFI { pub count : usize , pub values : * mut * mut Vec_crate_nested_HashID_FFI , } impl ferment_interfaces :: FFIConversion < Vec < Vec < crate :: nested :: HashID > >> for Vec_Vec_crate_nested_HashID_FFI { unsafe fn ffi_from_const (ffi : * const Vec_Vec_crate_nested_HashID_FFI) -> Vec < Vec < crate :: nested :: HashID > > { let ffi_ref = & * ffi ; ferment_interfaces :: FFIVecConversion :: decode (ffi_ref) } unsafe fn ffi_to_const (obj : Vec < Vec < crate :: nested :: HashID > >) -> * const Vec_Vec_crate_nested_HashID_FFI { ferment_interfaces :: FFIVecConversion :: encode (obj) } unsafe fn destroy (ffi : * mut Vec_Vec_crate_nested_HashID_FFI) { ferment_interfaces :: unbox_any (ffi) ; } } impl ferment_interfaces :: FFIVecConversion for Vec_Vec_crate_nested_HashID_FFI { type Value = Vec < crate :: nested :: HashID > ; unsafe fn decode (& self) -> Vec < Self :: Value > { { let count = self . count ; let values = self . values ; (0 .. count) . map (| i | ferment_interfaces :: FFIConversion :: ffi_from_const (* values . add (i))) . collect () } } unsafe fn encode (obj : Vec < Self :: Value >) -> * mut Self { ferment_interfaces :: boxed (Self { count : obj . len () , values : ferment_interfaces :: complex_vec_iterator :: < Self :: Value , Vec_crate_nested_HashID_FFI > (obj . into_iter ()) }) } } impl Drop for Vec_Vec_crate_nested_HashID_FFI { fn drop (& mut self) { unsafe { ferment_interfaces :: unbox_any_vec_ptr (self . values , self . count) ; } } } # [repr (C)] # [derive (Clone)] # [allow (non_camel_case_types)] pub struct std_collections_Map_keys_u32_values_std_collections_Map_keys_crate_nested_HashID_values_crate_nested_HashID_FFI { pub count : usize , pub keys : * mut u32 , pub values : * mut * mut std_collections_Map_keys_crate_nested_HashID_values_crate_nested_HashID_FFI , } impl ferment_interfaces :: FFIConversion < std :: collections :: BTreeMap < u32 , std :: collections :: BTreeMap < crate :: nested :: HashID , crate :: nested :: HashID > > > for std_collections_Map_keys_u32_values_std_collections_Map_keys_crate_nested_HashID_values_crate_nested_HashID_FFI { unsafe fn ffi_from_const (ffi : * const std_collections_Map_keys_u32_values_std_collections_Map_keys_crate_nested_HashID_values_crate_nested_HashID_FFI) -> std :: collections :: BTreeMap < u32 , std :: collections :: BTreeMap < crate :: nested :: HashID , crate :: nested :: HashID > > { let ffi_ref = & * ffi ; ferment_interfaces :: from_simple_complex_map (ffi_ref . count , ffi_ref . keys , ffi_ref . values) } unsafe fn ffi_to_const (obj : std :: collections :: BTreeMap < u32 , std :: collections :: BTreeMap < crate :: nested :: HashID , crate :: nested :: HashID > >) -> * const std_collections_Map_keys_u32_values_std_collections_Map_keys_crate_nested_HashID_values_crate_nested_HashID_FFI { ferment_interfaces :: boxed (Self { count : obj . len () , keys : ferment_interfaces :: to_simple_vec (obj . keys () . cloned () . collect ()) , values : ferment_interfaces :: complex_vec_iterator :: < std :: collections :: BTreeMap < crate :: nested :: HashID , crate :: nested :: HashID > , std_collections_Map_keys_crate_nested_HashID_values_crate_nested_HashID_FFI > (obj . values () . cloned ()) }) } unsafe fn destroy (ffi : * mut std_collections_Map_keys_u32_values_std_collections_Map_keys_crate_nested_HashID_values_crate_nested_HashID_FFI) { ferment_interfaces :: unbox_any (ffi) ; } } impl Drop for std_collections_Map_keys_u32_values_std_collections_Map_keys_crate_nested_HashID_values_crate_nested_HashID_FFI { fn drop (& mut self) { unsafe { ferment_interfaces :: unbox_vec_ptr (self . keys , self . count) ; ferment_interfaces :: unbox_any_vec_ptr (self . values , self . count) ; } } } # [repr (C)] # [derive (Clone)] # [allow (non_camel_case_types)] pub struct std_collections_Map_keys_u32_values_crate_nested_HashID_FFI { pub count : usize , pub keys : * mut u32 , pub values : * mut * mut crate :: fermented :: types :: nested :: HashID_FFI , } impl ferment_interfaces :: FFIConversion < std :: collections :: BTreeMap < u32 , crate :: nested :: HashID > > for std_collections_Map_keys_u32_values_crate_nested_HashID_FFI { unsafe fn ffi_from_const (ffi : * const std_collections_Map_keys_u32_values_crate_nested_HashID_FFI) -> std :: collections :: BTreeMap < u32 , crate :: nested :: HashID > { let ffi_ref = & * ffi ; ferment_interfaces :: from_simple_complex_map (ffi_ref . count , ffi_ref . keys , ffi_ref . values) } unsafe fn ffi_to_const (obj : std :: collections :: BTreeMap < u32 , crate :: nested :: HashID >) -> * const std_collections_Map_keys_u32_values_crate_nested_HashID_FFI { ferment_interfaces :: boxed (Self { count : obj . len () , keys : ferment_interfaces :: to_simple_vec (obj . keys () . cloned () . collect ()) , values : ferment_interfaces :: complex_vec_iterator :: < crate :: nested :: HashID , crate :: fermented :: types :: nested :: HashID_FFI > (obj . values () . cloned ()) }) } unsafe fn destroy (ffi : * mut std_collections_Map_keys_u32_values_crate_nested_HashID_FFI) { ferment_interfaces :: unbox_any (ffi) ; } } impl Drop for std_collections_Map_keys_u32_values_crate_nested_HashID_FFI { fn drop (& mut self) { unsafe { ferment_interfaces :: unbox_vec_ptr (self . keys , self . count) ; ferment_interfaces :: unbox_any_vec_ptr (self . values , self . count) ; } } } # [repr (C)] # [derive (Clone)] # [allow (non_camel_case_types)] pub struct Vec_Vec_u32_FFI { pub count : usize , pub values : * mut * mut Vec_u32_FFI , } impl ferment_interfaces :: FFIConversion < Vec < Vec < u32 > >> for Vec_Vec_u32_FFI { unsafe fn ffi_from_const (ffi : * const Vec_Vec_u32_FFI) -> Vec < Vec < u32 > > { let ffi_ref = & * ffi ; ferment_interfaces :: FFIVecConversion :: decode (ffi_ref) } unsafe fn ffi_to_const (obj : Vec < Vec < u32 > >) -> * const Vec_Vec_u32_FFI { ferment_interfaces :: FFIVecConversion :: encode (obj) } unsafe fn destroy (ffi : * mut Vec_Vec_u32_FFI) { ferment_interfaces :: unbox_any (ffi) ; } } impl ferment_interfaces :: FFIVecConversion for Vec_Vec_u32_FFI { type Value = Vec < u32 > ; unsafe fn decode (& self) -> Vec < Self :: Value > { { let count = self . count ; let values = self . values ; (0 .. count) . map (| i | ferment_interfaces :: FFIConversion :: ffi_from_const (* values . add (i))) . collect () } } unsafe fn encode (obj : Vec < Self :: Value >) -> * mut Self { ferment_interfaces :: boxed (Self { count : obj . len () , values : ferment_interfaces :: complex_vec_iterator :: < Self :: Value , Vec_u32_FFI > (obj . into_iter ()) }) } } impl Drop for Vec_Vec_u32_FFI { fn drop (& mut self) { unsafe { ferment_interfaces :: unbox_any_vec_ptr (self . values , self . count) ; } } } # [repr (C)] # [derive (Clone)] # [allow (non_camel_case_types)] pub struct std_collections_Map_keys_crate_nested_HashID_values_Vec_u32_FFI { pub count : usize , pub keys : * mut * mut crate :: fermented :: types :: nested :: HashID_FFI , pub values : * mut * mut Vec_u32_FFI , } impl ferment_interfaces :: FFIConversion < std :: collections :: BTreeMap < crate :: nested :: HashID , Vec < u32 > > > for std_collections_Map_keys_crate_nested_HashID_values_Vec_u32_FFI { unsafe fn ffi_from_const (ffi : * const std_collections_Map_keys_crate_nested_HashID_values_Vec_u32_FFI) -> std :: collections :: BTreeMap < crate :: nested :: HashID , Vec < u32 > > { let ffi_ref = & * ffi ; ferment_interfaces :: from_complex_map (ffi_ref . count , ffi_ref . keys , ffi_ref . values) } unsafe fn ffi_to_const (obj : std :: collections :: BTreeMap < crate :: nested :: HashID , Vec < u32 > >) -> * const std_collections_Map_keys_crate_nested_HashID_values_Vec_u32_FFI { ferment_interfaces :: boxed (Self { count : obj . len () , keys : ferment_interfaces :: complex_vec_iterator :: < crate :: nested :: HashID , crate :: fermented :: types :: nested :: HashID_FFI > (obj . keys () . cloned ()) , values : ferment_interfaces :: complex_vec_iterator :: < Vec < u32 > , Vec_u32_FFI > (obj . values () . cloned ()) }) } unsafe fn destroy (ffi : * mut std_collections_Map_keys_crate_nested_HashID_values_Vec_u32_FFI) { ferment_interfaces :: unbox_any (ffi) ; } } impl Drop for std_collections_Map_keys_crate_nested_HashID_values_Vec_u32_FFI { fn drop (& mut self) { unsafe { ferment_interfaces :: unbox_any_vec_ptr (self . keys , self . count) ; ferment_interfaces :: unbox_any_vec_ptr (self . values , self . count) ; } } } # [repr (C)] # [derive (Clone)] # [allow (non_camel_case_types)] pub struct std_collections_Map_keys_crate_nested_HashID_values_u32_FFI { pub count : usize , pub keys : * mut * mut crate :: fermented :: types :: nested :: HashID_FFI , pub values : * mut u32 , } impl ferment_interfaces :: FFIConversion < std :: collections :: BTreeMap < crate :: nested :: HashID , u32 > > for std_collections_Map_keys_crate_nested_HashID_values_u32_FFI { unsafe fn ffi_from_const (ffi : * const std_collections_Map_keys_crate_nested_HashID_values_u32_FFI) -> std :: collections :: BTreeMap < crate :: nested :: HashID , u32 > { let ffi_ref = & * ffi ; ferment_interfaces :: from_complex_simple_map (ffi_ref . count , ffi_ref . keys , ffi_ref . values) } unsafe fn ffi_to_const (obj : std :: collections :: BTreeMap < crate :: nested :: HashID , u32 >) -> * const std_collections_Map_keys_crate_nested_HashID_values_u32_FFI { ferment_interfaces :: boxed (Self { count : obj . len () , keys : ferment_interfaces :: complex_vec_iterator :: < crate :: nested :: HashID , crate :: fermented :: types :: nested :: HashID_FFI > (obj . keys () . cloned ()) , values : ferment_interfaces :: to_simple_vec (obj . values () . cloned () . collect :: < Vec < _ >> ()) }) } unsafe fn destroy (ffi : * mut std_collections_Map_keys_crate_nested_HashID_values_u32_FFI) { ferment_interfaces :: unbox_any (ffi) ; } } impl Drop for std_collections_Map_keys_crate_nested_HashID_values_u32_FFI { fn drop (& mut self) { unsafe { ferment_interfaces :: unbox_any_vec_ptr (self . keys , self . count) ; ferment_interfaces :: unbox_vec_ptr (self . values , self . count) ; } } } # [repr (C)] # [derive (Clone)] # [allow (non_camel_case_types)] pub struct Vec_crate_nested_HashID_FFI { pub count : usize , pub values : * mut * mut crate :: fermented :: types :: nested :: HashID_FFI , } impl ferment_interfaces :: FFIConversion < Vec < crate :: nested :: HashID >> for Vec_crate_nested_HashID_FFI { unsafe fn ffi_from_const (ffi : * const Vec_crate_nested_HashID_FFI) -> Vec < crate :: nested :: HashID > { let ffi_ref = & * ffi ; ferment_interfaces :: FFIVecConversion :: decode (ffi_ref) } unsafe fn ffi_to_const (obj : Vec < crate :: nested :: HashID >) -> * const Vec_crate_nested_HashID_FFI { ferment_interfaces :: FFIVecConversion :: encode (obj) } unsafe fn destroy (ffi : * mut Vec_crate_nested_HashID_FFI) { ferment_interfaces :: unbox_any (ffi) ; } } impl ferment_interfaces :: FFIVecConversion for Vec_crate_nested_HashID_FFI { type Value = crate :: nested :: HashID ; unsafe fn decode (& self) -> Vec < Self :: Value > { { let count = self . count ; let values = self . values ; (0 .. count) . map (| i | ferment_interfaces :: FFIConversion :: ffi_from_const (* values . add (i))) . collect () } } unsafe fn encode (obj : Vec < Self :: Value >) -> * mut Self { ferment_interfaces :: boxed (Self { count : obj . len () , values : ferment_interfaces :: complex_vec_iterator :: < Self :: Value , crate :: fermented :: types :: nested :: HashID_FFI > (obj . into_iter ()) }) } } impl Drop for Vec_crate_nested_HashID_FFI { fn drop (& mut self) { unsafe { ferment_interfaces :: unbox_any_vec_ptr (self . values , self . count) ; } } } # [repr (C)] # [derive (Clone)] # [allow (non_camel_case_types)] pub struct std_collections_Map_keys_u32_values_u32_FFI { pub count : usize , pub keys : * mut u32 , pub values : * mut u32 , } impl ferment_interfaces :: FFIConversion < std :: collections :: BTreeMap < u32 , u32 > > for std_collections_Map_keys_u32_values_u32_FFI { unsafe fn ffi_from_const (ffi : * const std_collections_Map_keys_u32_values_u32_FFI) -> std :: collections :: BTreeMap < u32 , u32 > { let ffi_ref = & * ffi ; ferment_interfaces :: from_simple_map (ffi_ref . count , ffi_ref . keys , ffi_ref . values) } unsafe fn ffi_to_const (obj : std :: collections :: BTreeMap < u32 , u32 >) -> * const std_collections_Map_keys_u32_values_u32_FFI { ferment_interfaces :: boxed (Self { count : obj . len () , keys : ferment_interfaces :: to_simple_vec (obj . keys () . cloned () . collect ()) , values : ferment_interfaces :: to_simple_vec (obj . values () . cloned () . collect ()) }) } unsafe fn destroy (ffi : * mut std_collections_Map_keys_u32_values_u32_FFI) { ferment_interfaces :: unbox_any (ffi) ; } } impl Drop for std_collections_Map_keys_u32_values_u32_FFI { fn drop (& mut self) { unsafe { ferment_interfaces :: unbox_vec_ptr (self . keys , self . count) ; ferment_interfaces :: unbox_vec_ptr (self . values , self . count) ; } } } # [repr (C)] # [derive (Clone)] # [allow (non_camel_case_types)] pub struct Vec_u8_FFI { pub count : usize , pub values : * mut u8 , } impl ferment_interfaces :: FFIConversion < Vec < u8 >> for Vec_u8_FFI { unsafe fn ffi_from_const (ffi : * const Vec_u8_FFI) -> Vec < u8 > { let ffi_ref = & * ffi ; ferment_interfaces :: FFIVecConversion :: decode (ffi_ref) } unsafe fn ffi_to_const (obj : Vec < u8 >) -> * const Vec_u8_FFI { ferment_interfaces :: FFIVecConversion :: encode (obj) } unsafe fn destroy (ffi : * mut Vec_u8_FFI) { ferment_interfaces :: unbox_any (ffi) ; } } impl ferment_interfaces :: FFIVecConversion for Vec_u8_FFI { type Value = u8 ; unsafe fn decode (& self) -> Vec < Self :: Value > { ferment_interfaces :: from_simple_vec (self . values as * const Self :: Value , self . count) } unsafe fn encode (obj : Vec < Self :: Value >) -> * mut Self { ferment_interfaces :: boxed (Self { count : obj . len () , values : ferment_interfaces :: boxed_vec (obj) }) } } impl Drop for Vec_u8_FFI { fn drop (& mut self) { unsafe { ferment_interfaces :: unbox_vec_ptr (self . values , self . count) ; } } } # [repr (C)] # [derive (Clone)] # [allow (non_camel_case_types)] pub struct std_collections_Map_keys_u32_values_std_collections_Map_keys_u32_values_u32_FFI { pub count : usize , pub keys : * mut u32 , pub values : * mut * mut std_collections_Map_keys_u32_values_u32_FFI , } impl ferment_interfaces :: FFIConversion < std :: collections :: BTreeMap < u32 , std :: collections :: BTreeMap < u32 , u32 > > > for std_collections_Map_keys_u32_values_std_collections_Map_keys_u32_values_u32_FFI { unsafe fn ffi_from_const (ffi : * const std_collections_Map_keys_u32_values_std_collections_Map_keys_u32_values_u32_FFI) -> std :: collections :: BTreeMap < u32 , std :: collections :: BTreeMap < u32 , u32 > > { let ffi_ref = & * ffi ; ferment_interfaces :: from_simple_complex_map (ffi_ref . count , ffi_ref . keys , ffi_ref . values) } unsafe fn ffi_to_const (obj : std :: collections :: BTreeMap < u32 , std :: collections :: BTreeMap < u32 , u32 > >) -> * const std_collections_Map_keys_u32_values_std_collections_Map_keys_u32_values_u32_FFI { ferment_interfaces :: boxed (Self { count : obj . len () , keys : ferment_interfaces :: to_simple_vec (obj . keys () . cloned () . collect ()) , values : ferment_interfaces :: complex_vec_iterator :: < std :: collections :: BTreeMap < u32 , u32 > , std_collections_Map_keys_u32_values_u32_FFI > (obj . values () . cloned ()) }) } unsafe fn destroy (ffi : * mut std_collections_Map_keys_u32_values_std_collections_Map_keys_u32_values_u32_FFI) { ferment_interfaces :: unbox_any (ffi) ; } } impl Drop for std_collections_Map_keys_u32_values_std_collections_Map_keys_u32_values_u32_FFI { fn drop (& mut self) { unsafe { ferment_interfaces :: unbox_vec_ptr (self . keys , self . count) ; ferment_interfaces :: unbox_any_vec_ptr (self . values , self . count) ; } } } }
+#[allow(
+    clippy::let_and_return,
+    clippy::redundant_field_names,
+    dead_code,
+    redundant_semicolons,
+    unused_braces,
+    unused_imports,
+    unused_unsafe,
+    unused_variables,
+    unused_qualifications
+)]
+pub mod types {
+    pub mod nested {
+        #[doc = "FFI-representation of the # [doc = \"FFI-representation of the crate :: nested :: SimpleData\"]"]
+        #[repr(C)]
+        #[derive(Clone)]
+        #[allow(non_camel_case_types)]
+        pub struct SimpleData(*mut crate::fermented::generics::Vec_u32);
+        impl ferment_interfaces::FFIConversion<crate::nested::SimpleData> for SimpleData {
+            unsafe fn ffi_from_const(ffi: *const SimpleData) -> crate::nested::SimpleData {
+                let ffi_ref = &*ffi;
+                crate::nested::SimpleData(ferment_interfaces::FFIConversion::ffi_from(ffi_ref.0))
+            }
+            unsafe fn ffi_to_const(obj: crate::nested::SimpleData) -> *const SimpleData {
+                ferment_interfaces::boxed(SimpleData(ferment_interfaces::FFIConversion::ffi_to(
+                    obj.0,
+                )))
+            }
+            unsafe fn destroy(ffi: *mut SimpleData) {
+                ferment_interfaces::unbox_any(ffi);
+            }
+        }
+        impl Drop for SimpleData {
+            fn drop(&mut self) {
+                unsafe {
+                    let ffi_ref = self;
+                    ferment_interfaces::unbox_any(ffi_ref.0);
+                }
+            }
+        }
+        #[doc = r" # Safety"]
+        #[allow(non_snake_case)]
+        #[no_mangle]
+        pub unsafe extern "C" fn SimpleData_ctor(
+            o_0: *mut crate::fermented::generics::Vec_u32,
+        ) -> *mut SimpleData {
+            ferment_interfaces::boxed(SimpleData(o_0))
+        }
+        #[doc = r" # Safety"]
+        #[allow(non_snake_case)]
+        #[no_mangle]
+        pub unsafe extern "C" fn SimpleData_destroy(ffi: *mut SimpleData) {
+            ferment_interfaces::unbox_any(ffi);
+        }
+        #[doc = "FFI-representation of the # [doc = \"FFI-representation of the crate :: nested :: TestStruct\"]"]
+        #[repr(C)]
+        #[derive(Clone)]
+        #[allow(non_camel_case_types)]
+        pub struct TestStruct { pub vec_u8 : * mut crate :: fermented :: generics :: Vec_u8 , pub vec_u32 : * mut crate :: fermented :: generics :: Vec_u32 , pub vec_vec_u32 : * mut crate :: fermented :: generics :: Vec_Vec_u32 , pub map_key_simple_value_simple : * mut crate :: fermented :: generics :: std_collections_Map_keys_u32_values_u32 , pub map_key_simple_value_complex : * mut crate :: fermented :: generics :: std_collections_Map_keys_u32_values_crate_nested_HashID , pub map_key_simple_value_vec_simple : * mut crate :: fermented :: generics :: std_collections_Map_keys_u32_values_Vec_u32 , pub map_key_simple_value_vec_complex : * mut crate :: fermented :: generics :: std_collections_Map_keys_u32_values_Vec_crate_nested_HashID , pub map_key_simple_value_map_key_simple_value_simple : * mut crate :: fermented :: generics :: std_collections_Map_keys_u32_values_std_collections_Map_keys_u32_values_u32 , pub map_key_simple_value_map_key_simple_value_complex : * mut crate :: fermented :: generics :: std_collections_Map_keys_u32_values_std_collections_Map_keys_u32_values_crate_nested_HashID , pub map_key_simple_value_map_key_simple_value_vec_simple : * mut crate :: fermented :: generics :: std_collections_Map_keys_u32_values_std_collections_Map_keys_u32_values_Vec_u32 , pub map_key_simple_value_map_key_simple_value_vec_complex : * mut crate :: fermented :: generics :: std_collections_Map_keys_u32_values_std_collections_Map_keys_u32_values_Vec_crate_nested_HashID , pub map_key_complex_value_simple : * mut crate :: fermented :: generics :: std_collections_Map_keys_crate_nested_HashID_values_u32 , pub map_key_complex_value_complex : * mut crate :: fermented :: generics :: std_collections_Map_keys_crate_nested_HashID_values_crate_nested_HashID , pub map_key_complex_value_vec_simple : * mut crate :: fermented :: generics :: std_collections_Map_keys_crate_nested_HashID_values_Vec_u32 , pub map_key_complex_value_vec_complex : * mut crate :: fermented :: generics :: std_collections_Map_keys_crate_nested_HashID_values_Vec_crate_nested_HashID , pub map_key_complex_value_map_key_simple_value_vec_simple : * mut crate :: fermented :: generics :: std_collections_Map_keys_crate_nested_HashID_values_std_collections_Map_keys_u32_values_Vec_u32 , pub map_key_complex_value_map_key_simple_value_vec_complex : * mut crate :: fermented :: generics :: std_collections_Map_keys_crate_nested_HashID_values_std_collections_Map_keys_u32_values_Vec_crate_nested_HashID , pub map_key_complex_value_map_key_simple_value_map_key_complex_value_complex : * mut crate :: fermented :: generics :: std_collections_Map_keys_crate_nested_HashID_values_std_collections_Map_keys_u32_values_std_collections_Map_keys_crate_nested_HashID_values_crate_nested_HashID , }
+        impl ferment_interfaces::FFIConversion<crate::nested::TestStruct> for TestStruct {
+            unsafe fn ffi_from_const(ffi: *const TestStruct) -> crate::nested::TestStruct {
+                let ffi_ref = &*ffi;
+                crate :: nested :: TestStruct { vec_u8 : ferment_interfaces :: FFIConversion :: ffi_from (ffi_ref . vec_u8) , vec_u32 : ferment_interfaces :: FFIConversion :: ffi_from (ffi_ref . vec_u32) , vec_vec_u32 : ferment_interfaces :: FFIConversion :: ffi_from (ffi_ref . vec_vec_u32) , map_key_simple_value_simple : ferment_interfaces :: FFIConversion :: ffi_from (ffi_ref . map_key_simple_value_simple) , map_key_simple_value_complex : ferment_interfaces :: FFIConversion :: ffi_from (ffi_ref . map_key_simple_value_complex) , map_key_simple_value_vec_simple : ferment_interfaces :: FFIConversion :: ffi_from (ffi_ref . map_key_simple_value_vec_simple) , map_key_simple_value_vec_complex : ferment_interfaces :: FFIConversion :: ffi_from (ffi_ref . map_key_simple_value_vec_complex) , map_key_simple_value_map_key_simple_value_simple : ferment_interfaces :: FFIConversion :: ffi_from (ffi_ref . map_key_simple_value_map_key_simple_value_simple) , map_key_simple_value_map_key_simple_value_complex : ferment_interfaces :: FFIConversion :: ffi_from (ffi_ref . map_key_simple_value_map_key_simple_value_complex) , map_key_simple_value_map_key_simple_value_vec_simple : ferment_interfaces :: FFIConversion :: ffi_from (ffi_ref . map_key_simple_value_map_key_simple_value_vec_simple) , map_key_simple_value_map_key_simple_value_vec_complex : ferment_interfaces :: FFIConversion :: ffi_from (ffi_ref . map_key_simple_value_map_key_simple_value_vec_complex) , map_key_complex_value_simple : ferment_interfaces :: FFIConversion :: ffi_from (ffi_ref . map_key_complex_value_simple) , map_key_complex_value_complex : ferment_interfaces :: FFIConversion :: ffi_from (ffi_ref . map_key_complex_value_complex) , map_key_complex_value_vec_simple : ferment_interfaces :: FFIConversion :: ffi_from (ffi_ref . map_key_complex_value_vec_simple) , map_key_complex_value_vec_complex : ferment_interfaces :: FFIConversion :: ffi_from (ffi_ref . map_key_complex_value_vec_complex) , map_key_complex_value_map_key_simple_value_vec_simple : ferment_interfaces :: FFIConversion :: ffi_from (ffi_ref . map_key_complex_value_map_key_simple_value_vec_simple) , map_key_complex_value_map_key_simple_value_vec_complex : ferment_interfaces :: FFIConversion :: ffi_from (ffi_ref . map_key_complex_value_map_key_simple_value_vec_complex) , map_key_complex_value_map_key_simple_value_map_key_complex_value_complex : ferment_interfaces :: FFIConversion :: ffi_from (ffi_ref . map_key_complex_value_map_key_simple_value_map_key_complex_value_complex) , }
+            }
+            unsafe fn ffi_to_const(obj: crate::nested::TestStruct) -> *const TestStruct {
+                ferment_interfaces :: boxed (TestStruct { vec_u8 : ferment_interfaces :: FFIConversion :: ffi_to (obj . vec_u8) , vec_u32 : ferment_interfaces :: FFIConversion :: ffi_to (obj . vec_u32) , vec_vec_u32 : ferment_interfaces :: FFIConversion :: ffi_to (obj . vec_vec_u32) , map_key_simple_value_simple : ferment_interfaces :: FFIConversion :: ffi_to (obj . map_key_simple_value_simple) , map_key_simple_value_complex : ferment_interfaces :: FFIConversion :: ffi_to (obj . map_key_simple_value_complex) , map_key_simple_value_vec_simple : ferment_interfaces :: FFIConversion :: ffi_to (obj . map_key_simple_value_vec_simple) , map_key_simple_value_vec_complex : ferment_interfaces :: FFIConversion :: ffi_to (obj . map_key_simple_value_vec_complex) , map_key_simple_value_map_key_simple_value_simple : ferment_interfaces :: FFIConversion :: ffi_to (obj . map_key_simple_value_map_key_simple_value_simple) , map_key_simple_value_map_key_simple_value_complex : ferment_interfaces :: FFIConversion :: ffi_to (obj . map_key_simple_value_map_key_simple_value_complex) , map_key_simple_value_map_key_simple_value_vec_simple : ferment_interfaces :: FFIConversion :: ffi_to (obj . map_key_simple_value_map_key_simple_value_vec_simple) , map_key_simple_value_map_key_simple_value_vec_complex : ferment_interfaces :: FFIConversion :: ffi_to (obj . map_key_simple_value_map_key_simple_value_vec_complex) , map_key_complex_value_simple : ferment_interfaces :: FFIConversion :: ffi_to (obj . map_key_complex_value_simple) , map_key_complex_value_complex : ferment_interfaces :: FFIConversion :: ffi_to (obj . map_key_complex_value_complex) , map_key_complex_value_vec_simple : ferment_interfaces :: FFIConversion :: ffi_to (obj . map_key_complex_value_vec_simple) , map_key_complex_value_vec_complex : ferment_interfaces :: FFIConversion :: ffi_to (obj . map_key_complex_value_vec_complex) , map_key_complex_value_map_key_simple_value_vec_simple : ferment_interfaces :: FFIConversion :: ffi_to (obj . map_key_complex_value_map_key_simple_value_vec_simple) , map_key_complex_value_map_key_simple_value_vec_complex : ferment_interfaces :: FFIConversion :: ffi_to (obj . map_key_complex_value_map_key_simple_value_vec_complex) , map_key_complex_value_map_key_simple_value_map_key_complex_value_complex : ferment_interfaces :: FFIConversion :: ffi_to (obj . map_key_complex_value_map_key_simple_value_map_key_complex_value_complex) , })
+            }
+            unsafe fn destroy(ffi: *mut TestStruct) {
+                ferment_interfaces::unbox_any(ffi);
+            }
+        }
+        impl Drop for TestStruct {
+            fn drop(&mut self) {
+                unsafe {
+                    let ffi_ref = self;
+                    ferment_interfaces::unbox_any(ffi_ref.vec_u8);
+                    ferment_interfaces::unbox_any(ffi_ref.vec_u32);
+                    ferment_interfaces::unbox_any(ffi_ref.vec_vec_u32);
+                    ferment_interfaces::unbox_any(ffi_ref.map_key_simple_value_simple);
+                    ferment_interfaces::unbox_any(ffi_ref.map_key_simple_value_complex);
+                    ferment_interfaces::unbox_any(ffi_ref.map_key_simple_value_vec_simple);
+                    ferment_interfaces::unbox_any(ffi_ref.map_key_simple_value_vec_complex);
+                    ferment_interfaces::unbox_any(
+                        ffi_ref.map_key_simple_value_map_key_simple_value_simple,
+                    );
+                    ferment_interfaces::unbox_any(
+                        ffi_ref.map_key_simple_value_map_key_simple_value_complex,
+                    );
+                    ferment_interfaces::unbox_any(
+                        ffi_ref.map_key_simple_value_map_key_simple_value_vec_simple,
+                    );
+                    ferment_interfaces::unbox_any(
+                        ffi_ref.map_key_simple_value_map_key_simple_value_vec_complex,
+                    );
+                    ferment_interfaces::unbox_any(ffi_ref.map_key_complex_value_simple);
+                    ferment_interfaces::unbox_any(ffi_ref.map_key_complex_value_complex);
+                    ferment_interfaces::unbox_any(ffi_ref.map_key_complex_value_vec_simple);
+                    ferment_interfaces::unbox_any(ffi_ref.map_key_complex_value_vec_complex);
+                    ferment_interfaces::unbox_any(
+                        ffi_ref.map_key_complex_value_map_key_simple_value_vec_simple,
+                    );
+                    ferment_interfaces::unbox_any(
+                        ffi_ref.map_key_complex_value_map_key_simple_value_vec_complex,
+                    );
+                    ferment_interfaces :: unbox_any (ffi_ref . map_key_complex_value_map_key_simple_value_map_key_complex_value_complex) ;
+                }
+            }
+        }
+        #[doc = r" # Safety"]
+        #[allow(non_snake_case)]
+        #[no_mangle]
+        pub unsafe extern "C" fn TestStruct_ctor(
+            vec_u8: *mut crate::fermented::generics::Vec_u8,
+            vec_u32: *mut crate::fermented::generics::Vec_u32,
+            vec_vec_u32: *mut crate::fermented::generics::Vec_Vec_u32,
+            map_key_simple_value_simple : * mut crate :: fermented :: generics :: std_collections_Map_keys_u32_values_u32,
+            map_key_simple_value_complex : * mut crate :: fermented :: generics :: std_collections_Map_keys_u32_values_crate_nested_HashID,
+            map_key_simple_value_vec_simple : * mut crate :: fermented :: generics :: std_collections_Map_keys_u32_values_Vec_u32,
+            map_key_simple_value_vec_complex : * mut crate :: fermented :: generics :: std_collections_Map_keys_u32_values_Vec_crate_nested_HashID,
+            map_key_simple_value_map_key_simple_value_simple : * mut crate :: fermented :: generics :: std_collections_Map_keys_u32_values_std_collections_Map_keys_u32_values_u32,
+            map_key_simple_value_map_key_simple_value_complex : * mut crate :: fermented :: generics :: std_collections_Map_keys_u32_values_std_collections_Map_keys_u32_values_crate_nested_HashID,
+            map_key_simple_value_map_key_simple_value_vec_simple : * mut crate :: fermented :: generics :: std_collections_Map_keys_u32_values_std_collections_Map_keys_u32_values_Vec_u32,
+            map_key_simple_value_map_key_simple_value_vec_complex : * mut crate :: fermented :: generics :: std_collections_Map_keys_u32_values_std_collections_Map_keys_u32_values_Vec_crate_nested_HashID,
+            map_key_complex_value_simple : * mut crate :: fermented :: generics :: std_collections_Map_keys_crate_nested_HashID_values_u32,
+            map_key_complex_value_complex : * mut crate :: fermented :: generics :: std_collections_Map_keys_crate_nested_HashID_values_crate_nested_HashID,
+            map_key_complex_value_vec_simple : * mut crate :: fermented :: generics :: std_collections_Map_keys_crate_nested_HashID_values_Vec_u32,
+            map_key_complex_value_vec_complex : * mut crate :: fermented :: generics :: std_collections_Map_keys_crate_nested_HashID_values_Vec_crate_nested_HashID,
+            map_key_complex_value_map_key_simple_value_vec_simple : * mut crate :: fermented :: generics :: std_collections_Map_keys_crate_nested_HashID_values_std_collections_Map_keys_u32_values_Vec_u32,
+            map_key_complex_value_map_key_simple_value_vec_complex : * mut crate :: fermented :: generics :: std_collections_Map_keys_crate_nested_HashID_values_std_collections_Map_keys_u32_values_Vec_crate_nested_HashID,
+            map_key_complex_value_map_key_simple_value_map_key_complex_value_complex : * mut crate :: fermented :: generics :: std_collections_Map_keys_crate_nested_HashID_values_std_collections_Map_keys_u32_values_std_collections_Map_keys_crate_nested_HashID_values_crate_nested_HashID,
+        ) -> *mut TestStruct {
+            ferment_interfaces::boxed(TestStruct {
+                vec_u8,
+                vec_u32,
+                vec_vec_u32,
+                map_key_simple_value_simple,
+                map_key_simple_value_complex,
+                map_key_simple_value_vec_simple,
+                map_key_simple_value_vec_complex,
+                map_key_simple_value_map_key_simple_value_simple,
+                map_key_simple_value_map_key_simple_value_complex,
+                map_key_simple_value_map_key_simple_value_vec_simple,
+                map_key_simple_value_map_key_simple_value_vec_complex,
+                map_key_complex_value_simple,
+                map_key_complex_value_complex,
+                map_key_complex_value_vec_simple,
+                map_key_complex_value_vec_complex,
+                map_key_complex_value_map_key_simple_value_vec_simple,
+                map_key_complex_value_map_key_simple_value_vec_complex,
+                map_key_complex_value_map_key_simple_value_map_key_complex_value_complex,
+            })
+        }
+        #[doc = r" # Safety"]
+        #[allow(non_snake_case)]
+        #[no_mangle]
+        pub unsafe extern "C" fn TestStruct_destroy(ffi: *mut TestStruct) {
+            ferment_interfaces::unbox_any(ffi);
+        }
+        #[doc = "FFI-representation of the # [doc = \"FFI-representation of the crate :: nested :: UsedKeyMatrix\"]"]
+        #[repr(C)]
+        #[derive(Clone)]
+        #[allow(non_camel_case_types)]
+        pub struct UsedKeyMatrix(*mut crate::fermented::generics::Vec_bool);
+        impl ferment_interfaces::FFIConversion<crate::nested::UsedKeyMatrix> for UsedKeyMatrix {
+            unsafe fn ffi_from_const(ffi: *const UsedKeyMatrix) -> crate::nested::UsedKeyMatrix {
+                let ffi_ref = &*ffi;
+                ferment_interfaces::FFIConversion::ffi_from(ffi_ref.0)
+            }
+            unsafe fn ffi_to_const(obj: crate::nested::UsedKeyMatrix) -> *const UsedKeyMatrix {
+                ferment_interfaces::boxed(UsedKeyMatrix(ferment_interfaces::FFIConversion::ffi_to(
+                    obj,
+                )))
+            }
+            unsafe fn destroy(ffi: *mut UsedKeyMatrix) {
+                ferment_interfaces::unbox_any(ffi);
+            }
+        }
+        impl Drop for UsedKeyMatrix {
+            fn drop(&mut self) {
+                unsafe {
+                    let ffi_ref = self;
+                    ferment_interfaces::unbox_any(ffi_ref.0);
+                }
+            }
+        }
+        #[doc = r" # Safety"]
+        #[allow(non_snake_case)]
+        #[no_mangle]
+        pub unsafe extern "C" fn UsedKeyMatrix_ctor(
+            o_0: *mut crate::fermented::generics::Vec_bool,
+        ) -> *mut UsedKeyMatrix {
+            ferment_interfaces::boxed(UsedKeyMatrix(o_0))
+        }
+        #[doc = r" # Safety"]
+        #[allow(non_snake_case)]
+        #[no_mangle]
+        pub unsafe extern "C" fn UsedKeyMatrix_destroy(ffi: *mut UsedKeyMatrix) {
+            ferment_interfaces::unbox_any(ffi);
+        }
+        #[doc = "FFI-representation of the # [doc = \"FFI-representation of the crate :: nested :: Hash160\"]"]
+        #[repr(C)]
+        #[derive(Clone)]
+        #[allow(non_camel_case_types)]
+        pub struct Hash160(*mut [u8; 20]);
+        impl ferment_interfaces::FFIConversion<crate::nested::Hash160> for Hash160 {
+            unsafe fn ffi_from_const(ffi: *const Hash160) -> crate::nested::Hash160 {
+                let ffi_ref = &*ffi;
+                *ffi_ref.0
+            }
+            unsafe fn ffi_to_const(obj: crate::nested::Hash160) -> *const Hash160 {
+                ferment_interfaces::boxed(Hash160(ferment_interfaces::boxed(obj)))
+            }
+            unsafe fn destroy(ffi: *mut Hash160) {
+                ferment_interfaces::unbox_any(ffi);
+            }
+        }
+        impl Drop for Hash160 {
+            fn drop(&mut self) {
+                unsafe {
+                    let ffi_ref = self;
+                    ferment_interfaces::unbox_any(ffi_ref.0);
+                }
+            }
+        }
+        #[doc = r" # Safety"]
+        #[allow(non_snake_case)]
+        #[no_mangle]
+        pub unsafe extern "C" fn Hash160_ctor(o_0: *mut [u8; 20]) -> *mut Hash160 {
+            ferment_interfaces::boxed(Hash160(o_0))
+        }
+        #[doc = r" # Safety"]
+        #[allow(non_snake_case)]
+        #[no_mangle]
+        pub unsafe extern "C" fn Hash160_destroy(ffi: *mut Hash160) {
+            ferment_interfaces::unbox_any(ffi);
+        }
+        #[doc = "FFI-representation of the # [doc = \"FFI-representation of the crate :: nested :: DataContractNotPresentError\"]"]
+        #[repr(C)]
+        #[derive(Clone)]
+        #[allow(non_camel_case_types)]
+        pub struct DataContractNotPresentError {
+            pub data_contract_id: *mut crate::fermented::types::nested::Identifier,
+        }
+        impl ferment_interfaces::FFIConversion<crate::nested::DataContractNotPresentError>
+            for DataContractNotPresentError
+        {
+            unsafe fn ffi_from_const(
+                ffi: *const DataContractNotPresentError,
+            ) -> crate::nested::DataContractNotPresentError {
+                let ffi_ref = &*ffi;
+                crate::nested::DataContractNotPresentError {
+                    data_contract_id: ferment_interfaces::FFIConversion::ffi_from(
+                        ffi_ref.data_contract_id,
+                    ),
+                }
+            }
+            unsafe fn ffi_to_const(
+                obj: crate::nested::DataContractNotPresentError,
+            ) -> *const DataContractNotPresentError {
+                ferment_interfaces::boxed(DataContractNotPresentError {
+                    data_contract_id: ferment_interfaces::FFIConversion::ffi_to(
+                        obj.data_contract_id,
+                    ),
+                })
+            }
+            unsafe fn destroy(ffi: *mut DataContractNotPresentError) {
+                ferment_interfaces::unbox_any(ffi);
+            }
+        }
+        impl Drop for DataContractNotPresentError {
+            fn drop(&mut self) {
+                unsafe {
+                    let ffi_ref = self;
+                    < crate :: fermented :: types :: nested :: Identifier as ferment_interfaces :: FFIConversion < crate :: nested :: Identifier >> :: destroy (ffi_ref . data_contract_id) ;
+                }
+            }
+        }
+        #[doc = r" # Safety"]
+        #[allow(non_snake_case)]
+        #[no_mangle]
+        pub unsafe extern "C" fn DataContractNotPresentError_ctor(
+            data_contract_id: *mut crate::fermented::types::nested::Identifier,
+        ) -> *mut DataContractNotPresentError {
+            ferment_interfaces::boxed(DataContractNotPresentError { data_contract_id })
+        }
+        #[doc = r" # Safety"]
+        #[allow(non_snake_case)]
+        #[no_mangle]
+        pub unsafe extern "C" fn DataContractNotPresentError_destroy(
+            ffi: *mut DataContractNotPresentError,
+        ) {
+            ferment_interfaces::unbox_any(ffi);
+        }
+        #[doc = "FFI-representation of the ShouldProcessDiffWithRangeCallback"]
+        #[allow(non_camel_case_types)]
+        pub type ShouldProcessDiffWithRangeCallback =
+            unsafe extern "C" fn(
+                base_block_hash: *mut crate::fermented::types::nested::HashID,
+                block_hash: *mut crate::fermented::types::nested::HashID,
+                context: *mut ferment_interfaces::fermented::types::OpaqueContext_FFI,
+            )
+                -> *mut crate::fermented::types::nested::ProtocolError;
+        #[doc = "FFI-representation of the # [doc = \"FFI-representation of the crate :: nested :: KeyID\"]"]
+        #[repr(C)]
+        #[derive(Clone)]
+        #[allow(non_camel_case_types)]
+        pub struct KeyID(u32);
+        impl ferment_interfaces::FFIConversion<crate::nested::KeyID> for KeyID {
+            unsafe fn ffi_from_const(ffi: *const KeyID) -> crate::nested::KeyID {
+                let ffi_ref = &*ffi;
+                ffi_ref.0
+            }
+            unsafe fn ffi_to_const(obj: crate::nested::KeyID) -> *const KeyID {
+                ferment_interfaces::boxed(KeyID(obj))
+            }
+            unsafe fn destroy(ffi: *mut KeyID) {
+                ferment_interfaces::unbox_any(ffi);
+            }
+        }
+        impl Drop for KeyID {
+            fn drop(&mut self) {
+                unsafe {
+                    let ffi_ref = self;
+                    {};
+                }
+            }
+        }
+        #[doc = r" # Safety"]
+        #[allow(non_snake_case)]
+        #[no_mangle]
+        pub unsafe extern "C" fn KeyID_ctor(o_0: u32) -> *mut KeyID {
+            ferment_interfaces::boxed(KeyID(o_0))
+        }
+        #[doc = r" # Safety"]
+        #[allow(non_snake_case)]
+        #[no_mangle]
+        pub unsafe extern "C" fn KeyID_destroy(ffi: *mut KeyID) {
+            ferment_interfaces::unbox_any(ffi);
+        }
+        #[doc = "FFI-representation of the # [doc = \"FFI-representation of the crate :: nested :: MapOfVecHashes\"]"]
+        #[repr(C)]
+        #[derive(Clone)]
+        #[allow(non_camel_case_types)]
+        pub struct MapOfVecHashes (* mut crate :: fermented :: generics :: std_collections_Map_keys_crate_nested_HashID_values_Vec_crate_nested_HashID ,) ;
+        impl ferment_interfaces::FFIConversion<crate::nested::MapOfVecHashes> for MapOfVecHashes {
+            unsafe fn ffi_from_const(ffi: *const MapOfVecHashes) -> crate::nested::MapOfVecHashes {
+                let ffi_ref = &*ffi;
+                ferment_interfaces::FFIConversion::ffi_from(ffi_ref.0)
+            }
+            unsafe fn ffi_to_const(obj: crate::nested::MapOfVecHashes) -> *const MapOfVecHashes {
+                ferment_interfaces::boxed(MapOfVecHashes(
+                    ferment_interfaces::FFIConversion::ffi_to(obj),
+                ))
+            }
+            unsafe fn destroy(ffi: *mut MapOfVecHashes) {
+                ferment_interfaces::unbox_any(ffi);
+            }
+        }
+        impl Drop for MapOfVecHashes {
+            fn drop(&mut self) {
+                unsafe {
+                    let ffi_ref = self;
+                    ferment_interfaces::unbox_any(ffi_ref.0);
+                }
+            }
+        }
+        #[doc = r" # Safety"]
+        #[allow(non_snake_case)]
+        #[no_mangle]
+        pub unsafe extern "C" fn MapOfVecHashes_ctor(
+            o_0 : * mut crate :: fermented :: generics :: std_collections_Map_keys_crate_nested_HashID_values_Vec_crate_nested_HashID,
+        ) -> *mut MapOfVecHashes {
+            ferment_interfaces::boxed(MapOfVecHashes(o_0))
+        }
+        #[doc = r" # Safety"]
+        #[allow(non_snake_case)]
+        #[no_mangle]
+        pub unsafe extern "C" fn MapOfVecHashes_destroy(ffi: *mut MapOfVecHashes) {
+            ferment_interfaces::unbox_any(ffi);
+        }
+        #[doc = "FFI-representation of the find_hash_by_u32"]
+        #[doc = r" # Safety"]
+        #[no_mangle]
+        pub unsafe extern "C" fn ffi_find_hash_by_u32(
+            key: u32,
+            map : * mut crate :: fermented :: generics :: std_collections_Map_keys_u32_values_crate_nested_HashID,
+        ) -> *mut crate::fermented::types::nested::HashID {
+            let obj = crate::nested::find_hash_by_u32(
+                key,
+                ferment_interfaces::FFIConversion::ffi_from(map),
+            );
+            ferment_interfaces::FFIConversion::ffi_to_opt(obj)
+        }
+        #[doc = "FFI-representation of the AddInsightCallback"]
+        #[allow(non_camel_case_types)]
+        pub type AddInsightCallback = unsafe extern "C" fn(
+            block_hash: *mut crate::fermented::types::nested::HashID,
+            context: *mut ferment_interfaces::fermented::types::OpaqueContext_FFI,
+        );
+        #[doc = "FFI-representation of the # [doc = \"FFI-representation of the crate :: nested :: Identifier\"]"]
+        #[repr(C)]
+        #[derive(Clone)]
+        #[allow(non_camel_case_types)]
+        pub struct Identifier(*mut crate::fermented::types::nested::IdentifierBytes32);
+        impl ferment_interfaces::FFIConversion<crate::nested::Identifier> for Identifier {
+            unsafe fn ffi_from_const(ffi: *const Identifier) -> crate::nested::Identifier {
+                let ffi_ref = &*ffi;
+                crate::nested::Identifier(ferment_interfaces::FFIConversion::ffi_from(ffi_ref.0))
+            }
+            unsafe fn ffi_to_const(obj: crate::nested::Identifier) -> *const Identifier {
+                ferment_interfaces::boxed(Identifier(ferment_interfaces::FFIConversion::ffi_to(
+                    obj.0,
+                )))
+            }
+            unsafe fn destroy(ffi: *mut Identifier) {
+                ferment_interfaces::unbox_any(ffi);
+            }
+        }
+        impl Drop for Identifier {
+            fn drop(&mut self) {
+                unsafe {
+                    let ffi_ref = self;
+                    < crate :: fermented :: types :: nested :: IdentifierBytes32 as ferment_interfaces :: FFIConversion < crate :: nested :: IdentifierBytes32 >> :: destroy (ffi_ref . 0) ;
+                }
+            }
+        }
+        #[doc = r" # Safety"]
+        #[allow(non_snake_case)]
+        #[no_mangle]
+        pub unsafe extern "C" fn Identifier_ctor(
+            o_0: *mut crate::fermented::types::nested::IdentifierBytes32,
+        ) -> *mut Identifier {
+            ferment_interfaces::boxed(Identifier(o_0))
+        }
+        #[doc = r" # Safety"]
+        #[allow(non_snake_case)]
+        #[no_mangle]
+        pub unsafe extern "C" fn Identifier_destroy(ffi: *mut Identifier) {
+            ferment_interfaces::unbox_any(ffi);
+        }
+        #[doc = "FFI-representation of the # [doc = \"FFI-representation of the crate :: nested :: MapOfHashes\"]"]
+        #[repr(C)]
+        #[derive(Clone)]
+        #[allow(non_camel_case_types)]
+        pub struct MapOfHashes (* mut crate :: fermented :: generics :: std_collections_Map_keys_crate_nested_HashID_values_crate_nested_HashID ,) ;
+        impl ferment_interfaces::FFIConversion<crate::nested::MapOfHashes> for MapOfHashes {
+            unsafe fn ffi_from_const(ffi: *const MapOfHashes) -> crate::nested::MapOfHashes {
+                let ffi_ref = &*ffi;
+                ferment_interfaces::FFIConversion::ffi_from(ffi_ref.0)
+            }
+            unsafe fn ffi_to_const(obj: crate::nested::MapOfHashes) -> *const MapOfHashes {
+                ferment_interfaces::boxed(MapOfHashes(ferment_interfaces::FFIConversion::ffi_to(
+                    obj,
+                )))
+            }
+            unsafe fn destroy(ffi: *mut MapOfHashes) {
+                ferment_interfaces::unbox_any(ffi);
+            }
+        }
+        impl Drop for MapOfHashes {
+            fn drop(&mut self) {
+                unsafe {
+                    let ffi_ref = self;
+                    ferment_interfaces::unbox_any(ffi_ref.0);
+                }
+            }
+        }
+        #[doc = r" # Safety"]
+        #[allow(non_snake_case)]
+        #[no_mangle]
+        pub unsafe extern "C" fn MapOfHashes_ctor(
+            o_0 : * mut crate :: fermented :: generics :: std_collections_Map_keys_crate_nested_HashID_values_crate_nested_HashID,
+        ) -> *mut MapOfHashes {
+            ferment_interfaces::boxed(MapOfHashes(o_0))
+        }
+        #[doc = r" # Safety"]
+        #[allow(non_snake_case)]
+        #[no_mangle]
+        pub unsafe extern "C" fn MapOfHashes_destroy(ffi: *mut MapOfHashes) {
+            ferment_interfaces::unbox_any(ffi);
+        }
+        #[doc = "FFI-representation of the # [doc = \"FFI-representation of the crate :: nested :: BinaryData\"]"]
+        #[repr(C)]
+        #[derive(Clone)]
+        #[allow(non_camel_case_types)]
+        pub struct BinaryData(*mut crate::fermented::generics::Vec_u8);
+        impl ferment_interfaces::FFIConversion<crate::nested::BinaryData> for BinaryData {
+            unsafe fn ffi_from_const(ffi: *const BinaryData) -> crate::nested::BinaryData {
+                let ffi_ref = &*ffi;
+                crate::nested::BinaryData(ferment_interfaces::FFIConversion::ffi_from(ffi_ref.0))
+            }
+            unsafe fn ffi_to_const(obj: crate::nested::BinaryData) -> *const BinaryData {
+                ferment_interfaces::boxed(BinaryData(ferment_interfaces::FFIConversion::ffi_to(
+                    obj.0,
+                )))
+            }
+            unsafe fn destroy(ffi: *mut BinaryData) {
+                ferment_interfaces::unbox_any(ffi);
+            }
+        }
+        impl Drop for BinaryData {
+            fn drop(&mut self) {
+                unsafe {
+                    let ffi_ref = self;
+                    ferment_interfaces::unbox_any(ffi_ref.0);
+                }
+            }
+        }
+        #[doc = r" # Safety"]
+        #[allow(non_snake_case)]
+        #[no_mangle]
+        pub unsafe extern "C" fn BinaryData_ctor(
+            o_0: *mut crate::fermented::generics::Vec_u8,
+        ) -> *mut BinaryData {
+            ferment_interfaces::boxed(BinaryData(o_0))
+        }
+        #[doc = r" # Safety"]
+        #[allow(non_snake_case)]
+        #[no_mangle]
+        pub unsafe extern "C" fn BinaryData_destroy(ffi: *mut BinaryData) {
+            ferment_interfaces::unbox_any(ffi);
+        }
+        #[doc = "FFI-representation of the TestEnum"]
+        #[repr(C)]
+        #[allow(non_camel_case_types)]
+        #[derive(Clone)]
+        pub enum TestEnum {
+            Variant1 (* mut std :: os :: raw :: c_char ,) , Variant2 , Variant3 (* mut crate :: fermented :: types :: nested :: HashID , u32 ,) , Variant4 (* mut crate :: fermented :: types :: nested :: HashID , u32 , * mut std :: os :: raw :: c_char ,) , Variant5 (* mut crate :: fermented :: generics :: std_collections_Map_keys_String_values_crate_nested_HashID , u32 , * mut std :: os :: raw :: c_char ,) , }
+        impl ferment_interfaces::FFIConversion<crate::nested::TestEnum> for TestEnum {
+            unsafe fn ffi_from_const(ffi: *const TestEnum) -> crate::nested::TestEnum {
+                let ffi_ref = &*ffi;
+                match ffi_ref {
+                    TestEnum::Variant1(o_0) => crate::nested::TestEnum::Variant1(
+                        ferment_interfaces::FFIConversion::ffi_from(*o_0),
+                    ),
+                    TestEnum::Variant2 => crate::nested::TestEnum::Variant2,
+                    TestEnum::Variant3(o_0, o_1) => crate::nested::TestEnum::Variant3(
+                        ferment_interfaces::FFIConversion::ffi_from(*o_0),
+                        *o_1,
+                    ),
+                    TestEnum::Variant4(o_0, o_1, o_2) => crate::nested::TestEnum::Variant4(
+                        ferment_interfaces::FFIConversion::ffi_from(*o_0),
+                        *o_1,
+                        ferment_interfaces::FFIConversion::ffi_from(*o_2),
+                    ),
+                    TestEnum::Variant5(o_0, o_1, o_2) => crate::nested::TestEnum::Variant5(
+                        ferment_interfaces::FFIConversion::ffi_from(*o_0),
+                        *o_1,
+                        ferment_interfaces::FFIConversion::ffi_from(*o_2),
+                    ),
+                }
+            }
+            unsafe fn ffi_to_const(obj: crate::nested::TestEnum) -> *const TestEnum {
+                ferment_interfaces::boxed(match obj {
+                    crate::nested::TestEnum::Variant1(o_0) => {
+                        TestEnum::Variant1(ferment_interfaces::FFIConversion::ffi_to(o_0))
+                    }
+                    crate::nested::TestEnum::Variant2 => TestEnum::Variant2,
+                    crate::nested::TestEnum::Variant3(o_0, o_1) => {
+                        TestEnum::Variant3(ferment_interfaces::FFIConversion::ffi_to(o_0), o_1)
+                    }
+                    crate::nested::TestEnum::Variant4(o_0, o_1, o_2) => TestEnum::Variant4(
+                        ferment_interfaces::FFIConversion::ffi_to(o_0),
+                        o_1,
+                        ferment_interfaces::FFIConversion::ffi_to(o_2),
+                    ),
+                    crate::nested::TestEnum::Variant5(o_0, o_1, o_2) => TestEnum::Variant5(
+                        ferment_interfaces::FFIConversion::ffi_to(o_0),
+                        o_1,
+                        ferment_interfaces::FFIConversion::ffi_to(o_2),
+                    ),
+                })
+            }
+            unsafe fn destroy(ffi: *mut TestEnum) {
+                ferment_interfaces::unbox_any(ffi);
+            }
+        }
+        impl Drop for TestEnum {
+            fn drop(&mut self) {
+                unsafe {
+                    match self {
+                        TestEnum::Variant1(o_0) => {
+                            < std :: os :: raw :: c_char as ferment_interfaces :: FFIConversion < String >> :: destroy (o_0 . to_owned ()) ;
+                        }
+                        TestEnum::Variant2 => {}
+                        TestEnum::Variant3(o_0, o_1) => {
+                            < crate :: fermented :: types :: nested :: HashID as ferment_interfaces :: FFIConversion < crate :: nested :: HashID >> :: destroy (o_0 . to_owned ()) ;
+                            {};
+                        }
+                        TestEnum::Variant4(o_0, o_1, o_2) => {
+                            < crate :: fermented :: types :: nested :: HashID as ferment_interfaces :: FFIConversion < crate :: nested :: HashID >> :: destroy (o_0 . to_owned ()) ;
+                            {};
+                            < std :: os :: raw :: c_char as ferment_interfaces :: FFIConversion < String >> :: destroy (o_2 . to_owned ()) ;
+                        }
+                        TestEnum::Variant5(o_0, o_1, o_2) => {
+                            ferment_interfaces::unbox_any(o_0.to_owned());
+                            {};
+                            < std :: os :: raw :: c_char as ferment_interfaces :: FFIConversion < String >> :: destroy (o_2 . to_owned ()) ;
+                        }
+                    }
+                }
+            }
+        }
+        #[doc = r" # Safety"]
+        #[allow(non_snake_case)]
+        #[no_mangle]
+        pub unsafe extern "C" fn TestEnum_destroy(ffi: *mut TestEnum) {
+            ferment_interfaces::unbox_any(ffi);
+        }
+        #[doc = "FFI-representation of the # [doc = \"FFI-representation of the crate :: nested :: UnnamedPair\"]"]
+        #[repr(C)]
+        #[derive(Clone)]
+        #[allow(non_camel_case_types)]
+        pub struct UnnamedPair(*mut [u8; 32], u32);
+        impl ferment_interfaces::FFIConversion<crate::nested::UnnamedPair> for UnnamedPair {
+            unsafe fn ffi_from_const(ffi: *const UnnamedPair) -> crate::nested::UnnamedPair {
+                let ffi_ref = &*ffi;
+                crate::nested::UnnamedPair(*ffi_ref.0, ffi_ref.1)
+            }
+            unsafe fn ffi_to_const(obj: crate::nested::UnnamedPair) -> *const UnnamedPair {
+                ferment_interfaces::boxed(UnnamedPair(ferment_interfaces::boxed(obj.0), obj.1))
+            }
+            unsafe fn destroy(ffi: *mut UnnamedPair) {
+                ferment_interfaces::unbox_any(ffi);
+            }
+        }
+        impl Drop for UnnamedPair {
+            fn drop(&mut self) {
+                unsafe {
+                    let ffi_ref = self;
+                    ferment_interfaces::unbox_any(ffi_ref.0);
+                    {};
+                }
+            }
+        }
+        #[doc = r" # Safety"]
+        #[allow(non_snake_case)]
+        #[no_mangle]
+        pub unsafe extern "C" fn UnnamedPair_ctor(
+            o_0: *mut [u8; 32],
+            o_1: u32,
+        ) -> *mut UnnamedPair {
+            ferment_interfaces::boxed(UnnamedPair(o_0, o_1))
+        }
+        #[doc = r" # Safety"]
+        #[allow(non_snake_case)]
+        #[no_mangle]
+        pub unsafe extern "C" fn UnnamedPair_destroy(ffi: *mut UnnamedPair) {
+            ferment_interfaces::unbox_any(ffi);
+        }
+        #[doc = "FFI-representation of the ProtocolError"]
+        #[repr(C)]
+        #[allow(non_camel_case_types)]
+        #[derive(Clone)]
+        pub enum ProtocolError {
+            IdentifierError(*mut std::os::raw::c_char),
+            StringDecodeError(*mut std::os::raw::c_char),
+            StringDecodeError2(*mut std::os::raw::c_char, u32),
+            EmptyPublicKeyDataError,
+            MaxEncodedBytesReachedError {
+                max_size_kbytes: usize,
+                size_hit: usize,
+            },
+            EncodingError(*mut std::os::raw::c_char),
+            EncodingError2(*mut std::os::raw::c_char),
+            DataContractNotPresentError(
+                *mut crate::fermented::types::nested::DataContractNotPresentError,
+            ),
+        }
+        impl ferment_interfaces::FFIConversion<crate::nested::ProtocolError> for ProtocolError {
+            unsafe fn ffi_from_const(ffi: *const ProtocolError) -> crate::nested::ProtocolError {
+                let ffi_ref = &*ffi;
+                match ffi_ref {
+                    ProtocolError::IdentifierError(o_0) => {
+                        crate::nested::ProtocolError::IdentifierError(
+                            ferment_interfaces::FFIConversion::ffi_from(*o_0),
+                        )
+                    }
+                    ProtocolError::StringDecodeError(o_0) => {
+                        crate::nested::ProtocolError::StringDecodeError(
+                            ferment_interfaces::FFIConversion::ffi_from(*o_0),
+                        )
+                    }
+                    ProtocolError::StringDecodeError2(o_0, o_1) => {
+                        crate::nested::ProtocolError::StringDecodeError2(
+                            ferment_interfaces::FFIConversion::ffi_from(*o_0),
+                            *o_1,
+                        )
+                    }
+                    ProtocolError::EmptyPublicKeyDataError => {
+                        crate::nested::ProtocolError::EmptyPublicKeyDataError
+                    }
+                    ProtocolError::MaxEncodedBytesReachedError {
+                        max_size_kbytes,
+                        size_hit,
+                    } => crate::nested::ProtocolError::MaxEncodedBytesReachedError {
+                        max_size_kbytes: *max_size_kbytes,
+                        size_hit: *size_hit,
+                    },
+                    ProtocolError::EncodingError(o_0) => {
+                        crate::nested::ProtocolError::EncodingError(
+                            ferment_interfaces::FFIConversion::ffi_from(*o_0),
+                        )
+                    }
+                    ProtocolError::EncodingError2(o_0) => {
+                        crate::nested::ProtocolError::EncodingError2(
+                            ferment_interfaces::FFIConversion::ffi_from(*o_0),
+                        )
+                    }
+                    ProtocolError::DataContractNotPresentError(o_0) => {
+                        crate::nested::ProtocolError::DataContractNotPresentError(
+                            ferment_interfaces::FFIConversion::ffi_from(*o_0),
+                        )
+                    }
+                }
+            }
+            unsafe fn ffi_to_const(obj: crate::nested::ProtocolError) -> *const ProtocolError {
+                ferment_interfaces::boxed(match obj {
+                    crate::nested::ProtocolError::IdentifierError(o_0) => {
+                        ProtocolError::IdentifierError(ferment_interfaces::FFIConversion::ffi_to(
+                            o_0,
+                        ))
+                    }
+                    crate::nested::ProtocolError::StringDecodeError(o_0) => {
+                        ProtocolError::StringDecodeError(ferment_interfaces::FFIConversion::ffi_to(
+                            o_0,
+                        ))
+                    }
+                    crate::nested::ProtocolError::StringDecodeError2(o_0, o_1) => {
+                        ProtocolError::StringDecodeError2(
+                            ferment_interfaces::FFIConversion::ffi_to(o_0),
+                            o_1,
+                        )
+                    }
+                    crate::nested::ProtocolError::EmptyPublicKeyDataError => {
+                        ProtocolError::EmptyPublicKeyDataError
+                    }
+                    crate::nested::ProtocolError::MaxEncodedBytesReachedError {
+                        max_size_kbytes,
+                        size_hit,
+                    } => ProtocolError::MaxEncodedBytesReachedError {
+                        max_size_kbytes: max_size_kbytes,
+                        size_hit: size_hit,
+                    },
+                    crate::nested::ProtocolError::EncodingError(o_0) => {
+                        ProtocolError::EncodingError(ferment_interfaces::FFIConversion::ffi_to(o_0))
+                    }
+                    crate::nested::ProtocolError::EncodingError2(o_0) => {
+                        ProtocolError::EncodingError2(ferment_interfaces::FFIConversion::ffi_to(
+                            o_0,
+                        ))
+                    }
+                    crate::nested::ProtocolError::DataContractNotPresentError(o_0) => {
+                        ProtocolError::DataContractNotPresentError(
+                            ferment_interfaces::FFIConversion::ffi_to(o_0),
+                        )
+                    }
+                })
+            }
+            unsafe fn destroy(ffi: *mut ProtocolError) {
+                ferment_interfaces::unbox_any(ffi);
+            }
+        }
+        impl Drop for ProtocolError {
+            fn drop(&mut self) {
+                unsafe {
+                    match self {
+                        ProtocolError::IdentifierError(o_0) => {
+                            < std :: os :: raw :: c_char as ferment_interfaces :: FFIConversion < String >> :: destroy (o_0 . to_owned ()) ;
+                        }
+                        ProtocolError::StringDecodeError(o_0) => {
+                            < std :: os :: raw :: c_char as ferment_interfaces :: FFIConversion < String >> :: destroy (o_0 . to_owned ()) ;
+                        }
+                        ProtocolError::StringDecodeError2(o_0, o_1) => {
+                            < std :: os :: raw :: c_char as ferment_interfaces :: FFIConversion < String >> :: destroy (o_0 . to_owned ()) ;
+                            {};
+                        }
+                        ProtocolError::EmptyPublicKeyDataError => {}
+                        ProtocolError::MaxEncodedBytesReachedError {
+                            max_size_kbytes,
+                            size_hit,
+                        } => {
+                            {}
+                            {}
+                        }
+                        ProtocolError::EncodingError(o_0) => {
+                            < std :: os :: raw :: c_char as ferment_interfaces :: FFIConversion < String >> :: destroy (o_0 . to_owned ()) ;
+                        }
+                        ProtocolError::EncodingError2(o_0) => {
+                            < std :: os :: raw :: c_char as ferment_interfaces :: FFIConversion < & str >> :: destroy (o_0 . to_owned ()) ;
+                        }
+                        ProtocolError::DataContractNotPresentError(o_0) => {
+                            < crate :: fermented :: types :: nested :: DataContractNotPresentError as ferment_interfaces :: FFIConversion < crate :: nested :: DataContractNotPresentError >> :: destroy (o_0 . to_owned ()) ;
+                        }
+                    }
+                }
+            }
+        }
+        #[doc = r" # Safety"]
+        #[allow(non_snake_case)]
+        #[no_mangle]
+        pub unsafe extern "C" fn ProtocolError_destroy(ffi: *mut ProtocolError) {
+            ferment_interfaces::unbox_any(ffi);
+        }
+        #[doc = "FFI-representation of the crate :: nested :: HashID\"]"]
+        #[repr(C)]
+        #[derive(Clone)]
+        #[allow(non_camel_case_types)]
+        pub struct HashID(*mut [u8; 32]);
+        impl ferment_interfaces::FFIConversion<crate::nested::HashID> for HashID {
+            unsafe fn ffi_from_const(ffi: *const HashID) -> crate::nested::HashID {
+                let ffi_ref = &*ffi;
+                *ffi_ref.0
+            }
+            unsafe fn ffi_to_const(obj: crate::nested::HashID) -> *const HashID {
+                ferment_interfaces::boxed(HashID(ferment_interfaces::boxed(obj)))
+            }
+            unsafe fn destroy(ffi: *mut HashID) {
+                ferment_interfaces::unbox_any(ffi);
+            }
+        }
+        impl Drop for HashID {
+            fn drop(&mut self) {
+                unsafe {
+                    let ffi_ref = self;
+                    ferment_interfaces::unbox_any(ffi_ref.0);
+                }
+            }
+        }
+        #[doc = r" # Safety"]
+        #[allow(non_snake_case)]
+        #[no_mangle]
+        pub unsafe extern "C" fn HashID_ctor(o_0: *mut [u8; 32]) -> *mut HashID {
+            ferment_interfaces::boxed(HashID(o_0))
+        }
+        #[doc = r" # Safety"]
+        #[allow(non_snake_case)]
+        #[no_mangle]
+        pub unsafe extern "C" fn HashID_destroy(ffi: *mut HashID) {
+            ferment_interfaces::unbox_any(ffi);
+        }
+        #[doc = "FFI-representation of the # [doc = \"FFI-representation of the crate :: nested :: IdentifierBytes32\"]"]
+        #[repr(C)]
+        #[derive(Clone)]
+        #[allow(non_camel_case_types)]
+        pub struct IdentifierBytes32(*mut [u8; 32]);
+        impl ferment_interfaces::FFIConversion<crate::nested::IdentifierBytes32> for IdentifierBytes32 {
+            unsafe fn ffi_from_const(
+                ffi: *const IdentifierBytes32,
+            ) -> crate::nested::IdentifierBytes32 {
+                let ffi_ref = &*ffi;
+                crate::nested::IdentifierBytes32(*ffi_ref.0)
+            }
+            unsafe fn ffi_to_const(
+                obj: crate::nested::IdentifierBytes32,
+            ) -> *const IdentifierBytes32 {
+                ferment_interfaces::boxed(IdentifierBytes32(ferment_interfaces::boxed(obj.0)))
+            }
+            unsafe fn destroy(ffi: *mut IdentifierBytes32) {
+                ferment_interfaces::unbox_any(ffi);
+            }
+        }
+        impl Drop for IdentifierBytes32 {
+            fn drop(&mut self) {
+                unsafe {
+                    let ffi_ref = self;
+                    ferment_interfaces::unbox_any(ffi_ref.0);
+                }
+            }
+        }
+        #[doc = r" # Safety"]
+        #[allow(non_snake_case)]
+        #[no_mangle]
+        pub unsafe extern "C" fn IdentifierBytes32_ctor(
+            o_0: *mut [u8; 32],
+        ) -> *mut IdentifierBytes32 {
+            ferment_interfaces::boxed(IdentifierBytes32(o_0))
+        }
+        #[doc = r" # Safety"]
+        #[allow(non_snake_case)]
+        #[no_mangle]
+        pub unsafe extern "C" fn IdentifierBytes32_destroy(ffi: *mut IdentifierBytes32) {
+            ferment_interfaces::unbox_any(ffi);
+        }
+        #[doc = "FFI-representation of the # [doc = \"FFI-representation of the crate :: nested :: UsedStruct\"]"]
+        #[repr(C)]
+        #[derive(Clone)]
+        #[allow(non_camel_case_types)]
+        pub struct UsedStruct(*mut crate::fermented::types::nested::HashID);
+        impl ferment_interfaces::FFIConversion<crate::nested::UsedStruct> for UsedStruct {
+            unsafe fn ffi_from_const(ffi: *const UsedStruct) -> crate::nested::UsedStruct {
+                let ffi_ref = &*ffi;
+                ferment_interfaces::FFIConversion::ffi_from(ffi_ref.0)
+            }
+            unsafe fn ffi_to_const(obj: crate::nested::UsedStruct) -> *const UsedStruct {
+                ferment_interfaces::boxed(UsedStruct(ferment_interfaces::FFIConversion::ffi_to(
+                    obj,
+                )))
+            }
+            unsafe fn destroy(ffi: *mut UsedStruct) {
+                ferment_interfaces::unbox_any(ffi);
+            }
+        }
+        impl Drop for UsedStruct {
+            fn drop(&mut self) {
+                unsafe {
+                    let ffi_ref = self;
+                    < crate :: fermented :: types :: nested :: HashID as ferment_interfaces :: FFIConversion < crate :: nested :: HashID >> :: destroy (ffi_ref . 0) ;
+                }
+            }
+        }
+        #[doc = r" # Safety"]
+        #[allow(non_snake_case)]
+        #[no_mangle]
+        pub unsafe extern "C" fn UsedStruct_ctor(
+            o_0: *mut crate::fermented::types::nested::HashID,
+        ) -> *mut UsedStruct {
+            ferment_interfaces::boxed(UsedStruct(o_0))
+        }
+        #[doc = r" # Safety"]
+        #[allow(non_snake_case)]
+        #[no_mangle]
+        pub unsafe extern "C" fn UsedStruct_destroy(ffi: *mut UsedStruct) {
+            ferment_interfaces::unbox_any(ffi);
+        }
+        #[doc = "FFI-representation of the # [doc = \"FFI-representation of the crate :: nested :: ArrayOfArraysOfHashes\"]"]
+        #[repr(C)]
+        #[derive(Clone)]
+        #[allow(non_camel_case_types)]
+        pub struct ArrayOfArraysOfHashes(
+            *mut crate::fermented::generics::Vec_Vec_crate_nested_HashID,
+        );
+        impl ferment_interfaces::FFIConversion<crate::nested::ArrayOfArraysOfHashes>
+            for ArrayOfArraysOfHashes
+        {
+            unsafe fn ffi_from_const(
+                ffi: *const ArrayOfArraysOfHashes,
+            ) -> crate::nested::ArrayOfArraysOfHashes {
+                let ffi_ref = &*ffi;
+                ferment_interfaces::FFIConversion::ffi_from(ffi_ref.0)
+            }
+            unsafe fn ffi_to_const(
+                obj: crate::nested::ArrayOfArraysOfHashes,
+            ) -> *const ArrayOfArraysOfHashes {
+                ferment_interfaces::boxed(ArrayOfArraysOfHashes(
+                    ferment_interfaces::FFIConversion::ffi_to(obj),
+                ))
+            }
+            unsafe fn destroy(ffi: *mut ArrayOfArraysOfHashes) {
+                ferment_interfaces::unbox_any(ffi);
+            }
+        }
+        impl Drop for ArrayOfArraysOfHashes {
+            fn drop(&mut self) {
+                unsafe {
+                    let ffi_ref = self;
+                    ferment_interfaces::unbox_any(ffi_ref.0);
+                }
+            }
+        }
+        #[doc = r" # Safety"]
+        #[allow(non_snake_case)]
+        #[no_mangle]
+        pub unsafe extern "C" fn ArrayOfArraysOfHashes_ctor(
+            o_0: *mut crate::fermented::generics::Vec_Vec_crate_nested_HashID,
+        ) -> *mut ArrayOfArraysOfHashes {
+            ferment_interfaces::boxed(ArrayOfArraysOfHashes(o_0))
+        }
+        #[doc = r" # Safety"]
+        #[allow(non_snake_case)]
+        #[no_mangle]
+        pub unsafe extern "C" fn ArrayOfArraysOfHashes_destroy(ffi: *mut ArrayOfArraysOfHashes) {
+            ferment_interfaces::unbox_any(ffi);
+        }
+    }
+    pub mod chain {
+        pub mod common {
+            pub mod chain_type {
+                #[doc = "FFI-representation of the DevnetType"]
+                #[repr(C)]
+                #[allow(non_camel_case_types)]
+                #[derive(Clone)]
+                pub enum DevnetType {
+                    JackDaniels = 0,
+                    Devnet333 = 1,
+                    Chacha = 2,
+                    Mojito = 3,
+                    WhiteRussian = 4,
+                }
+                impl ferment_interfaces::FFIConversion<crate::chain::common::chain_type::DevnetType>
+                    for DevnetType
+                {
+                    unsafe fn ffi_from_const(
+                        ffi: *const DevnetType,
+                    ) -> crate::chain::common::chain_type::DevnetType {
+                        let ffi_ref = &*ffi;
+                        match ffi_ref {
+                            DevnetType::JackDaniels => {
+                                crate::chain::common::chain_type::DevnetType::JackDaniels
+                            }
+                            DevnetType::Devnet333 => {
+                                crate::chain::common::chain_type::DevnetType::Devnet333
+                            }
+                            DevnetType::Chacha => {
+                                crate::chain::common::chain_type::DevnetType::Chacha
+                            }
+                            DevnetType::Mojito => {
+                                crate::chain::common::chain_type::DevnetType::Mojito
+                            }
+                            DevnetType::WhiteRussian => {
+                                crate::chain::common::chain_type::DevnetType::WhiteRussian
+                            }
+                        }
+                    }
+                    unsafe fn ffi_to_const(
+                        obj: crate::chain::common::chain_type::DevnetType,
+                    ) -> *const DevnetType {
+                        ferment_interfaces::boxed(match obj {
+                            crate::chain::common::chain_type::DevnetType::JackDaniels => {
+                                DevnetType::JackDaniels
+                            }
+                            crate::chain::common::chain_type::DevnetType::Devnet333 => {
+                                DevnetType::Devnet333
+                            }
+                            crate::chain::common::chain_type::DevnetType::Chacha => {
+                                DevnetType::Chacha
+                            }
+                            crate::chain::common::chain_type::DevnetType::Mojito => {
+                                DevnetType::Mojito
+                            }
+                            crate::chain::common::chain_type::DevnetType::WhiteRussian => {
+                                DevnetType::WhiteRussian
+                            }
+                        })
+                    }
+                    unsafe fn destroy(ffi: *mut DevnetType) {
+                        ferment_interfaces::unbox_any(ffi);
+                    }
+                }
+                impl Drop for DevnetType {
+                    fn drop(&mut self) {
+                        unsafe {
+                            match self {
+                                DevnetType::JackDaniels => {}
+                                DevnetType::Devnet333 => {}
+                                DevnetType::Chacha => {}
+                                DevnetType::Mojito => {}
+                                DevnetType::WhiteRussian => {}
+                            }
+                        }
+                    }
+                }
+                #[doc = r" # Safety"]
+                #[allow(non_snake_case)]
+                #[no_mangle]
+                pub unsafe extern "C" fn DevnetType_destroy(ffi: *mut DevnetType) {
+                    ferment_interfaces::unbox_any(ffi);
+                }
+                #[allow(non_snake_case, non_upper_case_globals)]
+                static DevnetType_IHaveChainSettings_VTable: IHaveChainSettings_VTable = {
+                    unsafe extern "C" fn DevnetType_name(
+                        obj: *const (),
+                    ) -> *mut std::os::raw::c_char {
+                        let cast_obj =
+                            &(*(obj as *const crate::chain::common::chain_type::DevnetType));
+                        let obj = < crate :: chain :: common :: chain_type :: DevnetType as crate :: chain :: common :: chain_type :: IHaveChainSettings > :: name (cast_obj ,) ;
+                        ferment_interfaces::FFIConversion::ffi_to(obj)
+                    }
+                    unsafe extern "C" fn DevnetType_genesis_hash(
+                        obj: *const (),
+                    ) -> *mut crate::fermented::types::nested::HashID {
+                        let cast_obj =
+                            &(*(obj as *const crate::chain::common::chain_type::DevnetType));
+                        let obj = < crate :: chain :: common :: chain_type :: DevnetType as crate :: chain :: common :: chain_type :: IHaveChainSettings > :: genesis_hash (cast_obj ,) ;
+                        ferment_interfaces::FFIConversion::ffi_to(obj)
+                    }
+                    unsafe extern "C" fn DevnetType_genesis_height(obj: *const ()) -> u32 {
+                        let cast_obj =
+                            &(*(obj as *const crate::chain::common::chain_type::DevnetType));
+                        let obj = < crate :: chain :: common :: chain_type :: DevnetType as crate :: chain :: common :: chain_type :: IHaveChainSettings > :: genesis_height (cast_obj ,) ;
+                        obj
+                    }
+                    unsafe extern "C" fn DevnetType_has_genesis_hash(
+                        obj: *const (),
+                        hash: *mut crate::fermented::types::nested::HashID,
+                    ) -> bool {
+                        let cast_obj =
+                            &(*(obj as *const crate::chain::common::chain_type::DevnetType));
+                        let obj = < crate :: chain :: common :: chain_type :: DevnetType as crate :: chain :: common :: chain_type :: IHaveChainSettings > :: has_genesis_hash (cast_obj , ferment_interfaces :: FFIConversion :: ffi_from (hash) ,) ;
+                        obj
+                    }
+                    unsafe extern "C" fn DevnetType_get_hash_by_hash(
+                        obj: *const (),
+                        hash: *mut crate::fermented::types::nested::HashID,
+                    ) -> *mut crate::fermented::types::nested::HashID {
+                        let cast_obj =
+                            &(*(obj as *const crate::chain::common::chain_type::DevnetType));
+                        let obj = < crate :: chain :: common :: chain_type :: DevnetType as crate :: chain :: common :: chain_type :: IHaveChainSettings > :: get_hash_by_hash (cast_obj , ferment_interfaces :: FFIConversion :: ffi_from (hash) ,) ;
+                        ferment_interfaces::FFIConversion::ffi_to(obj)
+                    }
+                    unsafe extern "C" fn DevnetType_should_process_llmq_of_type(
+                        obj: *const (),
+                        llmq_type: u16,
+                    ) -> bool {
+                        let cast_obj =
+                            &(*(obj as *const crate::chain::common::chain_type::DevnetType));
+                        let obj = < crate :: chain :: common :: chain_type :: DevnetType as crate :: chain :: common :: chain_type :: IHaveChainSettings > :: should_process_llmq_of_type (cast_obj , llmq_type ,) ;
+                        obj
+                    }                    unsafe extern "C" fn DevnetType_find_masternode_list (obj : * const () , cached_mn_lists : * mut crate :: fermented :: generics :: std_collections_Map_keys_crate_nested_HashID_values_crate_nested_HashID , unknown_mn_lists : * mut crate :: fermented :: generics :: Vec_crate_nested_HashID ,) -> * mut crate :: fermented :: generics :: Result_ok_crate_nested_HashID_err_crate_nested_ProtocolError{
+                        let cast_obj =
+                            &(*(obj as *const crate::chain::common::chain_type::DevnetType));
+                        let obj = < crate :: chain :: common :: chain_type :: DevnetType as crate :: chain :: common :: chain_type :: IHaveChainSettings > :: find_masternode_list (cast_obj , & ferment_interfaces :: FFIConversion :: ffi_from (cached_mn_lists) , & mut ferment_interfaces :: FFIConversion :: ffi_from (unknown_mn_lists) ,) ;
+                        ferment_interfaces::FFIConversion::ffi_to(obj)
+                    }
+                    IHaveChainSettings_VTable {
+                        name: DevnetType_name,
+                        genesis_hash: DevnetType_genesis_hash,
+                        genesis_height: DevnetType_genesis_height,
+                        has_genesis_hash: DevnetType_has_genesis_hash,
+                        get_hash_by_hash: DevnetType_get_hash_by_hash,
+                        should_process_llmq_of_type: DevnetType_should_process_llmq_of_type,
+                        find_masternode_list: DevnetType_find_masternode_list,
+                    }
+                };
+                #[doc = r" # Safety"]
+                #[allow(non_snake_case)]
+                #[no_mangle]
+                pub extern "C" fn DevnetType_as_IHaveChainSettings_TraitObject(
+                    obj: *const crate::chain::common::chain_type::DevnetType,
+                ) -> IHaveChainSettings_TraitObject {
+                    IHaveChainSettings_TraitObject {
+                        object: obj as *const (),
+                        vtable: &DevnetType_IHaveChainSettings_VTable,
+                    }
+                }
+                #[doc = r" # Safety"]
+                #[allow(non_snake_case)]
+                #[no_mangle]
+                pub unsafe extern "C" fn DevnetType_as_IHaveChainSettings_TraitObject_destroy(
+                    obj: IHaveChainSettings_TraitObject,
+                ) {
+                    ferment_interfaces::unbox_any(
+                        obj.object as *mut crate::chain::common::chain_type::DevnetType,
+                    );
+                }
+                #[repr(C)]
+                #[derive(Clone)]
+                #[allow(non_camel_case_types)]
+                pub struct IHaveChainSettings_VTable { pub name : unsafe extern "C" fn (obj : * const () ,) -> * mut std :: os :: raw :: c_char , pub genesis_hash : unsafe extern "C" fn (obj : * const () ,) -> * mut crate :: fermented :: types :: nested :: HashID , pub genesis_height : unsafe extern "C" fn (obj : * const () ,) -> u32 , pub has_genesis_hash : unsafe extern "C" fn (obj : * const () , hash : * mut crate :: fermented :: types :: nested :: HashID ,) -> bool , pub get_hash_by_hash : unsafe extern "C" fn (obj : * const () , hash : * mut crate :: fermented :: types :: nested :: HashID ,) -> * mut crate :: fermented :: types :: nested :: HashID , pub should_process_llmq_of_type : unsafe extern "C" fn (obj : * const () , llmq_type : u16 ,) -> bool , pub find_masternode_list : unsafe extern "C" fn (obj : * const () , cached_mn_lists : * mut crate :: fermented :: generics :: std_collections_Map_keys_crate_nested_HashID_values_crate_nested_HashID , unknown_mn_lists : * mut crate :: fermented :: generics :: Vec_crate_nested_HashID ,) -> * mut crate :: fermented :: generics :: Result_ok_crate_nested_HashID_err_crate_nested_ProtocolError , }
+                #[repr(C)]
+                #[derive(Clone)]
+                #[allow(non_camel_case_types)]
+                pub struct IHaveChainSettings_TraitObject {
+                    pub object: *const (),
+                    pub vtable: *const IHaveChainSettings_VTable,
+                }
+                #[doc = "FFI-representation of the ChainType"]
+                #[repr(C)]
+                #[allow(non_camel_case_types)]
+                #[derive(Clone)]
+                pub enum ChainType {
+                    MainNet,
+                    TestNet,
+                    DevNet(*mut crate::fermented::types::chain::common::chain_type::DevnetType),
+                }
+                impl ferment_interfaces::FFIConversion<crate::chain::common::chain_type::ChainType> for ChainType {
+                    unsafe fn ffi_from_const(
+                        ffi: *const ChainType,
+                    ) -> crate::chain::common::chain_type::ChainType {
+                        let ffi_ref = &*ffi;
+                        match ffi_ref {
+                            ChainType::MainNet => {
+                                crate::chain::common::chain_type::ChainType::MainNet
+                            }
+                            ChainType::TestNet => {
+                                crate::chain::common::chain_type::ChainType::TestNet
+                            }
+                            ChainType::DevNet(o_0) => {
+                                crate::chain::common::chain_type::ChainType::DevNet(
+                                    ferment_interfaces::FFIConversion::ffi_from(*o_0),
+                                )
+                            }
+                        }
+                    }
+                    unsafe fn ffi_to_const(
+                        obj: crate::chain::common::chain_type::ChainType,
+                    ) -> *const ChainType {
+                        ferment_interfaces::boxed(match obj {
+                            crate::chain::common::chain_type::ChainType::MainNet => {
+                                ChainType::MainNet
+                            }
+                            crate::chain::common::chain_type::ChainType::TestNet => {
+                                ChainType::TestNet
+                            }
+                            crate::chain::common::chain_type::ChainType::DevNet(o_0) => {
+                                ChainType::DevNet(ferment_interfaces::FFIConversion::ffi_to(o_0))
+                            }
+                        })
+                    }
+                    unsafe fn destroy(ffi: *mut ChainType) {
+                        ferment_interfaces::unbox_any(ffi);
+                    }
+                }
+                impl Drop for ChainType {
+                    fn drop(&mut self) {
+                        unsafe {
+                            match self {
+                                ChainType::MainNet => {}
+                                ChainType::TestNet => {}
+                                ChainType::DevNet(o_0) => {
+                                    < crate :: fermented :: types :: chain :: common :: chain_type :: DevnetType as ferment_interfaces :: FFIConversion < crate :: chain :: common :: chain_type :: DevnetType >> :: destroy (o_0 . to_owned ()) ;
+                                }
+                            }
+                        }
+                    }
+                }
+                #[doc = r" # Safety"]
+                #[allow(non_snake_case)]
+                #[no_mangle]
+                pub unsafe extern "C" fn ChainType_destroy(ffi: *mut ChainType) {
+                    ferment_interfaces::unbox_any(ffi);
+                }
+                #[allow(non_snake_case, non_upper_case_globals)]
+                static ChainType_IHaveChainSettings_VTable: IHaveChainSettings_VTable = {
+                    unsafe extern "C" fn ChainType_name(
+                        obj: *const (),
+                    ) -> *mut std::os::raw::c_char {
+                        let cast_obj =
+                            &(*(obj as *const crate::chain::common::chain_type::ChainType));
+                        let obj = < crate :: chain :: common :: chain_type :: ChainType as crate :: chain :: common :: chain_type :: IHaveChainSettings > :: name (cast_obj ,) ;
+                        ferment_interfaces::FFIConversion::ffi_to(obj)
+                    }
+                    unsafe extern "C" fn ChainType_genesis_hash(
+                        obj: *const (),
+                    ) -> *mut crate::fermented::types::nested::HashID {
+                        let cast_obj =
+                            &(*(obj as *const crate::chain::common::chain_type::ChainType));
+                        let obj = < crate :: chain :: common :: chain_type :: ChainType as crate :: chain :: common :: chain_type :: IHaveChainSettings > :: genesis_hash (cast_obj ,) ;
+                        ferment_interfaces::FFIConversion::ffi_to(obj)
+                    }
+                    unsafe extern "C" fn ChainType_genesis_height(obj: *const ()) -> u32 {
+                        let cast_obj =
+                            &(*(obj as *const crate::chain::common::chain_type::ChainType));
+                        let obj = < crate :: chain :: common :: chain_type :: ChainType as crate :: chain :: common :: chain_type :: IHaveChainSettings > :: genesis_height (cast_obj ,) ;
+                        obj
+                    }
+                    unsafe extern "C" fn ChainType_has_genesis_hash(
+                        obj: *const (),
+                        hash: *mut crate::fermented::types::nested::HashID,
+                    ) -> bool {
+                        let cast_obj =
+                            &(*(obj as *const crate::chain::common::chain_type::ChainType));
+                        let obj = < crate :: chain :: common :: chain_type :: ChainType as crate :: chain :: common :: chain_type :: IHaveChainSettings > :: has_genesis_hash (cast_obj , ferment_interfaces :: FFIConversion :: ffi_from (hash) ,) ;
+                        obj
+                    }
+                    unsafe extern "C" fn ChainType_get_hash_by_hash(
+                        obj: *const (),
+                        hash: *mut crate::fermented::types::nested::HashID,
+                    ) -> *mut crate::fermented::types::nested::HashID {
+                        let cast_obj =
+                            &(*(obj as *const crate::chain::common::chain_type::ChainType));
+                        let obj = < crate :: chain :: common :: chain_type :: ChainType as crate :: chain :: common :: chain_type :: IHaveChainSettings > :: get_hash_by_hash (cast_obj , ferment_interfaces :: FFIConversion :: ffi_from (hash) ,) ;
+                        ferment_interfaces::FFIConversion::ffi_to(obj)
+                    }
+                    unsafe extern "C" fn ChainType_should_process_llmq_of_type(
+                        obj: *const (),
+                        llmq_type: u16,
+                    ) -> bool {
+                        let cast_obj =
+                            &(*(obj as *const crate::chain::common::chain_type::ChainType));
+                        let obj = < crate :: chain :: common :: chain_type :: ChainType as crate :: chain :: common :: chain_type :: IHaveChainSettings > :: should_process_llmq_of_type (cast_obj , llmq_type ,) ;
+                        obj
+                    }                    unsafe extern "C" fn ChainType_find_masternode_list (obj : * const () , cached_mn_lists : * mut crate :: fermented :: generics :: std_collections_Map_keys_crate_nested_HashID_values_crate_nested_HashID , unknown_mn_lists : * mut crate :: fermented :: generics :: Vec_crate_nested_HashID ,) -> * mut crate :: fermented :: generics :: Result_ok_crate_nested_HashID_err_crate_nested_ProtocolError{
+                        let cast_obj =
+                            &(*(obj as *const crate::chain::common::chain_type::ChainType));
+                        let obj = < crate :: chain :: common :: chain_type :: ChainType as crate :: chain :: common :: chain_type :: IHaveChainSettings > :: find_masternode_list (cast_obj , & ferment_interfaces :: FFIConversion :: ffi_from (cached_mn_lists) , & mut ferment_interfaces :: FFIConversion :: ffi_from (unknown_mn_lists) ,) ;
+                        ferment_interfaces::FFIConversion::ffi_to(obj)
+                    }
+                    IHaveChainSettings_VTable {
+                        name: ChainType_name,
+                        genesis_hash: ChainType_genesis_hash,
+                        genesis_height: ChainType_genesis_height,
+                        has_genesis_hash: ChainType_has_genesis_hash,
+                        get_hash_by_hash: ChainType_get_hash_by_hash,
+                        should_process_llmq_of_type: ChainType_should_process_llmq_of_type,
+                        find_masternode_list: ChainType_find_masternode_list,
+                    }
+                };
+                #[doc = r" # Safety"]
+                #[allow(non_snake_case)]
+                #[no_mangle]
+                pub extern "C" fn ChainType_as_IHaveChainSettings_TraitObject(
+                    obj: *const crate::chain::common::chain_type::ChainType,
+                ) -> IHaveChainSettings_TraitObject {
+                    IHaveChainSettings_TraitObject {
+                        object: obj as *const (),
+                        vtable: &ChainType_IHaveChainSettings_VTable,
+                    }
+                }
+                #[doc = r" # Safety"]
+                #[allow(non_snake_case)]
+                #[no_mangle]
+                pub unsafe extern "C" fn ChainType_as_IHaveChainSettings_TraitObject_destroy(
+                    obj: IHaveChainSettings_TraitObject,
+                ) {
+                    ferment_interfaces::unbox_any(
+                        obj.object as *mut crate::chain::common::chain_type::ChainType,
+                    );
+                }
+            }
+        }
+    }
+    #[doc = "FFI-representation of the # [doc = \"FFI-representation of the crate :: RootStruct\"]"]
+    #[repr(C)]
+    #[derive(Clone)]
+    #[allow(non_camel_case_types)]
+    pub struct RootStruct {
+        pub name: *mut std::os::raw::c_char,
+    }
+    impl ferment_interfaces::FFIConversion<crate::RootStruct> for RootStruct {
+        unsafe fn ffi_from_const(ffi: *const RootStruct) -> crate::RootStruct {
+            let ffi_ref = &*ffi;
+            crate::RootStruct {
+                name: ferment_interfaces::FFIConversion::ffi_from(ffi_ref.name),
+            }
+        }
+        unsafe fn ffi_to_const(obj: crate::RootStruct) -> *const RootStruct {
+            ferment_interfaces::boxed(RootStruct {
+                name: ferment_interfaces::FFIConversion::ffi_to(obj.name),
+            })
+        }
+        unsafe fn destroy(ffi: *mut RootStruct) {
+            ferment_interfaces::unbox_any(ffi);
+        }
+    }
+    impl Drop for RootStruct {
+        fn drop(&mut self) {
+            unsafe {
+                let ffi_ref = self;
+                <std::os::raw::c_char as ferment_interfaces::FFIConversion<String>>::destroy(
+                    ffi_ref.name,
+                );
+            }
+        }
+    }
+    #[doc = r" # Safety"]
+    #[allow(non_snake_case)]
+    #[no_mangle]
+    pub unsafe extern "C" fn RootStruct_ctor(name: *mut std::os::raw::c_char) -> *mut RootStruct {
+        ferment_interfaces::boxed(RootStruct { name })
+    }
+    #[doc = r" # Safety"]
+    #[allow(non_snake_case)]
+    #[no_mangle]
+    pub unsafe extern "C" fn RootStruct_destroy(ffi: *mut RootStruct) {
+        ferment_interfaces::unbox_any(ffi);
+    }
+    pub mod example {
+        pub mod address {
+            #[doc = "FFI-representation of the get_chain_hashes_by_map"]
+            #[doc = r" # Safety"]
+            #[no_mangle]
+            pub unsafe extern "C" fn ffi_get_chain_hashes_by_map(
+                map : * mut crate :: fermented :: generics :: std_collections_Map_keys_crate_chain_common_chain_type_ChainType_values_crate_nested_HashID,
+            ) -> *mut std::os::raw::c_char {
+                let obj = crate::example::address::get_chain_hashes_by_map(
+                    ferment_interfaces::FFIConversion::ffi_from(map),
+                );
+                ferment_interfaces::FFIConversion::ffi_to(obj)
+            }
+            #[doc = "FFI-representation of the "get_chain_type_string""]
+            #[doc = "# Safety"]
+            #[no_mangle]
+            pub unsafe extern "C" fn ffi_get_chain_type_string(chain_type: *mut crate::fermented::types::chain::common::chain_type::ChainType) -> *mut std::os::raw::c_char {
+                let obj = crate::example::address::get_chain_type_string(
+                    ferment_interfaces::FFIConversion::ffi_from(chain_type),
+                );
+                ferment_interfaces::FFIConversion::ffi_to(obj)
+            }
+            #[doc = "FFI-representation of the "address_with_script_pubkey""]
+            #[doc = "# Safety"]
+            #[no_mangle]
+            pub unsafe extern "C" fn ffi_address_with_script_pubkey(script: *mut crate::fermented::generics::Vec_u8) -> *mut std::os::raw::c_char {
+                let conversion = ferment_interfaces::FFIConversion::ffi_from(script);
+                let obj = crate::example::address::address_with_script_pubkey(conversion);
+                ferment_interfaces::FFIConversion::ffi_to_opt(obj)
+            }
+        }
+    }
+}
+#[allow(
+    clippy::let_and_return,
+    clippy::redundant_field_names,
+    dead_code,
+    redundant_semicolons,
+    unused_braces,
+    unused_imports,
+    unused_unsafe,
+    unused_variables,
+    unused_qualifications
+)]
+pub mod generics {
+    #[repr(C)]
+    #[derive(Clone)]
+    #[allow(non_camel_case_types)]
+    pub struct Vec_u8 {
+        pub count: usize,
+        pub values: *mut u8,
+    }
+    impl ferment_interfaces::FFIConversion<Vec<u8>> for Vec_u8 {
+        unsafe fn ffi_from_const(ffi: *const Vec_u8) -> Vec<u8> {
+            let ffi_ref = &*ffi;
+            ferment_interfaces::FFIVecConversion::decode(ffi_ref)
+        }
+        unsafe fn ffi_to_const(obj: Vec<u8>) -> *const Vec_u8 {
+            ferment_interfaces::FFIVecConversion::encode(obj)
+        }
+        unsafe fn destroy(ffi: *mut Vec_u8) {
+            ferment_interfaces::unbox_any(ffi);
+        }
+    }
+    impl ferment_interfaces::FFIVecConversion for Vec_u8 {
+        type Value = u8;
+        unsafe fn decode(&self) -> Vec<Self::Value> {
+            ferment_interfaces::from_simple_vec(self.values as *const Self::Value, self.count)
+        }
+        unsafe fn encode(obj: Vec<Self::Value>) -> *mut Self {
+            ferment_interfaces::boxed(Self {
+                count: obj.len(),
+                values: ferment_interfaces::boxed_vec(obj),
+            })
+        }
+    }
+    impl Drop for Vec_u8 {
+        fn drop(&mut self) {
+            unsafe {
+                ferment_interfaces::unbox_vec_ptr(self.values, self.count);
+            }
+        }
+    }
+    #[repr(C)]
+    #[derive(Clone)]
+    #[allow(non_camel_case_types)]
+    pub struct std_collections_Map_keys_u32_values_std_collections_Map_keys_u32_values_u32 {
+        pub count: usize,
+        pub keys: *mut u32,
+        pub values: *mut *mut crate::fermented::generics::std_collections_Map_keys_u32_values_u32,
+    }
+    impl
+        ferment_interfaces::FFIConversion<
+            std::collections::BTreeMap<u32, std::collections::BTreeMap<u32, u32>>,
+        > for std_collections_Map_keys_u32_values_std_collections_Map_keys_u32_values_u32
+    {
+        unsafe fn ffi_from_const(
+            ffi: *const std_collections_Map_keys_u32_values_std_collections_Map_keys_u32_values_u32,
+        ) -> std::collections::BTreeMap<u32, std::collections::BTreeMap<u32, u32>> {
+            let ffi_ref = &*ffi;
+            ferment_interfaces::from_simple_complex_map(ffi_ref.count, ffi_ref.keys, ffi_ref.values)
+        }
+        unsafe fn ffi_to_const(
+            obj: std::collections::BTreeMap<u32, std::collections::BTreeMap<u32, u32>>,
+        ) -> *const std_collections_Map_keys_u32_values_std_collections_Map_keys_u32_values_u32
+        {
+            ferment_interfaces::boxed(Self {
+                count: obj.len(),
+                keys: ferment_interfaces::to_simple_vec(obj.keys().cloned().collect()),
+                values: ferment_interfaces::complex_vec_iterator::<
+                    std::collections::BTreeMap<u32, u32>,
+                    crate::fermented::generics::std_collections_Map_keys_u32_values_u32,
+                >(obj.values().cloned()),
+            })
+        }
+        unsafe fn destroy(
+            ffi: *mut std_collections_Map_keys_u32_values_std_collections_Map_keys_u32_values_u32,
+        ) {
+            ferment_interfaces::unbox_any(ffi);
+        }
+    }
+    impl Drop for std_collections_Map_keys_u32_values_std_collections_Map_keys_u32_values_u32 {
+        fn drop(&mut self) {
+            unsafe {
+                ferment_interfaces::unbox_vec_ptr(self.keys, self.count);
+                ferment_interfaces::unbox_any_vec_ptr(self.values, self.count);
+            }
+        }
+    }
+    #[repr(C)]
+    #[derive(Clone)]
+    #[allow(non_camel_case_types)]
+    pub struct Result_ok_crate_nested_HashID_err_crate_nested_ProtocolError {
+        pub ok: *mut crate::fermented::types::nested::HashID,
+        pub error: *mut crate::fermented::types::nested::ProtocolError,
+    }
+    impl
+        ferment_interfaces::FFIConversion<
+            Result<crate::nested::HashID, crate::nested::ProtocolError>,
+        > for Result_ok_crate_nested_HashID_err_crate_nested_ProtocolError
+    {
+        unsafe fn ffi_from_const(
+            ffi: *const Result_ok_crate_nested_HashID_err_crate_nested_ProtocolError,
+        ) -> Result<crate::nested::HashID, crate::nested::ProtocolError> {
+            let ffi_ref = &*ffi;
+            if ffi_ref.error.is_null() {
+                Ok(ferment_interfaces::FFIConversion::ffi_from_const(
+                    ffi_ref.ok,
+                ))
+            } else {
+                Err(ferment_interfaces::FFIConversion::ffi_from_const(
+                    ffi_ref.error,
+                ))
+            }
+        }
+        unsafe fn ffi_to_const(
+            obj: Result<crate::nested::HashID, crate::nested::ProtocolError>,
+        ) -> *const Result_ok_crate_nested_HashID_err_crate_nested_ProtocolError {
+            let (ok, error) = match obj {
+                Ok(obj) => (
+                    ferment_interfaces::FFIConversion::ffi_to(obj),
+                    std::ptr::null_mut(),
+                ),
+                Err(err) => (
+                    std::ptr::null_mut(),
+                    ferment_interfaces::FFIConversion::ffi_to(err),
+                ),
+            };
+            ferment_interfaces::boxed(Self { ok, error })
+        }
+        unsafe fn destroy(ffi: *mut Result_ok_crate_nested_HashID_err_crate_nested_ProtocolError) {
+            ferment_interfaces::unbox_any(ffi);
+        }
+    }
+    impl Drop for Result_ok_crate_nested_HashID_err_crate_nested_ProtocolError {
+        fn drop(&mut self) {
+            unsafe {
+                if !self.ok.is_null() {
+                    ferment_interfaces::unbox_any(self.ok);
+                }
+                if !self.error.is_null() {
+                    ferment_interfaces::unbox_any(self.error);
+                }
+            }
+        }
+    }
+    #[repr(C)]
+    #[derive(Clone)]
+    #[allow(non_camel_case_types)]
+    pub struct Vec_Vec_u32 {
+        pub count: usize,
+        pub values: *mut *mut crate::fermented::generics::Vec_u32,
+    }
+    impl ferment_interfaces::FFIConversion<Vec<Vec<u32>>> for Vec_Vec_u32 {
+        unsafe fn ffi_from_const(ffi: *const Vec_Vec_u32) -> Vec<Vec<u32>> {
+            let ffi_ref = &*ffi;
+            ferment_interfaces::FFIVecConversion::decode(ffi_ref)
+        }
+        unsafe fn ffi_to_const(obj: Vec<Vec<u32>>) -> *const Vec_Vec_u32 {
+            ferment_interfaces::FFIVecConversion::encode(obj)
+        }
+        unsafe fn destroy(ffi: *mut Vec_Vec_u32) {
+            ferment_interfaces::unbox_any(ffi);
+        }
+    }
+    impl ferment_interfaces::FFIVecConversion for Vec_Vec_u32 {
+        type Value = Vec<u32>;
+        unsafe fn decode(&self) -> Vec<Self::Value> {
+            let count = self.count;
+            let values = self.values;
+            (0..count)
+                .map(|i| ferment_interfaces::FFIConversion::ffi_from_const(*values.add(i)))
+                .collect()
+        }
+        unsafe fn encode(obj: Vec<Self::Value>) -> *mut Self {
+            ferment_interfaces::boxed(Self {
+                count: obj.len(),
+                values: ferment_interfaces::complex_vec_iterator::<Self::Value, crate::fermented::generics::Vec_u32>(obj.into_iter()),
+            })
+        }
+    }
+    impl Drop for Vec_Vec_u32 {
+        fn drop(&mut self) {
+            unsafe {
+                ferment_interfaces::unbox_any_vec_ptr(self.values, self.count);
+            }
+        }
+    }
+    #[repr(C)]
+    #[derive(Clone)]
+    #[allow(non_camel_case_types)]
+    pub struct std_collections_Map_keys_crate_chain_common_chain_type_ChainType_values_crate_nested_HashID
+    {
+        pub count: usize,
+        pub keys: *mut *mut crate::fermented::types::chain::common::chain_type::ChainType,
+        pub values: *mut *mut crate::fermented::types::nested::HashID,
+    }
+    impl ferment_interfaces :: FFIConversion < std :: collections :: BTreeMap < crate :: chain :: common :: chain_type :: ChainType , crate :: nested :: HashID > > for std_collections_Map_keys_crate_chain_common_chain_type_ChainType_values_crate_nested_HashID { unsafe fn ffi_from_const (ffi : * const std_collections_Map_keys_crate_chain_common_chain_type_ChainType_values_crate_nested_HashID) -> std :: collections :: BTreeMap < crate :: chain :: common :: chain_type :: ChainType , crate :: nested :: HashID > { let ffi_ref = & * ffi ; ferment_interfaces :: from_complex_map (ffi_ref . count , ffi_ref . keys , ffi_ref . values) } unsafe fn ffi_to_const (obj : std :: collections :: BTreeMap < crate :: chain :: common :: chain_type :: ChainType , crate :: nested :: HashID >) -> * const std_collections_Map_keys_crate_chain_common_chain_type_ChainType_values_crate_nested_HashID { ferment_interfaces :: boxed (Self { count : obj . len () , keys : ferment_interfaces :: complex_vec_iterator :: < crate :: chain :: common :: chain_type :: ChainType , crate :: fermented :: types :: chain :: common :: chain_type :: ChainType > (obj . keys () . cloned ()) , values : ferment_interfaces :: complex_vec_iterator :: < crate :: nested :: HashID , crate :: fermented :: types :: nested :: HashID > (obj . values () . cloned ()) }) } unsafe fn destroy (ffi : * mut std_collections_Map_keys_crate_chain_common_chain_type_ChainType_values_crate_nested_HashID) { ferment_interfaces :: unbox_any (ffi) ; } }
+    impl Drop for std_collections_Map_keys_crate_chain_common_chain_type_ChainType_values_crate_nested_HashID { fn drop (& mut self) { unsafe { ferment_interfaces :: unbox_any_vec_ptr (self . keys , self . count) ; ferment_interfaces :: unbox_any_vec_ptr (self . values , self . count) ; } } }
+    #[repr(C)]
+    #[derive(Clone)]
+    #[allow(non_camel_case_types)]
+    pub struct std_collections_Map_keys_u32_values_u32 {
+        pub count: usize,
+        pub keys: *mut u32,
+        pub values: *mut u32,
+    }
+    impl ferment_interfaces::FFIConversion<std::collections::BTreeMap<u32, u32>>
+        for std_collections_Map_keys_u32_values_u32
+    {
+        unsafe fn ffi_from_const(
+            ffi: *const std_collections_Map_keys_u32_values_u32,
+        ) -> std::collections::BTreeMap<u32, u32> {
+            let ffi_ref = &*ffi;
+            ferment_interfaces::from_simple_map(ffi_ref.count, ffi_ref.keys, ffi_ref.values)
+        }
+        unsafe fn ffi_to_const(
+            obj: std::collections::BTreeMap<u32, u32>,
+        ) -> *const std_collections_Map_keys_u32_values_u32 {
+            ferment_interfaces::boxed(Self {
+                count: obj.len(),
+                keys: ferment_interfaces::to_simple_vec(obj.keys().cloned().collect()),
+                values: ferment_interfaces::to_simple_vec(obj.values().cloned().collect()),
+            })
+        }
+        unsafe fn destroy(ffi: *mut std_collections_Map_keys_u32_values_u32) {
+            ferment_interfaces::unbox_any(ffi);
+        }
+    }
+    impl Drop for std_collections_Map_keys_u32_values_u32 {
+        fn drop(&mut self) {
+            unsafe {
+                ferment_interfaces::unbox_vec_ptr(self.keys, self.count);
+                ferment_interfaces::unbox_vec_ptr(self.values, self.count);
+            }
+        }
+    }
+    #[repr(C)]
+    #[derive(Clone)]
+    #[allow(non_camel_case_types)]
+    pub struct std_collections_Map_keys_crate_nested_HashID_values_Vec_crate_nested_HashID {
+        pub count: usize,
+        pub keys: *mut *mut crate::fermented::types::nested::HashID,
+        pub values: *mut *mut crate::fermented::generics::Vec_crate_nested_HashID,
+    }
+    impl ferment_interfaces::FFIConversion<std::collections::BTreeMap<crate::nested::HashID, Vec<crate::nested::HashID>>>
+        for std_collections_Map_keys_crate_nested_HashID_values_Vec_crate_nested_HashID {
+        unsafe fn ffi_from_const(
+            ffi: *const std_collections_Map_keys_crate_nested_HashID_values_Vec_crate_nested_HashID)
+            -> std::collections::BTreeMap<crate::nested::HashID, Vec<crate::nested::HashID>> {
+            let ffi_ref = &*ffi;
+            ferment_interfaces::from_complex_map(ffi_ref.count, ffi_ref.keys, ffi_ref.values)
+        }
+        unsafe fn ffi_to_const(
+            obj: std::collections::BTreeMap<crate::nested::HashID, Vec<crate::nested::HashID>>)
+            -> *const std_collections_Map_keys_crate_nested_HashID_values_Vec_crate_nested_HashID {
+            ferment_interfaces::boxed(Self {
+                count: obj.len(),
+                keys: ferment_interfaces::complex_vec_iterator::<crate::nested::HashID, crate::fermented::types::nested::HashID>(obj.keys().cloned()),
+                values: ferment_interfaces::complex_vec_iterator::<Vec<crate::nested::HashID>, crate::fermented::generics::Vec_crate_nested_HashID>(obj.values().cloned()),
+            })
+        }
+        unsafe fn destroy(ffi: *mut std_collections_Map_keys_crate_nested_HashID_values_Vec_crate_nested_HashID) {
+            ferment_interfaces::unbox_any(ffi);
+        }
+    }
+    impl Drop for std_collections_Map_keys_crate_nested_HashID_values_Vec_crate_nested_HashID {
+        fn drop(&mut self) {
+            unsafe {
+                ferment_interfaces::unbox_any_vec_ptr(self.keys, self.count);
+                ferment_interfaces::unbox_any_vec_ptr(self.values, self.count);
+            }
+        }
+    }
+    #[repr(C)]
+    #[derive(Clone)]
+    #[allow(non_camel_case_types)]
+    pub struct std_collections_Map_keys_crate_nested_HashID_values_std_collections_Map_keys_u32_values_Vec_crate_nested_HashID { pub count : usize , pub keys : * mut * mut crate :: fermented :: types :: nested :: HashID , pub values : * mut * mut crate :: fermented :: generics :: std_collections_Map_keys_u32_values_Vec_crate_nested_HashID , }
+    impl ferment_interfaces :: FFIConversion < std :: collections :: BTreeMap < crate :: nested :: HashID , std :: collections :: BTreeMap < u32 , Vec < crate :: nested :: HashID > > > > for std_collections_Map_keys_crate_nested_HashID_values_std_collections_Map_keys_u32_values_Vec_crate_nested_HashID { unsafe fn ffi_from_const (ffi : * const std_collections_Map_keys_crate_nested_HashID_values_std_collections_Map_keys_u32_values_Vec_crate_nested_HashID) -> std :: collections :: BTreeMap < crate :: nested :: HashID , std :: collections :: BTreeMap < u32 , Vec < crate :: nested :: HashID > > > { let ffi_ref = & * ffi ; ferment_interfaces :: from_complex_map (ffi_ref . count , ffi_ref . keys , ffi_ref . values) } unsafe fn ffi_to_const (obj : std :: collections :: BTreeMap < crate :: nested :: HashID , std :: collections :: BTreeMap < u32 , Vec < crate :: nested :: HashID > > >) -> * const std_collections_Map_keys_crate_nested_HashID_values_std_collections_Map_keys_u32_values_Vec_crate_nested_HashID { ferment_interfaces :: boxed (Self { count : obj . len () , keys : ferment_interfaces :: complex_vec_iterator :: < crate :: nested :: HashID , crate :: fermented :: types :: nested :: HashID > (obj . keys () . cloned ()) , values : ferment_interfaces :: complex_vec_iterator :: < std :: collections :: BTreeMap < u32 , Vec < crate :: nested :: HashID > > , crate :: fermented :: generics :: std_collections_Map_keys_u32_values_Vec_crate_nested_HashID > (obj . values () . cloned ()) }) } unsafe fn destroy (ffi : * mut std_collections_Map_keys_crate_nested_HashID_values_std_collections_Map_keys_u32_values_Vec_crate_nested_HashID) { ferment_interfaces :: unbox_any (ffi) ; } }
+    impl Drop for std_collections_Map_keys_crate_nested_HashID_values_std_collections_Map_keys_u32_values_Vec_crate_nested_HashID { fn drop (& mut self) { unsafe { ferment_interfaces :: unbox_any_vec_ptr (self . keys , self . count) ; ferment_interfaces :: unbox_any_vec_ptr (self . values , self . count) ; } } }
+    #[repr(C)]
+    #[derive(Clone)]
+    #[allow(non_camel_case_types)]
+    pub struct std_collections_Map_keys_u32_values_std_collections_Map_keys_u32_values_Vec_u32 {
+        pub count: usize,
+        pub keys: *mut u32,
+        pub values:
+            *mut *mut crate::fermented::generics::std_collections_Map_keys_u32_values_Vec_u32,
+    }
+    impl
+        ferment_interfaces::FFIConversion<
+            std::collections::BTreeMap<u32, std::collections::BTreeMap<u32, Vec<u32>>>,
+        > for std_collections_Map_keys_u32_values_std_collections_Map_keys_u32_values_Vec_u32
+    {
+        unsafe fn ffi_from_const(
+            ffi : * const std_collections_Map_keys_u32_values_std_collections_Map_keys_u32_values_Vec_u32,
+        ) -> std::collections::BTreeMap<u32, std::collections::BTreeMap<u32, Vec<u32>>> {
+            let ffi_ref = &*ffi;
+            ferment_interfaces::from_simple_complex_map(ffi_ref.count, ffi_ref.keys, ffi_ref.values)
+        }
+        unsafe fn ffi_to_const(
+            obj: std::collections::BTreeMap<u32, std::collections::BTreeMap<u32, Vec<u32>>>,
+        ) -> *const std_collections_Map_keys_u32_values_std_collections_Map_keys_u32_values_Vec_u32
+        {
+            ferment_interfaces::boxed(Self {
+                count: obj.len(),
+                keys: ferment_interfaces::to_simple_vec(obj.keys().cloned().collect()),
+                values: ferment_interfaces::complex_vec_iterator::<
+                    std::collections::BTreeMap<u32, Vec<u32>>,
+                    crate::fermented::generics::std_collections_Map_keys_u32_values_Vec_u32,
+                >(obj.values().cloned()),
+            })
+        }
+        unsafe fn destroy(
+            ffi : * mut std_collections_Map_keys_u32_values_std_collections_Map_keys_u32_values_Vec_u32,
+        ) {
+            ferment_interfaces::unbox_any(ffi);
+        }
+    }
+    impl Drop for std_collections_Map_keys_u32_values_std_collections_Map_keys_u32_values_Vec_u32 {
+        fn drop(&mut self) {
+            unsafe {
+                ferment_interfaces::unbox_vec_ptr(self.keys, self.count);
+                ferment_interfaces::unbox_any_vec_ptr(self.values, self.count);
+            }
+        }
+    }
+    #[repr(C)]
+    #[derive(Clone)]
+    #[allow(non_camel_case_types)]
+    pub struct std_collections_Map_keys_u32_values_std_collections_Map_keys_crate_nested_HashID_values_crate_nested_HashID { pub count : usize , pub keys : * mut u32 , pub values : * mut * mut crate :: fermented :: generics :: std_collections_Map_keys_crate_nested_HashID_values_crate_nested_HashID , }
+    impl ferment_interfaces :: FFIConversion < std :: collections :: BTreeMap < u32 , std :: collections :: BTreeMap < crate :: nested :: HashID , crate :: nested :: HashID > > > for std_collections_Map_keys_u32_values_std_collections_Map_keys_crate_nested_HashID_values_crate_nested_HashID { unsafe fn ffi_from_const (ffi : * const std_collections_Map_keys_u32_values_std_collections_Map_keys_crate_nested_HashID_values_crate_nested_HashID) -> std :: collections :: BTreeMap < u32 , std :: collections :: BTreeMap < crate :: nested :: HashID , crate :: nested :: HashID > > { let ffi_ref = & * ffi ; ferment_interfaces :: from_simple_complex_map (ffi_ref . count , ffi_ref . keys , ffi_ref . values) } unsafe fn ffi_to_const (obj : std :: collections :: BTreeMap < u32 , std :: collections :: BTreeMap < crate :: nested :: HashID , crate :: nested :: HashID > >) -> * const std_collections_Map_keys_u32_values_std_collections_Map_keys_crate_nested_HashID_values_crate_nested_HashID { ferment_interfaces :: boxed (Self { count : obj . len () , keys : ferment_interfaces :: to_simple_vec (obj . keys () . cloned () . collect ()) , values : ferment_interfaces :: complex_vec_iterator :: < std :: collections :: BTreeMap < crate :: nested :: HashID , crate :: nested :: HashID > , crate :: fermented :: generics :: std_collections_Map_keys_crate_nested_HashID_values_crate_nested_HashID > (obj . values () . cloned ()) }) } unsafe fn destroy (ffi : * mut std_collections_Map_keys_u32_values_std_collections_Map_keys_crate_nested_HashID_values_crate_nested_HashID) { ferment_interfaces :: unbox_any (ffi) ; } }
+    impl Drop for std_collections_Map_keys_u32_values_std_collections_Map_keys_crate_nested_HashID_values_crate_nested_HashID { fn drop (& mut self) { unsafe { ferment_interfaces :: unbox_vec_ptr (self . keys , self . count) ; ferment_interfaces :: unbox_any_vec_ptr (self . values , self . count) ; } } }
+    #[repr(C)]
+    #[derive(Clone)]
+    #[allow(non_camel_case_types)]
+    pub struct std_collections_Map_keys_u32_values_Vec_crate_nested_HashID {
+        pub count: usize,
+        pub keys: *mut u32,
+        pub values: *mut *mut crate::fermented::generics::Vec_crate_nested_HashID,
+    }
+    impl
+        ferment_interfaces::FFIConversion<
+            std::collections::BTreeMap<u32, Vec<crate::nested::HashID>>,
+        > for std_collections_Map_keys_u32_values_Vec_crate_nested_HashID
+    {
+        unsafe fn ffi_from_const(
+            ffi: *const std_collections_Map_keys_u32_values_Vec_crate_nested_HashID,
+        ) -> std::collections::BTreeMap<u32, Vec<crate::nested::HashID>> {
+            let ffi_ref = &*ffi;
+            ferment_interfaces::from_simple_complex_map(ffi_ref.count, ffi_ref.keys, ffi_ref.values)
+        }
+        unsafe fn ffi_to_const(
+            obj: std::collections::BTreeMap<u32, Vec<crate::nested::HashID>>,
+        ) -> *const std_collections_Map_keys_u32_values_Vec_crate_nested_HashID {
+            ferment_interfaces::boxed(Self {
+                count: obj.len(),
+                keys: ferment_interfaces::to_simple_vec(obj.keys().cloned().collect()),
+                values: ferment_interfaces::complex_vec_iterator::<
+                    Vec<crate::nested::HashID>,
+                    crate::fermented::generics::Vec_crate_nested_HashID,
+                >(obj.values().cloned()),
+            })
+        }
+        unsafe fn destroy(ffi: *mut std_collections_Map_keys_u32_values_Vec_crate_nested_HashID) {
+            ferment_interfaces::unbox_any(ffi);
+        }
+    }
+    impl Drop for std_collections_Map_keys_u32_values_Vec_crate_nested_HashID {
+        fn drop(&mut self) {
+            unsafe {
+                ferment_interfaces::unbox_vec_ptr(self.keys, self.count);
+                ferment_interfaces::unbox_any_vec_ptr(self.values, self.count);
+            }
+        }
+    }
+    #[repr(C)]
+    #[derive(Clone)]
+    #[allow(non_camel_case_types)]
+    pub struct Vec_Vec_crate_nested_HashID {
+        pub count: usize,
+        pub values: *mut *mut crate::fermented::generics::Vec_crate_nested_HashID,
+    }
+    impl ferment_interfaces::FFIConversion<Vec<Vec<crate::nested::HashID>>>
+        for Vec_Vec_crate_nested_HashID
+    {
+        unsafe fn ffi_from_const(
+            ffi: *const Vec_Vec_crate_nested_HashID,
+        ) -> Vec<Vec<crate::nested::HashID>> {
+            let ffi_ref = &*ffi;
+            ferment_interfaces::FFIVecConversion::decode(ffi_ref)
+        }
+        unsafe fn ffi_to_const(
+            obj: Vec<Vec<crate::nested::HashID>>,
+        ) -> *const Vec_Vec_crate_nested_HashID {
+            ferment_interfaces::FFIVecConversion::encode(obj)
+        }
+        unsafe fn destroy(ffi: *mut Vec_Vec_crate_nested_HashID) {
+            ferment_interfaces::unbox_any(ffi);
+        }
+    }
+    impl ferment_interfaces::FFIVecConversion for Vec_Vec_crate_nested_HashID {
+        type Value = Vec<crate::nested::HashID>;
+        unsafe fn decode(&self) -> Vec<Self::Value> {
+            {
+                let count = self.count;
+                let values = self.values;
+                (0..count)
+                    .map(|i| ferment_interfaces::FFIConversion::ffi_from_const(*values.add(i)))
+                    .collect()
+            }
+        }
+        unsafe fn encode(obj: Vec<Self::Value>) -> *mut Self {
+            ferment_interfaces::boxed(Self {
+                count: obj.len(),
+                values: ferment_interfaces::complex_vec_iterator::<
+                    Self::Value,
+                    crate::fermented::generics::Vec_crate_nested_HashID,
+                >(obj.into_iter()),
+            })
+        }
+    }
+    impl Drop for Vec_Vec_crate_nested_HashID {
+        fn drop(&mut self) {
+            unsafe {
+                ferment_interfaces::unbox_any_vec_ptr(self.values, self.count);
+            }
+        }
+    }
+    #[repr(C)]
+    #[derive(Clone)]
+    #[allow(non_camel_case_types)]
+    pub struct std_collections_Map_keys_crate_nested_HashID_values_std_collections_Map_keys_u32_values_Vec_u32
+    {
+        pub count: usize,
+        pub keys: *mut *mut crate::fermented::types::nested::HashID,
+        pub values:
+            *mut *mut crate::fermented::generics::std_collections_Map_keys_u32_values_Vec_u32,
+    }
+    impl ferment_interfaces :: FFIConversion < std :: collections :: BTreeMap < crate :: nested :: HashID , std :: collections :: BTreeMap < u32 , Vec < u32 > > > > for std_collections_Map_keys_crate_nested_HashID_values_std_collections_Map_keys_u32_values_Vec_u32 { unsafe fn ffi_from_const (ffi : * const std_collections_Map_keys_crate_nested_HashID_values_std_collections_Map_keys_u32_values_Vec_u32) -> std :: collections :: BTreeMap < crate :: nested :: HashID , std :: collections :: BTreeMap < u32 , Vec < u32 > > > { let ffi_ref = & * ffi ; ferment_interfaces :: from_complex_map (ffi_ref . count , ffi_ref . keys , ffi_ref . values) } unsafe fn ffi_to_const (obj : std :: collections :: BTreeMap < crate :: nested :: HashID , std :: collections :: BTreeMap < u32 , Vec < u32 > > >) -> * const std_collections_Map_keys_crate_nested_HashID_values_std_collections_Map_keys_u32_values_Vec_u32 { ferment_interfaces :: boxed (Self { count : obj . len () , keys : ferment_interfaces :: complex_vec_iterator :: < crate :: nested :: HashID , crate :: fermented :: types :: nested :: HashID > (obj . keys () . cloned ()) , values : ferment_interfaces :: complex_vec_iterator :: < std :: collections :: BTreeMap < u32 , Vec < u32 > > , crate :: fermented :: generics :: std_collections_Map_keys_u32_values_Vec_u32 > (obj . values () . cloned ()) }) } unsafe fn destroy (ffi : * mut std_collections_Map_keys_crate_nested_HashID_values_std_collections_Map_keys_u32_values_Vec_u32) { ferment_interfaces :: unbox_any (ffi) ; } }
+    impl Drop for std_collections_Map_keys_crate_nested_HashID_values_std_collections_Map_keys_u32_values_Vec_u32 { fn drop (& mut self) { unsafe { ferment_interfaces :: unbox_any_vec_ptr (self . keys , self . count) ; ferment_interfaces :: unbox_any_vec_ptr (self . values , self . count) ; } } }
+    #[repr(C)]
+    #[derive(Clone)]
+    #[allow(non_camel_case_types)]
+    pub struct std_collections_Map_keys_crate_nested_HashID_values_u32 {
+        pub count: usize,
+        pub keys: *mut *mut crate::fermented::types::nested::HashID,
+        pub values: *mut u32,
+    }
+    impl ferment_interfaces::FFIConversion<std::collections::BTreeMap<crate::nested::HashID, u32>>
+        for std_collections_Map_keys_crate_nested_HashID_values_u32
+    {
+        unsafe fn ffi_from_const(
+            ffi: *const std_collections_Map_keys_crate_nested_HashID_values_u32,
+        ) -> std::collections::BTreeMap<crate::nested::HashID, u32> {
+            let ffi_ref = &*ffi;
+            ferment_interfaces::from_complex_simple_map(ffi_ref.count, ffi_ref.keys, ffi_ref.values)
+        }
+        unsafe fn ffi_to_const(
+            obj: std::collections::BTreeMap<crate::nested::HashID, u32>,
+        ) -> *const std_collections_Map_keys_crate_nested_HashID_values_u32 {
+            ferment_interfaces::boxed(Self {
+                count: obj.len(),
+                keys: ferment_interfaces::complex_vec_iterator::<
+                    crate::nested::HashID,
+                    crate::fermented::types::nested::HashID,
+                >(obj.keys().cloned()),
+                values: ferment_interfaces::to_simple_vec(
+                    obj.values().cloned().collect::<Vec<_>>(),
+                ),
+            })
+        }
+        unsafe fn destroy(ffi: *mut std_collections_Map_keys_crate_nested_HashID_values_u32) {
+            ferment_interfaces::unbox_any(ffi);
+        }
+    }
+    impl Drop for std_collections_Map_keys_crate_nested_HashID_values_u32 {
+        fn drop(&mut self) {
+            unsafe {
+                ferment_interfaces::unbox_any_vec_ptr(self.keys, self.count);
+                ferment_interfaces::unbox_vec_ptr(self.values, self.count);
+            }
+        }
+    }
+    #[repr(C)]
+    #[derive(Clone)]
+    #[allow(non_camel_case_types)]
+    pub struct std_collections_Map_keys_u32_values_std_collections_Map_keys_u32_values_crate_nested_HashID { pub count : usize , pub keys : * mut u32 , pub values : * mut * mut crate :: fermented :: generics :: std_collections_Map_keys_u32_values_crate_nested_HashID , }
+    impl ferment_interfaces :: FFIConversion < std :: collections :: BTreeMap < u32 , std :: collections :: BTreeMap < u32 , crate :: nested :: HashID > > > for std_collections_Map_keys_u32_values_std_collections_Map_keys_u32_values_crate_nested_HashID { unsafe fn ffi_from_const (ffi : * const std_collections_Map_keys_u32_values_std_collections_Map_keys_u32_values_crate_nested_HashID) -> std :: collections :: BTreeMap < u32 , std :: collections :: BTreeMap < u32 , crate :: nested :: HashID > > { let ffi_ref = & * ffi ; ferment_interfaces :: from_simple_complex_map (ffi_ref . count , ffi_ref . keys , ffi_ref . values) } unsafe fn ffi_to_const (obj : std :: collections :: BTreeMap < u32 , std :: collections :: BTreeMap < u32 , crate :: nested :: HashID > >) -> * const std_collections_Map_keys_u32_values_std_collections_Map_keys_u32_values_crate_nested_HashID { ferment_interfaces :: boxed (Self { count : obj . len () , keys : ferment_interfaces :: to_simple_vec (obj . keys () . cloned () . collect ()) , values : ferment_interfaces :: complex_vec_iterator :: < std :: collections :: BTreeMap < u32 , crate :: nested :: HashID > , crate :: fermented :: generics :: std_collections_Map_keys_u32_values_crate_nested_HashID > (obj . values () . cloned ()) }) } unsafe fn destroy (ffi : * mut std_collections_Map_keys_u32_values_std_collections_Map_keys_u32_values_crate_nested_HashID) { ferment_interfaces :: unbox_any (ffi) ; } }
+    impl Drop for std_collections_Map_keys_u32_values_std_collections_Map_keys_u32_values_crate_nested_HashID { fn drop (& mut self) { unsafe { ferment_interfaces :: unbox_vec_ptr (self . keys , self . count) ; ferment_interfaces :: unbox_any_vec_ptr (self . values , self . count) ; } } }
+    #[repr(C)]
+    #[derive(Clone)]
+    #[allow(non_camel_case_types)]
+    pub struct std_collections_Map_keys_u32_values_std_collections_Map_keys_u32_values_Vec_crate_nested_HashID { pub count : usize , pub keys : * mut u32 , pub values : * mut * mut crate :: fermented :: generics :: std_collections_Map_keys_u32_values_Vec_crate_nested_HashID , }
+    impl ferment_interfaces :: FFIConversion < std :: collections :: BTreeMap < u32 , std :: collections :: BTreeMap < u32 , Vec < crate :: nested :: HashID > > > > for std_collections_Map_keys_u32_values_std_collections_Map_keys_u32_values_Vec_crate_nested_HashID { unsafe fn ffi_from_const (ffi : * const std_collections_Map_keys_u32_values_std_collections_Map_keys_u32_values_Vec_crate_nested_HashID) -> std :: collections :: BTreeMap < u32 , std :: collections :: BTreeMap < u32 , Vec < crate :: nested :: HashID > > > { let ffi_ref = & * ffi ; ferment_interfaces :: from_simple_complex_map (ffi_ref . count , ffi_ref . keys , ffi_ref . values) } unsafe fn ffi_to_const (obj : std :: collections :: BTreeMap < u32 , std :: collections :: BTreeMap < u32 , Vec < crate :: nested :: HashID > > >) -> * const std_collections_Map_keys_u32_values_std_collections_Map_keys_u32_values_Vec_crate_nested_HashID { ferment_interfaces :: boxed (Self { count : obj . len () , keys : ferment_interfaces :: to_simple_vec (obj . keys () . cloned () . collect ()) , values : ferment_interfaces :: complex_vec_iterator :: < std :: collections :: BTreeMap < u32 , Vec < crate :: nested :: HashID > > , crate :: fermented :: generics :: std_collections_Map_keys_u32_values_Vec_crate_nested_HashID > (obj . values () . cloned ()) }) } unsafe fn destroy (ffi : * mut std_collections_Map_keys_u32_values_std_collections_Map_keys_u32_values_Vec_crate_nested_HashID) { ferment_interfaces :: unbox_any (ffi) ; } }
+    impl Drop for std_collections_Map_keys_u32_values_std_collections_Map_keys_u32_values_Vec_crate_nested_HashID { fn drop (& mut self) { unsafe { ferment_interfaces :: unbox_vec_ptr (self . keys , self . count) ; ferment_interfaces :: unbox_any_vec_ptr (self . values , self . count) ; } } }
+    #[repr(C)]
+    #[derive(Clone)]
+    #[allow(non_camel_case_types)]
+    pub struct Vec_u32 {
+        pub count: usize,
+        pub values: *mut u32,
+    }
+    impl ferment_interfaces::FFIConversion<Vec<u32>> for Vec_u32 {
+        unsafe fn ffi_from_const(ffi: *const Vec_u32) -> Vec<u32> {
+            let ffi_ref = &*ffi;
+            ferment_interfaces::FFIVecConversion::decode(ffi_ref)
+        }
+        unsafe fn ffi_to_const(obj: Vec<u32>) -> *const Vec_u32 {
+            ferment_interfaces::FFIVecConversion::encode(obj)
+        }
+        unsafe fn destroy(ffi: *mut Vec_u32) {
+            ferment_interfaces::unbox_any(ffi);
+        }
+    }
+    impl ferment_interfaces::FFIVecConversion for Vec_u32 {
+        type Value = u32;
+        unsafe fn decode(&self) -> Vec<Self::Value> {
+            ferment_interfaces::from_simple_vec(self.values as *const Self::Value, self.count)
+        }
+        unsafe fn encode(obj: Vec<Self::Value>) -> *mut Self {
+            ferment_interfaces::boxed(Self {
+                count: obj.len(),
+                values: ferment_interfaces::boxed_vec(obj),
+            })
+        }
+    }
+    impl Drop for Vec_u32 {
+        fn drop(&mut self) {
+            unsafe {
+                ferment_interfaces::unbox_vec_ptr(self.values, self.count);
+            }
+        }
+    }
+    #[repr(C)]
+    #[derive(Clone)]
+    #[allow(non_camel_case_types)]
+    pub struct std_collections_Map_keys_crate_nested_HashID_values_crate_nested_HashID {
+        pub count: usize,
+        pub keys: *mut *mut crate::fermented::types::nested::HashID,
+        pub values: *mut *mut crate::fermented::types::nested::HashID,
+    }
+    impl
+        ferment_interfaces::FFIConversion<
+            std::collections::BTreeMap<crate::nested::HashID, crate::nested::HashID>,
+        > for std_collections_Map_keys_crate_nested_HashID_values_crate_nested_HashID
+    {
+        unsafe fn ffi_from_const(
+            ffi: *const std_collections_Map_keys_crate_nested_HashID_values_crate_nested_HashID,
+        ) -> std::collections::BTreeMap<crate::nested::HashID, crate::nested::HashID> {
+            let ffi_ref = &*ffi;
+            ferment_interfaces::from_complex_map(ffi_ref.count, ffi_ref.keys, ffi_ref.values)
+        }
+        unsafe fn ffi_to_const(
+            obj: std::collections::BTreeMap<crate::nested::HashID, crate::nested::HashID>,
+        ) -> *const std_collections_Map_keys_crate_nested_HashID_values_crate_nested_HashID
+        {
+            ferment_interfaces::boxed(Self {
+                count: obj.len(),
+                keys: ferment_interfaces::complex_vec_iterator::<
+                    crate::nested::HashID,
+                    crate::fermented::types::nested::HashID,
+                >(obj.keys().cloned()),
+                values: ferment_interfaces::complex_vec_iterator::<
+                    crate::nested::HashID,
+                    crate::fermented::types::nested::HashID,
+                >(obj.values().cloned()),
+            })
+        }
+        unsafe fn destroy(
+            ffi: *mut std_collections_Map_keys_crate_nested_HashID_values_crate_nested_HashID,
+        ) {
+            ferment_interfaces::unbox_any(ffi);
+        }
+    }
+    impl Drop for std_collections_Map_keys_crate_nested_HashID_values_crate_nested_HashID {
+        fn drop(&mut self) {
+            unsafe {
+                ferment_interfaces::unbox_any_vec_ptr(self.keys, self.count);
+                ferment_interfaces::unbox_any_vec_ptr(self.values, self.count);
+            }
+        }
+    }
+    #[repr(C)]
+    #[derive(Clone)]
+    #[allow(non_camel_case_types)]
+    pub struct std_collections_Map_keys_u32_values_crate_nested_HashID {
+        pub count: usize,
+        pub keys: *mut u32,
+        pub values: *mut *mut crate::fermented::types::nested::HashID,
+    }
+    impl ferment_interfaces::FFIConversion<std::collections::BTreeMap<u32, crate::nested::HashID>>
+        for std_collections_Map_keys_u32_values_crate_nested_HashID
+    {
+        unsafe fn ffi_from_const(
+            ffi: *const std_collections_Map_keys_u32_values_crate_nested_HashID,
+        ) -> std::collections::BTreeMap<u32, crate::nested::HashID> {
+            let ffi_ref = &*ffi;
+            ferment_interfaces::from_simple_complex_map(ffi_ref.count, ffi_ref.keys, ffi_ref.values)
+        }
+        unsafe fn ffi_to_const(
+            obj: std::collections::BTreeMap<u32, crate::nested::HashID>,
+        ) -> *const std_collections_Map_keys_u32_values_crate_nested_HashID {
+            ferment_interfaces::boxed(Self {
+                count: obj.len(),
+                keys: ferment_interfaces::to_simple_vec(obj.keys().cloned().collect()),
+                values: ferment_interfaces::complex_vec_iterator::<
+                    crate::nested::HashID,
+                    crate::fermented::types::nested::HashID,
+                >(obj.values().cloned()),
+            })
+        }
+        unsafe fn destroy(ffi: *mut std_collections_Map_keys_u32_values_crate_nested_HashID) {
+            ferment_interfaces::unbox_any(ffi);
+        }
+    }
+    impl Drop for std_collections_Map_keys_u32_values_crate_nested_HashID {
+        fn drop(&mut self) {
+            unsafe {
+                ferment_interfaces::unbox_vec_ptr(self.keys, self.count);
+                ferment_interfaces::unbox_any_vec_ptr(self.values, self.count);
+            }
+        }
+    }
+    #[repr(C)]
+    #[derive(Clone)]
+    #[allow(non_camel_case_types)]
+    pub struct Vec_bool {
+        pub count: usize,
+        pub values: *mut bool,
+    }
+    impl ferment_interfaces::FFIConversion<Vec<bool>> for Vec_bool {
+        unsafe fn ffi_from_const(ffi: *const Vec_bool) -> Vec<bool> {
+            let ffi_ref = &*ffi;
+            ferment_interfaces::FFIVecConversion::decode(ffi_ref)
+        }
+        unsafe fn ffi_to_const(obj: Vec<bool>) -> *const Vec_bool {
+            ferment_interfaces::FFIVecConversion::encode(obj)
+        }
+        unsafe fn destroy(ffi: *mut Vec_bool) {
+            ferment_interfaces::unbox_any(ffi);
+        }
+    }
+    impl ferment_interfaces::FFIVecConversion for Vec_bool {
+        type Value = bool;
+        unsafe fn decode(&self) -> Vec<Self::Value> {
+            ferment_interfaces::from_simple_vec(self.values as *const Self::Value, self.count)
+        }
+        unsafe fn encode(obj: Vec<Self::Value>) -> *mut Self {
+            ferment_interfaces::boxed(Self {
+                count: obj.len(),
+                values: ferment_interfaces::boxed_vec(obj),
+            })
+        }
+    }
+    impl Drop for Vec_bool {
+        fn drop(&mut self) {
+            unsafe {
+                ferment_interfaces::unbox_vec_ptr(self.values, self.count);
+            }
+        }
+    }
+    #[repr(C)]
+    #[derive(Clone)]
+    #[allow(non_camel_case_types)]
+    pub struct std_collections_Map_keys_crate_nested_HashID_values_std_collections_Map_keys_u32_values_std_collections_Map_keys_crate_nested_HashID_values_crate_nested_HashID { pub count : usize , pub keys : * mut * mut crate :: fermented :: types :: nested :: HashID , pub values : * mut * mut crate :: fermented :: generics :: std_collections_Map_keys_u32_values_std_collections_Map_keys_crate_nested_HashID_values_crate_nested_HashID , }
+    impl ferment_interfaces :: FFIConversion < std :: collections :: BTreeMap < crate :: nested :: HashID , std :: collections :: BTreeMap < u32 , std :: collections :: BTreeMap < crate :: nested :: HashID , crate :: nested :: HashID > > > > for std_collections_Map_keys_crate_nested_HashID_values_std_collections_Map_keys_u32_values_std_collections_Map_keys_crate_nested_HashID_values_crate_nested_HashID { unsafe fn ffi_from_const (ffi : * const std_collections_Map_keys_crate_nested_HashID_values_std_collections_Map_keys_u32_values_std_collections_Map_keys_crate_nested_HashID_values_crate_nested_HashID) -> std :: collections :: BTreeMap < crate :: nested :: HashID , std :: collections :: BTreeMap < u32 , std :: collections :: BTreeMap < crate :: nested :: HashID , crate :: nested :: HashID > > > { let ffi_ref = & * ffi ; ferment_interfaces :: from_complex_map (ffi_ref . count , ffi_ref . keys , ffi_ref . values) } unsafe fn ffi_to_const (obj : std :: collections :: BTreeMap < crate :: nested :: HashID , std :: collections :: BTreeMap < u32 , std :: collections :: BTreeMap < crate :: nested :: HashID , crate :: nested :: HashID > > >) -> * const std_collections_Map_keys_crate_nested_HashID_values_std_collections_Map_keys_u32_values_std_collections_Map_keys_crate_nested_HashID_values_crate_nested_HashID { ferment_interfaces :: boxed (Self { count : obj . len () , keys : ferment_interfaces :: complex_vec_iterator :: < crate :: nested :: HashID , crate :: fermented :: types :: nested :: HashID > (obj . keys () . cloned ()) , values : ferment_interfaces :: complex_vec_iterator :: < std :: collections :: BTreeMap < u32 , std :: collections :: BTreeMap < crate :: nested :: HashID , crate :: nested :: HashID > > , crate :: fermented :: generics :: std_collections_Map_keys_u32_values_std_collections_Map_keys_crate_nested_HashID_values_crate_nested_HashID > (obj . values () . cloned ()) }) } unsafe fn destroy (ffi : * mut std_collections_Map_keys_crate_nested_HashID_values_std_collections_Map_keys_u32_values_std_collections_Map_keys_crate_nested_HashID_values_crate_nested_HashID) { ferment_interfaces :: unbox_any (ffi) ; } }
+    impl Drop for std_collections_Map_keys_crate_nested_HashID_values_std_collections_Map_keys_u32_values_std_collections_Map_keys_crate_nested_HashID_values_crate_nested_HashID { fn drop (& mut self) { unsafe { ferment_interfaces :: unbox_any_vec_ptr (self . keys , self . count) ; ferment_interfaces :: unbox_any_vec_ptr (self . values , self . count) ; } } }
+    #[repr(C)]
+    #[derive(Clone)]
+    #[allow(non_camel_case_types)]
+    pub struct std_collections_Map_keys_crate_nested_HashID_values_Vec_u32 {
+        pub count: usize,
+        pub keys: *mut *mut crate::fermented::types::nested::HashID,
+        pub values: *mut *mut crate::fermented::generics::Vec_u32,
+    }
+    impl
+        ferment_interfaces::FFIConversion<
+            std::collections::BTreeMap<crate::nested::HashID, Vec<u32>>,
+        > for std_collections_Map_keys_crate_nested_HashID_values_Vec_u32
+    {
+        unsafe fn ffi_from_const(
+            ffi: *const std_collections_Map_keys_crate_nested_HashID_values_Vec_u32,
+        ) -> std::collections::BTreeMap<crate::nested::HashID, Vec<u32>> {
+            let ffi_ref = &*ffi;
+            ferment_interfaces::from_complex_map(ffi_ref.count, ffi_ref.keys, ffi_ref.values)
+        }
+        unsafe fn ffi_to_const(
+            obj: std::collections::BTreeMap<crate::nested::HashID, Vec<u32>>,
+        ) -> *const std_collections_Map_keys_crate_nested_HashID_values_Vec_u32 {
+            ferment_interfaces::boxed(Self {
+                count: obj.len(),
+                keys: ferment_interfaces::complex_vec_iterator::<
+                    crate::nested::HashID,
+                    crate::fermented::types::nested::HashID,
+                >(obj.keys().cloned()),
+                values: ferment_interfaces::complex_vec_iterator::<
+                    Vec<u32>,
+                    crate::fermented::generics::Vec_u32,
+                >(obj.values().cloned()),
+            })
+        }
+        unsafe fn destroy(ffi: *mut std_collections_Map_keys_crate_nested_HashID_values_Vec_u32) {
+            ferment_interfaces::unbox_any(ffi);
+        }
+    }
+    impl Drop for std_collections_Map_keys_crate_nested_HashID_values_Vec_u32 {
+        fn drop(&mut self) {
+            unsafe {
+                ferment_interfaces::unbox_any_vec_ptr(self.keys, self.count);
+                ferment_interfaces::unbox_any_vec_ptr(self.values, self.count);
+            }
+        }
+    }
+    #[repr(C)]
+    #[derive(Clone)]
+    #[allow(non_camel_case_types)]
+    pub struct Vec_crate_nested_HashID {
+        pub count: usize,
+        pub values: *mut *mut crate::fermented::types::nested::HashID,
+    }
+    impl ferment_interfaces::FFIConversion<Vec<crate::nested::HashID>> for Vec_crate_nested_HashID {
+        unsafe fn ffi_from_const(
+            ffi: *const Vec_crate_nested_HashID,
+        ) -> Vec<crate::nested::HashID> {
+            let ffi_ref = &*ffi;
+            ferment_interfaces::FFIVecConversion::decode(ffi_ref)
+        }
+        unsafe fn ffi_to_const(obj: Vec<crate::nested::HashID>) -> *const Vec_crate_nested_HashID {
+            ferment_interfaces::FFIVecConversion::encode(obj)
+        }
+        unsafe fn destroy(ffi: *mut Vec_crate_nested_HashID) {
+            ferment_interfaces::unbox_any(ffi);
+        }
+    }
+    impl ferment_interfaces::FFIVecConversion for Vec_crate_nested_HashID {
+        type Value = crate::nested::HashID;
+        unsafe fn decode(&self) -> Vec<Self::Value> {
+            {
+                let count = self.count;
+                let values = self.values;
+                (0..count)
+                    .map(|i| ferment_interfaces::FFIConversion::ffi_from_const(*values.add(i)))
+                    .collect()
+            }
+        }
+        unsafe fn encode(obj: Vec<Self::Value>) -> *mut Self {
+            ferment_interfaces::boxed(Self {
+                count: obj.len(),
+                values: ferment_interfaces::complex_vec_iterator::<
+                    Self::Value,
+                    crate::fermented::types::nested::HashID,
+                >(obj.into_iter()),
+            })
+        }
+    }
+    impl Drop for Vec_crate_nested_HashID {
+        fn drop(&mut self) {
+            unsafe {
+                ferment_interfaces::unbox_any_vec_ptr(self.values, self.count);
+            }
+        }
+    }
+    #[repr(C)]
+    #[derive(Clone)]
+    #[allow(non_camel_case_types)]
+    pub struct std_collections_Map_keys_u32_values_Vec_u32 {
+        pub count: usize,
+        pub keys: *mut u32,
+        pub values: *mut *mut crate::fermented::generics::Vec_u32,
+    }
+    impl ferment_interfaces::FFIConversion<std::collections::BTreeMap<u32, Vec<u32>>>
+        for std_collections_Map_keys_u32_values_Vec_u32
+    {
+        unsafe fn ffi_from_const(
+            ffi: *const std_collections_Map_keys_u32_values_Vec_u32,
+        ) -> std::collections::BTreeMap<u32, Vec<u32>> {
+            let ffi_ref = &*ffi;
+            ferment_interfaces::from_simple_complex_map(ffi_ref.count, ffi_ref.keys, ffi_ref.values)
+        }
+        unsafe fn ffi_to_const(
+            obj: std::collections::BTreeMap<u32, Vec<u32>>,
+        ) -> *const std_collections_Map_keys_u32_values_Vec_u32 {
+            ferment_interfaces::boxed(Self {
+                count: obj.len(),
+                keys: ferment_interfaces::to_simple_vec(obj.keys().cloned().collect()),
+                values: ferment_interfaces::complex_vec_iterator::<
+                    Vec<u32>,
+                    crate::fermented::generics::Vec_u32,
+                >(obj.values().cloned()),
+            })
+        }
+        unsafe fn destroy(ffi: *mut std_collections_Map_keys_u32_values_Vec_u32) {
+            ferment_interfaces::unbox_any(ffi);
+        }
+    }
+    impl Drop for std_collections_Map_keys_u32_values_Vec_u32 {
+        fn drop(&mut self) {
+            unsafe {
+                ferment_interfaces::unbox_vec_ptr(self.keys, self.count);
+                ferment_interfaces::unbox_any_vec_ptr(self.values, self.count);
+            }
+        }
+    }
+    #[repr(C)]
+    #[derive(Clone)]
+    #[allow(non_camel_case_types)]
+    pub struct std_collections_Map_keys_String_values_crate_nested_HashID {
+        pub count: usize,
+        pub keys: *mut *mut std::os::raw::c_char,
+        pub values: *mut *mut crate::fermented::types::nested::HashID,
+    }
+    impl
+        ferment_interfaces::FFIConversion<std::collections::BTreeMap<String, crate::nested::HashID>>
+        for std_collections_Map_keys_String_values_crate_nested_HashID
+    {
+        unsafe fn ffi_from_const(
+            ffi: *const std_collections_Map_keys_String_values_crate_nested_HashID,
+        ) -> std::collections::BTreeMap<String, crate::nested::HashID> {
+            let ffi_ref = &*ffi;
+            ferment_interfaces::from_complex_map(ffi_ref.count, ffi_ref.keys, ffi_ref.values)
+        }
+        unsafe fn ffi_to_const(
+            obj: std::collections::BTreeMap<String, crate::nested::HashID>,
+        ) -> *const std_collections_Map_keys_String_values_crate_nested_HashID {
+            ferment_interfaces::boxed(Self {
+                count: obj.len(),
+                keys: ferment_interfaces::complex_vec_iterator::<String, std::os::raw::c_char>(
+                    obj.keys().cloned(),
+                ),
+                values: ferment_interfaces::complex_vec_iterator::<
+                    crate::nested::HashID,
+                    crate::fermented::types::nested::HashID,
+                >(obj.values().cloned()),
+            })
+        }
+        unsafe fn destroy(ffi: *mut std_collections_Map_keys_String_values_crate_nested_HashID) {
+            ferment_interfaces::unbox_any(ffi);
+        }
+    }
+    impl Drop for std_collections_Map_keys_String_values_crate_nested_HashID {
+        fn drop(&mut self) {
+            unsafe {
+                ferment_interfaces::unbox_any_vec_ptr(self.keys, self.count);
+                ferment_interfaces::unbox_any_vec_ptr(self.values, self.count);
+            }
+        }
+    }
+}

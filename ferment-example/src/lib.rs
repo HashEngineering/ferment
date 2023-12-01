@@ -21,6 +21,7 @@ pub struct ExcludedStruct {
 pub mod nested {
     use dashcore::secp256k1::rand::rngs::StdRng as EcdsaRng;
     use std::collections::BTreeMap;
+    use ferment_interfaces::OpaqueContext;
     use dashcore::Network;
     use dashcore::secp256k1::Secp256k1;
     use dashcore::signer::ripemd160_sha256;
@@ -220,18 +221,18 @@ pub mod nested {
     }
 
     #[ferment_macro::export]
-    pub type AddInsightCallback = fn(block_hash: HashID, context: ferment_interfaces::OpaqueContext);
+    pub type AddInsightCallback = fn(block_hash: HashID, context: OpaqueContext);
 
     #[ferment_macro::export]
     pub type ShouldProcessDiffWithRangeCallback = fn(
         base_block_hash: HashID,
         block_hash: HashID,
-        context: ferment_interfaces::OpaqueContext,
+        context: OpaqueContext,
     ) -> ProtocolError;
 
     #[ferment_macro::export]
     pub fn find_hash_by_u32(key: u32, map: BTreeMap<u32, HashID>) -> Option<HashID> {
-        map.get(&key).clone().copied()
+        map.get(&key).copied()
     }
 
     #[ferment_macro::export]
