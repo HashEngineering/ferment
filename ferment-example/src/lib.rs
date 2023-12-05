@@ -5,8 +5,10 @@ use crate::nested::get_identity2;
 
 pub mod fermented;
 mod traits;
+mod asyn;
 
 extern crate ferment_macro;
+extern crate tokio;
 extern crate core;
 
 #[ferment_macro::export]
@@ -262,7 +264,15 @@ pub mod nested {
         BTreeMap<HashID, BTreeMap<u32, Vec<HashID>>>,
 
         pub map_key_complex_value_map_key_simple_value_map_key_complex_value_complex:
-        BTreeMap<HashID, BTreeMap<u32, BTreeMap<HashID, HashID>>>,
+            BTreeMap<HashID, BTreeMap<u32, BTreeMap<HashID, HashID>>>,
+
+        pub opt_primitive: Option<u8>,
+        pub opt_string: Option<String>,
+        // pub opt_str: Option<&'static str>,
+        pub opt_vec_primitive: Option<Vec<u8>>,
+        pub opt_vec_string: Option<Vec<String>>,
+        pub opt_vec_complex: Option<Vec<HashID>>,
+        pub opt_vec_vec_complex: Option<Vec<Vec<HashID>>>,
     }
 
 
