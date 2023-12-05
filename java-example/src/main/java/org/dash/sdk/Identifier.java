@@ -45,8 +45,8 @@ public class Identifier {
     return (cPtr == 0) ? null : new IdentifierBytes32(cPtr, false);
   }
 
-  public Identifier() {
-    this(exampleJNI.new_Identifier(), true);
+  public Identifier(byte[] byteArray) {
+    this(exampleJNI.new_Identifier(byteArray), true);
   }
 
 }

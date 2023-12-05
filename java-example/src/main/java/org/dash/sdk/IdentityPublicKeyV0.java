@@ -45,31 +45,31 @@ public class IdentityPublicKeyV0 {
     return (cPtr == 0) ? null : new KeyID(cPtr, false);
   }
 
-  public void setSecurity_level(SWIGTYPE_p_SecurityLevel_FFI value) {
-    exampleJNI.IdentityPublicKeyV0_security_level_set(swigCPtr, this, SWIGTYPE_p_SecurityLevel_FFI.getCPtr(value));
+  public void setSecurity_level(SWIGTYPE_p_SecurityLevel value) {
+    exampleJNI.IdentityPublicKeyV0_security_level_set(swigCPtr, this, SWIGTYPE_p_SecurityLevel.getCPtr(value));
   }
 
-  public SWIGTYPE_p_SecurityLevel_FFI getSecurity_level() {
+  public SWIGTYPE_p_SecurityLevel getSecurity_level() {
     long cPtr = exampleJNI.IdentityPublicKeyV0_security_level_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new SWIGTYPE_p_SecurityLevel_FFI(cPtr, false);
+    return (cPtr == 0) ? null : new SWIGTYPE_p_SecurityLevel(cPtr, false);
   }
 
-  public void setContract_bounds(ContractBounds_FFI value) {
-    exampleJNI.IdentityPublicKeyV0_contract_bounds_set(swigCPtr, this, ContractBounds_FFI.getCPtr(value), value);
+  public void setContract_bounds(ContractBounds value) {
+    exampleJNI.IdentityPublicKeyV0_contract_bounds_set(swigCPtr, this, ContractBounds.getCPtr(value), value);
   }
 
-  public ContractBounds_FFI getContract_bounds() {
+  public ContractBounds getContract_bounds() {
     long cPtr = exampleJNI.IdentityPublicKeyV0_contract_bounds_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new ContractBounds_FFI(cPtr, false);
+    return (cPtr == 0) ? null : new ContractBounds(cPtr, false);
   }
 
-  public void setKey_type(SWIGTYPE_p_KeyType_FFI value) {
-    exampleJNI.IdentityPublicKeyV0_key_type_set(swigCPtr, this, SWIGTYPE_p_KeyType_FFI.getCPtr(value));
+  public void setKey_type(SWIGTYPE_p_KeyType value) {
+    exampleJNI.IdentityPublicKeyV0_key_type_set(swigCPtr, this, SWIGTYPE_p_KeyType.getCPtr(value));
   }
 
-  public SWIGTYPE_p_KeyType_FFI getKey_type() {
+  public SWIGTYPE_p_KeyType getKey_type() {
     long cPtr = exampleJNI.IdentityPublicKeyV0_key_type_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new SWIGTYPE_p_KeyType_FFI(cPtr, false);
+    return (cPtr == 0) ? null : new SWIGTYPE_p_KeyType(cPtr, false);
   }
 
   public void setRead_only(boolean value) {
@@ -89,13 +89,13 @@ public class IdentityPublicKeyV0 {
     return (cPtr == 0) ? null : new BinaryData(cPtr, false);
   }
 
-  public void setDisabled_at(TimestampMillis_FFI value) {
-    exampleJNI.IdentityPublicKeyV0_disabled_at_set(swigCPtr, this, TimestampMillis_FFI.getCPtr(value), value);
+  public void setDisabled_at(TimestampMillis value) {
+    exampleJNI.IdentityPublicKeyV0_disabled_at_set(swigCPtr, this, TimestampMillis.getCPtr(value), value);
   }
 
-  public TimestampMillis_FFI getDisabled_at() {
+  public TimestampMillis getDisabled_at() {
     long cPtr = exampleJNI.IdentityPublicKeyV0_disabled_at_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new TimestampMillis_FFI(cPtr, false);
+    return (cPtr == 0) ? null : new TimestampMillis(cPtr, false);
   }
 
   public Purpose getPurpose() {
@@ -104,10 +104,6 @@ public class IdentityPublicKeyV0 {
 
   public void setPurpose(Purpose purpose) {
     exampleJNI.IdentityPublicKeyV0_setPurpose(swigCPtr, this, purpose.swigValue());
-  }
-
-  public IdentityPublicKeyV0() {
-    this(exampleJNI.new_IdentityPublicKeyV0(), true);
   }
 
 }

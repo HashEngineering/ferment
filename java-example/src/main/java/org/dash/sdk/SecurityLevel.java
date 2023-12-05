@@ -9,10 +9,10 @@
 package org.dash.sdk;
 
 public final class SecurityLevel {
-  public final static SecurityLevel SecurityLevel_FFI_MASTER = new SecurityLevel("SecurityLevel_FFI_MASTER", exampleJNI.SecurityLevel_FFI_MASTER_get());
-  public final static SecurityLevel SecurityLevel_FFI_CRITICAL = new SecurityLevel("SecurityLevel_FFI_CRITICAL", exampleJNI.SecurityLevel_FFI_CRITICAL_get());
-  public final static SecurityLevel SecurityLevel_FFI_HIGH = new SecurityLevel("SecurityLevel_FFI_HIGH", exampleJNI.SecurityLevel_FFI_HIGH_get());
-  public final static SecurityLevel SecurityLevel_FFI_MEDIUM = new SecurityLevel("SecurityLevel_FFI_MEDIUM", exampleJNI.SecurityLevel_FFI_MEDIUM_get());
+  public final static SecurityLevel SecurityLevel_MASTER = new SecurityLevel("SecurityLevel_MASTER", exampleJNI.SecurityLevel_MASTER_get());
+  public final static SecurityLevel SecurityLevel_CRITICAL = new SecurityLevel("SecurityLevel_CRITICAL", exampleJNI.SecurityLevel_CRITICAL_get());
+  public final static SecurityLevel SecurityLevel_HIGH = new SecurityLevel("SecurityLevel_HIGH", exampleJNI.SecurityLevel_HIGH_get());
+  public final static SecurityLevel SecurityLevel_MEDIUM = new SecurityLevel("SecurityLevel_MEDIUM", exampleJNI.SecurityLevel_MEDIUM_get());
 
   public final int swigValue() {
     return swigValue;
@@ -48,7 +48,7 @@ public final class SecurityLevel {
     swigNext = this.swigValue+1;
   }
 
-  private static SecurityLevel[] swigValues = { SecurityLevel_FFI_MASTER, SecurityLevel_FFI_CRITICAL, SecurityLevel_FFI_HIGH, SecurityLevel_FFI_MEDIUM };
+  private static SecurityLevel[] swigValues = { SecurityLevel_MASTER, SecurityLevel_CRITICAL, SecurityLevel_HIGH, SecurityLevel_MEDIUM };
   private static int swigNext = 0;
   private final int swigValue;
   private final String swigName;

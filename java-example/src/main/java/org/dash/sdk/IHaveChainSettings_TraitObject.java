@@ -36,26 +36,4 @@ public class IHaveChainSettings_TraitObject {
     }
   }
 
-  public void setObject(SWIGTYPE_p_void value) {
-    exampleJNI.IHaveChainSettings_TraitObject_object_set(swigCPtr, this, SWIGTYPE_p_void.getCPtr(value));
-  }
-
-  public SWIGTYPE_p_void getObject() {
-    long cPtr = exampleJNI.IHaveChainSettings_TraitObject_object_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new SWIGTYPE_p_void(cPtr, false);
-  }
-
-  public void setVtable(IHaveChainSettings_VTable value) {
-    exampleJNI.IHaveChainSettings_TraitObject_vtable_set(swigCPtr, this, IHaveChainSettings_VTable.getCPtr(value), value);
-  }
-
-  public IHaveChainSettings_VTable getVtable() {
-    long cPtr = exampleJNI.IHaveChainSettings_TraitObject_vtable_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new IHaveChainSettings_VTable(cPtr, false);
-  }
-
-  public IHaveChainSettings_TraitObject() {
-    this(exampleJNI.new_IHaveChainSettings_TraitObject(), true);
-  }
-
 }

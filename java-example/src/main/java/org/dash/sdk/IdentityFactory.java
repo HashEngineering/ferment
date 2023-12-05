@@ -41,7 +41,8 @@ public class IdentityFactory {
   }
 
   public Identity getIdentity(Identifier id) {
-    return new Identity(exampleJNI.IdentityFactory_getIdentity(swigCPtr, this, Identifier.getCPtr(id), id), true);
+    long cPtr = exampleJNI.IdentityFactory_getIdentity(swigCPtr, this, Identifier.getCPtr(id), id);
+    return (cPtr == 0) ? null : new Identity(cPtr, false);
   }
 
 }

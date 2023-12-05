@@ -36,12 +36,12 @@ public class Identity {
     }
   }
 
-  public void setTag(Identity_FFI_Tag value) {
+  public void setTag(Identity_Tag value) {
     exampleJNI.Identity_tag_set(swigCPtr, this, value.swigValue());
   }
 
-  public Identity_FFI_Tag getTag() {
-    return Identity_FFI_Tag.swigToEnum(exampleJNI.Identity_tag_get(swigCPtr, this));
+  public Identity_Tag getTag() {
+    return Identity_Tag.swigToEnum(exampleJNI.Identity_tag_get(swigCPtr, this));
   }
 
   public void setV0(IdentityV0 value) {
@@ -51,10 +51,6 @@ public class Identity {
   public IdentityV0 getV0() {
     long cPtr = exampleJNI.Identity_v0_get(swigCPtr, this);
     return (cPtr == 0) ? null : new IdentityV0(cPtr, false);
-  }
-
-  public Identity() {
-    this(exampleJNI.new_Identity(), true);
   }
 
 }

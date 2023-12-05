@@ -45,13 +45,13 @@ public class IdentityV0 {
     return (cPtr == 0) ? null : new Identifier(cPtr, false);
   }
 
-  public void setPublic_keys(std_collections_Map_keys_crate_nested_KeyID_values_crate_nested_IdentityPublicKey_FFI value) {
-    exampleJNI.IdentityV0_public_keys_set(swigCPtr, this, std_collections_Map_keys_crate_nested_KeyID_values_crate_nested_IdentityPublicKey_FFI.getCPtr(value), value);
+  public void setPublic_keys(std_collections_Map_keys_crate_nested_KeyID_values_crate_nested_IdentityPublicKey value) {
+    exampleJNI.IdentityV0_public_keys_set(swigCPtr, this, std_collections_Map_keys_crate_nested_KeyID_values_crate_nested_IdentityPublicKey.getCPtr(value), value);
   }
 
-  public std_collections_Map_keys_crate_nested_KeyID_values_crate_nested_IdentityPublicKey_FFI getPublic_keys() {
+  public std_collections_Map_keys_crate_nested_KeyID_values_crate_nested_IdentityPublicKey getPublic_keys() {
     long cPtr = exampleJNI.IdentityV0_public_keys_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new std_collections_Map_keys_crate_nested_KeyID_values_crate_nested_IdentityPublicKey_FFI(cPtr, false);
+    return (cPtr == 0) ? null : new std_collections_Map_keys_crate_nested_KeyID_values_crate_nested_IdentityPublicKey(cPtr, false);
   }
 
   public void setBalance(java.math.BigInteger value) {
@@ -79,10 +79,6 @@ public class IdentityV0 {
   public IdentityPublicKeyV0 getPublicKeyById(long id) {
     long cPtr = exampleJNI.IdentityV0_getPublicKeyById(swigCPtr, this, id);
     return (cPtr == 0) ? null : new IdentityPublicKeyV0(cPtr, false);
-  }
-
-  public IdentityV0() {
-    this(exampleJNI.new_IdentityV0(), true);
   }
 
 }

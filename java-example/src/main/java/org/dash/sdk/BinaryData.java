@@ -36,17 +36,12 @@ public class BinaryData {
     }
   }
 
-  public void set_0(SWIGTYPE_p_Vec_u8_FFI value) {
-    exampleJNI.BinaryData__0_set(swigCPtr, this, SWIGTYPE_p_Vec_u8_FFI.getCPtr(value));
+  public void set_0(byte[] value) {
+    exampleJNI.BinaryData__0_set(swigCPtr, this, value);
   }
 
-  public SWIGTYPE_p_Vec_u8_FFI get_0() {
-    long cPtr = exampleJNI.BinaryData__0_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new SWIGTYPE_p_Vec_u8_FFI(cPtr, false);
-  }
-
-  public BinaryData() {
-    this(exampleJNI.new_BinaryData(), true);
+  public byte[] get_0() {
+    return exampleJNI.BinaryData__0_get(swigCPtr, this);
   }
 
 }

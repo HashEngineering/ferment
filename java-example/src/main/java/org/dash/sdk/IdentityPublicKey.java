@@ -36,12 +36,12 @@ public class IdentityPublicKey {
     }
   }
 
-  public void setTag(IdentityPublicKeyTag value) {
+  public void setTag(IdentityPublicKey_Tag value) {
     exampleJNI.IdentityPublicKey_tag_set(swigCPtr, this, value.swigValue());
   }
 
-  public IdentityPublicKeyTag getTag() {
-    return IdentityPublicKeyTag.swigToEnum(exampleJNI.IdentityPublicKey_tag_get(swigCPtr, this));
+  public IdentityPublicKey_Tag getTag() {
+    return IdentityPublicKey_Tag.swigToEnum(exampleJNI.IdentityPublicKey_tag_get(swigCPtr, this));
   }
 
   public void setV0(IdentityPublicKeyV0 value) {
@@ -51,10 +51,6 @@ public class IdentityPublicKey {
   public IdentityPublicKeyV0 getV0() {
     long cPtr = exampleJNI.IdentityPublicKey_v0_get(swigCPtr, this);
     return (cPtr == 0) ? null : new IdentityPublicKeyV0(cPtr, false);
-  }
-
-  public IdentityPublicKey() {
-    this(exampleJNI.new_IdentityPublicKey(), true);
   }
 
 }

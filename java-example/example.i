@@ -12,27 +12,20 @@ extern "C" {
 //%rename(renameCamelCase) "";
 //%rename("renameCamelCase") "^(ffi_)?(.+)$";
 //%rename("%(camelcase)s",%$isfunction) "";
+%ignore IdentityFactory_TraitObject::object;
+%ignore IdentityFactory_TraitObject::vtable;
+%ignore IdentityFactory_VTable;
+%ignore IHaveChainSettings_TraitObject::object;
+%ignore IHaveChainSettings_TraitObject::vtable;
+%ignore IHaveChainSettings_VTable;
+%nodefaultctor;
+
 %rename("%(lowercamelcase)s", %$isfunction) "";
-%rename(HashID) HashID_FFI;
-%rename(SecurityLevel) SecurityLevel_FFI;
-%rename(KeyID) KeyID_FFI;
-%rename(Revision) Revision_FFI;
-%rename(Purpose) Purpose_FFI;
-%rename(Identifier) Identifier_FFI;
-//%ignore IdentifierBytes32_FFI;
-%rename(IdentifierBytes32) IdentifierBytes32_FFI;
 
-%rename(IdentityPublicKey) IdentityPublicKey_FFI;
-%rename(IdentityPublicKeyTag) IdentityPublicKey_FFI_Tag;
-%rename(IdentityPublicKeyV0) IdentityPublicKeyV0_FFI;
-%rename(Identity) Identity_FFI;
-%rename(IdentityV0) IdentityV0_FFI;
-%rename(BinaryData) BinaryData_FFI;
-%rename(KeyType) KeyType_FFI;
-%rename(IntegerHashIDMap) Map_keys_u32_values_HashID_FFI;
+%ignore IdentityPublicKeyV0::purpose;
+%ignore Vec_u8;
 
-%ignore IdentityPublicKeyV0_FFI::purpose;
-%ignore Vec_u8_FFI;
+//%ignore IdentifierBytes32;
 //%rename("%(lowercamelcase)s") "";
 %include "stdint.i"
 %include "arrays_java.i"
@@ -95,15 +88,27 @@ extern "C" {
 //   return $jnicall;
 // }
 
-%extend IdentifierBytes32_FFI {
-    IdentifierBytes32_FFI(uint8_t identifierBytes[32]) {
-        struct IdentifierBytes32_FFI * identifierBytes32 = (struct IdentifierBytes32_FFI*)calloc(1, sizeof(struct IdentifierBytes32_FFI));
+%extend Identifier {
+    Identifier(uint8_t (*byteArray)[32]) {
+        IdentifierBytes32 * identifierBytes32 = IdentifierBytes32_ctor(byteArray);
+        return Identifier_ctor(identifierBytes32);
+    }
+
+    ~Identifier() {
+        IdentifierBytes32_destroy($self->_0); // Deallocate the memory when the object is destroyed
+        Identifier_destroy(self);
+    }
+}
+
+%extend IdentifierBytes32 {
+    IdentifierBytes32(uint8_t identifierBytes[32]) {
+        struct IdentifierBytes32 * identifierBytes32 = (struct IdentifierBytes32*)calloc(1, sizeof(struct IdentifierBytes32));
         identifierBytes32->_0 = (uint8_t (*)[32])calloc(1, sizeof(uint8_t[32]));
         memcpy(identifierBytes32->_0, identifierBytes, sizeof(uint8_t[32]));
         return identifierBytes32;
     }
 
-    ~IdentifierBytes32_FFI() {
+    ~IdentifierBytes32() {
         free($self->_0); // Deallocate the memory when the object is destroyed
         free(self);
     }
@@ -145,12 +150,12 @@ extern "C" {
 
 
 
-%extend IdentityV0_FFI {
-    struct IdentityPublicKeyV0_FFI * getPublicKey(uint32_t index) {
+%extend IdentityV0 {
+    struct IdentityPublicKeyV0 * getPublicKey(uint32_t index) {
         return $self->public_keys->values[index]->v0;
     }
 
-    struct IdentityPublicKeyV0_FFI * getPublicKeyById(uint32_t id) {
+    struct IdentityPublicKeyV0 * getPublicKeyById(uint32_t id) {
         for (int i = 0; i < $self->public_keys->count; ++i) {
             if ($self->public_keys->keys[i]->_0 == id)
                 return $self->public_keys->values[i]->v0;
@@ -159,55 +164,65 @@ extern "C" {
     }
 }
 
-%extend IdentityPublicKeyV0_FFI {
-    enum Purpose_FFI getPurpose() {
+%extend IdentityPublicKeyV0 {
+    enum Purpose getPurpose() {
         return *$self->purpose;
     }
-    void setPurpose(enum Purpose_FFI purpose) {
+    void setPurpose(enum Purpose purpose) {
 
     }
 }
 
-
-%naturalvar Vec_u8_FFI;
-
-struct Vec_u8_FFI;
-
-//%feature("valuewrapper") struct Vec_u8_FFI *;
-
-// Vec_u8_FFI
-%typemap(jni) struct Vec_u8_FFI * "jbyteArray"
-%typemap(jtype) struct Vec_u8_FFI * "byte[]"
-%typemap(jstype) struct Vec_u8_FFI * "byte[]"
+%extend HashID {
+    HashID(uint8_t (*o_0)[32]) {
+        return HashID_ctor(o_0);
+    }
+    ~HashID() {
+        HashID_destroy($self);
+        free($self->_0);
+    }
+}
 
 
-%typemap(in) struct Vec_u8_FFI * ""
+//%naturalvar Vec_u8;
+
+struct Vec_u8;
+
+//%feature("valuewrapper") struct Vec_u8 *;
+
+// Vec_u8
+%typemap(jni) Vec_u8 * "jbyteArray"
+%typemap(jtype) Vec_u8 * "byte[]"
+%typemap(jstype) Vec_u8 * "byte[]"
+
+
+%typemap(in) Vec_u8 * ""
 // %{
-//     struct Vec_u8_FFI = $1_object = (struct Vec_u8_FFI*)calloc(1, sizeof(struct struct Vec_u8_FFI));
+//     struct Vec_u8 = $1_object = (struct Vec_u8*)calloc(1, sizeof(struct struct Vec_u8));
 //     $1_object.values = ((const uint8_t *)JCALL2(GetByteArrayElements, jenv, $input, 0), JCALL1(GetArrayLength, jenv, $input));
 //     $1 = $1_object;
 // %}
 
-%typemap(argout) struct Vec_u8_FFI * ""
+%typemap(argout) Vec_u8 * ""
 // {
 //     JCALL3(ReleaseByteArrayElements, jenv, $input, (jbyte *) $1->values, 0);
 // }
 
-%typemap(out) struct Vec_u8_FFI * {
+%typemap(out) Vec_u8 * {
     $result = JCALL1(NewByteArray, jenv, $1->count);
    JCALL4(SetByteArrayRegion, jenv, $result, 0, $1->count, (jbyte *) $1->values);
 }
 
-%typemap(javain) struct Vec_u8_FFI * "$javainput"
+%typemap(javain) Vec_u8 * "$javainput"
 
-%typemap(javaout) struct Vec_u8_FFI * {
+%typemap(javaout) Vec_u8 * {
     return $jnicall;
   }
 
-%typemap(typecheck) struct Vec_u8_FFI * = char *;
+%typemap(typecheck) Vec_u8 * = char *;
 
-%typemap(throws) struct Vec_u8_FFI *
-%{ SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "null Vec_u8_FFI");
+%typemap(throws) Vec_u8 *
+%{ SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "null Vec_u8");
    return $null; %}
 
 

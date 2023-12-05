@@ -44,8 +44,4 @@ public class Revision {
     return exampleJNI.Revision__0_get(swigCPtr, this);
   }
 
-  public Revision() {
-    this(exampleJNI.new_Revision(), true);
-  }
-
 }

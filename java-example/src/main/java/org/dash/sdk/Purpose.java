@@ -9,12 +9,12 @@
 package org.dash.sdk;
 
 public final class Purpose {
-  public final static Purpose Purpose_FFI_AUTHENTICATION = new Purpose("Purpose_FFI_AUTHENTICATION", exampleJNI.Purpose_FFI_AUTHENTICATION_get());
-  public final static Purpose Purpose_FFI_ENCRYPTION = new Purpose("Purpose_FFI_ENCRYPTION", exampleJNI.Purpose_FFI_ENCRYPTION_get());
-  public final static Purpose Purpose_FFI_DECRYPTION = new Purpose("Purpose_FFI_DECRYPTION", exampleJNI.Purpose_FFI_DECRYPTION_get());
-  public final static Purpose Purpose_FFI_WITHDRAW = new Purpose("Purpose_FFI_WITHDRAW", exampleJNI.Purpose_FFI_WITHDRAW_get());
-  public final static Purpose Purpose_FFI_SYSTEM = new Purpose("Purpose_FFI_SYSTEM", exampleJNI.Purpose_FFI_SYSTEM_get());
-  public final static Purpose Purpose_FFI_VOTING = new Purpose("Purpose_FFI_VOTING", exampleJNI.Purpose_FFI_VOTING_get());
+  public final static Purpose Purpose_AUTHENTICATION = new Purpose("Purpose_AUTHENTICATION", exampleJNI.Purpose_AUTHENTICATION_get());
+  public final static Purpose Purpose_ENCRYPTION = new Purpose("Purpose_ENCRYPTION", exampleJNI.Purpose_ENCRYPTION_get());
+  public final static Purpose Purpose_DECRYPTION = new Purpose("Purpose_DECRYPTION", exampleJNI.Purpose_DECRYPTION_get());
+  public final static Purpose Purpose_WITHDRAW = new Purpose("Purpose_WITHDRAW", exampleJNI.Purpose_WITHDRAW_get());
+  public final static Purpose Purpose_SYSTEM = new Purpose("Purpose_SYSTEM", exampleJNI.Purpose_SYSTEM_get());
+  public final static Purpose Purpose_VOTING = new Purpose("Purpose_VOTING", exampleJNI.Purpose_VOTING_get());
 
   public final int swigValue() {
     return swigValue;
@@ -50,7 +50,7 @@ public final class Purpose {
     swigNext = this.swigValue+1;
   }
 
-  private static Purpose[] swigValues = { Purpose_FFI_AUTHENTICATION, Purpose_FFI_ENCRYPTION, Purpose_FFI_DECRYPTION, Purpose_FFI_WITHDRAW, Purpose_FFI_SYSTEM, Purpose_FFI_VOTING };
+  private static Purpose[] swigValues = { Purpose_AUTHENTICATION, Purpose_ENCRYPTION, Purpose_DECRYPTION, Purpose_WITHDRAW, Purpose_SYSTEM, Purpose_VOTING };
   private static int swigNext = 0;
   private final int swigValue;
   private final String swigName;

@@ -44,8 +44,8 @@ public class HashID {
     return exampleJNI.HashID__0_get(swigCPtr, this);
   }
 
-  public HashID() {
-    this(exampleJNI.new_HashID(), true);
+  public HashID(byte[] o_0) {
+    this(exampleJNI.new_HashID(o_0), true);
   }
 
 }

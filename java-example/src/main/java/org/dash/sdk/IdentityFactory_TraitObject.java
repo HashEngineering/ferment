@@ -36,26 +36,4 @@ public class IdentityFactory_TraitObject {
     }
   }
 
-  public void setObject(SWIGTYPE_p_void value) {
-    exampleJNI.IdentityFactory_TraitObject_object_set(swigCPtr, this, SWIGTYPE_p_void.getCPtr(value));
-  }
-
-  public SWIGTYPE_p_void getObject() {
-    long cPtr = exampleJNI.IdentityFactory_TraitObject_object_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new SWIGTYPE_p_void(cPtr, false);
-  }
-
-  public void setVtable(IdentityFactory_VTable value) {
-    exampleJNI.IdentityFactory_TraitObject_vtable_set(swigCPtr, this, IdentityFactory_VTable.getCPtr(value), value);
-  }
-
-  public IdentityFactory_VTable getVtable() {
-    long cPtr = exampleJNI.IdentityFactory_TraitObject_vtable_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new IdentityFactory_VTable(cPtr, false);
-  }
-
-  public IdentityFactory_TraitObject() {
-    this(exampleJNI.new_IdentityFactory_TraitObject(), true);
-  }
-
 }
