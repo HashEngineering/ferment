@@ -17,112 +17,14 @@
   <component name="ChangeListManager">
     <list default="true" id="ecc24323-e45b-4800-a8a9-387eedfbd6b1" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ferment-example/src/example/mod.rs" beforeDir="false" afterPath="$PROJECT_DIR$/ferment-example/src/example/mod.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ferment-example-nested/src/fermented.rs" beforeDir="false" afterPath="$PROJECT_DIR$/ferment-example-nested/src/fermented.rs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ferment-example/src/fermented.rs" beforeDir="false" afterPath="$PROJECT_DIR$/ferment-example/src/fermented.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/java-example/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/java-example/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/java-example/example.i" beforeDir="false" afterPath="$PROJECT_DIR$/java-example/example.i" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/java-example/src/main/c/dpp.h" beforeDir="false" afterPath="$PROJECT_DIR$/java-example/src/main/c/dpp.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/java-example/src/main/c/sdk.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/java-example/src/main/c/sdk.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/ArrayOfArraysOfHashes_FFI.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/BinaryData.java" beforeDir="false" afterPath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/BinaryData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/ChainType_FFI.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/ChainType_FFI_Tag.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/ContractBounds_FFI.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/ContractBounds_FFI_SingleContractDocumentType_Body.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/ContractBounds_FFI_Tag.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/DataContractNotPresentError_FFI.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/DevnetType_FFI.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/Hash160_FFI.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/HashID.java" beforeDir="false" afterPath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/HashID.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/IHaveChainSettings_TraitObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/IHaveChainSettings_TraitObject.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/IHaveChainSettings_VTable.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/Identifier.java" beforeDir="false" afterPath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/Identifier.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/Identity.java" beforeDir="false" afterPath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/Identity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/IdentityFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/IdentityFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/IdentityFactory_TraitObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/IdentityFactory_TraitObject.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/IdentityFactory_VTable.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/IdentityPublicKey.java" beforeDir="false" afterPath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/IdentityPublicKey.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/IdentityPublicKeyTag.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/IdentityPublicKeyV0.java" beforeDir="false" afterPath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/IdentityPublicKeyV0.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/IdentityV0.java" beforeDir="false" afterPath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/IdentityV0.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/Identity_FFI_Tag.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/KeyID.java" beforeDir="false" afterPath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/KeyID.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/KeyType.java" beforeDir="false" afterPath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/KeyType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/MapOfHashes_FFI.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/MapOfVecHashes_FFI.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/MyIdentityFactory_FFI.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/ProtocolError_FFI.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/ProtocolError_FFI_MaxEncodedBytesReachedError_Body.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/ProtocolError_FFI_StringDecodeError2_Body.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/ProtocolError_FFI_Tag.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/Purpose.java" beforeDir="false" afterPath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/Purpose.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/Revision.java" beforeDir="false" afterPath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/Revision.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/RootStruct_FFI.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/SWIGTYPE_p_ChainType.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/SWIGTYPE_p_DevnetType_FFI.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/SWIGTYPE_p_KeyType_FFI.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/SWIGTYPE_p_MyIdentityFactory.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/SWIGTYPE_p_Purpose_FFI.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/SWIGTYPE_p_SecurityLevel_FFI.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/SWIGTYPE_p_Vec_u8_FFI.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/SWIGTYPE_p_f_p_q_const__void__p_HashID_FFI.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/SWIGTYPE_p_f_p_q_const__void__p_char.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/SWIGTYPE_p_f_p_q_const__void__unsigned_int.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/SWIGTYPE_p_f_p_q_const__void_p_HashID_FFI__bool.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/SWIGTYPE_p_f_p_q_const__void_p_HashID_FFI__p_HashID_FFI.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/SWIGTYPE_p_f_p_q_const__void_p_Identifier_FFI__p_Identity_FFI.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/SWIGTYPE_p_f_p_q_const__void_unsigned_short__bool.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/SWIGTYPE_p_p_ChainType_FFI.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/SWIGTYPE_p_p_HashID_FFI.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/SWIGTYPE_p_p_IdentityPublicKey_FFI.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/SWIGTYPE_p_p_KeyID_FFI.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/SWIGTYPE_p_p_Vec_crate_nested_HashID_FFI.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/SWIGTYPE_p_p_Vec_u32_FFI.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/SWIGTYPE_p_p_std_collections_Map_keys_crate_nested_HashID_values_crate_nested_HashID_FFI.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/SWIGTYPE_p_p_std_collections_Map_keys_u32_values_Vec_crate_nested_HashID_FFI.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/SWIGTYPE_p_p_std_collections_Map_keys_u32_values_Vec_u32_FFI.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/SWIGTYPE_p_p_std_collections_Map_keys_u32_values_crate_nested_HashID_FFI.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/SWIGTYPE_p_p_std_collections_Map_keys_u32_values_std_collections_Map_keys_crate_nested_HashID_values_crate_nested_HashID_FFI.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/SWIGTYPE_p_p_std_collections_Map_keys_u32_values_u32_FFI.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/SWIGTYPE_p_void.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/SecurityLevel.java" beforeDir="false" afterPath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/SecurityLevel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/SimpleData_FFI.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/TestEnum_FFI.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/TestEnum_FFI_Tag.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/TestEnum_FFI_Variant3_Body.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/TestEnum_FFI_Variant4_Body.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/TestEnum_FFI_Variant5_Body.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/TestStruct_FFI.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/TimestampMillis_FFI.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/UnnamedPair_FFI.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/UsedKeyMatrix_FFI.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/UsedStruct_FFI.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/Vec_Vec_crate_nested_HashID_FFI.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/Vec_Vec_u32_FFI.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/Vec_bool_FFI.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/Vec_crate_nested_HashID_FFI.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/Vec_u32_FFI.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/TestStruct.java" beforeDir="false" afterPath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/TestStruct.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/example.java" beforeDir="false" afterPath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/example.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/exampleJNI.java" beforeDir="false" afterPath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/exampleJNI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/std_collections_Map_keys_String_values_crate_nested_HashID_FFI.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/std_collections_Map_keys_crate_chain_common_chain_type_ChainType_values_crate_nested_HashID_FFI.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/std_collections_Map_keys_crate_nested_HashID_values_Vec_crate_nested_HashID_FFI.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/std_collections_Map_keys_crate_nested_HashID_values_Vec_u32_FFI.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/std_collections_Map_keys_crate_nested_HashID_values_crate_nested_HashID_FFI.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/std_collections_Map_keys_crate_nested_HashID_values_std_collections_Map_keys_u32_values_Vec_crate_nested_HashID_FFI.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/std_collections_Map_keys_crate_nested_HashID_values_std_collections_Map_keys_u32_values_Vec_u32_FFI.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/std_collections_Map_keys_crate_nested_HashID_values_std_collections_Map_keys_u32_values_std_collections_Map_keys_crate_nested_HashID_values_crate_nested_HashID_FFI.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/std_collections_Map_keys_crate_nested_HashID_values_u32_FFI.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/std_collections_Map_keys_crate_nested_KeyID_values_crate_nested_IdentityPublicKey_FFI.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/std_collections_Map_keys_u32_values_Vec_crate_nested_HashID_FFI.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/std_collections_Map_keys_u32_values_Vec_u32_FFI.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/std_collections_Map_keys_u32_values_crate_nested_HashID_FFI.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/std_collections_Map_keys_u32_values_std_collections_Map_keys_crate_nested_HashID_values_crate_nested_HashID_FFI.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/std_collections_Map_keys_u32_values_std_collections_Map_keys_u32_values_Vec_crate_nested_HashID_FFI.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/std_collections_Map_keys_u32_values_std_collections_Map_keys_u32_values_Vec_u32_FFI.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/std_collections_Map_keys_u32_values_std_collections_Map_keys_u32_values_crate_nested_HashID_FFI.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/std_collections_Map_keys_u32_values_std_collections_Map_keys_u32_values_u32_FFI.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/std_collections_Map_keys_u32_values_u32_FFI.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/java-example/src/test/java/org/dash/sdk/IdentityTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/java-example/src/test/java/org/dash/sdk/IdentityTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -295,7 +197,7 @@
       <workItem from="1697654852328" duration="19025000" />
       <workItem from="1697847891229" duration="11966000" />
       <workItem from="1698773406071" duration="33000" />
-      <workItem from="1701051220463" duration="38098000" />
+      <workItem from="1701051220463" duration="42817000" />
     </task>
     <task id="LOCAL-00001" summary="feat: add java-example with unit test">
       <created>1697836028030</created>

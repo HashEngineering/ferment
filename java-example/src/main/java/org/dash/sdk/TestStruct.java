@@ -197,4 +197,55 @@ public class TestStruct {
     return (cPtr == 0) ? null : new std_collections_Map_keys_crate_nested_HashID_values_std_collections_Map_keys_u32_values_std_collections_Map_keys_crate_nested_HashID_values_crate_nested_HashID(cPtr, false);
   }
 
+  public void setOpt_primitive(short value) {
+    exampleJNI.TestStruct_opt_primitive_set(swigCPtr, this, value);
+  }
+
+  public short getOpt_primitive() {
+    return exampleJNI.TestStruct_opt_primitive_get(swigCPtr, this);
+  }
+
+  public void setOpt_string(String value) {
+    exampleJNI.TestStruct_opt_string_set(swigCPtr, this, value);
+  }
+
+  public String getOpt_string() {
+    return exampleJNI.TestStruct_opt_string_get(swigCPtr, this);
+  }
+
+  public void setOpt_vec_primitive(byte[] value) {
+    exampleJNI.TestStruct_opt_vec_primitive_set(swigCPtr, this, value);
+  }
+
+  public byte[] getOpt_vec_primitive() {
+    return exampleJNI.TestStruct_opt_vec_primitive_get(swigCPtr, this);
+  }
+
+  public void setOpt_vec_string(Vec_String value) {
+    exampleJNI.TestStruct_opt_vec_string_set(swigCPtr, this, Vec_String.getCPtr(value), value);
+  }
+
+  public Vec_String getOpt_vec_string() {
+    long cPtr = exampleJNI.TestStruct_opt_vec_string_get(swigCPtr, this);
+    return (cPtr == 0) ? null : new Vec_String(cPtr, false);
+  }
+
+  public void setOpt_vec_complex(Vec_crate_nested_HashID value) {
+    exampleJNI.TestStruct_opt_vec_complex_set(swigCPtr, this, Vec_crate_nested_HashID.getCPtr(value), value);
+  }
+
+  public Vec_crate_nested_HashID getOpt_vec_complex() {
+    long cPtr = exampleJNI.TestStruct_opt_vec_complex_get(swigCPtr, this);
+    return (cPtr == 0) ? null : new Vec_crate_nested_HashID(cPtr, false);
+  }
+
+  public void setOpt_vec_vec_complex(Vec_Vec_crate_nested_HashID value) {
+    exampleJNI.TestStruct_opt_vec_vec_complex_set(swigCPtr, this, Vec_Vec_crate_nested_HashID.getCPtr(value), value);
+  }
+
+  public Vec_Vec_crate_nested_HashID getOpt_vec_vec_complex() {
+    long cPtr = exampleJNI.TestStruct_opt_vec_vec_complex_get(swigCPtr, this);
+    return (cPtr == 0) ? null : new Vec_Vec_crate_nested_HashID(cPtr, false);
+  }
+
 }

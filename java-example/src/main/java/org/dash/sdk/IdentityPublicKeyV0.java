@@ -45,15 +45,6 @@ public class IdentityPublicKeyV0 {
     return (cPtr == 0) ? null : new KeyID(cPtr, false);
   }
 
-  public void setSecurity_level(SWIGTYPE_p_SecurityLevel value) {
-    exampleJNI.IdentityPublicKeyV0_security_level_set(swigCPtr, this, SWIGTYPE_p_SecurityLevel.getCPtr(value));
-  }
-
-  public SWIGTYPE_p_SecurityLevel getSecurity_level() {
-    long cPtr = exampleJNI.IdentityPublicKeyV0_security_level_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new SWIGTYPE_p_SecurityLevel(cPtr, false);
-  }
-
   public void setContract_bounds(ContractBounds value) {
     exampleJNI.IdentityPublicKeyV0_contract_bounds_set(swigCPtr, this, ContractBounds.getCPtr(value), value);
   }

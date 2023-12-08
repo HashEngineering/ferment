@@ -84,4 +84,14 @@ public class IdentityTest {
         assertEquals(ipkv0.getData().get_0().length, identityPublicKeyV0ById.getData().get_0().length);
         assertArrayEquals(ipkv0.getData().get_0(), identityPublicKeyV0ById.getData().get_0());
     }
+
+    @Test
+    public void asyncFunctionTest() {
+        ChainType mainNet = example.chainTypeMainNetCtor();
+        assertEquals("ChainType_MainNet", mainNet.getTag().toString());
+        //ChainType chainType = new ChainType();
+        //example.
+        SWIGTYPE_p_void p_void = new SWIGTYPE_p_void();
+        //String result = example.ffiGetChainTypeStringAsync(p_void, mainNet);
+    }
 }

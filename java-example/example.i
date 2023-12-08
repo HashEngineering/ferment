@@ -23,6 +23,7 @@ extern "C" {
 %rename("%(lowercamelcase)s", %$isfunction) "";
 
 %ignore IdentityPublicKeyV0::purpose;
+%ignore IdentityPublicKeyV0::security_level;
 %ignore Vec_u8;
 
 //%ignore IdentifierBytes32;
@@ -183,7 +184,7 @@ extern "C" {
     }
 }
 
-
+// %ignore ChainType_Tag;
 //%naturalvar Vec_u8;
 
 struct Vec_u8;
