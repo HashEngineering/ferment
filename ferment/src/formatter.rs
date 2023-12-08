@@ -1,6 +1,7 @@
 use std::collections::{HashMap, HashSet};
-use quote::quote;
+use quote::{quote, ToTokens};
 use syn::{Ident, ItemTrait, Path, Type};
+use syn::__private::TokenStream2;
 use crate::import_conversion::{ImportConversion, ImportType};
 use crate::scope::Scope;
 use crate::scope_conversion::{ScopeTreeExportItem, ScopeTreeItem};
@@ -32,30 +33,35 @@ pub fn format_imports(dict: &HashMap<Scope, HashMap<Ident, Path>>) -> String {
 #[allow(unused)]
 pub fn format_tree_exported_dict(dict: &HashMap<Ident, ScopeTreeExportItem>) -> String {
     dict.iter()
-        .map(|(ident, tree_item)| format!("{}: {}", ident, tree_item))
+        .map(|(ident, tree_item)| format!("{}:\n{}", ident, tree_item))
         .collect::<Vec<_>>()
-        .join(", ")
+        .join("\n\n")
 }
+// self.path.to_token_stream().to_string().split_whitespace().collect::<String>().as_str(
 #[allow(unused)]
 pub fn format_tree_item_dict(dict: &HashMap<Ident, ScopeTreeItem>) -> String {
     dict.iter()
         .map(|(ident, tree_item)| format!("{}: {:?}", ident, quote!(#tree_item)))
         .collect::<Vec<_>>()
-        .join(", ")
+        .join("\n\n")
 }
 #[allow(unused)]
 pub fn format_types_dict(dict: &HashMap<TypeConversion, Type>) -> String {
-    let iter = dict.iter()
-        .map(|(tc, full_ty)| quote!(#tc: #full_ty));
-    quote!(#(#iter),*).to_string()
+    dict.iter()
+        .map(|(ident, path )|
+            format!("  {}: {}", format_token_stream(quote!(#ident)), format_token_stream(quote!(#path))))
+        .collect::<Vec<_>>()
+        .join("\n\n")
 }
 
 #[allow(unused)]
 pub fn format_types_dict_full(dict: &HashMap<Scope, HashMap<TypeConversion, Type>>) -> String {
-    dict.iter()
-        .map(|(scope, dict)| format!("{}: {}", quote!(#scope), format_types_dict(dict)))
+    dict.iter().map(|(scope, dict)| {
+        let scope_str = format_token_stream(scope.to_token_stream());
+        format!("{}:\n{}", scope_str, format_types_dict(dict))
+    })
         .collect::<Vec<_>>()
-        .join(", ")
+        .join("\n\n")
 }
 
 #[allow(unused)]
@@ -67,4 +73,20 @@ pub fn format_used_traits(dict: &HashMap<Scope, HashMap<Ident, ItemTrait>>) -> S
         })
         .collect::<Vec<_>>()
         .join(", ")
+}
+
+pub fn format_token_stream(token: TokenStream2) -> String {
+    token.to_string()
+        .split_whitespace()
+        .collect::<String>()
+        .to_string()
+}
+
+#[allow(unused)]
+pub fn format_custom_conversions(dict: &HashMap<Scope, HashMap<TypeConversion, Type>>) -> String {
+    dict.iter()
+        .map(|(scope, matches)|
+            format!("{}:\n{}", format_token_stream(quote!(#scope)), format_types_dict(matches)))
+        .collect::<Vec<_>>()
+        .join("\n\n")
 }
