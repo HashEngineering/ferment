@@ -4,9 +4,10 @@
 extern "C" {
 #include "../../../../ferment-example/target/example.h"
 }
-#include "dpp.h"
 #include <stdlib.h>
+#include "dpp.h"
 %}
+//%include "enumsimple.swg"
 //%rename("%(strip:[ffi_])s") "";
 //%rename("%(regex:/^(ffi_)?(.+)/\\2/;s/_(.)/\\U\\1/g)sn") "";
 //%rename(renameCamelCase) "";
@@ -18,12 +19,35 @@ extern "C" {
 %ignore IHaveChainSettings_TraitObject::object;
 %ignore IHaveChainSettings_TraitObject::vtable;
 %ignore IHaveChainSettings_VTable;
+
+%ignore TestStruct_ctor(struct Vec_u8 *vec_u8,
+                                           struct Vec_u32 *vec_u32,
+                                           struct Vec_Vec_u32 *vec_vec_u32,
+                                           struct std_collections_Map_keys_u32_values_u32 *map_key_simple_value_simple,
+                                           struct std_collections_Map_keys_u32_values_crate_nested_HashID *map_key_simple_value_complex,
+                                           struct std_collections_Map_keys_u32_values_Vec_u32 *map_key_simple_value_vec_simple,
+                                           struct std_collections_Map_keys_u32_values_Vec_crate_nested_HashID *map_key_simple_value_vec_complex,
+                                           struct std_collections_Map_keys_u32_values_std_collections_Map_keys_u32_values_u32 *map_key_simple_value_map_key_simple_value_simple,
+                                           struct std_collections_Map_keys_u32_values_std_collections_Map_keys_u32_values_crate_nested_HashID *map_key_simple_value_map_key_simple_value_complex,
+                                           struct std_collections_Map_keys_u32_values_std_collections_Map_keys_u32_values_Vec_u32 *map_key_simple_value_map_key_simple_value_vec_simple,
+                                           struct std_collections_Map_keys_u32_values_std_collections_Map_keys_u32_values_Vec_crate_nested_HashID *map_key_simple_value_map_key_simple_value_vec_complex,
+                                           struct std_collections_Map_keys_crate_nested_HashID_values_u32 *map_key_complex_value_simple,
+                                           struct std_collections_Map_keys_crate_nested_HashID_values_crate_nested_HashID *map_key_complex_value_complex,
+                                           struct std_collections_Map_keys_crate_nested_HashID_values_Vec_u32 *map_key_complex_value_vec_simple,
+                                           struct std_collections_Map_keys_crate_nested_HashID_values_Vec_crate_nested_HashID *map_key_complex_value_vec_complex,
+                                           struct std_collections_Map_keys_crate_nested_HashID_values_std_collections_Map_keys_u32_values_Vec_u32 *map_key_complex_value_map_key_simple_value_vec_simple,
+                                           struct std_collections_Map_keys_crate_nested_HashID_values_std_collections_Map_keys_u32_values_Vec_crate_nested_HashID *map_key_complex_value_map_key_simple_value_vec_complex,
+                                           struct std_collections_Map_keys_crate_nested_HashID_values_std_collections_Map_keys_u32_values_std_collections_Map_keys_crate_nested_HashID_values_crate_nested_HashID *map_key_complex_value_map_key_simple_value_map_key_complex_value_complex,
+                                           uint8_t opt_primitive,
+                                           char *opt_string,
+                                           struct Vec_u8 *opt_vec_primitive,
+                                           struct Vec_String *opt_vec_string,
+                                           struct Vec_crate_nested_HashID *opt_vec_complex,
+                                           struct Vec_Vec_crate_nested_HashID *opt_vec_vec_complex);
 %nodefaultctor;
 
 %rename("%(lowercamelcase)s", %$isfunction) "";
 
-%ignore IdentityPublicKeyV0::purpose;
-%ignore IdentityPublicKeyV0::security_level;
 %ignore Vec_u8;
 
 //%ignore IdentifierBytes32;
@@ -148,10 +172,42 @@ extern "C" {
 %typemap(freearg) (uint8_t (*)[32]) ""
 
 
+%extend KeyID {
+    KeyID(uint32_t id) {
+        return KeyID_ctor(id);
+    }
+    ~KeyID() {
+        KeyID_destroy($self);
+    }
+}
 
+%extend BinaryData {
+    BinaryData(Vec_u8 *o_0) {
+        return BinaryData_ctor(o_0);
+    }
+    ~BinaryData() {
+        BinaryData_destroy($self);
+    }
+}
 
+%extend ContractBounds {
+    static ContractBounds * singleContract(Identifier * id) {
+        return ContractBounds_SingleContract_ctor(id);
+    }
+    static ContractBounds * singleContract(Identifier * id, char * type) {
+        return ContractBounds_SingleContractDocumentType_ctor(id, type);
+    }
+    ~ContractBounds() {
+        ContractBounds_destroy($self);
+    }
+};
 
+%ignore IdentityV0::public_keys;
 %extend IdentityV0 {
+    ~IdentityV0() {
+        IdentityV0_destroy($self);
+    }
+
     struct IdentityPublicKeyV0 * getPublicKey(uint32_t index) {
         return $self->public_keys->values[index]->v0;
     }
@@ -165,12 +221,38 @@ extern "C" {
     }
 }
 
+%ignore IdentityPublicKeyV0::key_type;
+%ignore IdentityPublicKeyV0::purpose;
+%ignore IdentityPublicKeyV0::security_level;
+
+// struct IdentityPublicKeyV0 *IdentityPublicKeyV0_ctor(struct KeyID *id,
+//                                                      enum Purpose *purpose,
+//                                                      enum SecurityLevel *security_level,
+//                                                      struct ContractBounds *contract_bounds,
+//                                                      enum KeyType *key_type,
+//                                                      bool read_only,
+//                                                      struct BinaryData *data,
+//                                                     struct TimestampMillis *disabled_at);
+
 %extend IdentityPublicKeyV0 {
+    IdentityPublicKeyV0(KeyID * keyId, Purpose purpose, SecurityLevel securityLevel, ContractBounds contract_bounds,
+        KeyType key_type, bool read_only, BinaryData data, TimestampMillis * disabled_at) {
+        return IdentityPublicKeyV0_ctor(keyId, &purpose, &securityLevel, &contract_bounds, &key_type, read_only, &data, disabled_at);
+    }
+    ~IdentityPublicKeyV0() {
+        IdentityPublicKeyV0_destroy($self);
+    }
+    enum KeyType getKeyType() {
+        return *$self->key_type;
+    }
     enum Purpose getPurpose() {
         return *$self->purpose;
     }
-    void setPurpose(enum Purpose purpose) {
-
+    enum Purpose * getPurpose2() {
+        return $self->purpose;
+    }
+    enum SecurityLevel getSecurityLevel() {
+        return *self->security_level;
     }
 }
 
@@ -185,46 +267,7 @@ extern "C" {
 }
 
 // %ignore ChainType_Tag;
-//%naturalvar Vec_u8;
-
-struct Vec_u8;
-
-//%feature("valuewrapper") struct Vec_u8 *;
-
-// Vec_u8
-%typemap(jni) Vec_u8 * "jbyteArray"
-%typemap(jtype) Vec_u8 * "byte[]"
-%typemap(jstype) Vec_u8 * "byte[]"
-
-
-%typemap(in) Vec_u8 * ""
-// %{
-//     struct Vec_u8 = $1_object = (struct Vec_u8*)calloc(1, sizeof(struct struct Vec_u8));
-//     $1_object.values = ((const uint8_t *)JCALL2(GetByteArrayElements, jenv, $input, 0), JCALL1(GetArrayLength, jenv, $input));
-//     $1 = $1_object;
-// %}
-
-%typemap(argout) Vec_u8 * ""
-// {
-//     JCALL3(ReleaseByteArrayElements, jenv, $input, (jbyte *) $1->values, 0);
-// }
-
-%typemap(out) Vec_u8 * {
-    $result = JCALL1(NewByteArray, jenv, $1->count);
-   JCALL4(SetByteArrayRegion, jenv, $result, 0, $1->count, (jbyte *) $1->values);
-}
-
-%typemap(javain) Vec_u8 * "$javainput"
-
-%typemap(javaout) Vec_u8 * {
-    return $jnicall;
-  }
-
-%typemap(typecheck) Vec_u8 * = char *;
-
-%typemap(throws) Vec_u8 *
-%{ SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "null Vec_u8");
-   return $null; %}
+%include "Vec_u8.i"
 
 
 extern "C" {

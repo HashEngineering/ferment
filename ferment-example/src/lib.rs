@@ -404,7 +404,7 @@ pub mod nested {
         SingleContractDocumentType(Identifier, String),
         // /// this key can only be used within contracts owned by a specified owner
         // #[serde(rename = "multipleContractsOfSameOwner")]
-        // MultipleContractsOfSameOwner { owner_id: Identifier } = 2,
+        //MultipleContractsOfSameOwner { owner_id: Identifier },
     }
 
     #[derive(

@@ -28,10 +28,8 @@ public class IdentityTest {
         short [] idShort = new short[32];
         idShort[0] = 1;
         idShort[1] = 2;
-        //IdentifierBytes32 identifierBytes32 = new IdentifierBytes32(idShort);
-        //identifierBytes32.set_0(id);
+
         Identifier identifier = new Identifier(id);
-        //identifier.set_0(identifierBytes32);
         Identity identity = example.ffiGetIdentity2(identifier);
         assertEquals(Identity_Tag.Identity_V0, identity.getTag());
         assertEquals(2, identity.getV0().getBalance().longValue());
@@ -44,11 +42,13 @@ public class IdentityTest {
         assertEquals(false, ipkv0.getRead_only());
         // assertEquals(KeyType.KeyType_BLS12_381, ipkv0.getKey_type());
         assertEquals(Purpose.Purpose_AUTHENTICATION, ipkv0.getPurpose());
+        assertEquals(SecurityLevel.SecurityLevel_MASTER, ipkv0.getSecurityLevel());
+        assertEquals(KeyType.KeyType_ECDSA_SECP256K1, ipkv0.getKeyType());
+        // assertEquals(0, ipkv0.getDisabled_at().get_0().longValue());
 
         IdentityPublicKeyV0 identityPublicKeyV0ById = identity.getV0().getPublicKeyById(1);
         assertEquals(ipkv0.getData().get_0().length, identityPublicKeyV0ById.getData().get_0().length);
         assertArrayEquals(ipkv0.getData().get_0(), identityPublicKeyV0ById.getData().get_0());
-
     }
 
     @Test
@@ -83,6 +83,64 @@ public class IdentityTest {
         IdentityPublicKeyV0 identityPublicKeyV0ById = identity.getV0().getPublicKeyById(1);
         assertEquals(ipkv0.getData().get_0().length, identityPublicKeyV0ById.getData().get_0().length);
         assertArrayEquals(ipkv0.getData().get_0(), identityPublicKeyV0ById.getData().get_0());
+    }
+
+    @Test
+    public void binaryDataTest() {
+        byte[] bytes = new byte[32];
+        for (byte i = 0; i < 32; ++i)
+            bytes[i] = i;
+        BinaryData data = new BinaryData(bytes);
+        System.out.printf("BinaryData: %x%n", BinaryData.getCPtr(data));
+        assertEquals(32, data.get_0().length);
+        for (byte a : bytes)
+            System.out.printf("%d ", a);
+        System.out.println();
+        for (byte a : data.get_0())
+            System.out.printf("%d ", a);
+        System.out.println();
+        assertArrayEquals(bytes, data.get_0());
+    }
+
+    @Test
+    public void enumTest() {
+        Purpose purpose = Purpose.Purpose_AUTHENTICATION;
+        KeyType keyType = KeyType.KeyType_ECDSA_SECP256K1;
+        SecurityLevel securityLevel = SecurityLevel.SecurityLevel_HIGH;
+        assertEquals(KeyType.KeyType_ECDSA_SECP256K1, keyType);
+        assertEquals(Purpose.Purpose_AUTHENTICATION, purpose);
+        assertEquals(SecurityLevel.SecurityLevel_HIGH, securityLevel);
+
+        //Purpose purpose1 = example.purposeAUTHENTICATIONCtor();
+    }
+
+    @Test
+    public void identityPublicKeyTest() {
+        byte[] myIdentityBytes = new byte[32];
+        byte[] contractBytes = new byte[32];
+
+        for (byte i = 0; i < 32; ++i) {
+            myIdentityBytes[i] = i;
+            contractBytes[i] = 1;
+        }
+        Identifier contract = new Identifier(contractBytes);
+        KeyID keyId = new KeyID(0);
+        Purpose purpose = Purpose.Purpose_AUTHENTICATION;
+        KeyType keyType = KeyType.KeyType_ECDSA_SECP256K1;
+        SecurityLevel securityLevel = SecurityLevel.SecurityLevel_HIGH;
+        ContractBounds contractBounds = ContractBounds.singleContract(contract);
+        byte[] bytes = new byte[32];
+        for (byte i = 0; i < 32; ++i)
+            bytes[i] = i;
+        BinaryData data = new BinaryData(bytes);
+        assertArrayEquals(bytes, data.get_0());
+
+        IdentityPublicKeyV0 ipkv0 = new IdentityPublicKeyV0(keyId, purpose, securityLevel, contractBounds, keyType,
+                false, data, null);
+        assertEquals(0, ipkv0.getId().get_0());
+        assertEquals(KeyType.KeyType_ECDSA_SECP256K1, ipkv0.getKeyType());
+        assertEquals(SecurityLevel.SecurityLevel_HIGH, ipkv0.getSecurityLevel());
+        assertArrayEquals(bytes, ipkv0.getData().get_0());
     }
 
     @Test

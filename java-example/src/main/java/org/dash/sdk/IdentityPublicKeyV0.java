@@ -54,15 +54,6 @@ public class IdentityPublicKeyV0 {
     return (cPtr == 0) ? null : new ContractBounds(cPtr, false);
   }
 
-  public void setKey_type(SWIGTYPE_p_KeyType value) {
-    exampleJNI.IdentityPublicKeyV0_key_type_set(swigCPtr, this, SWIGTYPE_p_KeyType.getCPtr(value));
-  }
-
-  public SWIGTYPE_p_KeyType getKey_type() {
-    long cPtr = exampleJNI.IdentityPublicKeyV0_key_type_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new SWIGTYPE_p_KeyType(cPtr, false);
-  }
-
   public void setRead_only(boolean value) {
     exampleJNI.IdentityPublicKeyV0_read_only_set(swigCPtr, this, value);
   }
@@ -89,12 +80,25 @@ public class IdentityPublicKeyV0 {
     return (cPtr == 0) ? null : new TimestampMillis(cPtr, false);
   }
 
+  public IdentityPublicKeyV0(KeyID keyId, Purpose purpose, SecurityLevel securityLevel, ContractBounds contract_bounds, KeyType key_type, boolean read_only, BinaryData data, TimestampMillis disabled_at) {
+    this(exampleJNI.new_IdentityPublicKeyV0(KeyID.getCPtr(keyId), keyId, purpose.swigValue(), securityLevel.swigValue(), ContractBounds.getCPtr(contract_bounds), contract_bounds, key_type.swigValue(), read_only, BinaryData.getCPtr(data), data, TimestampMillis.getCPtr(disabled_at), disabled_at), true);
+  }
+
+  public KeyType getKeyType() {
+    return KeyType.swigToEnum(exampleJNI.IdentityPublicKeyV0_getKeyType(swigCPtr, this));
+  }
+
   public Purpose getPurpose() {
     return Purpose.swigToEnum(exampleJNI.IdentityPublicKeyV0_getPurpose(swigCPtr, this));
   }
 
-  public void setPurpose(Purpose purpose) {
-    exampleJNI.IdentityPublicKeyV0_setPurpose(swigCPtr, this, purpose.swigValue());
+  public SWIGTYPE_p_Purpose getPurpose2() {
+    long cPtr = exampleJNI.IdentityPublicKeyV0_getPurpose2(swigCPtr, this);
+    return (cPtr == 0) ? null : new SWIGTYPE_p_Purpose(cPtr, false);
+  }
+
+  public SecurityLevel getSecurityLevel() {
+    return SecurityLevel.swigToEnum(exampleJNI.IdentityPublicKeyV0_getSecurityLevel(swigCPtr, this));
   }
 
 }

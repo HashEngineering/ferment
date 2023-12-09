@@ -44,4 +44,8 @@ public class KeyID {
     return exampleJNI.KeyID__0_get(swigCPtr, this);
   }
 
+  public KeyID(long id) {
+    this(exampleJNI.new_KeyID(id), true);
+  }
+
 }

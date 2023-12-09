@@ -8,16 +8,16 @@
 
 package org.dash.sdk;
 
-public class BinaryData {
+public class Uri {
   private transient long swigCPtr;
   protected transient boolean swigCMemOwn;
 
-  protected BinaryData(long cPtr, boolean cMemoryOwn) {
+  protected Uri(long cPtr, boolean cMemoryOwn) {
     swigCMemOwn = cMemoryOwn;
     swigCPtr = cPtr;
   }
 
-  protected static long getCPtr(BinaryData obj) {
+  protected static long getCPtr(Uri obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 
@@ -30,22 +30,18 @@ public class BinaryData {
     if (swigCPtr != 0) {
       if (swigCMemOwn) {
         swigCMemOwn = false;
-        exampleJNI.delete_BinaryData(swigCPtr);
+        exampleJNI.delete_Uri(swigCPtr);
       }
       swigCPtr = 0;
     }
   }
 
-  public void set_0(byte[] value) {
-    exampleJNI.BinaryData__0_set(swigCPtr, this, value);
+  public void setScheme(String value) {
+    exampleJNI.Uri_scheme_set(swigCPtr, this, value);
   }
 
-  public byte[] get_0() {
-    return exampleJNI.BinaryData__0_get(swigCPtr, this);
-  }
-
-  public BinaryData(byte[] o_0) {
-    this(exampleJNI.new_BinaryData(o_0), true);
+  public String getScheme() {
+    return exampleJNI.Uri_scheme_get(swigCPtr, this);
   }
 
 }

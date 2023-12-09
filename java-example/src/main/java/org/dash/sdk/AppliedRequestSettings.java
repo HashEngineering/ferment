@@ -8,16 +8,16 @@
 
 package org.dash.sdk;
 
-public class BinaryData {
+public class AppliedRequestSettings {
   private transient long swigCPtr;
   protected transient boolean swigCMemOwn;
 
-  protected BinaryData(long cPtr, boolean cMemoryOwn) {
+  protected AppliedRequestSettings(long cPtr, boolean cMemoryOwn) {
     swigCMemOwn = cMemoryOwn;
     swigCPtr = cPtr;
   }
 
-  protected static long getCPtr(BinaryData obj) {
+  protected static long getCPtr(AppliedRequestSettings obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 
@@ -30,22 +30,27 @@ public class BinaryData {
     if (swigCPtr != 0) {
       if (swigCMemOwn) {
         swigCMemOwn = false;
-        exampleJNI.delete_BinaryData(swigCPtr);
+        exampleJNI.delete_AppliedRequestSettings(swigCPtr);
       }
       swigCPtr = 0;
     }
   }
 
-  public void set_0(byte[] value) {
-    exampleJNI.BinaryData__0_set(swigCPtr, this, value);
+  public void setTimeout(SWIGTYPE_p_Duration_FFI value) {
+    exampleJNI.AppliedRequestSettings_timeout_set(swigCPtr, this, SWIGTYPE_p_Duration_FFI.getCPtr(value));
   }
 
-  public byte[] get_0() {
-    return exampleJNI.BinaryData__0_get(swigCPtr, this);
+  public SWIGTYPE_p_Duration_FFI getTimeout() {
+    long cPtr = exampleJNI.AppliedRequestSettings_timeout_get(swigCPtr, this);
+    return (cPtr == 0) ? null : new SWIGTYPE_p_Duration_FFI(cPtr, false);
   }
 
-  public BinaryData(byte[] o_0) {
-    this(exampleJNI.new_BinaryData(o_0), true);
+  public void setRetries(long value) {
+    exampleJNI.AppliedRequestSettings_retries_set(swigCPtr, this, value);
+  }
+
+  public long getRetries() {
+    return exampleJNI.AppliedRequestSettings_retries_get(swigCPtr, this);
   }
 
 }

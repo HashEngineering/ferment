@@ -45,4 +45,13 @@ public:
     }
 };
 
+extern "C" Vec_u8 * Vec_u8_ctor(uint32_t count, uint8_t * values) {
+    Vec_u8 * result = new Vec_u8;
+    result->count = count;
+    result->values = new uint8_t[count];
+    memcpy(result->values, values, count);
+    return result;
+}
+
+
 #endif // this file

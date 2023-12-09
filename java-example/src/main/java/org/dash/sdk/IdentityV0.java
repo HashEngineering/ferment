@@ -45,15 +45,6 @@ public class IdentityV0 {
     return (cPtr == 0) ? null : new Identifier(cPtr, false);
   }
 
-  public void setPublic_keys(std_collections_Map_keys_crate_nested_KeyID_values_crate_nested_IdentityPublicKey value) {
-    exampleJNI.IdentityV0_public_keys_set(swigCPtr, this, std_collections_Map_keys_crate_nested_KeyID_values_crate_nested_IdentityPublicKey.getCPtr(value), value);
-  }
-
-  public std_collections_Map_keys_crate_nested_KeyID_values_crate_nested_IdentityPublicKey getPublic_keys() {
-    long cPtr = exampleJNI.IdentityV0_public_keys_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new std_collections_Map_keys_crate_nested_KeyID_values_crate_nested_IdentityPublicKey(cPtr, false);
-  }
-
   public void setBalance(java.math.BigInteger value) {
     exampleJNI.IdentityV0_balance_set(swigCPtr, this, value);
   }
