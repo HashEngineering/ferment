@@ -1,15 +1,30 @@
 package org.dash.sdk;
 
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class IdentityTest {
     static {
         System.loadLibrary("sdklib");
+    }
+    static MemoryFactory memoryFactory = MemoryFactory.getInstance();
+
+    @BeforeAll
+    public static void start() {
+
+    }
+
+    @AfterEach
+    public void end() {
+        System.out.printf("objects: %d\n", memoryFactory.size());
     }
 
     @Test
@@ -31,6 +46,7 @@ public class IdentityTest {
 
         Identifier identifier = new Identifier(id);
         Identity identity = example.ffiGetIdentity2(identifier);
+        assertFalse(identity.swigCMemOwn);
         assertEquals(Identity_Tag.Identity_V0, identity.getTag());
         assertEquals(2, identity.getV0().getBalance().longValue());
         assertEquals(1, identity.getV0().getRevision().get_0().longValue());
@@ -49,6 +65,8 @@ public class IdentityTest {
         IdentityPublicKeyV0 identityPublicKeyV0ById = identity.getV0().getPublicKeyById(1);
         assertEquals(ipkv0.getData().get_0().length, identityPublicKeyV0ById.getData().get_0().length);
         assertArrayEquals(ipkv0.getData().get_0(), identityPublicKeyV0ById.getData().get_0());
+        // this crashes the system, it was created in Rust
+        //example.identityDestroy(identity);
     }
 
     @Test
@@ -65,7 +83,6 @@ public class IdentityTest {
             hash[i] = (byte) i;
         }
         HashID hashID = new HashID(hash);
-        assertArrayEquals(hashID.get_0(), hash);
         assertArrayEquals(hashID.get_0(), hash);
 
         MyIdentityFactory myFactory = example.ffiGetIdentityFactory();
@@ -100,6 +117,7 @@ public class IdentityTest {
             System.out.printf("%d ", a);
         System.out.println();
         assertArrayEquals(bytes, data.get_0());
+        data.delete(); // does not crash
     }
 
     @Test
@@ -112,6 +130,8 @@ public class IdentityTest {
         assertEquals(SecurityLevel.SecurityLevel_HIGH, securityLevel);
 
         //Purpose purpose1 = example.purposeAUTHENTICATIONCtor();
+
+        example.purposeDestroy(example.purposeAUTHENTICATIONCtor());
     }
 
     @Test
@@ -137,10 +157,20 @@ public class IdentityTest {
 
         IdentityPublicKeyV0 ipkv0 = new IdentityPublicKeyV0(keyId, purpose, securityLevel, contractBounds, keyType,
                 false, data, null);
+        System.out.printf("identity %x\n", IdentityPublicKeyV0.getCPtr(ipkv0));
+        System.out.flush();
         assertEquals(0, ipkv0.getId().get_0());
+        assertEquals(Purpose.Purpose_AUTHENTICATION, ipkv0.getPurpose());
         assertEquals(KeyType.KeyType_ECDSA_SECP256K1, ipkv0.getKeyType());
         assertEquals(SecurityLevel.SecurityLevel_HIGH, ipkv0.getSecurityLevel());
         assertArrayEquals(bytes, ipkv0.getData().get_0());
+        assertFalse(ipkv0.getRead_only());
+        assertNull(ipkv0.getDisabled_at());
+
+        // Identity identity = new Identity();
+
+        //ipkv0.delete();
+        ipkv0 = null;
     }
 
     @Test

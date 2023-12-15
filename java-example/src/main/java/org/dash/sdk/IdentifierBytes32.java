@@ -44,7 +44,7 @@ public class IdentifierBytes32 {
     return exampleJNI.IdentifierBytes32__0_get(swigCPtr, this);
   }
 
-  public IdentifierBytes32(short[] identifierBytes) {
+  public IdentifierBytes32(byte[] identifierBytes) {
     this(exampleJNI.new_IdentifierBytes32(identifierBytes), true);
   }
 

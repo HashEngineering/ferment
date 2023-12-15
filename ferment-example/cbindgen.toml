@@ -13,4 +13,126 @@ include = []
 extra_bindings = []
 
 [enum]
+# A rule to use to rename enum variants, and the names of any fields those
+# variants have. This should probably be split up into two separate options, but
+# for now, they're the same! See the documentation for `[struct]rename_fields`
+# for how this applies to fields. Renaming of the variant assumes that the input
+# is the Rust standard PascalCase. In the case of QualifiedScreamingSnakeCase,
+# it also assumed that the enum's name is PascalCase.
+#
+# possible values (that actually do something):
+# * "CamelCase": MyVariant => myVariant
+# * "SnakeCase": MyVariant => my_variant
+# * "ScreamingSnakeCase": MyVariant => MY_VARIANT
+# * "QualifiedScreamingSnakeCase": MyVariant => ENUM_NAME_MY_VARIANT
+# * "LowerCase": MyVariant => myvariant
+# * "UpperCase": MyVariant => MYVARIANT
+# * "None": apply no renaming
+#
+# technically possible values (that shouldn't have a purpose for the variants):
+# * "PascalCase": apply no renaming
+# * "GeckoCase": apply no renaming
+#
+# default: "None"
+rename_variants = "None"
+
+# Whether an extra "sentinel" enum variant should be added to all generated enums.
+# Firefox uses this for their IPC serialization library.
+#
+# WARNING: if the sentinel is ever passed into Rust, behaviour will be Undefined.
+# Rust does not know about this value, and will assume it cannot happen.
+#
+# default: false
+add_sentinel = false
+
+# Whether enum variant names should be prefixed with the name of the enum.
+# default: false
 prefix_with_name = true
+
+# Whether to emit enums using "enum class" when targeting C++.
+# default: true
+enum_class = true
+
+# Whether to generate static `::MyVariant(..)` constructors and `bool IsMyVariant()`
+# methods for enums with fields.
+#
+# default: false
+derive_helper_methods = false
+
+# Whether to generate `const MyVariant& AsMyVariant() const` methods for enums with fields.
+# default: false
+derive_const_casts = false
+
+# Whether to generate `MyVariant& AsMyVariant()` methods for enums with fields
+# default: false
+derive_mut_casts = false
+
+# The name of the macro/function to use for asserting `IsMyVariant()` in the body of
+# derived `AsMyVariant()` cast methods.
+#
+# default: "assert" (but also causes `<cassert>` to be included by default)
+cast_assert_name = "MOZ_RELEASE_ASSERT"
+
+# An optional string that should come before the name of any enum which has been
+# marked as `#[must_use]`. For instance, "__attribute__((warn_unused))"
+# would be a reasonable value if targeting gcc/clang. A more portable solution
+# would involve emitting the name of a macro which you define in a
+# platform-specific way. e.g. "MUST_USE_ENUM"
+#
+# Note that this refers to the *output* type. That means this will not apply to an enum
+# with fields, as it will be emitted as a struct. `[struct]must_use` will apply there.
+#
+# default: nothing is emitted for must_use enums
+must_use = "MUST_USE_ENUM"
+
+# An optional string that should come before the name of any enum which has been
+# marked as `#[deprecated]` without note. For instance, "__attribute__((deprecated))"
+# would be a reasonable value if targeting gcc/clang. A more portable solution
+# would involve emitting the name of a macro which you define in a
+# platform-specific way. e.g. "DEPRECATED_ENUM"
+# default: nothing is emitted for deprecated enums
+deprecated = "DEPRECATED_ENUM"
+
+# An optional string that should come before the name of any enum which has been
+# marked as `#[deprecated(note = "reason")]`. `{}` will be replaced with the
+# double-quoted string. For instance, "__attribute__((deprecated({})))"
+# would be a reasonable value if targeting gcc/clang. A more portable solution
+# would involve emitting the name of a macro which you define in a
+# platform-specific way. e.g. "DEPRECATED_ENUM_WITH_NOTE(note)"
+# default: nothing is emitted for deprecated enums
+deprecated_with_notes = "DEPRECATED_ENUM_WITH_NOTE"
+
+# Whether enums with fields should generate destructors. This exists so that generic
+# enums can be properly instantiated with payloads that are C++ types with
+# destructors. This isn't necessary for structs because C++ has rules to
+# automatically derive the correct constructors and destructors for those types.
+#
+# Care should be taken with this option, as Rust and C++ cannot
+# properly interoperate with eachother's notions of destructors. Also, this may
+# change the ABI for the type. Either your destructor-full enums must live
+# exclusively within C++, or they must only be passed by-reference between
+# C++ and Rust.
+#
+# default: false
+derive_tagged_enum_destructor = false
+
+# Whether enums with fields should generate copy-constructor. See the discussion on
+# derive_tagged_enum_destructor for why this is both useful and very dangerous.
+#
+# default: false
+derive_tagged_enum_copy_constructor = false
+# Whether enums with fields should generate copy-assignment operators.
+#
+# This depends on also deriving copy-constructors, and it is highly encouraged
+# for this to be set to true.
+#
+# default: false
+derive_tagged_enum_copy_assignment = false
+
+# Whether enums with fields should generate an empty, private destructor.
+# This allows the auto-generated constructor functions to compile, if there are
+# non-trivially constructible members. This falls in the same family of
+# dangerousness as `derive_tagged_enum_copy_constructor` and co.
+#
+# default: false
+private_default_tagged_enum_constructor = false

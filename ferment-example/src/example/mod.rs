@@ -2,10 +2,16 @@ use std::collections::BTreeMap;
 //use dpp::identity::{Identity, IdentityPublicKey, IdentityV0, KeyID};
 //use dpp::identity::identity_public_key::v0::IdentityPublicKeyV0;
 //use dpp::version::LATEST_PLATFORM_VERSION;
-//use platform_value::Identifier;
-//use rand::SeedableRng;
-
-pub mod address;
+// use platform_value::types::identifier::{Identifier, IdentifierBytes32};
+//
+// //use rand::SeedableRng;
+//
+// pub mod address;
+//
+// #[ferment_macro::export]
+// pub fn dpp_get_identifier() -> Identifier {
+//    Identifier { 0: IdentifierBytes32 { 0: [0; 32] }}
+// }
 
 // #[ferment_macro::export]
 // pub fn dpp_get_identity(identifier: &Identifier) -> Identity {

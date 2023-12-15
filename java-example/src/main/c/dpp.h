@@ -1,6 +1,10 @@
 #ifndef DPP_H
 #define DPP_H
 
+#include <list>
+#include <map>
+using namespace std;
+
 class IHaveChainSettings {
 private:
     const IHaveChainSettings_TraitObject * m_traitObject;
@@ -45,13 +49,118 @@ public:
     }
 };
 
+// this will become part of ferment soon
 extern "C" Vec_u8 * Vec_u8_ctor(uint32_t count, uint8_t * values) {
     Vec_u8 * result = new Vec_u8;
     result->count = count;
-    result->values = new uint8_t[count];
-    memcpy(result->values, values, count);
+    result->values = values;
+    //memcpy(result->values, values, count);
     return result;
 }
+
+// this will become part of ferment soon
+extern "C" void Vec_u8_destroy(Vec_u8 * vec_u8) {
+    printf("Vec_u8_destroy [%lx]\n", (unsigned long) vec_u8);
+    delete vec_u8;
+}
+
+class MemoryFactory {
+    map<long, list<uint8_t*>> memoryMap;
+    list<uint8_t*> memoryList;
+    static MemoryFactory * instance;
+public:
+    static MemoryFactory * getInstance() { return instance; }
+    MemoryFactory() {
+
+    }
+
+    ~MemoryFactory() {
+        for (pair<long, list<uint8_t*>> pointerList: memoryMap) {
+            for (uint8_t * item : pointerList.second) {
+                delete [] item;
+            }
+        }
+        memoryMap.clear();
+        for (uint8_t * item : memoryList) {
+            delete [] item;
+        }
+        memoryList.clear();
+    }
+
+    size_t size() {
+        return memoryList.size();
+    }
+
+    void * alloc(size_t size) {
+        uint8_t * memory = new uint8_t[size];
+        printf("  adding %lx with size %d\n", (unsigned long)memory, size);
+        memoryList.push_back(memory);
+        return reinterpret_cast<void*>(memory);
+    }
+
+    void * alloc(void * root, size_t size) {
+        uint8_t * memory = new uint8_t[size];
+        if (memoryMap.count((long)root)) {
+            memoryMap[(long)root].push_back(memory);
+        } else {
+            list<uint8_t*> list;
+            list.push_back(memory);
+            memoryMap.insert(pair<long, ::list<uint8_t*>>((long)root, list));
+        }
+        return reinterpret_cast<void*>(memory);
+    }
+
+    void destroy(void * root, void * memory) {
+        if (memoryMap.count((long)root)) {
+            for (uint8_t * item: memoryMap[(long)root]) {
+                if (item == memory)
+                    delete [] item;
+            }
+        }
+    }
+
+    void destroy(void * root) {
+        if (memoryMap.count((long)root)) {
+            for (uint8_t * item: memoryMap[(long)root]) {
+                delete [] item;
+            }
+            memoryMap.erase((long)root);
+        }
+    }
+
+    void destroyItem(void * item) {
+    list<uint8_t*>::iterator it = find(memoryList.begin(), memoryList.end(), item);
+        if (it != memoryList.end()) {
+            printf("destroying item [%lx]\n", (unsigned long)item);
+            delete [] (uint8_t*)item;
+            memoryList.erase(it);
+        } else printf("not destroying item %lx\n", (unsigned long)item);
+    }
+};
+
+#define ENUM_CASE(enum_class, value) \
+    case enum_class##_##value: \
+        return enum_class##_##value##_ctor();
+
+KeyType * intToKeyType(int value) {
+    switch(value) {
+        ENUM_CASE(KeyType, ECDSA_SECP256K1)
+        ENUM_CASE(KeyType, BLS12_381)
+        ENUM_CASE(KeyType, ECDSA_HASH160)
+        ENUM_CASE(KeyType, BIP13_SCRIPT_HASH)
+        ENUM_CASE(KeyType, EDDSA_25519_HASH160)
+    }
+}
+
+SecurityLevel * intToSecurityLevel(int value) {
+    switch(value) {
+        ENUM_CASE(SecurityLevel, MASTER)
+        ENUM_CASE(SecurityLevel, CRITICAL)
+        ENUM_CASE(SecurityLevel, HIGH)
+        ENUM_CASE(SecurityLevel, MEDIUM)
+    }
+}
+
 
 
 #endif // this file

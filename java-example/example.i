@@ -6,6 +6,9 @@ extern "C" {
 }
 #include <stdlib.h>
 #include "dpp.h"
+
+MemoryFactory * MemoryFactory::instance = new MemoryFactory();
+MemoryFactory & memoryFactory = *MemoryFactory::getInstance();
 %}
 //%include "enumsimple.swg"
 //%rename("%(strip:[ffi_])s") "";
@@ -120,22 +123,25 @@ extern "C" {
     }
 
     ~Identifier() {
+        printf("~Identifier(%x)\n", $self);
+        memoryFactory.destroyItem($self->_0->_0);
         IdentifierBytes32_destroy($self->_0); // Deallocate the memory when the object is destroyed
-        Identifier_destroy(self);
+        Identifier_destroy($self);
     }
 }
 
 %extend IdentifierBytes32 {
-    IdentifierBytes32(uint8_t identifierBytes[32]) {
-        struct IdentifierBytes32 * identifierBytes32 = (struct IdentifierBytes32*)calloc(1, sizeof(struct IdentifierBytes32));
-        identifierBytes32->_0 = (uint8_t (*)[32])calloc(1, sizeof(uint8_t[32]));
-        memcpy(identifierBytes32->_0, identifierBytes, sizeof(uint8_t[32]));
-        return identifierBytes32;
+    IdentifierBytes32(uint8_t (*identifierBytes)[32]) {
+        //struct IdentifierBytes32 * identifierBytes32 = (struct IdentifierBytes32*)calloc(1, sizeof(struct IdentifierBytes32));
+        //identifierBytes32->_0 = (uint8_t (*)[32])calloc(1, sizeof(uint8_t[32]));
+        //memcpy(identifierBytes32->_0, identifierBytes, sizeof(uint8_t[32]));
+        return IdentifierBytes32_ctor(identifierBytes);
     }
 
     ~IdentifierBytes32() {
-        free($self->_0); // Deallocate the memory when the object is destroyed
-        free(self);
+        printf("~IdentityBytes32(%x)\n", $self);
+        memoryFactory.destroyItem($self->_0);
+        IdentifierBytes32_destroy($self);
     }
 };
 
@@ -152,8 +158,10 @@ extern "C" {
     const jsize sz = JCALL1(GetArrayLength, jenv, $input);
     jbyte* const jarr = JCALL2(GetByteArrayElements, jenv, $input, 0);
     if (!jarr) return $null;
-    byteArray = (uint8_t *)calloc(1, 32); // this is a memory leak?
+    byteArray = (uint8_t *)memoryFactory.alloc(32); //calloc(1, 32); // this is a memory leak?
     memcpy(byteArray, jarr, sz);
+
+    //memcpy($1, jarr, sz);
     JCALL3(ReleaseByteArrayElements, jenv, $input, jarr, JNI_ABORT);
     $1 = (uint8_t (*) [32])byteArray;
 }
@@ -163,6 +171,7 @@ extern "C" {
 }
 %typemap(argout) (uint8_t (*)[32]) {
   //JCALL3(ReleaseByteArrayElements, jenv, $input, (jbyte *) *$1, 0);
+
 }
 
 %typemap(javain) (uint8_t (*)[32]) "$javainput"
@@ -177,6 +186,7 @@ extern "C" {
         return KeyID_ctor(id);
     }
     ~KeyID() {
+        printf("~KeyID(%x)\n", $self);
         KeyID_destroy($self);
     }
 }
@@ -186,6 +196,9 @@ extern "C" {
         return BinaryData_ctor(o_0);
     }
     ~BinaryData() {
+        printf("~BinaryData(%lx)\n", $self);
+        // memoryFactory.destroyItem($self->_0->values);
+        // Vec_u8_destroy($self->_0);
         BinaryData_destroy($self);
     }
 }
@@ -205,6 +218,7 @@ extern "C" {
 %ignore IdentityV0::public_keys;
 %extend IdentityV0 {
     ~IdentityV0() {
+        printf("~IdentityV0(%x)\n", $self);
         IdentityV0_destroy($self);
     }
 
@@ -235,12 +249,63 @@ extern "C" {
 //                                                     struct TimestampMillis *disabled_at);
 
 %extend IdentityPublicKeyV0 {
-    IdentityPublicKeyV0(KeyID * keyId, Purpose purpose, SecurityLevel securityLevel, ContractBounds contract_bounds,
-        KeyType key_type, bool read_only, BinaryData data, TimestampMillis * disabled_at) {
-        return IdentityPublicKeyV0_ctor(keyId, &purpose, &securityLevel, &contract_bounds, &key_type, read_only, &data, disabled_at);
+    IdentityPublicKeyV0(KeyID * keyId, Purpose purpose, SecurityLevel securityLevel,
+        ContractBounds contract_bounds,
+        KeyType key_type, bool read_only, BinaryData * data,
+        TimestampMillis * disabled_at) {
+        printf("new_IdentityPublicKeyV0 purpose %d\n", purpose);
+         Purpose * purposeObject;
+         switch(purpose) {
+             case Purpose_AUTHENTICATION:
+                 purposeObject = Purpose_AUTHENTICATION_ctor();
+                 break;
+             case Purpose_DECRYPTION:
+                 purposeObject = Purpose_DECRYPTION_ctor();
+                 break;
+             case Purpose_ENCRYPTION:
+                purposeObject = Purpose_ENCRYPTION_ctor();
+                break;
+            case Purpose_WITHDRAW:
+                purposeObject = Purpose_WITHDRAW_ctor();
+                break;
+            case Purpose_SYSTEM:
+                purposeObject = Purpose_SYSTEM_ctor();
+                break;
+            case Purpose_VOTING:
+                purposeObject = Purpose_VOTING_ctor();
+                break;
+         }
+        printf("  %lx\n", purposeObject);
+        KeyType * keyTypeObject = intToKeyType(key_type);
+        SecurityLevel * securityLevelObject = intToSecurityLevel(securityLevel);
+        uint8_t * byteArray = (uint8_t*)memoryFactory.alloc(data->_0->count);
+        memcpy(byteArray, data->_0->values, data->_0->count);
+        Vec_u8 * vec_u8 = Vec_u8_ctor(data->_0->count, byteArray);
+        BinaryData * binaryData = BinaryData_ctor(vec_u8);
+        printf("  ->data(%lx)\n", binaryData);
+        printf("  ->data->_0(%lx)\n", binaryData->_0);
+        printf("  ->data->_0->values(%lx)\n", binaryData->_0->values);
+        KeyID * keyIdObject = KeyID_ctor(keyId->_0);
+        IdentityPublicKeyV0 * ipkv0 = IdentityPublicKeyV0_ctor(keyIdObject, purposeObject, securityLevelObject,
+            &contract_bounds, keyTypeObject, read_only, binaryData, disabled_at);
+        printf("IdentityPublicKeyV0(%x)\n", ipkv0);
+        return ipkv0;
     }
     ~IdentityPublicKeyV0() {
-        IdentityPublicKeyV0_destroy($self);
+        printf("~IdentityPublicKeyV0(%lx)\n", (unsigned long)$self);
+        printf("  ->purpose(%x)\n", $self->purpose);
+        Purpose_destroy($self->purpose);
+        SecurityLevel_destroy($self->security_level);
+        KeyType_destroy($self->key_type);
+        KeyID_destroy($self->id);
+        printf("  ->data->_0(%lx)\n", $self->data->_0);
+        printf("  ->data->_0->values(%lx)\n", $self->data->_0->values);
+        memoryFactory.destroyItem($self->data->_0->values);
+        Vec_u8_destroy($self->data->_0);
+        printf("  ->data(%lx)\n", $self->data);
+        BinaryData_destroy($self->data); // crash
+        TimestampMillis_destroy($self->disabled_at);
+        IdentityPublicKeyV0_destroy($self); //crash
     }
     enum KeyType getKeyType() {
         return *$self->key_type;
@@ -261,8 +326,9 @@ extern "C" {
         return HashID_ctor(o_0);
     }
     ~HashID() {
+        printf("~HashID(%x)\n", $self);
+        memoryFactory.destroyItem($self->_0);
         HashID_destroy($self);
-        free($self->_0);
     }
 }
 

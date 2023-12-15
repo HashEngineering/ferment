@@ -16,25 +16,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ecc24323-e45b-4800-a8a9-387eedfbd6b1" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/java-example/Vec_u8-b.i" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/java-example/Vec_u8.i" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/AppliedRequestSettings.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/RequestSettings.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/SWIGTYPE_p_Duration_FFI.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/Uri.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ferment-example-nested/src/fermented.rs" beforeDir="false" afterPath="$PROJECT_DIR$/ferment-example-nested/src/fermented.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ferment-example/build.rs" beforeDir="false" afterPath="$PROJECT_DIR$/ferment-example/build.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ferment-example/cbindgen.toml" beforeDir="false" afterPath="$PROJECT_DIR$/ferment-example/cbindgen.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ferment-example/src/example/mod.rs" beforeDir="false" afterPath="$PROJECT_DIR$/ferment-example/src/example/mod.rs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ferment-example/src/fermented.rs" beforeDir="false" afterPath="$PROJECT_DIR$/ferment-example/src/fermented.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ferment-example/src/lib.rs" beforeDir="false" afterPath="$PROJECT_DIR$/ferment-example/src/lib.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/java-example/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/java-example/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java-example/Vec_u8.i" beforeDir="false" afterPath="$PROJECT_DIR$/java-example/Vec_u8.i" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/java-example/example.i" beforeDir="false" afterPath="$PROJECT_DIR$/java-example/example.i" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/java-example/src/main/c/dpp.h" beforeDir="false" afterPath="$PROJECT_DIR$/java-example/src/main/c/dpp.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/java-example/src/main/c/sdk.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/java-example/src/main/c/sdk.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/BinaryData.java" beforeDir="false" afterPath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/BinaryData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/ContractBounds.java" beforeDir="false" afterPath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/ContractBounds.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/IdentityPublicKeyV0.java" beforeDir="false" afterPath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/IdentityPublicKeyV0.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/IdentityV0.java" beforeDir="false" afterPath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/IdentityV0.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/KeyID.java" beforeDir="false" afterPath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/KeyID.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/IdentifierBytes32.java" beforeDir="false" afterPath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/IdentifierBytes32.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/example.java" beforeDir="false" afterPath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/example.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/exampleJNI.java" beforeDir="false" afterPath="$PROJECT_DIR$/java-example/src/main/java/org/dash/sdk/exampleJNI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/java-example/src/test/java/org/dash/sdk/IdentityTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/java-example/src/test/java/org/dash/sdk/IdentityTest.java" afterDir="false" />
@@ -132,7 +124,7 @@
       </method>
     </configuration>
     <configuration name="ferment-example run" type="CargoCommandRunConfiguration" factoryName="Cargo Command">
-      <option name="command" value="run --verbose" />
+      <option name="command" value="run --lib --verbose" />
       <option name="workingDirectory" value="file://$PROJECT_DIR$/ferment-example" />
       <option name="channel" value="DEFAULT" />
       <option name="requiredFeatures" value="true" />
@@ -215,7 +207,7 @@
       <workItem from="1697847891229" duration="11966000" />
       <workItem from="1698773406071" duration="33000" />
       <workItem from="1701051220463" duration="48949000" />
-      <workItem from="1702059392857" duration="4388000" />
+      <workItem from="1702059392857" duration="19263000" />
     </task>
     <task id="LOCAL-00001" summary="feat: add java-example with unit test">
       <created>1697836028030</created>
@@ -262,8 +254,13 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/ferment-example/build.rs</url>
-          <line>12</line>
+          <line>13</line>
           <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/ferment-example/build.rs</url>
+          <line>18</line>
+          <option name="timeStamp" value="3" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
