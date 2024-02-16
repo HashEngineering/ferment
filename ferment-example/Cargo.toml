@@ -17,3 +17,4 @@ ferment = { path = "../ferment" }
 
 [lib]
 name = "ferment_example"
+crate-type = ["staticlib"]

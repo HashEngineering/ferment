@@ -105,5 +105,4 @@ impl Identity {
             public_keys: BTreeMap::new(),
         })
     }
-
 }

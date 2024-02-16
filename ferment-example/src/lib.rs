@@ -1,5 +1,5 @@
 // mod chain;
-// mod example;
+pub mod example;
 pub mod fermented;
 // mod traits;
 // mod asyn;
