@@ -232,7 +232,11 @@ MemoryFactory & memoryFactory = *MemoryFactory::getInstance();
     }
 
     struct IdentityPublicKeyV0 * getPublicKey(uint32_t index) {
-        return $self->public_keys->values[index]->v0;
+        if (index < $self->public_keys->count) {
+            return $self->public_keys->values[index]->v0;
+        } else {
+            return NULL;
+        }
     }
 
     struct IdentityPublicKeyV0 * getPublicKeyById(uint32_t id) {

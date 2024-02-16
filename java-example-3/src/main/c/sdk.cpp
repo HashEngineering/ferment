@@ -983,7 +983,11 @@ SWIGINTERN void delete_IdentityV0(IdentityV0 *self){
         IdentityV0_destroy(self);
     }
 SWIGINTERN IdentityPublicKeyV0 *IdentityV0_getPublicKey(IdentityV0 *self,uint32_t index){
-        return self->public_keys->values[index]->v0;
+        if (index < self->public_keys->count) {
+            return self->public_keys->values[index]->v0;
+        } else {
+            return NULL;
+        }
     }
 SWIGINTERN IdentityPublicKeyV0 *IdentityV0_getPublicKeyById(IdentityV0 *self,uint32_t id){
         for (int i = 0; i < self->public_keys->count; ++i) {

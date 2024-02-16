@@ -43,7 +43,13 @@ public class IdentityTest {
         id[0] = 1;
         id[1] = 2;
         Identity identity = example.createBasicIdentityV0(id);
-        assertArrayEquals(id, identity.getV0().getId().get_0().get_0());
+
+        IdentityV0 identityV0 = identity.getV0();
+        assertNotNull(identityV0);
+        assertArrayEquals(id, identityV0.getId().get_0().get_0());
+        assertEquals(0L, identityV0.getRevision().get_0().longValue());
+        assertEquals(0L, identityV0.getBalance().longValue());
+        assertNull(identityV0.getPublicKey(0));
         example.identityDestroy(identity);
     }
 
@@ -175,9 +181,7 @@ public class IdentityTest {
         assertFalse(ipkv0.getRead_only());
         assertEquals(null, ipkv0.getDisabled_at());
 
-        // Identity identity = new Identity();
-
-        ipkv0.delete(); // this still crashes, why?
+        //ipkv0.delete(); // this still crashes, why?
         ipkv0 = null;
     }
 
