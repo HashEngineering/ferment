@@ -124,6 +124,7 @@ MemoryFactory & memoryFactory = *MemoryFactory::getInstance();
 %include "identity_public_key.i"
 %include "identity_public_key_enums.i"
 %include "keyid.i"
+%include "revision.i"
 %include "uint8_array.i"
 %include "timestamp_millis.i"
 
