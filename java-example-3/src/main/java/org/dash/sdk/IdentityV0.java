@@ -45,14 +45,6 @@ public class IdentityV0 {
     return (cPtr == 0) ? null : new Identifier(cPtr, false);
   }
 
-  public void setBalance(java.math.BigInteger value) {
-    exampleJNI.IdentityV0_balance_set(swigCPtr, this, value);
-  }
-
-  public java.math.BigInteger getBalance() {
-    return exampleJNI.IdentityV0_balance_get(swigCPtr, this);
-  }
-
   public void setRevision(Revision value) {
     exampleJNI.IdentityV0_revision_set(swigCPtr, this, Revision.getCPtr(value), value);
   }
@@ -70,6 +62,10 @@ public class IdentityV0 {
   public IdentityPublicKeyV0 getPublicKeyById(long id) {
     long cPtr = exampleJNI.IdentityV0_getPublicKeyById(swigCPtr, this, id);
     return (cPtr == 0) ? null : new IdentityPublicKeyV0(cPtr, false);
+  }
+
+  public long getBalance() {
+    return exampleJNI.IdentityV0_getBalance(swigCPtr, this);
   }
 
 }

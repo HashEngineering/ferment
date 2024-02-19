@@ -4,9 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class GenericsTest extends BaseTest {
     static {
@@ -45,6 +43,7 @@ public class GenericsTest extends BaseTest {
     @Test
     public void createVecU8InRustAndDestroy() {
         VecU8Holder holder = example.vecU8HolderCtor(identifier);
+        assertArrayEquals(identifier, holder.getFirst());
         example.vecU8HolderDestroy(holder);
         // does this leak Vec_u8
     }
@@ -52,6 +51,7 @@ public class GenericsTest extends BaseTest {
     @Test
     public void createVecU8HolderInJavaAndDestroy() {
         VecU8Holder holder = new VecU8Holder(identifier);
+        assertArrayEquals(identifier, holder.getFirst());
         holder.delete();
     }
 }

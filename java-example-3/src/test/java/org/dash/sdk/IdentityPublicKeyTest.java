@@ -23,14 +23,14 @@ public class IdentityPublicKeyTest extends BaseTest {
     @Test
     public void createKeyIDinRustAndDestroy() {
         KeyID id = example.keyIDCtor(1);
-        assertEquals(1, id.get_0());
+        assertEquals(1, id.toInt());
         example.keyIDDestroy(id);
     }
 
     @Test
     public void createKeyIDinJavaAndDestroy() {
         KeyID id = new KeyID(1);
-        assertEquals(1, id.get_0());
+        assertEquals(1, id.toInt());
         id.delete();
     }
 
@@ -97,7 +97,7 @@ public class IdentityPublicKeyTest extends BaseTest {
         );
         System.out.printf("identitypublickeyv0 %x\n", IdentityPublicKeyV0.getCPtr(ipkv0));
         System.out.flush();
-        assertEquals(2, ipkv0.getId().get_0());
+        assertEquals(2, ipkv0.getId().toInt());
         assertEquals(Purpose.Purpose_AUTHENTICATION, ipkv0.getPurpose());
         assertEquals(KeyType.KeyType_ECDSA_SECP256K1, ipkv0.getKeyType());
         assertEquals(SecurityLevel.SecurityLevel_HIGH, ipkv0.getSecurityLevel());

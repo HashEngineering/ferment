@@ -1,11 +1,7 @@
 package org.dash.sdk;
 
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import java.math.BigInteger;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -13,28 +9,13 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-public class IdentityTest {
-    static {
-        System.loadLibrary("sdklib");
-    }
-    static MemoryFactory memoryFactory = MemoryFactory.getInstance();
-
-    @BeforeAll
-    public static void start() {
-
-    }
-
-    @AfterEach
-    public void end() {
-        System.out.printf("objects: %d\n", memoryFactory.size());
-    }
-
+public class IdentityTest extends BaseTest {
     @Test
     public void getAnIdentityTest() {
         Identity identity = example.getAnIdentity();
         assertEquals(Identity_Tag.Identity_V0, identity.getTag());
-        assertEquals(2, identity.getV0().getBalance().longValue());
-        assertEquals(1, identity.getV0().getRevision().get_0().longValue());
+        assertEquals(2, identity.getV0().getBalance());
+        assertEquals(1, identity.getV0().getRevision().toLong());
         identity.delete(); // identity doesn't own the rust object
         // example.identityDestroy(identity); //crash
     }
@@ -48,8 +29,8 @@ public class IdentityTest {
         IdentityV0 identityV0 = identity.getV0();
         assertNotNull(identityV0);
         assertArrayEquals(id, identityV0.getId().get_0().get_0());
-        assertEquals(0L, identityV0.getRevision().get_0().longValue());
-        assertEquals(0L, identityV0.getBalance().longValue());
+        assertEquals(0L, identityV0.getRevision().toLong());
+        assertEquals(0L, identityV0.getBalance());
         assertNull(identityV0.getPublicKey(0));
         example.identityDestroy(identity);
     }
@@ -67,12 +48,12 @@ public class IdentityTest {
         Identity identity = example.getIdentity2(identifier);
         assertFalse(identity.swigCMemOwn);
         assertEquals(Identity_Tag.Identity_V0, identity.getTag());
-        assertEquals(2, identity.getV0().getBalance().longValue());
-        assertEquals(1, identity.getV0().getRevision().get_0().longValue());
+        assertEquals(2, identity.getV0().getBalance());
+        assertEquals(1, identity.getV0().getRevision().toLong());
         assertNotNull(identity.getV0().getId().get_0().get_0());
         assertArrayEquals(id, identity.getV0().getId().get_0().get_0());
         IdentityPublicKeyV0 ipkv0 = identity.getV0().getPublicKey(0);
-        long keyId = ipkv0.getId().get_0();
+        int keyId = ipkv0.getId().toInt();
         assertEquals(1, keyId);
         assertEquals(false, ipkv0.getRead_only());
         // assertEquals(KeyType.KeyType_BLS12_381, ipkv0.getKey_type());
@@ -141,14 +122,7 @@ public class IdentityTest {
 
     @Test
     public void identityPublicKeyTest() {
-        byte[] myIdentityBytes = new byte[32];
-        byte[] contractBytes = new byte[32];
-
-        for (byte i = 0; i < 32; ++i) {
-            myIdentityBytes[i] = i;
-            contractBytes[i] = 1;
-        }
-        Identifier contract = new Identifier(contractBytes);
+        Identifier contract = new Identifier(contractIdentifier);
         KeyID keyId = new KeyID(0);
         //long keyId = 0;//BigInteger.ZERO;
         Purpose purpose = Purpose.Purpose_AUTHENTICATION;
@@ -167,7 +141,7 @@ public class IdentityTest {
                 false, data, null);
         System.out.printf("identitypublickeyv0 %x\n", IdentityPublicKeyV0.getCPtr(ipkv0));
         System.out.flush();
-        assertEquals(0, ipkv0.getId().get_0());
+        assertEquals(0, ipkv0.getId().toInt());
         assertEquals(Purpose.Purpose_AUTHENTICATION, ipkv0.getPurpose());
         assertEquals(KeyType.KeyType_ECDSA_SECP256K1, ipkv0.getKeyType());
         assertEquals(SecurityLevel.SecurityLevel_HIGH, ipkv0.getSecurityLevel());
