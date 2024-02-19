@@ -1,4 +1,5 @@
 %ignore IdentityV0::public_keys;
+%ignore IdentityV0::balance;
 %extend IdentityV0 {
     ~IdentityV0() {
         printf("~IdentityV0(%lx)\n", (uint64_t)$self);
@@ -19,5 +20,9 @@
                 return $self->public_keys->values[i]->v0;
         }
         return NULL;
+    }
+
+    long long getBalance() {
+        return (long)$self->balance;
     }
 }

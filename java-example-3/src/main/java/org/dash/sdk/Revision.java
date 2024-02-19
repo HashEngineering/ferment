@@ -36,12 +36,16 @@ public class Revision {
     }
   }
 
-  public void set_0(java.math.BigInteger value) {
-    exampleJNI.Revision__0_set(swigCPtr, this, value);
+  public Revision() {
+    this(exampleJNI.new_Revision__SWIG_0(), true);
   }
 
-  public java.math.BigInteger get_0() {
-    return exampleJNI.Revision__0_get(swigCPtr, this);
+  public Revision(long timestamp) {
+    this(exampleJNI.new_Revision__SWIG_1(timestamp), true);
+  }
+
+  public long toLong() {
+    return exampleJNI.Revision_toLong(swigCPtr, this);
   }
 
 }
