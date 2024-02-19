@@ -6,6 +6,7 @@ extern "C" {
 }
 #include <stdlib.h>
 #include "dpp.h"
+#include <ctime>
 
 MemoryFactory * MemoryFactory::instance = new MemoryFactory();
 MemoryFactory & memoryFactory = *MemoryFactory::getInstance();

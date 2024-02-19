@@ -18,7 +18,7 @@
 
     ~IdentifierBytes32() {
         printf("~IdentityBytes32(%lx)\n", (uint64_t)$self);
-        memoryFactory.destroyItem($self->_0); // crash
+        // memoryFactory.destroyItem($self->_0); // crash
         IdentifierBytes32_destroy($self);
     }
 };
