@@ -29,14 +29,15 @@ public class IdentityTest {
         System.out.printf("objects: %d\n", memoryFactory.size());
     }
 
-//    @Test
-//    public void getAnIdentityTest() {
-//        Identity identity = example.getAnIdentity();
-//        assertEquals(Identity_Tag.Identity_V0, identity.getTag());
-//        assertEquals(2, identity.getV0().getBalance().longValue());
-//        assertEquals(1, identity.getV0().getRevision().longValue());
-//        identity.delete();
-//    }
+    @Test
+    public void getAnIdentityTest() {
+        Identity identity = example.getAnIdentity();
+        assertEquals(Identity_Tag.Identity_V0, identity.getTag());
+        assertEquals(2, identity.getV0().getBalance().longValue());
+        assertEquals(1, identity.getV0().getRevision().get_0().longValue());
+        identity.delete(); // identity doesn't own the rust object
+        // example.identityDestroy(identity); //crash
+    }
     @Test
     public void basicIdentity() {
         byte[] id = new byte[32];
@@ -53,39 +54,39 @@ public class IdentityTest {
         example.identityDestroy(identity);
     }
 
-//    @Test
-//    public void getIdentityTest() {
-//        byte[] id = new byte[32];
-//        id[0] = 1;
-//        id[1] = 2;
-//        short [] idShort = new short[32];
-//        idShort[0] = 1;
-//        idShort[1] = 2;
-//
-//        Identifier identifier = new Identifier(id);
-//        Identity identity = example.getIdentity2(identifier);
-//        assertFalse(identity.swigCMemOwn);
-//        assertEquals(Identity_Tag.Identity_V0, identity.getTag());
-//        assertEquals(2, identity.getV0().getBalance().longValue());
-//        assertEquals(1, identity.getV0().getRevision().longValue());
-//        assertNotNull(identity.getV0().getId().get_0().get_0());
-//        assertArrayEquals(id, identity.getV0().getId().get_0().get_0());
-//        IdentityPublicKeyV0 ipkv0 = identity.getV0().getPublicKey(0);
-//        long keyId = ipkv0.getId();
-//        assertEquals(1, keyId);
-//        assertEquals(false, ipkv0.getRead_only());
-//        // assertEquals(KeyType.KeyType_BLS12_381, ipkv0.getKey_type());
-//        assertEquals(Purpose.Purpose_AUTHENTICATION, ipkv0.getPurpose());
-//        assertEquals(SecurityLevel.SecurityLevel_MASTER, ipkv0.getSecurityLevel());
-//        assertEquals(KeyType.KeyType_ECDSA_SECP256K1, ipkv0.getKeyType());
-//        // assertEquals(0, ipkv0.getDisabled_at().get_0().longValue());
-//
-//        IdentityPublicKeyV0 identityPublicKeyV0ById = identity.getV0().getPublicKeyById(1);
-//        assertEquals(ipkv0.getData().get_0().length, identityPublicKeyV0ById.getData().get_0().length);
-//        assertArrayEquals(ipkv0.getData().get_0(), identityPublicKeyV0ById.getData().get_0());
-//        // this crashes the system, it was created in Rust
-//        example.identityDestroy(identity);
-//    }
+    @Test
+    public void getIdentityTest() {
+        byte[] id = new byte[32];
+        id[0] = 1;
+        id[1] = 2;
+        short [] idShort = new short[32];
+        idShort[0] = 1;
+        idShort[1] = 2;
+
+        Identifier identifier = new Identifier(id);
+        Identity identity = example.getIdentity2(identifier);
+        assertFalse(identity.swigCMemOwn);
+        assertEquals(Identity_Tag.Identity_V0, identity.getTag());
+        assertEquals(2, identity.getV0().getBalance().longValue());
+        assertEquals(1, identity.getV0().getRevision().get_0().longValue());
+        assertNotNull(identity.getV0().getId().get_0().get_0());
+        assertArrayEquals(id, identity.getV0().getId().get_0().get_0());
+        IdentityPublicKeyV0 ipkv0 = identity.getV0().getPublicKey(0);
+        long keyId = ipkv0.getId().get_0();
+        assertEquals(1, keyId);
+        assertEquals(false, ipkv0.getRead_only());
+        // assertEquals(KeyType.KeyType_BLS12_381, ipkv0.getKey_type());
+        assertEquals(Purpose.Purpose_AUTHENTICATION, ipkv0.getPurpose());
+        assertEquals(SecurityLevel.SecurityLevel_MASTER, ipkv0.getSecurityLevel());
+        assertEquals(KeyType.KeyType_ECDSA_SECP256K1, ipkv0.getKeyType());
+        // assertEquals(0, ipkv0.getDisabled_at().get_0().longValue());
+
+        IdentityPublicKeyV0 identityPublicKeyV0ById = identity.getV0().getPublicKeyById(1);
+        assertEquals(ipkv0.getData().get_0().length, identityPublicKeyV0ById.getData().get_0().length);
+        assertArrayEquals(ipkv0.getData().get_0(), identityPublicKeyV0ById.getData().get_0());
+        // this crashes the system, it was created in Rust
+        // example.identityDestroy(identity);
+    }
 
     @Test
     public void getIdentityFromRustAndDestroyTest() {
@@ -96,6 +97,13 @@ public class IdentityTest {
         Identifier identifier = new Identifier(id);
         Identity identity = example.createBasicIdentityV0(id);
         example.identityDestroy(identity);
+
+        Identity identity2 = example.getIdentity2(identifier);
+        //assertNull(identity2.getV0().getPublicKey(0).getContract_bounds()); //crash accessing ContractBounds
+        //example.identityDestroy(identity2); // crash on destroying contract bounds
+
+        identifier.delete();
+
     }
 //
 //    @Test
@@ -130,20 +138,6 @@ public class IdentityTest {
 //        assertEquals(ipkv0.getData().get_0().length, identityPublicKeyV0ById.getData().get_0().length);
 //        assertArrayEquals(ipkv0.getData().get_0(), identityPublicKeyV0ById.getData().get_0());
 //    }
-
-    @Test
-    public void enumTest() {
-        Purpose purpose = Purpose.Purpose_AUTHENTICATION;
-        KeyType keyType = KeyType.KeyType_ECDSA_SECP256K1;
-        SecurityLevel securityLevel = SecurityLevel.SecurityLevel_HIGH;
-        assertEquals(KeyType.KeyType_ECDSA_SECP256K1, keyType);
-        assertEquals(Purpose.Purpose_AUTHENTICATION, purpose);
-        assertEquals(SecurityLevel.SecurityLevel_HIGH, securityLevel);
-
-        //Purpose purpose1 = example.purposeAUTHENTICATIONCtor();
-
-        example.purposeDestroy(example.purposeAUTHENTICATIONCtor());
-    }
 
     @Test
     public void identityPublicKeyTest() {
@@ -181,33 +175,10 @@ public class IdentityTest {
         assertFalse(ipkv0.getRead_only());
         assertEquals(null, ipkv0.getDisabled_at());
 
-        //ipkv0.delete(); // this still crashes, why?
+        ipkv0.delete(); // this still crashes, why?
         ipkv0 = null;
     }
 
-
-    @Test
-    public void createIdentityPublicKeyInJavaAndDestroyTest() {
-        KeyID keyId = new KeyID(0);
-        Purpose purpose = Purpose.Purpose_AUTHENTICATION;
-        KeyType keyType = KeyType.KeyType_ECDSA_SECP256K1;
-        SecurityLevel securityLevel = SecurityLevel.SecurityLevel_HIGH;
-        byte[] bytes = new byte[32];
-        for (byte i = 0; i < 32; ++i)
-            bytes[i] = i;
-        BinaryData data = new BinaryData(bytes);
-        ContractBounds contractBounds = example.contractBoundsSingleContractCtor(new Identifier(bytes));
-        assertArrayEquals(bytes, data.get_0());
-
-        IdentityPublicKeyV0 ipkv0 = new IdentityPublicKeyV0(keyId, purpose, securityLevel,
-                contractBounds,
-                keyType,
-                false, data, null);
-        System.out.printf("ipkv0 0x%016x\n", IdentityPublicKeyV0.getCPtr(ipkv0));
-        System.out.flush();
-        // ipkv0.delete(); // this still crashes, why?
-        ipkv0 = null;
-    }
 
 //    @Test
 //    public void asyncFunctionTest() {

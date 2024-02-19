@@ -3,6 +3,7 @@
 
 #include <list>
 #include <map>
+#include <algorithm>
 using namespace std;
 
 //class IHaveChainSettings {

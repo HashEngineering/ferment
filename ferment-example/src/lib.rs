@@ -98,20 +98,111 @@ pub mod nested {
     #[ferment_macro::export]
     #[derive(Clone)]
     pub struct BinaryData(pub Vec<u8>);
+
+    impl From<Vec<u8>> for BinaryData {
+        fn from(value: Vec<u8>) -> Self {
+            BinaryData::new(value)
+        }
+    }
+
+    impl BinaryData {
+        pub fn new(buffer: Vec<u8>) -> BinaryData {
+            BinaryData(buffer)
+        }
+    }
 //
 //     #[ferment_macro::export]
 //     pub struct SimpleData(pub Vec<u32>);
 //
-    #[derive(Clone)]
+    #[derive(Clone, Debug)]
     #[ferment_macro::export]
     pub struct IdentifierBytes32(pub [u8; 32]);
 //
 //     #[ferment_macro::export]
 //     pub struct UnnamedPair(pub [u8; 32], pub u32);
 //
-    #[derive(Clone)]
+    #[derive(Clone, Debug)]
     #[ferment_macro::export]
     pub struct Identifier(pub IdentifierBytes32);
+    //#[ferment_macro::export]
+    impl Identifier {
+        pub fn new(buffer: [u8; 32]) -> Identifier {
+            Identifier(IdentifierBytes32(buffer))
+        }
+
+
+        pub fn as_bytes(&self) -> &[u8; 32] {
+            &self.0.0
+        }
+
+        pub fn as_slice(&self) -> &[u8] {
+            self.0.0.as_slice()
+        }
+
+        // TODO the constructor "From" shouldn't use the reference to collection
+        pub fn from_bytes(bytes: &[u8]) -> Result<Identifier, Error> {
+            if bytes.len() != 32 {
+                return Err(Error::ByteLengthNot32BytesError(String::from(
+                    "Identifier must be 32 bytes long",
+                )));
+            }
+
+            // Since we checked that vector size is 32, we can use unwrap
+            Ok(Identifier::new(bytes.try_into().unwrap()))
+        }
+
+
+        pub fn len(&self) -> usize {
+            32
+        }
+
+        pub fn is_empty(&self) -> bool {
+            false
+        }
+
+        // TODO - consider to change the name to 'asBuffer`
+        pub fn to_buffer(&self) -> [u8; 32] {
+            self.0.0
+        }
+
+        pub fn into_buffer(self) -> [u8; 32] {
+            self.0.0
+        }
+
+        /// Convenience method to get underlying buffer as a vec
+        pub fn to_vec(&self) -> Vec<u8> {
+            self.0.0.to_vec()
+        }
+    }
+
+    #[derive(Clone, Eq, PartialEq, Debug)]
+    pub enum Error {
+        Unsupported(String),
+
+        StructureError(String),
+
+        PathError(String),
+
+        IntegerSizeError,
+
+        IntegerParsingError,
+
+        StringDecodingError(String),
+
+        KeyMustBeAString,
+
+        ByteLengthNot20BytesError(String),
+
+        ByteLengthNot32BytesError(String),
+
+        ByteLengthNot36BytesError(String),
+
+        SerdeSerializationError(String),
+
+        SerdeDeserializationError(String),
+
+        UnknownVersionMismatch,
+    }
 //
 //     #[ferment_macro::export]
 //     pub enum TestEnum {
@@ -123,6 +214,7 @@ pub mod nested {
 //     }
 //
     #[ferment_macro::export]
+    #[derive(Debug)]
     pub struct DataContractNotPresentError {
         pub data_contract_id: Identifier,
     }
@@ -148,6 +240,7 @@ pub mod nested {
     }
 
     #[ferment_macro::export]
+    #[derive(Debug)]
     pub enum ProtocolError {
         IdentifierError(String),
         StringDecodeError(String),

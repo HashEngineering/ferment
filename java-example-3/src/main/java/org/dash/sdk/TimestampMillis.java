@@ -44,4 +44,8 @@ public class TimestampMillis {
     return exampleJNI.TimestampMillis__0_get(swigCPtr, this);
   }
 
+  public TimestampMillis(int timestamp) {
+    this(exampleJNI.new_TimestampMillis(timestamp), true);
+  }
+
 }
