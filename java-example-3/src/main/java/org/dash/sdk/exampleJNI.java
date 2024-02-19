@@ -140,17 +140,17 @@ public class exampleJNI {
   public final static native long ContractBounds_single_contract_get(long jarg1, ContractBounds jarg1_);
   public final static native void ContractBounds_single_contract_document_type_set(long jarg1, ContractBounds jarg1_, long jarg2, ContractBounds_SingleContractDocumentType_Body jarg2_);
   public final static native long ContractBounds_single_contract_document_type_get(long jarg1, ContractBounds jarg1_);
-  public final static native long ContractBounds_singleContract__SWIG_0(long jarg1, Identifier jarg1_);
-  public final static native long ContractBounds_singleContract__SWIG_1(long jarg1, Identifier jarg1_, String jarg2);
+  public final static native long ContractBounds_singleContract(long jarg1, Identifier jarg1_);
+  public final static native long ContractBounds_singleContractDocumentType(long jarg1, Identifier jarg1_, String jarg2);
   public final static native void delete_ContractBounds(long jarg1);
   public final static native void KeyID__0_set(long jarg1, KeyID jarg1_, long jarg2);
   public final static native long KeyID__0_get(long jarg1, KeyID jarg1_);
   public final static native long new_KeyID(int jarg1);
   public final static native void delete_KeyID(long jarg1);
-  public final static native void TimestampMillis__0_set(long jarg1, TimestampMillis jarg1_, java.math.BigInteger jarg2);
-  public final static native java.math.BigInteger TimestampMillis__0_get(long jarg1, TimestampMillis jarg1_);
-  public final static native long new_TimestampMillis(int jarg1);
+  public final static native long new_TimestampMillis__SWIG_0();
+  public final static native long new_TimestampMillis__SWIG_1(long jarg1);
   public final static native void delete_TimestampMillis(long jarg1);
+  public final static native long TimestampMillis_toLong(long jarg1, TimestampMillis jarg1_);
   public final static native void IdentityPublicKeyV0_id_set(long jarg1, IdentityPublicKeyV0 jarg1_, long jarg2, KeyID jarg2_);
   public final static native long IdentityPublicKeyV0_id_get(long jarg1, IdentityPublicKeyV0 jarg1_);
   public final static native void IdentityPublicKeyV0_contract_bounds_set(long jarg1, IdentityPublicKeyV0 jarg1_, long jarg2, ContractBounds jarg2_);
@@ -291,6 +291,10 @@ public class exampleJNI {
   public final static native void MemoryFactory_destroy__SWIG_0(long jarg1, MemoryFactory jarg1_, long jarg2, long jarg3);
   public final static native void MemoryFactory_destroy__SWIG_1(long jarg1, MemoryFactory jarg1_, long jarg2);
   public final static native void MemoryFactory_destroyItem(long jarg1, MemoryFactory jarg1_, long jarg2);
+  public final static native void memoryFactory_set(long jarg1, MemoryFactory jarg1_);
+  public final static native long memoryFactory_get();
   public final static native long intToKeyType(int jarg1);
   public final static native long intToSecurityLevel(int jarg1);
+  public final static native long intToPurpose(int jarg1);
+  public final static native long identifierClone(long jarg1, Identifier jarg1_);
 }

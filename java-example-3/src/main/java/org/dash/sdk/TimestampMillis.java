@@ -36,16 +36,16 @@ public class TimestampMillis {
     }
   }
 
-  public void set_0(java.math.BigInteger value) {
-    exampleJNI.TimestampMillis__0_set(swigCPtr, this, value);
+  public TimestampMillis() {
+    this(exampleJNI.new_TimestampMillis__SWIG_0(), true);
   }
 
-  public java.math.BigInteger get_0() {
-    return exampleJNI.TimestampMillis__0_get(swigCPtr, this);
+  public TimestampMillis(long timestamp) {
+    this(exampleJNI.new_TimestampMillis__SWIG_1(timestamp), true);
   }
 
-  public TimestampMillis(int timestamp) {
-    this(exampleJNI.new_TimestampMillis(timestamp), true);
+  public long toLong() {
+    return exampleJNI.TimestampMillis_toLong(swigCPtr, this);
   }
 
 }

@@ -3,7 +3,6 @@
 %typemap(jtype) (uint8_t (*)[32]) "byte[]"
 %typemap(jstype) (uint8_t (*)[32]) "byte[]"
 %typemap(in) (uint8_t (*)[32]) (uint8_t * byteArray) {
-  //$1 = (uint8_t (*)[32]) JCALL2(GetByteArrayElements, jenv, $input, 0);
     if (!$input) {
       SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null array");
       return $null;
@@ -11,7 +10,7 @@
     const jsize sz = JCALL1(GetArrayLength, jenv, $input);
     jbyte* const jarr = JCALL2(GetByteArrayElements, jenv, $input, 0);
     if (!jarr) return $null;
-    byteArray = (uint8_t *)memoryFactory.alloc(32); //calloc(1, 32); // this is a memory leak?
+    byteArray = (uint8_t *)memoryFactory.alloc(32); // this is a memory leak?
     memcpy(byteArray, jarr, sz);
 
     //memcpy($1, jarr, sz);

@@ -399,6 +399,14 @@ public class example {
     exampleJNI.vecCrateNestedFeatureVersionDestroy(Vec_crate_nested_FeatureVersion.getCPtr(ffi), ffi);
   }
 
+  public static void setMemoryFactory(MemoryFactory value) {
+    exampleJNI.memoryFactory_set(MemoryFactory.getCPtr(value), value);
+  }
+
+  public static MemoryFactory getMemoryFactory() {
+    return new MemoryFactory(exampleJNI.memoryFactory_get(), false);
+  }
+
   public static SWIGTYPE_p_KeyType intToKeyType(int value) {
     long cPtr = exampleJNI.intToKeyType(value);
     return (cPtr == 0) ? null : new SWIGTYPE_p_KeyType(cPtr, false);
@@ -407,6 +415,16 @@ public class example {
   public static SWIGTYPE_p_SecurityLevel intToSecurityLevel(int value) {
     long cPtr = exampleJNI.intToSecurityLevel(value);
     return (cPtr == 0) ? null : new SWIGTYPE_p_SecurityLevel(cPtr, false);
+  }
+
+  public static SWIGTYPE_p_Purpose intToPurpose(int value) {
+    long cPtr = exampleJNI.intToPurpose(value);
+    return (cPtr == 0) ? null : new SWIGTYPE_p_Purpose(cPtr, false);
+  }
+
+  public static Identifier identifierClone(Identifier id) {
+    long cPtr = exampleJNI.identifierClone(Identifier.getCPtr(id), id);
+    return (cPtr == 0) ? null : new Identifier(cPtr, false);
   }
 
 }

@@ -63,12 +63,12 @@ public class ContractBounds {
   }
 
   public static ContractBounds singleContract(Identifier id) {
-    long cPtr = exampleJNI.ContractBounds_singleContract__SWIG_0(Identifier.getCPtr(id), id);
+    long cPtr = exampleJNI.ContractBounds_singleContract(Identifier.getCPtr(id), id);
     return (cPtr == 0) ? null : new ContractBounds(cPtr, false);
   }
 
-  public static ContractBounds singleContract(Identifier id, String type) {
-    long cPtr = exampleJNI.ContractBounds_singleContract__SWIG_1(Identifier.getCPtr(id), id, type);
+  public static ContractBounds singleContractDocumentType(Identifier id, String type) {
+    long cPtr = exampleJNI.ContractBounds_singleContractDocumentType(Identifier.getCPtr(id), id, type);
     return (cPtr == 0) ? null : new ContractBounds(cPtr, false);
   }
 

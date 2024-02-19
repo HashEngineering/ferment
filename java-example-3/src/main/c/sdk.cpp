@@ -237,6 +237,7 @@ extern "C" {
 }
 #include <stdlib.h>
 #include "dpp.h"
+#include <ctime>
 
 MemoryFactory * MemoryFactory::instance = new MemoryFactory();
 MemoryFactory & memoryFactory = *MemoryFactory::getInstance();
@@ -928,7 +929,7 @@ SWIGINTERN IdentifierBytes32 *new_IdentifierBytes32(uint8_t (*identifierBytes)[3
     }
 SWIGINTERN void delete_IdentifierBytes32(IdentifierBytes32 *self){
         printf("~IdentityBytes32(%lx)\n", (uint64_t)self);
-        memoryFactory.destroyItem(self->_0); // crash
+        // memoryFactory.destroyItem(self->_0); // crash
         IdentifierBytes32_destroy(self);
     }
 SWIGINTERN Identifier *new_Identifier(uint8_t (*byteArray)[32]){
@@ -940,11 +941,18 @@ SWIGINTERN void delete_Identifier(Identifier *self){
         //memoryFactory.destroyItem(self->_0->_0); //crash
         Identifier_destroy(self);
     }
-SWIGINTERN ContractBounds *ContractBounds_singleContract__SWIG_0(Identifier *id){
-        return ContractBounds_SingleContract_ctor(id);
+SWIGINTERN ContractBounds *ContractBounds_singleContract(Identifier *id){
+        uint8_t * bytesCopy = (uint8_t*)memoryFactory.alloc(32);
+        memcpy(bytesCopy, id->_0->_0, 32);
+        Identifier * idCopy = Identifier_ctor(IdentifierBytes32_ctor((uint8_t (*)[32])bytesCopy));
+        // Identifier * idCopy = Identifier_ctor(IdentifierBytes32_ctor(id->_0->_0));
+        return ContractBounds_SingleContract_ctor(idCopy);
     }
-SWIGINTERN ContractBounds *ContractBounds_singleContract__SWIG_1(Identifier *id,char *type){
-        return ContractBounds_SingleContractDocumentType_ctor(id, type);
+SWIGINTERN ContractBounds *ContractBounds_singleContractDocumentType(Identifier *id,char *type){
+        uint8_t * bytesCopy = (uint8_t*)memoryFactory.alloc(32);
+        memcpy(bytesCopy, id->_0->_0, 32);
+        Identifier * idCopy = Identifier_ctor(IdentifierBytes32_ctor((uint8_t (*)[32])bytesCopy));
+        return ContractBounds_SingleContractDocumentType_ctor(idCopy, type);
     }
 SWIGINTERN void delete_ContractBounds(ContractBounds *self){
         ContractBounds_destroy(self);
@@ -955,38 +963,25 @@ SWIGINTERN KeyID *new_KeyID(int id){
 SWIGINTERN void delete_KeyID(KeyID *self){
         KeyID_destroy(self);
     }
-SWIGINTERN TimestampMillis *new_TimestampMillis(long timestamp){
+SWIGINTERN TimestampMillis *new_TimestampMillis__SWIG_0(){
+        return TimestampMillis_ctor(time(NULL) * 1000);
+    }
+SWIGINTERN TimestampMillis *new_TimestampMillis__SWIG_1(long long timestamp){
         return TimestampMillis_ctor(timestamp);
     }
 SWIGINTERN void delete_TimestampMillis(TimestampMillis *self){
         TimestampMillis_destroy(self);
     }
-SWIGINTERN IdentityPublicKeyV0 *new_IdentityPublicKeyV0(KeyID *keyId,Purpose purpose,SecurityLevel securityLevel,ContractBounds contract_bounds,KeyType key_type,bool read_only,BinaryData *data,TimestampMillis *disabled_at){
-        printf("new_IdentityPublicKeyV0 purpose %d\n", purpose);
-         Purpose * purposeObject;
-         switch(purpose) {
-             case Purpose_AUTHENTICATION:
-                 purposeObject = Purpose_AUTHENTICATION_ctor();
-                 break;
-             case Purpose_DECRYPTION:
-                 purposeObject = Purpose_DECRYPTION_ctor();
-                 break;
-             case Purpose_ENCRYPTION:
-                purposeObject = Purpose_ENCRYPTION_ctor();
-                break;
-            case Purpose_WITHDRAW:
-                purposeObject = Purpose_WITHDRAW_ctor();
-                break;
-            case Purpose_SYSTEM:
-                purposeObject = Purpose_SYSTEM_ctor();
-                break;
-            case Purpose_VOTING:
-                purposeObject = Purpose_VOTING_ctor();
-                break;
-         }
-        printf("  %lx\n", (uint64_t)purposeObject);
+SWIGINTERN long long TimestampMillis_toLong(TimestampMillis *self){
+        return self->_0;
+    }
+SWIGINTERN IdentityPublicKeyV0 *new_IdentityPublicKeyV0(KeyID *keyId,Purpose purpose,SecurityLevel securityLevel,ContractBounds *contract_bounds,KeyType key_type,bool read_only,BinaryData *data,TimestampMillis *disabled_at){
+
+        // enums
+        Purpose * purposeObject = intToPurpose(purpose);
         KeyType * keyTypeObject = intToKeyType(key_type);
         SecurityLevel * securityLevelObject = intToSecurityLevel(securityLevel);
+
         uint8_t * byteArray = (uint8_t*)memoryFactory.alloc(data->_0->count);
         memcpy(byteArray, data->_0->values, data->_0->count);
         Vec_u8 * vec_u8 = Vec_u8_ctor(byteArray, data->_0->count);
@@ -996,26 +991,27 @@ SWIGINTERN IdentityPublicKeyV0 *new_IdentityPublicKeyV0(KeyID *keyId,Purpose pur
         printf("  ->data->_0->values(%lx)\n", (uint64_t)binaryData->_0->values);
         ContractBounds * contract_bounds_copy = nullptr;
         KeyID * keyIdObject = KeyID_ctor(keyId->_0);
+        TimestampMillis * disabled_at_copy = disabled_at != nullptr ? TimestampMillis_ctor(disabled_at->_0) : nullptr;
         IdentityPublicKeyV0 * ipkv0 = IdentityPublicKeyV0_ctor(keyIdObject, purposeObject, securityLevelObject,
             contract_bounds_copy,
-            keyTypeObject, read_only, binaryData, disabled_at);
+            keyTypeObject, read_only, binaryData, disabled_at_copy);
         printf("IdentityPublicKeyV0(%lx\n", (uint64_t)ipkv0);
         return ipkv0;
     }
 SWIGINTERN void delete_IdentityPublicKeyV0(IdentityPublicKeyV0 *self){
-        printf("~IdentityPublicKeyV0(%lx)\n", (unsigned long)self);
-        printf("  ->purpose(%lx)\n", (uint64_t)self->purpose);
-        //Purpose_destroy(self->purpose);
-        //SecurityLevel_destroy(self->security_level);
-        //KeyType_destroy(self->key_type);
-        //KeyID_destroy(self->id);
-        printf("  ->data->_0(%lx)\n", (uint64_t)self->data->_0);
-        printf("  ->data->_0->values(%lx)\n", (uint64_t)self->data->_0->values);
-        //memoryFactory.destroyItem(self->data->_0->values);
-        // Vec_u8_destroy(self->data->_0); // crash
-        printf("  ->data(%lx)\n", (uint64_t)self->data);
-        // BinaryData_destroy(self->data); // crash
-        //TimestampMillis_destroy(self->disabled_at);
+//         printf("~IdentityPublicKeyV0(%lx)\n", (unsigned long)self);
+//         printf("  ->purpose(%lx)\n", (uint64_t)self->purpose);
+//         //Purpose_destroy(self->purpose);
+//         //SecurityLevel_destroy(self->security_level);
+//         //KeyType_destroy(self->key_type);
+//         //KeyID_destroy(self->id);
+//         printf("  ->data->_0(%lx)\n", (uint64_t)self->data->_0);
+//         printf("  ->data->_0->values(%lx)\n", (uint64_t)self->data->_0->values);
+//         //memoryFactory.destroyItem(self->data->_0->values);
+//         // Vec_u8_destroy(self->data->_0); // crash
+//         printf("  ->data(%lx)\n", (uint64_t)self->data);
+//         // BinaryData_destroy(self->data); // crash
+//         //TimestampMillis_destroy(self->disabled_at);
         IdentityPublicKeyV0_destroy(self); //crash
     }
 SWIGINTERN enum KeyType IdentityPublicKeyV0_getKeyType(IdentityPublicKeyV0 *self){
@@ -1748,7 +1744,6 @@ SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_HashID_1_10_1set(JNIEnv *je
   (void)jarg1_;
   arg1 = *(HashID **)&jarg1; 
   {
-    //arg2 = (uint8_t (*)[32]) JCALL2(GetByteArrayElements, jenv, jarg2, 0);
     if (!jarg2) {
       SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null array");
       return ;
@@ -1756,7 +1751,7 @@ SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_HashID_1_10_1set(JNIEnv *je
     const jsize sz = jenv->GetArrayLength(jarg2);
     jbyte* const jarr = jenv->GetByteArrayElements(jarg2, 0);
     if (!jarr) return ;
-    byteArray2 = (uint8_t *)memoryFactory.alloc(32); //calloc(1, 32); // this is a memory leak?
+    byteArray2 = (uint8_t *)memoryFactory.alloc(32); // this is a memory leak?
     memcpy(byteArray2, jarr, sz);
     
     //memcpy(arg2, jarr, sz);
@@ -1983,7 +1978,6 @@ SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_IdentifierBytes32_1_10_1set
   (void)jarg1_;
   arg1 = *(IdentifierBytes32 **)&jarg1; 
   {
-    //arg2 = (uint8_t (*)[32]) JCALL2(GetByteArrayElements, jenv, jarg2, 0);
     if (!jarg2) {
       SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null array");
       return ;
@@ -1991,7 +1985,7 @@ SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_IdentifierBytes32_1_10_1set
     const jsize sz = jenv->GetArrayLength(jarg2);
     jbyte* const jarr = jenv->GetByteArrayElements(jarg2, 0);
     if (!jarr) return ;
-    byteArray2 = (uint8_t *)memoryFactory.alloc(32); //calloc(1, 32); // this is a memory leak?
+    byteArray2 = (uint8_t *)memoryFactory.alloc(32); // this is a memory leak?
     memcpy(byteArray2, jarr, sz);
     
     //memcpy(arg2, jarr, sz);
@@ -2034,7 +2028,6 @@ SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_new_1IdentifierBytes32(JNI
   (void)jenv;
   (void)jcls;
   {
-    //arg1 = (uint8_t (*)[32]) JCALL2(GetByteArrayElements, jenv, jarg1, 0);
     if (!jarg1) {
       SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null array");
       return 0;
@@ -2042,7 +2035,7 @@ SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_new_1IdentifierBytes32(JNI
     const jsize sz = jenv->GetArrayLength(jarg1);
     jbyte* const jarr = jenv->GetByteArrayElements(jarg1, 0);
     if (!jarr) return 0;
-    byteArray1 = (uint8_t *)memoryFactory.alloc(32); //calloc(1, 32); // this is a memory leak?
+    byteArray1 = (uint8_t *)memoryFactory.alloc(32); // this is a memory leak?
     memcpy(byteArray1, jarr, sz);
     
     //memcpy(arg1, jarr, sz);
@@ -2108,7 +2101,6 @@ SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_new_1Identifier(JNIEnv *je
   (void)jenv;
   (void)jcls;
   {
-    //arg1 = (uint8_t (*)[32]) JCALL2(GetByteArrayElements, jenv, jarg1, 0);
     if (!jarg1) {
       SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null array");
       return 0;
@@ -2116,7 +2108,7 @@ SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_new_1Identifier(JNIEnv *je
     const jsize sz = jenv->GetArrayLength(jarg1);
     jbyte* const jarr = jenv->GetByteArrayElements(jarg1, 0);
     if (!jarr) return 0;
-    byteArray1 = (uint8_t *)memoryFactory.alloc(32); //calloc(1, 32); // this is a memory leak?
+    byteArray1 = (uint8_t *)memoryFactory.alloc(32); // this is a memory leak?
     memcpy(byteArray1, jarr, sz);
     
     //memcpy(arg1, jarr, sz);
@@ -3202,7 +3194,7 @@ SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_ContractBounds_1single_1co
 }
 
 
-SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_ContractBounds_1singleContract_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_ContractBounds_1singleContract(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jlong jresult = 0 ;
   Identifier *arg1 = (Identifier *) 0 ;
   ContractBounds *result = 0 ;
@@ -3211,13 +3203,13 @@ SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_ContractBounds_1singleCont
   (void)jcls;
   (void)jarg1_;
   arg1 = *(Identifier **)&jarg1; 
-  result = (ContractBounds *)ContractBounds_singleContract__SWIG_0(arg1);
+  result = (ContractBounds *)ContractBounds_singleContract(arg1);
   *(ContractBounds **)&jresult = result; 
   return jresult;
 }
 
 
-SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_ContractBounds_1singleContract_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2) {
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_ContractBounds_1singleContractDocumentType(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2) {
   jlong jresult = 0 ;
   Identifier *arg1 = (Identifier *) 0 ;
   char *arg2 = (char *) 0 ;
@@ -3232,7 +3224,7 @@ SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_ContractBounds_1singleCont
     arg2 = (char *)jenv->GetStringUTFChars(jarg2, 0);
     if (!arg2) return 0;
   }
-  result = (ContractBounds *)ContractBounds_singleContract__SWIG_1(arg1,arg2);
+  result = (ContractBounds *)ContractBounds_singleContractDocumentType(arg1,arg2);
   *(ContractBounds **)&jresult = result; 
   if (arg2) jenv->ReleaseStringUTFChars(jarg2, (const char *)arg2);
   return jresult;
@@ -3301,85 +3293,27 @@ SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_delete_1KeyID(JNIEnv *jenv,
 }
 
 
-SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_TimestampMillis_1_10_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jobject jarg2) {
-  TimestampMillis *arg1 = (TimestampMillis *) 0 ;
-  uint64_t arg2 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(TimestampMillis **)&jarg1; 
-  {
-    jclass clazz;
-    jmethodID mid;
-    jbyteArray ba;
-    jbyte* bae;
-    jsize sz;
-    int i;
-    
-    if (!jarg2) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "BigInteger null");
-      return ;
-    }
-    clazz = jenv->GetObjectClass(jarg2);
-    mid = jenv->GetMethodID(clazz, "toByteArray", "()[B");
-    ba = (jbyteArray)jenv->CallObjectMethod(jarg2, mid);
-    bae = jenv->GetByteArrayElements(ba, 0);
-    sz = jenv->GetArrayLength(ba);
-    arg2 = 0;
-    if (sz > 0) {
-      arg2 = (uint64_t)(signed char)bae[0];
-      for(i=1; i<sz; i++) {
-        arg2 = (arg2 << 8) | (uint64_t)(unsigned char)bae[i];
-      }
-    }
-    jenv->ReleaseByteArrayElements(ba, bae, 0);
-  }
-  if (arg1) (arg1)->_0 = arg2;
-}
-
-
-SWIGEXPORT jobject JNICALL Java_org_dash_sdk_exampleJNI_TimestampMillis_1_10_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jobject jresult = 0 ;
-  TimestampMillis *arg1 = (TimestampMillis *) 0 ;
-  uint64_t result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(TimestampMillis **)&jarg1; 
-  result = (uint64_t) ((arg1)->_0);
-  {
-    jbyteArray ba = jenv->NewByteArray(9);
-    jbyte* bae = jenv->GetByteArrayElements(ba, 0);
-    jclass clazz = jenv->FindClass("java/math/BigInteger");
-    jmethodID mid = jenv->GetMethodID(clazz, "<init>", "([B)V");
-    jobject bigint;
-    int i;
-    
-    bae[0] = 0;
-    for(i=1; i<9; i++ ) {
-      bae[i] = (jbyte)(result>>8*(8-i));
-    }
-    
-    jenv->ReleaseByteArrayElements(ba, bae, 0);
-    bigint = jenv->NewObject(clazz, mid, ba);
-    jenv->DeleteLocalRef(ba);
-    jresult = bigint;
-  }
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_new_1TimestampMillis(JNIEnv *jenv, jclass jcls, jint jarg1) {
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_new_1TimestampMillis_1_1SWIG_10(JNIEnv *jenv, jclass jcls) {
   jlong jresult = 0 ;
-  long arg1 ;
   TimestampMillis *result = 0 ;
   
   (void)jenv;
   (void)jcls;
-  arg1 = (long)jarg1; 
-  result = (TimestampMillis *)new_TimestampMillis(arg1);
+  result = (TimestampMillis *)new_TimestampMillis__SWIG_0();
+  *(TimestampMillis **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_new_1TimestampMillis_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  jlong jresult = 0 ;
+  long long arg1 ;
+  TimestampMillis *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = (long long)jarg1; 
+  result = (TimestampMillis *)new_TimestampMillis__SWIG_1(arg1);
   *(TimestampMillis **)&jresult = result; 
   return jresult;
 }
@@ -3392,6 +3326,21 @@ SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_delete_1TimestampMillis(JNI
   (void)jcls;
   arg1 = *(TimestampMillis **)&jarg1; 
   delete_TimestampMillis(arg1);
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_TimestampMillis_1toLong(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  TimestampMillis *arg1 = (TimestampMillis *) 0 ;
+  long long result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(TimestampMillis **)&jarg1; 
+  result = (long long)TimestampMillis_toLong(arg1);
+  jresult = (jlong)result; 
+  return jresult;
 }
 
 
@@ -3544,12 +3493,11 @@ SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_new_1IdentityPublicKeyV0(J
   KeyID *arg1 = (KeyID *) 0 ;
   Purpose arg2 ;
   SecurityLevel arg3 ;
-  ContractBounds arg4 ;
+  ContractBounds *arg4 = (ContractBounds *) 0 ;
   KeyType arg5 ;
   bool arg6 ;
   BinaryData *arg7 = (BinaryData *) 0 ;
   TimestampMillis *arg8 = (TimestampMillis *) 0 ;
-  ContractBounds *argp4 ;
   IdentityPublicKeyV0 *result = 0 ;
   
   (void)jenv;
@@ -3561,12 +3509,7 @@ SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_new_1IdentityPublicKeyV0(J
   arg1 = *(KeyID **)&jarg1; 
   arg2 = (Purpose)jarg2; 
   arg3 = (SecurityLevel)jarg3; 
-  argp4 = *(ContractBounds **)&jarg4; 
-  if (!argp4) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null ContractBounds");
-    return 0;
-  }
-  arg4 = *argp4; 
+  arg4 = *(ContractBounds **)&jarg4; 
   arg5 = (KeyType)jarg5; 
   arg6 = jarg6 ? true : false; 
   arg7 = *(BinaryData **)&jarg7; 
@@ -4354,7 +4297,6 @@ SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_hashIDCtor(JNIEnv *jenv, j
   (void)jenv;
   (void)jcls;
   {
-    //arg1 = (uint8_t (*)[32]) JCALL2(GetByteArrayElements, jenv, jarg1, 0);
     if (!jarg1) {
       SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null array");
       return 0;
@@ -4362,7 +4304,7 @@ SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_hashIDCtor(JNIEnv *jenv, j
     const jsize sz = jenv->GetArrayLength(jarg1);
     jbyte* const jarr = jenv->GetByteArrayElements(jarg1, 0);
     if (!jarr) return 0;
-    byteArray1 = (uint8_t *)memoryFactory.alloc(32); //calloc(1, 32); // this is a memory leak?
+    byteArray1 = (uint8_t *)memoryFactory.alloc(32); // this is a memory leak?
     memcpy(byteArray1, jarr, sz);
     
     //memcpy(arg1, jarr, sz);
@@ -4741,7 +4683,6 @@ SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_identifierBytes32Ctor(JNIE
   (void)jenv;
   (void)jcls;
   {
-    //arg1 = (uint8_t (*)[32]) JCALL2(GetByteArrayElements, jenv, jarg1, 0);
     if (!jarg1) {
       SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null array");
       return 0;
@@ -4749,7 +4690,7 @@ SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_identifierBytes32Ctor(JNIE
     const jsize sz = jenv->GetArrayLength(jarg1);
     jbyte* const jarr = jenv->GetByteArrayElements(jarg1, 0);
     if (!jarr) return 0;
-    byteArray1 = (uint8_t *)memoryFactory.alloc(32); //calloc(1, 32); // this is a memory leak?
+    byteArray1 = (uint8_t *)memoryFactory.alloc(32); // this is a memory leak?
     memcpy(byteArray1, jarr, sz);
     
     //memcpy(arg1, jarr, sz);
@@ -4902,7 +4843,6 @@ SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_createBasicIdentity(JNIEnv
   (void)jcls;
   (void)jarg2_;
   {
-    //arg1 = (uint8_t (*)[32]) JCALL2(GetByteArrayElements, jenv, jarg1, 0);
     if (!jarg1) {
       SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null array");
       return 0;
@@ -4910,7 +4850,7 @@ SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_createBasicIdentity(JNIEnv
     const jsize sz = jenv->GetArrayLength(jarg1);
     jbyte* const jarr = jenv->GetByteArrayElements(jarg1, 0);
     if (!jarr) return 0;
-    byteArray1 = (uint8_t *)memoryFactory.alloc(32); //calloc(1, 32); // this is a memory leak?
+    byteArray1 = (uint8_t *)memoryFactory.alloc(32); // this is a memory leak?
     memcpy(byteArray1, jarr, sz);
     
     //memcpy(arg1, jarr, sz);
@@ -4938,7 +4878,6 @@ SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_createBasicIdentityV0(JNIE
   (void)jenv;
   (void)jcls;
   {
-    //arg1 = (uint8_t (*)[32]) JCALL2(GetByteArrayElements, jenv, jarg1, 0);
     if (!jarg1) {
       SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null array");
       return 0;
@@ -4946,7 +4885,7 @@ SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_createBasicIdentityV0(JNIE
     const jsize sz = jenv->GetArrayLength(jarg1);
     jbyte* const jarr = jenv->GetByteArrayElements(jarg1, 0);
     if (!jarr) return 0;
-    byteArray1 = (uint8_t *)memoryFactory.alloc(32); //calloc(1, 32); // this is a memory leak?
+    byteArray1 = (uint8_t *)memoryFactory.alloc(32); // this is a memory leak?
     memcpy(byteArray1, jarr, sz);
     
     //memcpy(arg1, jarr, sz);
@@ -5678,6 +5617,33 @@ SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_MemoryFactory_1destroyItem(
 }
 
 
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_memoryFactory_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  MemoryFactory *arg1 = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(MemoryFactory **)&jarg1;
+  if (!arg1) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "MemoryFactory & reference is null");
+    return ;
+  } 
+  memoryFactory = *arg1;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_memoryFactory_1get(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  MemoryFactory *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (MemoryFactory *) &(MemoryFactory &)memoryFactory;
+  *(MemoryFactory **)&jresult = result; 
+  return jresult;
+}
+
+
 SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_intToKeyType(JNIEnv *jenv, jclass jcls, jint jarg1) {
   jlong jresult = 0 ;
   int arg1 ;
@@ -5702,6 +5668,35 @@ SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_intToSecurityLevel(JNIEnv 
   arg1 = (int)jarg1; 
   result = (SecurityLevel *)intToSecurityLevel(arg1);
   *(SecurityLevel **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_intToPurpose(JNIEnv *jenv, jclass jcls, jint jarg1) {
+  jlong jresult = 0 ;
+  int arg1 ;
+  Purpose *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = (int)jarg1; 
+  result = (Purpose *)intToPurpose(arg1);
+  *(Purpose **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_identifierClone(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  Identifier *arg1 = (Identifier *) 0 ;
+  Identifier *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(Identifier **)&jarg1; 
+  result = (Identifier *)Identifier_clone(arg1);
+  *(Identifier **)&jresult = result; 
   return jresult;
 }
 

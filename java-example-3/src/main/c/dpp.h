@@ -125,6 +125,8 @@ public:
     }
 };
 
+extern MemoryFactory & memoryFactory;
+
 #define ENUM_CASE(enum_class, value) \
     case enum_class##_##value: \
         return enum_class##_##value##_ctor();
@@ -147,7 +149,22 @@ SecurityLevel * intToSecurityLevel(int value) {
         ENUM_CASE(SecurityLevel, MEDIUM)
     }
 }
+Purpose * intToPurpose(int value) {
+     switch(value) {
+        ENUM_CASE(Purpose, AUTHENTICATION)
+        ENUM_CASE(Purpose, DECRYPTION)
+        ENUM_CASE(Purpose, ENCRYPTION)
+        ENUM_CASE(Purpose, WITHDRAW)
+        ENUM_CASE(Purpose, SYSTEM)
+        ENUM_CASE(Purpose, VOTING)
+     }
+}
 
+Identifier * Identifier_clone(Identifier * id) {
+     uint8_t * bytesCopy = (uint8_t*)memoryFactory.alloc(32);
+     memcpy(bytesCopy, id->_0->_0, 32);
+     return Identifier_ctor(IdentifierBytes32_ctor((uint8_t (*)[32])bytesCopy));
+}
 
 
 #endif // this file
