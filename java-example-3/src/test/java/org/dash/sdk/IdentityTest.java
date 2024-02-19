@@ -39,12 +39,12 @@ public class IdentityTest {
         // example.identityDestroy(identity); //crash
     }
     @Test
-    public void basicIdentity() {
+    public void basicIdentityInRustAndDestroy() {
         byte[] id = new byte[32];
         id[0] = 1;
         id[1] = 2;
         Identity identity = example.createBasicIdentityV0(id);
-
+        assertEquals(Identity_Tag.Identity_V0, identity.getTag());
         IdentityV0 identityV0 = identity.getV0();
         assertNotNull(identityV0);
         assertArrayEquals(id, identityV0.getId().get_0().get_0());
