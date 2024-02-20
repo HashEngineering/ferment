@@ -92,11 +92,6 @@ public class IdentityPublicKeyV0 {
     return Purpose.swigToEnum(exampleJNI.IdentityPublicKeyV0_getPurpose(swigCPtr, this));
   }
 
-  public SWIGTYPE_p_Purpose getPurpose2() {
-    long cPtr = exampleJNI.IdentityPublicKeyV0_getPurpose2(swigCPtr, this);
-    return (cPtr == 0) ? null : new SWIGTYPE_p_Purpose(cPtr, false);
-  }
-
   public SecurityLevel getSecurityLevel() {
     return SecurityLevel.swigToEnum(exampleJNI.IdentityPublicKeyV0_getSecurityLevel(swigCPtr, this));
   }

@@ -61,9 +61,6 @@
     enum Purpose getPurpose() {
         return *$self->purpose;
     }
-    enum Purpose * getPurpose2() {
-        return $self->purpose;
-    }
     enum SecurityLevel getSecurityLevel() {
         return *self->security_level;
     }
