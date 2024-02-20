@@ -36,6 +36,17 @@ public class TimestampMillis {
     }
   }
 
+  public boolean equals(Object obj) {
+    boolean equal = false;
+    if (obj instanceof TimestampMillis) {
+      equal = (((TimestampMillis)obj).swigCPtr == this.swigCPtr) || objectEquals((TimestampMillis)obj);
+    }
+    return equal;
+  }
+  public int hashCode() {
+    return (int)swigCPtr;
+  }
+
   public TimestampMillis() {
     this(exampleJNI.new_TimestampMillis__SWIG_0(), true);
   }
@@ -46,6 +57,10 @@ public class TimestampMillis {
 
   public long toLong() {
     return exampleJNI.TimestampMillis_toLong(swigCPtr, this);
+  }
+
+  public boolean objectEquals(TimestampMillis other) {
+    return exampleJNI.TimestampMillis_objectEquals(swigCPtr, this, TimestampMillis.getCPtr(other), other);
   }
 
 }
