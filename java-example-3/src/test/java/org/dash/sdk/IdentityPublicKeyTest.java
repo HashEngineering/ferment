@@ -66,10 +66,6 @@ public class IdentityPublicKeyTest extends BaseTest {
         assertEquals(KeyType.KeyType_ECDSA_SECP256K1, keyType);
         assertEquals(Purpose.Purpose_AUTHENTICATION, purpose);
         assertEquals(SecurityLevel.SecurityLevel_HIGH, securityLevel);
-
-        //Purpose purpose1 = example.purposeAUTHENTICATIONCtor();
-
-        example.purposeDestroy(example.purposeAUTHENTICATIONCtor());
     }
 
     @Test
