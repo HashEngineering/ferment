@@ -87,6 +87,8 @@ MemoryFactory & memoryFactory = *MemoryFactory::getInstance();
 %include "timestamp_millis.i"
 %include "enums.i"
 
+
+%ignore HashID;
 // %extend HashID {
 //     HashID(uint8_t (*o_0)[32]) {
 //         return HashID_ctor(o_0);
