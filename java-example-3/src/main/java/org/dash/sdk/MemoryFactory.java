@@ -54,6 +54,10 @@ public class MemoryFactory {
     return (cPtr == 0) ? null : new SWIGTYPE_p_void(cPtr, false);
   }
 
+  public String clone(String str) {
+    return exampleJNI.MemoryFactory_clone(swigCPtr, this, str);
+  }
+
   public SWIGTYPE_p_void alloc(SWIGTYPE_p_void root, long size) {
     long cPtr = exampleJNI.MemoryFactory_alloc__SWIG_1(swigCPtr, this, SWIGTYPE_p_void.getCPtr(root), size);
     return (cPtr == 0) ? null : new SWIGTYPE_p_void(cPtr, false);

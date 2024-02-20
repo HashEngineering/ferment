@@ -57,65 +57,23 @@ MemoryFactory & memoryFactory = *MemoryFactory::getInstance();
 //%ignore IdentifierBytes32;
 //%rename("%(lowercamelcase)s") "";
 %include "stdint.i"
-%include "arrays_java.i"
-// %typemap(in) uint8_t (*_0)[32] {
-//         if ((*jenv)->GetArrayLength(jenv, $input) != 32) {
-//             SWIG_JavaThrowException(jenv, SWIG_JavaRuntimeException, "byte[] must have a length of 32");
-//             return $null;
-//         }
-//         $1 = (uint8_t (*)[32]) (*jenv)->GetByteArrayElements(jenv, $input, 0);
-// }
-//
-// %typemap(freearg) uint8_t (*_0)[32] {
-//         (*jenv)->ReleaseByteArrayElements(jenv, $input, (jbyte *) $1, 0);
-// }
-//
-// %typemap(jstype, memberout="_0") uint8_t (*_0)[32] "byte[]"
-// %typemap(jstype, memberin="_0") uint8_t (*_0)[32] "byte[]"
-//
-// %typemap(jtype) uint8_t (*_0)[32] "byte[]"
-// %typemap(jni) uint8_t (*_0)[32] "byte[]"
-// %typemap(in) uint8_t (*_0)[32] %{
-// $1 = ($type) $input;
+// %include "arrays_java.i"
+
+
+
+// TODO: need to add objectEquals to all classes
+// %typemap(javacode) SWIGTYPE %{
+//   public boolean equals(Object obj) {
+//     boolean equal = false;
+//     if (obj instanceof $javaclassname) {
+//       equal = ((($javaclassname)obj).swigCPtr == this.swigCPtr) || objectEquals(($javaclassname)obj);
+//     }
+//     return equal;
+//   }
+//   public int hashCode() {
+//     return (int)swigCPtr;
+//   }
 // %}
-// %typemap(out) uint8_t (*_0)[32] %{
-// $result = $jenv->NewByteArray(32);
-// $jenv->SetByteArrayRegion($result, 0, 32, (jbyte*)$1);
-// %}
-
-// %typemap(jstype) unsigned int * value "int"
-// %typemap(javain) unsigned int * value "$javainput"
-// %typemap(javaout) unsigned int * value {
-// return (int) *$1;
-// }
-
-// %typemap(jstype) uint8_t * "byte[]"
-// %typemap(javain) uint8_t * "$javainput"
-// %typemap(javaout) uint8_t * {
-// return (uint8_t) *$1;
-// }
-
-//%typemap(jni) uint8_t (*)[32] "$javaclassname.getPointer($jnicall)"
-// %include "carrays.i"
-// %typemap(jstype) uint8_t (*)[32] "byte[]"
-// %typemap(jtype) uint8_t (*)[32] "byte[]"
-// %typemap(in) uint8_t (*)[32] {
-//   //if (JLENGTH($input) != 32) {
-//   //  SWIG_JavaThrowException(jenv, SWIG_JavaArithmeticError, "Input array must have exactly 32 bytes.");
-//   //  return $null;
-//   //}
-//   $1 = ($1_ltype)$input;
-// }
-// %typemap(out) uint8_t (*)[32] {
-//   //if ($1 == 0) {
-//   //  $result = 0; // null
-//   //} else {
-//   //  $result = $1;
-//  // }
-// }
-// %typemap(javaout) uint8_t (*)[32] {
-//   return $jnicall;
-// }
 
 %include "binary_data.i"
 %include "contract_bounds.i"

@@ -1,7 +1,5 @@
 package org.dash.sdk;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigInteger;
@@ -11,6 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class IdentityPublicKeyTest extends BaseTest {
 
@@ -107,6 +106,8 @@ public class IdentityPublicKeyTest extends BaseTest {
         assertNull(ipkv0.getContract_bounds());
 
         ipkv0.delete(); // this still crashes, why? it was due to contract bounds
+        data.delete();
+        keyId.delete();
     }
 
 
@@ -118,21 +119,63 @@ public class IdentityPublicKeyTest extends BaseTest {
         SecurityLevel securityLevel = SecurityLevel.SecurityLevel_HIGH;
 
         BinaryData data = new BinaryData(publicKey);
-        ContractBounds contractBounds = example.contractBoundsSingleContractCtor(new Identifier(contractIdentifier));
+        Identifier id = new Identifier(contractIdentifier);
+        ContractBounds singleContract = example.contractBoundsSingleContractCtor(id);
+
         TimestampMillis timestampMillis = new TimestampMillis();
         assertArrayEquals(publicKey, data.get_0());
 
         // this constructor will clone all arguments
-        IdentityPublicKeyV0 ipkv0 = new IdentityPublicKeyV0(keyId, purpose, securityLevel,
-                contractBounds,
+        IdentityPublicKeyV0 ipkv0 = new IdentityPublicKeyV0(
+                keyId,
+                purpose,
+                securityLevel,
+                singleContract,
                 keyType,
-                false, data, timestampMillis);
+                false,
+                data,
+                timestampMillis
+        );
+
+        assertEquals(purpose, ipkv0.getPurpose());
+        assertEquals(keyType, ipkv0.getKeyType());
+        assertEquals(securityLevel, ipkv0.getSecurityLevel());
+        assertEquals(keyId.toInt(), ipkv0.getId().toInt());
+        assertArrayEquals(publicKey, ipkv0.getData().get_0());
+        assertEquals(timestampMillis, ipkv0.getDisabled_at());
+        assertEquals(singleContract.getTag(), ipkv0.getContract_bounds().getTag());
+        assertArrayEquals(singleContract.getSingle_contract().getId().get_0().get_0(), ipkv0.getContract_bounds().getSingle_contract().getId().get_0().get_0());
+        assertFalse(ipkv0.getRead_only());
+
+
         System.out.printf("ipkv0 0x%016x\n", IdentityPublicKeyV0.getCPtr(ipkv0));
         System.out.flush();
+
+        ContractBounds singleContractDocumentType = new ContractBounds(id, "type");
+        // this constructor will clone all arguments
+        IdentityPublicKeyV0 ipkv0a = new IdentityPublicKeyV0(
+                keyId,
+                purpose,
+                securityLevel,
+                singleContractDocumentType,
+                keyType,
+                false,
+                data,
+                timestampMillis
+        );
+        assertEquals(singleContractDocumentType.getTag(), ipkv0a.getContract_bounds().getTag());
+        assertEquals(singleContractDocumentType.getSingle_contract_document_type().getDocument_type_name(), ipkv0a.getContract_bounds().getSingle_contract_document_type().getDocument_type_name());
+        assertArrayEquals(singleContractDocumentType.getSingle_contract_document_type().getId().get_0().get_0(), ipkv0a.getContract_bounds().getSingle_contract_document_type().getId().get_0().get_0());
+
         ipkv0.delete(); // this still crashes, why?
+        ipkv0a.delete();
         data.delete();
-        contractBounds.delete();
+
+        singleContractDocumentType.delete(); // does not delete, not owner
+        singleContract.delete();
         timestampMillis.delete();
+        keyId.delete();
+        id.delete();
         ipkv0 = null;
     }
 

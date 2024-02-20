@@ -84,6 +84,16 @@ public:
         return reinterpret_cast<void*>(memory);
     }
 
+    char * clone(char * str) {
+        if (str != nullptr) {
+            int len = strlen(str) + 1;
+            char * strClone = reinterpret_cast<char*>(alloc(len));
+            strcpy(strClone, str);
+            return strClone;
+        }
+        return nullptr;
+    }
+
     void * alloc(void * root, size_t size) {
         uint8_t * memory = new uint8_t[size];
         if (memoryMap.count((long)root)) {

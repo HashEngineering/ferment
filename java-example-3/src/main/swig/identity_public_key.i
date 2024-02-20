@@ -21,6 +21,16 @@
         printf("  ->data->_0(%lx)\n", (uint64_t)binaryData->_0);
         printf("  ->data->_0->values(%lx)\n", (uint64_t)binaryData->_0->values);
         ContractBounds * contract_bounds_copy = nullptr;
+        if (contract_bounds != nullptr) {
+            if (contract_bounds->tag == ContractBounds_SingleContract) {
+                contract_bounds_copy = ContractBounds_SingleContract_ctor(Identifier_clone(contract_bounds->single_contract.id));
+            } else if (contract_bounds->tag == ContractBounds_SingleContractDocumentType) {
+                char * typeCopy = memoryFactory.clone(contract_bounds->single_contract_document_type.document_type_name);
+                contract_bounds_copy = ContractBounds_SingleContractDocumentType_ctor(Identifier_clone(contract_bounds->single_contract_document_type.id), typeCopy);
+            }
+        }
+        printf("  ->contract_bounds(%lx): %d\n", (uint64_t)contract_bounds, contract_bounds != nullptr ? contract_bounds->tag : -1);
+        printf("  ->contract_bounds_copy(%lx)\n", (uint64_t)contract_bounds_copy);
         KeyID * keyIdObject = KeyID_ctor(keyId->_0);
         TimestampMillis * disabled_at_copy = disabled_at != nullptr ? TimestampMillis_ctor(disabled_at->_0) : nullptr;
         IdentityPublicKeyV0 * ipkv0 = IdentityPublicKeyV0_ctor(keyIdObject, purposeObject, securityLevelObject,
