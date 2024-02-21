@@ -36,31 +36,31 @@ public class FeatureVersionBounds {
     }
   }
 
-  public void setMin_version(FeatureVersion value) {
-    exampleJNI.FeatureVersionBounds_min_version_set(swigCPtr, this, FeatureVersion.getCPtr(value), value);
+  public void setMin_version(SWIGTYPE_p_FeatureVersion value) {
+    exampleJNI.FeatureVersionBounds_min_version_set(swigCPtr, this, SWIGTYPE_p_FeatureVersion.getCPtr(value));
   }
 
-  public FeatureVersion getMin_version() {
+  public SWIGTYPE_p_FeatureVersion getMin_version() {
     long cPtr = exampleJNI.FeatureVersionBounds_min_version_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new FeatureVersion(cPtr, false);
+    return (cPtr == 0) ? null : new SWIGTYPE_p_FeatureVersion(cPtr, false);
   }
 
-  public void setMax_version(FeatureVersion value) {
-    exampleJNI.FeatureVersionBounds_max_version_set(swigCPtr, this, FeatureVersion.getCPtr(value), value);
+  public void setMax_version(SWIGTYPE_p_FeatureVersion value) {
+    exampleJNI.FeatureVersionBounds_max_version_set(swigCPtr, this, SWIGTYPE_p_FeatureVersion.getCPtr(value));
   }
 
-  public FeatureVersion getMax_version() {
+  public SWIGTYPE_p_FeatureVersion getMax_version() {
     long cPtr = exampleJNI.FeatureVersionBounds_max_version_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new FeatureVersion(cPtr, false);
+    return (cPtr == 0) ? null : new SWIGTYPE_p_FeatureVersion(cPtr, false);
   }
 
-  public void setDefault_current_version(FeatureVersion value) {
-    exampleJNI.FeatureVersionBounds_default_current_version_set(swigCPtr, this, FeatureVersion.getCPtr(value), value);
+  public void setDefault_current_version(SWIGTYPE_p_FeatureVersion value) {
+    exampleJNI.FeatureVersionBounds_default_current_version_set(swigCPtr, this, SWIGTYPE_p_FeatureVersion.getCPtr(value));
   }
 
-  public FeatureVersion getDefault_current_version() {
+  public SWIGTYPE_p_FeatureVersion getDefault_current_version() {
     long cPtr = exampleJNI.FeatureVersionBounds_default_current_version_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new FeatureVersion(cPtr, false);
+    return (cPtr == 0) ? null : new SWIGTYPE_p_FeatureVersion(cPtr, false);
   }
 
 }

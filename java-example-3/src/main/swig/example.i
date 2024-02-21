@@ -87,8 +87,14 @@ MemoryFactory & memoryFactory = *MemoryFactory::getInstance();
 %include "timestamp_millis.i"
 %include "enums.i"
 
+// ignore
 
+%ignore FeatureVersion;
+%ignore Vec_crate_nested_FeatureVersion;
 %ignore HashID;
+%ignore HashID_destroy(struct HashID *ffi);
+%ignore HashID_ctor(uint8_t (*o_0)[32]);
+
 // %extend HashID {
 //     HashID(uint8_t (*o_0)[32]) {
 //         return HashID_ctor(o_0);
