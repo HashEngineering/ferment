@@ -44,22 +44,22 @@ public class ProtocolError_UnknownVersionMismatch_Body {
     return exampleJNI.ProtocolError_UnknownVersionMismatch_Body_method_get(swigCPtr, this);
   }
 
-  public void setKnown_versions(Vec_crate_nested_FeatureVersion value) {
-    exampleJNI.ProtocolError_UnknownVersionMismatch_Body_known_versions_set(swigCPtr, this, Vec_crate_nested_FeatureVersion.getCPtr(value), value);
+  public void setKnown_versions(SWIGTYPE_p_Vec_crate_nested_FeatureVersion value) {
+    exampleJNI.ProtocolError_UnknownVersionMismatch_Body_known_versions_set(swigCPtr, this, SWIGTYPE_p_Vec_crate_nested_FeatureVersion.getCPtr(value));
   }
 
-  public Vec_crate_nested_FeatureVersion getKnown_versions() {
+  public SWIGTYPE_p_Vec_crate_nested_FeatureVersion getKnown_versions() {
     long cPtr = exampleJNI.ProtocolError_UnknownVersionMismatch_Body_known_versions_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new Vec_crate_nested_FeatureVersion(cPtr, false);
+    return (cPtr == 0) ? null : new SWIGTYPE_p_Vec_crate_nested_FeatureVersion(cPtr, false);
   }
 
-  public void setReceived(FeatureVersion value) {
-    exampleJNI.ProtocolError_UnknownVersionMismatch_Body_received_set(swigCPtr, this, FeatureVersion.getCPtr(value), value);
+  public void setReceived(SWIGTYPE_p_FeatureVersion value) {
+    exampleJNI.ProtocolError_UnknownVersionMismatch_Body_received_set(swigCPtr, this, SWIGTYPE_p_FeatureVersion.getCPtr(value));
   }
 
-  public FeatureVersion getReceived() {
+  public SWIGTYPE_p_FeatureVersion getReceived() {
     long cPtr = exampleJNI.ProtocolError_UnknownVersionMismatch_Body_received_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new FeatureVersion(cPtr, false);
+    return (cPtr == 0) ? null : new SWIGTYPE_p_FeatureVersion(cPtr, false);
   }
 
 }
