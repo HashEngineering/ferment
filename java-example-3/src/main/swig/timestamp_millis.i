@@ -25,10 +25,16 @@
     }
 
     long long toLong() {
-        return $self->_0;
+        return $self ? $self->_0 : -1;
+    }
+
+    bool isNull() {
+        return (uint64_t)$self < 10;
     }
 
     bool objectEquals(TimestampMillis* other) {
+        if ($self == other) return true;
+        if ($self == nullptr || other == nullptr) return false;
         return $self->_0 == other->_0;
     }
 }

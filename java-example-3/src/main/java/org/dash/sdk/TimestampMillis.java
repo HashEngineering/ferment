@@ -59,6 +59,10 @@ public class TimestampMillis {
     return exampleJNI.TimestampMillis_toLong(swigCPtr, this);
   }
 
+  public boolean isNull() {
+    return exampleJNI.TimestampMillis_isNull(swigCPtr, this);
+  }
+
   public boolean objectEquals(TimestampMillis other) {
     return exampleJNI.TimestampMillis_objectEquals(swigCPtr, this, TimestampMillis.getCPtr(other), other);
   }

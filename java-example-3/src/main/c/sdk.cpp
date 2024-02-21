@@ -360,9 +360,14 @@ SWIGINTERN void delete_TimestampMillis(TimestampMillis *self){
         TimestampMillis_destroy(self);
     }
 SWIGINTERN long long TimestampMillis_toLong(TimestampMillis *self){
-        return self->_0;
+        return self ? self->_0 : -1;
+    }
+SWIGINTERN bool TimestampMillis_isNull(TimestampMillis *self){
+        return (uint64_t)self < 10;
     }
 SWIGINTERN bool TimestampMillis_objectEquals(TimestampMillis *self,TimestampMillis *other){
+        if (self == other) return true;
+        if (self == nullptr || other == nullptr) return false;
         return self->_0 == other->_0;
     }
 SWIGINTERN IdentityPublicKeyV0 *new_IdentityPublicKeyV0(KeyID *keyId,Purpose purpose,SecurityLevel securityLevel,ContractBounds *contract_bounds,KeyType key_type,bool read_only,BinaryData *data,TimestampMillis *disabled_at){
