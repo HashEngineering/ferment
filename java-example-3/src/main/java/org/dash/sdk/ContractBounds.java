@@ -70,4 +70,8 @@ public class ContractBounds {
     this(exampleJNI.new_ContractBounds__SWIG_1(Identifier.getCPtr(id), id, document_type), true);
   }
 
+  public boolean isNull() {
+    return exampleJNI.ContractBounds_isNull(swigCPtr, this);
+  }
+
 }

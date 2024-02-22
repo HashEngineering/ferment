@@ -65,3 +65,6 @@
         return *self->security_level;
     }
 }
+
+%newobject random_key;
+%newobject random_key_args;

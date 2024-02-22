@@ -3,6 +3,7 @@ package org.dash.sdk;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigInteger;
+import java.util.SimpleTimeZone;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -77,8 +78,8 @@ public class IdentityPublicKeyTest extends BaseTest {
         KeyType keyType = KeyType.KeyType_ECDSA_SECP256K1;
         SecurityLevel securityLevel = SecurityLevel.SecurityLevel_HIGH;
 
-        BinaryData data = new BinaryData(identifier);
-        assertArrayEquals(identifier, data.get_0());
+        BinaryData data = new BinaryData(publicKey);
+        assertArrayEquals(publicKey, data.get_0());
 
         IdentityPublicKeyV0 ipkv0 = new IdentityPublicKeyV0(
                 keyId,
@@ -96,7 +97,7 @@ public class IdentityPublicKeyTest extends BaseTest {
         assertEquals(Purpose.Purpose_AUTHENTICATION, ipkv0.getPurpose());
         assertEquals(KeyType.KeyType_ECDSA_SECP256K1, ipkv0.getKeyType());
         assertEquals(SecurityLevel.SecurityLevel_HIGH, ipkv0.getSecurityLevel());
-        assertArrayEquals(identifier, ipkv0.getData().get_0());
+        assertArrayEquals(publicKey, ipkv0.getData().get_0());
         assertFalse(ipkv0.getRead_only());
         assertNull(ipkv0.getDisabled_at());
         assertNull(ipkv0.getContract_bounds());
@@ -116,7 +117,7 @@ public class IdentityPublicKeyTest extends BaseTest {
 
         BinaryData data = new BinaryData(publicKey);
         Identifier id = new Identifier(contractIdentifier);
-        ContractBounds singleContract = example.contractBoundsSingleContractCtor(id);
+        ContractBounds singleContract = new ContractBounds(id);
 
         TimestampMillis timestampMillis = new TimestampMillis();
         assertArrayEquals(publicKey, data.get_0());
@@ -175,4 +176,36 @@ public class IdentityPublicKeyTest extends BaseTest {
         ipkv0 = null;
     }
 
+    @Test
+    public void randomKeyTest() {
+        KeyID id = new KeyID(1);
+        IdentityPublicKeyV0 ipkv0 = example.randomKey(id);
+
+        //ipkv0.delete();
+        id.delete();
+    }
+
+    @Test
+    public void randomKeyArgsTest() {
+        KeyID id = new KeyID(1);
+        // # C  [libsdklib.so+0x258d68]  _$LT$ferment_example..fermented..types..nested..Identifier$u20$as$u20$ferment_interfaces..FFIConversion$LT$ferment_example..nested..Identifier$GT$$GT$::ffi_from_const::h8ea8412c8c0ae302+0x18
+        //IdentityPublicKeyV0 ipkv0 = example.randomKeyArgs(id, null, null);
+
+        //ipkv0.delete();
+        //id.delete();
+    }
+
+    @Test
+    public void randomKeyArgsTest2() {
+        KeyID id = new KeyID(1);
+        Identifier contractId = new Identifier(contractIdentifier);
+        TimestampMillis timestampMillis = new TimestampMillis();
+        IdentityPublicKeyV0 ipkv0 = example.randomKeyArgs(id, contractId, timestampMillis);
+        assertEquals(ContractBounds_Tag.ContractBounds_SingleContract, ipkv0.getContract_bounds().getTag());
+
+        ipkv0.delete();
+        // # C  [libsdklib.so+0x258d68]  _$LT$ferment_example..fermented..types..nested..Identifier$u20$as$u20$ferment_interfaces..FFIConversion$LT$ferment_example..nested..Identifier$GT$$GT$::ffi_from_const::h8ea8412c8c0ae302+0x18
+        contractId.delete();
+        id.delete();
+    }
 }

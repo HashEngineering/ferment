@@ -22,7 +22,13 @@ dashcore = { git = "https://github.com/dashpay/rust-dashcore", features = [
 cbindgen = "0.26.0"
 ferment = { path = "../ferment" }
 
+[build]
+rustflags = ["-C", "force-frame-pointers=yes"]
 
 [lib]
 name = "ferment_example"
 crate-type = ["staticlib"]
+
+[profile.dev]
+debug = true  # Ensures debug symbols are included
+panic = 'unwind'

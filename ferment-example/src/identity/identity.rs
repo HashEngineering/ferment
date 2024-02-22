@@ -6,7 +6,7 @@ use dashcore::secp256k1::Secp256k1;
 use dashcore::signer::ripemd160_sha256;
 use rand::rngs::StdRng;
 use rand::SeedableRng;
-use crate::fermented::types::nested::FeatureVersion;
+use ferment_macro::export;
 
 #[ferment_macro::export]
 pub type KeyID = u32;
@@ -162,6 +162,28 @@ impl Identity {
         })
     }
 }
+#[ferment_macro::export]
+impl IdentityPublicKeyV0 {
+    pub fn random_key(id: KeyID) -> Self {
+        Self::random_ecdsa_master_authentication_key_with_rng(
+            id,
+            &mut StdRng::from_entropy(),
+            LATEST_PLATFORM_VERSION
+        ).unwrap().0
+    }
+
+    pub fn random_key_args(id: KeyID,
+                       contract_id: Identifier,
+                       timestamp_millis: TimestampMillis) -> Self {
+        Self::random_ecdsa_master_authentication_key_with_rng_and_bounds(
+            id,
+            &mut StdRng::from_entropy(),
+            LATEST_PLATFORM_VERSION,
+            contract_id,
+            Some(timestamp_millis)
+        ).unwrap().0
+    }
+}
 
 impl IdentityPublicKeyV0 {
     pub fn random_ecdsa_master_authentication_key_with_rng(
@@ -185,6 +207,34 @@ impl IdentityPublicKeyV0 {
                 disabled_at: None,
                 data: data.into(),
                 contract_bounds: None,
+            },
+            private_data,
+        ))
+    }
+
+    pub fn random_ecdsa_master_authentication_key_with_rng_and_bounds(
+        id: KeyID,
+        rng: &mut StdRng,
+        platform_version: i32,
+        contract_id: Identifier,
+        timestamp_millis: Option<TimestampMillis>
+    ) -> Result<(Self, Vec<u8>), ProtocolError> {
+        let key_type = KeyType::ECDSA_SECP256K1;
+        let purpose = Purpose::AUTHENTICATION;
+        let security_level = SecurityLevel::MASTER;
+        let read_only = false;
+        let (data, private_data) =
+            key_type.random_public_and_private_key_data(rng, platform_version)?;
+        Ok((
+            IdentityPublicKeyV0 {
+                id,
+                key_type,
+                purpose,
+                security_level,
+                read_only,
+                disabled_at: timestamp_millis,
+                data: data.into(),
+                contract_bounds: Some(ContractBounds::SingleContract {id: contract_id }),
             },
             private_data,
         ))
@@ -233,6 +283,49 @@ pub fn get_identity2(identifier: Identifier) -> Identity {
             1,
             &mut rng,
             LATEST_PLATFORM_VERSION,
+        )
+            .expect("expected a random key")
+            .0
+    );
+
+    keys.insert(1, key);
+    keys.insert(2, key2);
+
+    let identity = IdentityV0 {
+        id: id,
+        public_keys: keys,
+        balance: 2,
+        revision: 1,
+    };
+    Identity::V0(identity)
+}
+
+#[ferment_macro::export]
+pub fn get_identity_contract_bounds(identifier: Identifier, contract_identifier: Identifier) -> Identity {
+    let id = Identifier::from_bytes(&identifier.as_slice()).expect("parse identity id");
+
+    let mut keys: BTreeMap<KeyID, IdentityPublicKey> = BTreeMap::new();
+    let mut rng = rand::rngs::StdRng::from_entropy();
+
+    let key: IdentityPublicKey = IdentityPublicKey::V0(
+        IdentityPublicKeyV0::random_ecdsa_master_authentication_key_with_rng_and_bounds(
+            1,
+            &mut rng,
+            LATEST_PLATFORM_VERSION,
+            contract_identifier.clone(),
+            Some(0)
+        )
+            .expect("expected a random key")
+            .0
+    );
+
+    let key2: IdentityPublicKey = IdentityPublicKey::V0(
+        IdentityPublicKeyV0::random_ecdsa_master_authentication_key_with_rng_and_bounds(
+            1,
+            &mut rng,
+            LATEST_PLATFORM_VERSION,
+            contract_identifier.clone(),
+            Some(0)
         )
             .expect("expected a random key")
             .0

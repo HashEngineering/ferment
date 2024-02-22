@@ -176,5 +176,16 @@ Identifier * Identifier_clone(Identifier * id) {
      return Identifier_ctor(IdentifierBytes32_ctor((uint8_t (*)[32])bytesCopy));
 }
 
+ContractBounds * singleContract(Identifier * id) {
+        Identifier * idCopy = Identifier_clone(id);
+        ContractBounds * cb = ContractBounds_SingleContract_ctor(idCopy);
+        return cb;
+}
+
+static ContractBounds * singleContractDocumentType(Identifier * id, char * type) {
+    Identifier * idCopy = Identifier_clone(id);
+    char * typeCopy = memoryFactory.clone(type);
+    return ContractBounds_SingleContractDocumentType_ctor(idCopy, type);
+}
 
 #endif // this file
