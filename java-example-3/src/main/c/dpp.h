@@ -185,7 +185,7 @@ ContractBounds * singleContract(Identifier * id) {
 static ContractBounds * singleContractDocumentType(Identifier * id, char * type) {
     Identifier * idCopy = Identifier_clone(id);
     char * typeCopy = memoryFactory.clone(type);
-    return ContractBounds_SingleContractDocumentType_ctor(idCopy, type);
+    return ContractBounds_SingleContractDocumentType_ctor(idCopy, typeCopy);
 }
 
 #endif // this file

@@ -8,7 +8,9 @@
 
 package org.dash.sdk;
 
-public class VecU8Holder {
+import org.dash.sdk.base.BaseObject;
+
+public class VecU8Holder extends BaseObject {
   private transient long swigCPtr;
   protected transient boolean swigCMemOwn;
 
@@ -34,6 +36,10 @@ public class VecU8Holder {
       }
       swigCPtr = 0;
     }
+  }
+
+  protected long getCPointer() {
+    return swigCPtr;
   }
 
   public void setFirst(byte[] value) {

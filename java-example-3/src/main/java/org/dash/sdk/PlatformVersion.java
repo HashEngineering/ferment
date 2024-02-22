@@ -8,7 +8,9 @@
 
 package org.dash.sdk;
 
-public class PlatformVersion {
+import org.dash.sdk.base.BaseObject;
+
+public class PlatformVersion extends BaseObject {
   private transient long swigCPtr;
   protected transient boolean swigCMemOwn;
 
@@ -34,6 +36,10 @@ public class PlatformVersion {
       }
       swigCPtr = 0;
     }
+  }
+
+  protected long getCPointer() {
+    return swigCPtr;
   }
 
   public void setProtocol_version(long value) {

@@ -8,7 +8,9 @@
 
 package org.dash.sdk;
 
-public class Result_ok_crate_identity_identity_Identity_err_crate_nested_ProtocolError {
+import org.dash.sdk.base.BaseObject;
+
+public class Result_ok_crate_identity_identity_Identity_err_crate_nested_ProtocolError extends BaseObject {
   private transient long swigCPtr;
   protected transient boolean swigCMemOwn;
 
@@ -34,6 +36,10 @@ public class Result_ok_crate_identity_identity_Identity_err_crate_nested_Protoco
       }
       swigCPtr = 0;
     }
+  }
+
+  protected long getCPointer() {
+    return swigCPtr;
   }
 
   public void setOk(Identity value) {

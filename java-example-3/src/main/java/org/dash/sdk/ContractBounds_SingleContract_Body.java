@@ -8,7 +8,9 @@
 
 package org.dash.sdk;
 
-public class ContractBounds_SingleContract_Body {
+import org.dash.sdk.base.BaseObject;
+
+public class ContractBounds_SingleContract_Body extends BaseObject {
   private transient long swigCPtr;
   protected transient boolean swigCMemOwn;
 
@@ -34,6 +36,10 @@ public class ContractBounds_SingleContract_Body {
       }
       swigCPtr = 0;
     }
+  }
+
+  protected long getCPointer() {
+    return swigCPtr;
   }
 
   public void setId(Identifier value) {

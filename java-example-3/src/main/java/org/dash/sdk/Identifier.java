@@ -8,7 +8,9 @@
 
 package org.dash.sdk;
 
-public class Identifier {
+import org.dash.sdk.base.BaseObject;
+
+public class Identifier extends BaseObject {
   private transient long swigCPtr;
   protected transient boolean swigCMemOwn;
 
@@ -34,6 +36,10 @@ public class Identifier {
       }
       swigCPtr = 0;
     }
+  }
+
+  protected long getCPointer() {
+    return swigCPtr;
   }
 
   public void set_0(IdentifierBytes32 value) {

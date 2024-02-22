@@ -24,6 +24,4 @@ public class BaseTest {
     public static void end() {
         System.out.printf("objects remaining: %d\n", memoryFactory.size());
     }
-
-
 }

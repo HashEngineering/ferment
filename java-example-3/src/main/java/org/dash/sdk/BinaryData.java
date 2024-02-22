@@ -8,7 +8,9 @@
 
 package org.dash.sdk;
 
-public class BinaryData {
+import org.dash.sdk.base.BaseObject;
+
+public class BinaryData extends BaseObject {
   private transient long swigCPtr;
   protected transient boolean swigCMemOwn;
 
@@ -34,6 +36,10 @@ public class BinaryData {
       }
       swigCPtr = 0;
     }
+  }
+
+  protected long getCPointer() {
+    return swigCPtr;
   }
 
   public void set_0(byte[] value) {

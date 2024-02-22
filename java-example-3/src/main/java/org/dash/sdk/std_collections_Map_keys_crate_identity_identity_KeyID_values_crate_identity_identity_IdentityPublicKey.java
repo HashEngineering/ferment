@@ -8,7 +8,9 @@
 
 package org.dash.sdk;
 
-public class std_collections_Map_keys_crate_identity_identity_KeyID_values_crate_identity_identity_IdentityPublicKey {
+import org.dash.sdk.base.BaseObject;
+
+public class std_collections_Map_keys_crate_identity_identity_KeyID_values_crate_identity_identity_IdentityPublicKey extends BaseObject {
   private transient long swigCPtr;
   protected transient boolean swigCMemOwn;
 
@@ -34,6 +36,10 @@ public class std_collections_Map_keys_crate_identity_identity_KeyID_values_crate
       }
       swigCPtr = 0;
     }
+  }
+
+  protected long getCPointer() {
+    return swigCPtr;
   }
 
   public void setCount(long value) {

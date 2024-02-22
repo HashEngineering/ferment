@@ -8,7 +8,9 @@
 
 package org.dash.sdk;
 
-public class ProtocolError_StringDecodeError2_Body {
+import org.dash.sdk.base.BaseObject;
+
+public class ProtocolError_StringDecodeError2_Body extends BaseObject {
   private transient long swigCPtr;
   protected transient boolean swigCMemOwn;
 
@@ -34,6 +36,10 @@ public class ProtocolError_StringDecodeError2_Body {
       }
       swigCPtr = 0;
     }
+  }
+
+  protected long getCPointer() {
+    return swigCPtr;
   }
 
   public void set_0(String value) {

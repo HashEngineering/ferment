@@ -8,7 +8,9 @@
 
 package org.dash.sdk;
 
-public class ProtocolError_MaxEncodedBytesReachedError_Body {
+import org.dash.sdk.base.BaseObject;
+
+public class ProtocolError_MaxEncodedBytesReachedError_Body extends BaseObject {
   private transient long swigCPtr;
   protected transient boolean swigCMemOwn;
 
@@ -34,6 +36,10 @@ public class ProtocolError_MaxEncodedBytesReachedError_Body {
       }
       swigCPtr = 0;
     }
+  }
+
+  protected long getCPointer() {
+    return swigCPtr;
   }
 
   public void setMax_size_kbytes(long value) {

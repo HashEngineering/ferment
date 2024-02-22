@@ -8,7 +8,9 @@
 
 package org.dash.sdk;
 
-public class OuterStruct {
+import org.dash.sdk.base.BaseObject;
+
+public class OuterStruct extends BaseObject {
   private transient long swigCPtr;
   protected transient boolean swigCMemOwn;
 
@@ -34,6 +36,10 @@ public class OuterStruct {
       }
       swigCPtr = 0;
     }
+  }
+
+  protected long getCPointer() {
+    return swigCPtr;
   }
 
   public void setFirst(InnerStruct value) {

@@ -8,7 +8,9 @@
 
 package org.dash.sdk;
 
-public class IdentifierBytes32 {
+import org.dash.sdk.base.BaseObject;
+
+public class IdentifierBytes32 extends BaseObject {
   private transient long swigCPtr;
   protected transient boolean swigCMemOwn;
 
@@ -34,6 +36,10 @@ public class IdentifierBytes32 {
       }
       swigCPtr = 0;
     }
+  }
+
+  protected long getCPointer() {
+    return swigCPtr;
   }
 
   public void set_0(byte[] value) {

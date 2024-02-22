@@ -8,7 +8,9 @@
 
 package org.dash.sdk;
 
-public class FeatureVersionBounds {
+import org.dash.sdk.base.BaseObject;
+
+public class FeatureVersionBounds extends BaseObject {
   private transient long swigCPtr;
   protected transient boolean swigCMemOwn;
 
@@ -34,6 +36,10 @@ public class FeatureVersionBounds {
       }
       swigCPtr = 0;
     }
+  }
+
+  protected long getCPointer() {
+    return swigCPtr;
   }
 
   public void setMin_version(SWIGTYPE_p_FeatureVersion value) {

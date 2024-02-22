@@ -8,7 +8,9 @@
 
 package org.dash.sdk;
 
-public class TimestampMillis {
+import org.dash.sdk.base.BaseObject;
+
+public class TimestampMillis extends BaseObject {
   private transient long swigCPtr;
   protected transient boolean swigCMemOwn;
 
@@ -36,15 +38,8 @@ public class TimestampMillis {
     }
   }
 
-  public boolean equals(Object obj) {
-    boolean equal = false;
-    if (obj instanceof TimestampMillis) {
-      equal = (((TimestampMillis)obj).swigCPtr == this.swigCPtr) || objectEquals((TimestampMillis)obj);
-    }
-    return equal;
-  }
-  public int hashCode() {
-    return (int)swigCPtr;
+  protected long getCPointer() {
+    return swigCPtr;
   }
 
   public TimestampMillis() {

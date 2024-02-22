@@ -161,6 +161,16 @@ MemoryFactory & memoryFactory = *MemoryFactory::getInstance();
 // %ignore ChainType_Tag;
 %include "Vec_u8.i"
 
+%typemap(javaimports) SWIGTYPE, SWIGTYPE *, SWIGTYPE &, SWIGTYPE [], SWIGTYPE (CLASS::*) %{
+import org.dash.sdk.base.BaseObject;
+%}
+%typemap(javabase) SWIGTYPE, SWIGTYPE *, SWIGTYPE &, SWIGTYPE [], SWIGTYPE (CLASS::*) "BaseObject"
+
+%typemap(javacode) SWIGTYPE, SWIGTYPE *, SWIGTYPE &, SWIGTYPE [], SWIGTYPE (CLASS::*) %{
+  protected long getCPointer() {
+    return swigCPtr;
+  }
+%}
 
 extern "C" {
 %include "../ferment-example/target/example.h"

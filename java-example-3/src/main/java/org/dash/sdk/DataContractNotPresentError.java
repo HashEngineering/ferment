@@ -8,7 +8,9 @@
 
 package org.dash.sdk;
 
-public class DataContractNotPresentError {
+import org.dash.sdk.base.BaseObject;
+
+public class DataContractNotPresentError extends BaseObject {
   private transient long swigCPtr;
   protected transient boolean swigCMemOwn;
 
@@ -34,6 +36,10 @@ public class DataContractNotPresentError {
       }
       swigCPtr = 0;
     }
+  }
+
+  protected long getCPointer() {
+    return swigCPtr;
   }
 
   public void setData_contract_id(Identifier value) {

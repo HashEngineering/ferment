@@ -8,7 +8,9 @@
 
 package org.dash.sdk;
 
-public class KeyID {
+import org.dash.sdk.base.BaseObject;
+
+public class KeyID extends BaseObject {
   private transient long swigCPtr;
   protected transient boolean swigCMemOwn;
 
@@ -34,6 +36,10 @@ public class KeyID {
       }
       swigCPtr = 0;
     }
+  }
+
+  protected long getCPointer() {
+    return swigCPtr;
   }
 
   public KeyID(int id) {

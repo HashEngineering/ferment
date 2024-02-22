@@ -8,7 +8,9 @@
 
 package org.dash.sdk;
 
-public class RootStruct {
+import org.dash.sdk.base.BaseObject;
+
+public class RootStruct extends BaseObject {
   private transient long swigCPtr;
   protected transient boolean swigCMemOwn;
 
@@ -34,6 +36,10 @@ public class RootStruct {
       }
       swigCPtr = 0;
     }
+  }
+
+  protected long getCPointer() {
+    return swigCPtr;
   }
 
   public void setName(String value) {

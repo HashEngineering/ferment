@@ -8,7 +8,9 @@
 
 package org.dash.sdk;
 
-public class SWIGTYPE_p_p_IdentityPublicKey {
+import org.dash.sdk.base.BaseObject;
+
+public class SWIGTYPE_p_p_IdentityPublicKey extends BaseObject {
   private transient long swigCPtr;
 
   protected SWIGTYPE_p_p_IdentityPublicKey(long cPtr, @SuppressWarnings("unused") boolean futureUse) {
@@ -21,6 +23,10 @@ public class SWIGTYPE_p_p_IdentityPublicKey {
 
   protected static long getCPtr(SWIGTYPE_p_p_IdentityPublicKey obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
+  }
+
+  protected long getCPointer() {
+    return swigCPtr;
   }
 }
 
