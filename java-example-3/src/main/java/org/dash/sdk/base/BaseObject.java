@@ -3,6 +3,9 @@ package org.dash.sdk.base;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
+/**
+ * This base class will support a basic equals
+ */
 public abstract class BaseObject {
     protected abstract long getCPointer();
 
@@ -17,6 +20,7 @@ public abstract class BaseObject {
         return (int)getCPointer();
     }
 
+    // call the function "objectEquals" in the derived class if it exists.
     protected boolean baseObjectEquals(BaseObject obj) {
         try {
             Method method = getClass().getMethod("objectEquals", getClass());
