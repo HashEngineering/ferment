@@ -6,6 +6,10 @@
         IdentityV0_destroy($self);
     }
 
+    int getPublicKeyCount() {
+        return $self->public_keys->count;
+    }
+
     struct IdentityPublicKeyV0 * getPublicKey(uint32_t index) {
         if (index < $self->public_keys->count) {
             return $self->public_keys->values[index]->v0;
@@ -26,3 +30,18 @@
         return (long)$self->balance;
     }
 }
+
+%extend Identity {
+    Identity() {
+        return get_an_identity();
+    }
+    ~Identity() {
+        printf("~Identity(%lx)\n", (uint64_t)$self);
+        Identity_destroy($self);
+    }
+}
+
+%newobject get_identity2(struct Identifier *);
+%newobject get_an_identity(void);
+%newobject create_basic_identity_v0(uint8_t (*)[32]);
+%newobject get_identity_contract_bounds(struct Identifier *identifier, struct Identifier *contract_identifier);

@@ -54,6 +54,10 @@ public class IdentityV0 {
     return (cPtr == 0) ? null : new Revision(cPtr, false);
   }
 
+  public int getPublicKeyCount() {
+    return exampleJNI.IdentityV0_getPublicKeyCount(swigCPtr, this);
+  }
+
   public IdentityPublicKeyV0 getPublicKey(long index) {
     long cPtr = exampleJNI.IdentityV0_getPublicKey(swigCPtr, this, index);
     return (cPtr == 0) ? null : new IdentityPublicKeyV0(cPtr, false);

@@ -53,4 +53,8 @@ public class Identity {
     return (cPtr == 0) ? null : new IdentityV0(cPtr, false);
   }
 
+  public Identity() {
+    this(exampleJNI.new_Identity(), true);
+  }
+
 }
