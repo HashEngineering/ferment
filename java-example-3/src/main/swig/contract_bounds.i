@@ -26,9 +26,9 @@
         printf("~ContractBounds: %lx->%lx\n", (unsigned long)$self, $self->single_contract.id);
         ContractBounds_destroy($self);
     }
-    bool isNull() {
-        return (uint64_t)$self < 10;
-    }
+//     bool isNull() {
+//         return (uint64_t)$self < 10;
+//     }
 };
 
 

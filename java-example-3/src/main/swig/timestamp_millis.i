@@ -28,9 +28,9 @@
         return $self ? $self->_0 : -1;
     }
 
-    bool isNull() {
-        return (uint64_t)$self < 10;
-    }
+//     bool isNull() {
+//         return (uint64_t)$self < 10;
+//     }
 
     bool objectEquals(TimestampMillis* other) {
         if ($self == other) return true;

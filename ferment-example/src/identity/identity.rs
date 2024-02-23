@@ -173,14 +173,14 @@ impl IdentityPublicKeyV0 {
     }
 
     pub fn random_key_args(id: KeyID,
-                       contract_id: Identifier,
-                       timestamp_millis: TimestampMillis) -> Self {
+                       contract_id: Option<Identifier>,
+                       timestamp_millis: Option<TimestampMillis>) -> Self {
         Self::random_ecdsa_master_authentication_key_with_rng_and_bounds(
             id,
             &mut StdRng::from_entropy(),
             LATEST_PLATFORM_VERSION,
             contract_id,
-            Some(timestamp_millis)
+            timestamp_millis
         ).unwrap().0
     }
 }
@@ -216,7 +216,7 @@ impl IdentityPublicKeyV0 {
         id: KeyID,
         rng: &mut StdRng,
         platform_version: i32,
-        contract_id: Identifier,
+        contract_id: Option<Identifier>,
         timestamp_millis: Option<TimestampMillis>
     ) -> Result<(Self, Vec<u8>), ProtocolError> {
         let key_type = KeyType::ECDSA_SECP256K1;
@@ -225,6 +225,10 @@ impl IdentityPublicKeyV0 {
         let read_only = false;
         let (data, private_data) =
             key_type.random_public_and_private_key_data(rng, platform_version)?;
+        let contract_bounds = match contract_id {
+            Some(id) => Some(ContractBounds::SingleContract {id}),
+            None => None
+        };
         Ok((
             IdentityPublicKeyV0 {
                 id,
@@ -234,7 +238,7 @@ impl IdentityPublicKeyV0 {
                 read_only,
                 disabled_at: timestamp_millis,
                 data: data.into(),
-                contract_bounds: Some(ContractBounds::SingleContract {id: contract_id }),
+                contract_bounds,
             },
             private_data,
         ))
@@ -301,7 +305,7 @@ pub fn get_identity2(identifier: Identifier) -> Identity {
 }
 
 #[ferment_macro::export]
-pub fn get_identity_contract_bounds(identifier: Identifier, contract_identifier: Identifier) -> Identity {
+pub fn get_identity_contract_bounds(identifier: Identifier, contract_identifier: Option<Identifier>) -> Identity {
     let id = Identifier::from_bytes(&identifier.as_slice()).expect("parse identity id");
 
     let mut keys: BTreeMap<KeyID, IdentityPublicKey> = BTreeMap::new();

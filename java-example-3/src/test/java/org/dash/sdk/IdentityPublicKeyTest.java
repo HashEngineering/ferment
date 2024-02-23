@@ -3,7 +3,6 @@ package org.dash.sdk;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigInteger;
-import java.util.SimpleTimeZone;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -181,31 +180,62 @@ public class IdentityPublicKeyTest extends BaseTest {
         KeyID id = new KeyID(1);
         IdentityPublicKeyV0 ipkv0 = example.randomKey(id);
 
-        //ipkv0.delete();
+        // # C  [libsdklib.so+0x2579fd]  _$LT$ferment_example..fermented..types..identity..identity..ContractBounds$u20$as$u20$core..ops..drop..Drop$GT$::drop::h3934ec578b3dda2b+0xd
+        ipkv0.delete();
         id.delete();
     }
 
     @Test
-    public void randomKeyArgsTest() {
+    public void randomKeySecondNullArgsTest() {
         KeyID id = new KeyID(1);
-        // # C  [libsdklib.so+0x258d68]  _$LT$ferment_example..fermented..types..nested..Identifier$u20$as$u20$ferment_interfaces..FFIConversion$LT$ferment_example..nested..Identifier$GT$$GT$::ffi_from_const::h8ea8412c8c0ae302+0x18
-        //IdentityPublicKeyV0 ipkv0 = example.randomKeyArgs(id, null, null);
+        Identifier identifier1 = new Identifier(identifier);
+        IdentityPublicKeyV0 ipkv0 = example.randomKeyArgs(id, identifier1, null);
+        System.out.printf("ipkv0: %x", ipkv0.getCPointer());
 
-        //ipkv0.delete();
-        //id.delete();
+        // # C  [libc.so.6+0xa53fe]  free+0x1e
+        ipkv0.delete();
+        id.delete();
+        identifier1.delete();
     }
 
     @Test
-    public void randomKeyArgsTest2() {
+    public void randomKeyNullArgsTest() {
+        KeyID id = new KeyID(1);
+        // # C  [libsdklib.so+0x258d68]  _$LT$ferment_example..fermented..types..nested..Identifier$u20$as$u20$ferment_interfaces..FFIConversion$LT$ferment_example..nested..Identifier$GT$$GT$::ffi_from_const::h8ea8412c8c0ae302+0x18
+        Identifier identifier1 = new Identifier(identifier);
+        IdentityPublicKeyV0 ipkv0 = example.randomKeyArgs(id, null, null);
+
+        ipkv0.delete();
+        id.delete();
+        identifier1.delete();
+    }
+
+    @Test
+    public void randomKeyFirstNullArgsTest() {
+        KeyID id = new KeyID(1);
+        // # C  [libsdklib.so+0x258d68]  _$LT$ferment_example..fermented..types..nested..Identifier$u20$as$u20$ferment_interfaces..FFIConversion$LT$ferment_example..nested..Identifier$GT$$GT$::ffi_from_const::h8ea8412c8c0ae302+0x18
+        TimestampMillis timestamp = new TimestampMillis();
+        IdentityPublicKeyV0 ipkv0 = example.randomKeyArgs(id, null, timestamp);
+
+        ipkv0.delete();
+        id.delete();
+        timestamp.delete();
+    }
+
+
+    @Test
+    public void randomKeyNonNullArgsTest() {
         KeyID id = new KeyID(1);
         Identifier contractId = new Identifier(contractIdentifier);
         TimestampMillis timestampMillis = new TimestampMillis();
         IdentityPublicKeyV0 ipkv0 = example.randomKeyArgs(id, contractId, timestampMillis);
+        assertNotNull(ipkv0.getContract_bounds());
+        assertNotNull(ipkv0.getDisabled_at());
         assertEquals(ContractBounds_Tag.ContractBounds_SingleContract, ipkv0.getContract_bounds().getTag());
-
+        assertEquals(timestampMillis, ipkv0.getDisabled_at());
         ipkv0.delete();
-        // # C  [libsdklib.so+0x258d68]  _$LT$ferment_example..fermented..types..nested..Identifier$u20$as$u20$ferment_interfaces..FFIConversion$LT$ferment_example..nested..Identifier$GT$$GT$::ffi_from_const::h8ea8412c8c0ae302+0x18
         contractId.delete();
+        timestampMillis.delete();
         id.delete();
     }
 }

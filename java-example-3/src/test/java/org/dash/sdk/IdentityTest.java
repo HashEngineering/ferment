@@ -66,9 +66,9 @@ public class IdentityTest extends BaseTest {
             assertEquals(Purpose.Purpose_AUTHENTICATION, ipkv0.getPurpose());
             assertEquals(SecurityLevel.SecurityLevel_MASTER, ipkv0.getSecurityLevel());
             assertEquals(KeyType.KeyType_ECDSA_SECP256K1, ipkv0.getKeyType());
-            assertTrue(ipkv0.getDisabled_at().isNull());
+            assertNull(ipkv0.getDisabled_at());
             assertEquals(33, ipkv0.getData().get_0().length);
-            assertTrue(ipkv0.getContract_bounds().isNull());
+            assertNull(ipkv0.getContract_bounds());
         }
 
         IdentityPublicKeyV0 ipkv0 = identityV0.getPublicKey(0);
@@ -104,9 +104,9 @@ public class IdentityTest extends BaseTest {
             assertEquals(Purpose.Purpose_AUTHENTICATION, ipkv0.getPurpose());
             assertEquals(SecurityLevel.SecurityLevel_MASTER, ipkv0.getSecurityLevel());
             assertEquals(KeyType.KeyType_ECDSA_SECP256K1, ipkv0.getKeyType());
-            assertFalse(ipkv0.getDisabled_at().isNull());
+            assertNotNull(ipkv0.getDisabled_at());
             assertEquals(33, ipkv0.getData().get_0().length);
-            assertFalse(ipkv0.getContract_bounds().isNull());
+            assertNotNull(ipkv0.getContract_bounds());
             assertEquals(ContractBounds_Tag.ContractBounds_SingleContract, ipkv0.getContract_bounds().getTag());
             assertArrayEquals(contractIdentifier, ipkv0.getContract_bounds().getSingle_contract_document_type().getId().get_0().get_0());
         }
