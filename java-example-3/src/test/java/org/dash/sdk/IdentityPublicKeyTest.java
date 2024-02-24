@@ -180,7 +180,8 @@ public class IdentityPublicKeyTest extends BaseTest {
         KeyID id = new KeyID(1);
         IdentityPublicKeyV0 ipkv0 = example.randomKey(id);
 
-        // # C  [libsdklib.so+0x2579fd]  _$LT$ferment_example..fermented..types..identity..identity..ContractBounds$u20$as$u20$core..ops..drop..Drop$GT$::drop::h3934ec578b3dda2b+0xd
+        assertEquals(id, ipkv0.getId());
+
         ipkv0.delete();
         id.delete();
     }
@@ -190,9 +191,11 @@ public class IdentityPublicKeyTest extends BaseTest {
         KeyID id = new KeyID(1);
         Identifier identifier1 = new Identifier(identifier);
         IdentityPublicKeyV0 ipkv0 = example.randomKeyArgs(id, identifier1, null);
-        System.out.printf("ipkv0: %x", ipkv0.getCPointer());
 
-        // # C  [libc.so.6+0xa53fe]  free+0x1e
+        assertEquals(id, ipkv0.getId());
+        assertArrayEquals(identifier1.get_0().get_0(), ipkv0.getContract_bounds().getSingle_contract().getId().get_0().get_0());
+        assertNull(ipkv0.getDisabled_at());
+
         ipkv0.delete();
         id.delete();
         identifier1.delete();
@@ -201,9 +204,12 @@ public class IdentityPublicKeyTest extends BaseTest {
     @Test
     public void randomKeyNullArgsTest() {
         KeyID id = new KeyID(1);
-        // # C  [libsdklib.so+0x258d68]  _$LT$ferment_example..fermented..types..nested..Identifier$u20$as$u20$ferment_interfaces..FFIConversion$LT$ferment_example..nested..Identifier$GT$$GT$::ffi_from_const::h8ea8412c8c0ae302+0x18
         Identifier identifier1 = new Identifier(identifier);
         IdentityPublicKeyV0 ipkv0 = example.randomKeyArgs(id, null, null);
+
+        assertEquals(id, ipkv0.getId());
+        assertNull(ipkv0.getContract_bounds());
+        assertNull(ipkv0.getDisabled_at());
 
         ipkv0.delete();
         id.delete();
@@ -213,9 +219,11 @@ public class IdentityPublicKeyTest extends BaseTest {
     @Test
     public void randomKeyFirstNullArgsTest() {
         KeyID id = new KeyID(1);
-        // # C  [libsdklib.so+0x258d68]  _$LT$ferment_example..fermented..types..nested..Identifier$u20$as$u20$ferment_interfaces..FFIConversion$LT$ferment_example..nested..Identifier$GT$$GT$::ffi_from_const::h8ea8412c8c0ae302+0x18
         TimestampMillis timestamp = new TimestampMillis();
         IdentityPublicKeyV0 ipkv0 = example.randomKeyArgs(id, null, timestamp);
+        assertEquals(id, ipkv0.getId());
+        assertNull(ipkv0.getContract_bounds());
+        assertEquals(timestamp, ipkv0.getDisabled_at());
 
         ipkv0.delete();
         id.delete();
@@ -229,10 +237,12 @@ public class IdentityPublicKeyTest extends BaseTest {
         Identifier contractId = new Identifier(contractIdentifier);
         TimestampMillis timestampMillis = new TimestampMillis();
         IdentityPublicKeyV0 ipkv0 = example.randomKeyArgs(id, contractId, timestampMillis);
+        assertEquals(id, ipkv0.getId());
         assertNotNull(ipkv0.getContract_bounds());
         assertNotNull(ipkv0.getDisabled_at());
         assertEquals(ContractBounds_Tag.ContractBounds_SingleContract, ipkv0.getContract_bounds().getTag());
         assertEquals(timestampMillis, ipkv0.getDisabled_at());
+
         ipkv0.delete();
         contractId.delete();
         timestampMillis.delete();
