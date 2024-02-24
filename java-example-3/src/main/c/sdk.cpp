@@ -341,6 +341,11 @@ SWIGINTERN void delete_KeyID(KeyID *self){
 SWIGINTERN int KeyID_toInt(KeyID *self){
         return self->_0;
     }
+SWIGINTERN bool KeyID_objectEquals(KeyID *self,KeyID *other){
+        if (self == other) return true;
+        if (self == nullptr || other == nullptr) return false;
+        return self->_0 == other->_0;
+    }
 SWIGINTERN ContractBounds *new_ContractBounds__SWIG_0(Identifier *id){
         ContractBounds * cb = ContractBounds_SingleContract_ctor(Identifier_clone(id));
         printf("ContractBounds: %lx->%lx\n", (unsigned long)cb, cb->single_contract.id);
@@ -2240,6 +2245,24 @@ SWIGEXPORT jint JNICALL Java_org_dash_sdk_exampleJNI_KeyID_1toInt(JNIEnv *jenv, 
   arg1 = *(KeyID **)&jarg1; 
   result = (int)KeyID_toInt(arg1);
   jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_org_dash_sdk_exampleJNI_KeyID_1objectEquals(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  jboolean jresult = 0 ;
+  KeyID *arg1 = (KeyID *) 0 ;
+  KeyID *arg2 = (KeyID *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(KeyID **)&jarg1; 
+  arg2 = *(KeyID **)&jarg2; 
+  result = (bool)KeyID_objectEquals(arg1,arg2);
+  jresult = (jboolean)result; 
   return jresult;
 }
 

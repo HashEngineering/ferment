@@ -9,4 +9,9 @@
     int toInt() {
         return $self->_0;
     }
+    bool objectEquals(KeyID* other) {
+        if ($self == other) return true;
+        if ($self == nullptr || other == nullptr) return false;
+        return $self->_0 == other->_0;
+    }
 }

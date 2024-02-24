@@ -50,4 +50,8 @@ public class KeyID extends BaseObject {
     return exampleJNI.KeyID_toInt(swigCPtr, this);
   }
 
+  public boolean objectEquals(KeyID other) {
+    return exampleJNI.KeyID_objectEquals(swigCPtr, this, KeyID.getCPtr(other), other);
+  }
+
 }

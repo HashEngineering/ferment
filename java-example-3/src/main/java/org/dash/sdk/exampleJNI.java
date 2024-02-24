@@ -119,6 +119,7 @@ public class exampleJNI {
   public final static native long new_KeyID(int jarg1);
   public final static native void delete_KeyID(long jarg1);
   public final static native int KeyID_toInt(long jarg1, KeyID jarg1_);
+  public final static native boolean KeyID_objectEquals(long jarg1, KeyID jarg1_, long jarg2, KeyID jarg2_);
   public final static native void ContractBounds_SingleContract_Body_id_set(long jarg1, ContractBounds_SingleContract_Body jarg1_, long jarg2, Identifier jarg2_);
   public final static native long ContractBounds_SingleContract_Body_id_get(long jarg1, ContractBounds_SingleContract_Body jarg1_);
   public final static native void delete_ContractBounds_SingleContract_Body(long jarg1);
