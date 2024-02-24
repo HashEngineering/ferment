@@ -52,7 +52,7 @@ pub trait FFIConversion<T> {
         // let result = obj.map_or(std::ptr::null_mut(), |o| <Self as FFIConversion<T>>::ffi_to(o));
         // println!("  result: {:p}", result);
         // result
-        obj.map_or(std::ptr::null_mut(), |o| <Self as FFIConversion<T>>::ffi_to(o));
+        obj.map_or(std::ptr::null_mut(), |o| <Self as FFIConversion<T>>::ffi_to(o))
     }
     /// # Safety
     unsafe fn destroy(ffi: *mut Self) {
