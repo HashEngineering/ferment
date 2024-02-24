@@ -1,5 +1,6 @@
 pub mod fermented;
 
+use std::any::{Any, type_name};
 use std::collections::{BTreeMap, HashMap};
 use std::ffi::CString;
 use std::hash::Hash;
@@ -23,19 +24,35 @@ pub trait FFIConversion<T> {
     unsafe fn ffi_to_const(obj: T) -> *const Self;
     /// # Safety
     unsafe fn ffi_from(ffi: *mut Self) -> T {
+        // println!("ffi_from: {}, ffi.is_null = {}, {:p}", type_name::<T>(), ffi.is_null(), ffi);
         Self::ffi_from_const(ffi)
     }
     /// # Safety
     unsafe fn ffi_to(obj: T) -> *mut Self {
+        // println!("ffi_to: {}", type_name::<T>());
         Self::ffi_to_const(obj) as *mut _
     }
     /// # Safety
     unsafe fn ffi_from_opt(ffi: *mut Self) -> Option<T> {
-        (!ffi.is_null()).then_some(<Self as FFIConversion<T>>::ffi_from(ffi))
+        // println!("ffi_from_opt: {}, ffi.is_null = {}, {:p}", type_name::<T>(), ffi.is_null(), ffi);
+        // // (!ffi.is_null()).then_some(<Self as FFIConversion<T>>::ffi_from(ffi))
+        // let a = (!ffi.is_null()).then(|| { <Self as FFIConversion<T>>::ffi_from(ffi) } );
+        // match (!ffi.is_null()).then(|| { <Self as FFIConversion<T>>::ffi_from(ffi) } ) {
+        //     Some(a) => println!("ffi: {:p}", &a),
+        //     None => println!("ffi: None")
+        // }
+        // a
+        (!ffi.is_null()).then(|| { <Self as FFIConversion<T>>::ffi_from(ffi) } )
     }
     /// # Safety
     unsafe fn ffi_to_opt(obj: Option<T>) -> *mut Self where Self: Sized {
-        obj.map_or(NonNull::<Self>::dangling().as_ptr(), |o| <Self as FFIConversion<T>>::ffi_to(o))
+        // println!("ffi_to_opt: {}, is_none: {}", type_name::<T>(), obj.is_none());
+        // println!("ffi_to_opt: default: {:p}", NonNull::<Self>::dangling().as_ptr());
+        // println!("ffi_to_opt: default: {:p}", std::ptr::null_mut::<T>());
+        // let result = obj.map_or(std::ptr::null_mut(), |o| <Self as FFIConversion<T>>::ffi_to(o));
+        // println!("  result: {:p}", result);
+        // result
+        obj.map_or(std::ptr::null_mut(), |o| <Self as FFIConversion<T>>::ffi_to(o));
     }
     /// # Safety
     unsafe fn destroy(ffi: *mut Self) {
@@ -59,6 +76,7 @@ pub fn boxed_vec<T>(vec: Vec<T>) -> *mut T {
 
 /// # Safety
 pub unsafe fn unbox_any<T: ?Sized>(any: *mut T) -> Box<T> {
+    println!("unbox_any: type = {}; is null: {}; ptr: {:p}", type_name::<T>(), any.is_null(), any);
     Box::from_raw(any)
 }
 
