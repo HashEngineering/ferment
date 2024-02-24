@@ -1,6 +1,8 @@
 extern crate proc_macro;
 
 use proc_macro::TokenStream;
+use quote::quote;
+use syn::{DeriveInput, parse_macro_input};
 
 
 /// The `export` procedural macro facilitates FFI (Foreign Function Interface) conversion
@@ -12,7 +14,7 @@ use proc_macro::TokenStream;
 /// The macro can be applied to any Rust function:
 ///
 /// ```ignore
-/// #[ferment::export]
+/// #[ferment_macro::export]
 /// pub fn my_function(arg1: MyType1, arg2: MyType2) -> MyReturnType {
 ///     // function implementation
 /// }
@@ -41,7 +43,7 @@ use proc_macro::TokenStream;
 /// # Example
 ///
 /// ```ignore
-/// #[ferment::export]
+/// #[ferment_macro::export]
 /// pub fn add(a: i32, b: i32) -> i32 {
 ///     a + b
 /// }
@@ -70,4 +72,15 @@ pub fn export(_attr: TokenStream, input: TokenStream) -> TokenStream {
 #[proc_macro_attribute]
 pub fn register(_attr: TokenStream, input: TokenStream) -> TokenStream {
     input
+}
+
+
+#[proc_macro_derive(CompositionContext)]
+pub fn composition_context_derive(input: TokenStream) -> TokenStream {
+    let input = parse_macro_input!(input as DeriveInput);
+
+    let name = &input.ident;
+    let expanded = quote!(impl crate::composition::CompositionContext for #name {});
+
+    TokenStream::from(expanded)
 }

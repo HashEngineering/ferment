@@ -1,45 +1,26 @@
-use std::collections::{HashMap, HashSet};
 use std::fmt::Formatter;
-use quote::ToTokens;
-use syn::{GenericArgument, Ident, Item, ItemEnum, ItemFn, ItemMod, ItemStruct, ItemTrait, ItemType, ItemUse, parse_quote, Path, PathArguments, PathSegment, Token, Type, TypePath, UseGroup, UseName, UsePath, UseRename, UseTree};
+use std::sync::{Arc, RwLock};
+use quote::{format_ident, quote, ToTokens};
+use syn::{Attribute, GenericArgument, Generics, Ident, Item, ItemEnum, ItemFn, ItemImpl, ItemMod, ItemStruct, ItemTrait, ItemType, ItemUse, parse_quote, Path, PathArguments, PathSegment, QSelf, Token, TraitBound, Type, TypeParamBound, TypePath, TypeTraitObject, UseTree};
 use syn::punctuated::Punctuated;
+use syn::token::Colon2;
 use syn::visit::Visit;
-use crate::Config;
-use crate::context::Context;
-use crate::formatter::{format_types_dict_full, format_used_traits};
-use crate::item_conversion::{ItemContext, ItemConversion, MacroType};
-use crate::path_conversion::PathConversion;
-use crate::scope_conversion::ScopeTreeExportItem;
-use crate::scope::Scope;
-use crate::type_conversion::TypeConversion;
+use crate::composition::{QSelfComposition, TypeComposition};
+use crate::context::{GlobalContext, ScopeChain, TypeChain};
+use crate::conversion::{MacroType, ObjectConversion, TypeConversion};
+use crate::ext::{add_trait_names, create_generics_chain, extract_trait_names, Join, MergeInto, NestingExtension, Visiting};
+use crate::formatter::{Emoji, format_token_stream};
+use crate::helper::ident_from_item;
+use crate::holder::{PathHolder, TypeHolder};
+use crate::nprint;
+use crate::tree::{ScopeTreeExportID, ScopeTreeExportItem};
 
-#[derive(Default, Clone)]
-pub struct UsageInfo {
-    pub(crate) used_traits_at_scopes: HashMap<Scope, HashMap<Ident, ItemTrait>>,
-    pub(crate) used_types_at_scopes: HashMap<Scope, HashMap<TypeConversion, Type>>,
-    pub(crate) used_imports_at_scopes: HashMap<Scope, HashMap<Ident, Path>>,
-}
-impl std::fmt::Debug for UsageInfo {
-    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
-        f.debug_struct("UsageInfo")
-            .field("used_traits_at_scopes", &format_used_traits(&self.used_traits_at_scopes))
-            .field("used_types_at_scopes", &format_types_dict_full(&self.used_types_at_scopes))
-            // .field("used_imports_at_scopes", &format_imports(&self.used_imports_at_scopes))
-            .finish()
-    }
-}
 pub struct Visitor {
-    /// syn::Path to the file
-    pub(crate) context: Context,
-    pub(crate) parent: Scope,
-    pub(crate) current_scope_stack: Vec<Ident>,
-    pub(crate) current_module_scope: Scope,
-
-    pub(crate) inner_visitors: Vec<Visitor>,
-
-    pub(crate) usage_info: UsageInfo,
-
+    pub context: Arc<RwLock<GlobalContext>>,
+    pub parent: PathHolder,
+    pub inner_visitors: Vec<Visitor>,
     pub tree: ScopeTreeExportItem,
+    pub current_module_scope: ScopeChain,
 }
 
 impl std::fmt::Debug for Visitor {
@@ -47,7 +28,6 @@ impl std::fmt::Debug for Visitor {
         f.debug_struct("Visitor")
             .field("context", &self.context)
             .field("parent", &self.parent.to_token_stream().to_string())
-            .field("usage", &self.usage_info)
             .field("visitors", &self.inner_visitors)
             .field("tree", &self.tree)
             .finish()
@@ -67,175 +47,480 @@ impl<'ast> Visit<'ast> for Visitor {
     }
 
     fn visit_item_fn(&mut self, node: &'ast ItemFn) {
-        //println!("visit_item_fn: {}: {:?}", node.sig.ident.to_token_stream(), node.attrs);
         self.add_conversion(Item::Fn(node.clone()));
     }
 
+    fn visit_item_impl(&mut self, node: &'ast ItemImpl) {
+        self.add_conversion(Item::Impl(node.clone()));
+    }
+
     fn visit_item_mod(&mut self, node: &'ast ItemMod) {
-        self.current_scope_stack.push(node.ident.clone());
+        if node.ident.to_string().eq("fermented") {
+            return;
+        }
+        let item = Item::Mod(node.clone());
+        let module = self.current_module_scope.clone();
+        self.current_module_scope = self.current_module_scope.joined(&item);
         self.add_conversion(Item::Mod(node.clone()));
         if let Some(ref content) = node.content {
             for item in &content.1 {
                 syn::visit::visit_item(self, item);
             }
         }
-        self.current_scope_stack.pop();
+        self.current_module_scope = self.current_module_scope.parent_scope().cloned().unwrap_or(module);
     }
 
     fn visit_item_struct(&mut self, node: &'ast ItemStruct) {
-        //println!("visit_item_struct: {}: {:?}", node.ident.to_token_stream(), node.attrs);
         self.add_conversion(Item::Struct(node.clone()));
-    }
-
-    fn visit_item_type(&mut self, node: &'ast ItemType) {
-        //println!("visit_item_type: {}: {:?}", node.ident.to_token_stream(), node.attrs);
-        self.add_conversion(Item::Type(node.clone()));
-    }
-
-    fn visit_item_use(&mut self, node: &'ast ItemUse) {
-        let item = Item::Use(node.clone());
-        let scope = self.current_scope_for(&item);
-        self.fold_import_tree(&scope, &node.tree, vec![]);
     }
 
     fn visit_item_trait(&mut self, node: &'ast ItemTrait) {
         self.add_conversion(Item::Trait(node.clone()));
     }
+
+    fn visit_item_type(&mut self, node: &'ast ItemType) {
+        self.add_conversion(Item::Type(node.clone()));
+    }
+
+    fn visit_item_use(&mut self, node: &'ast ItemUse) {
+        // TODO: what to do with fn-level use statement?
+        let scope = self.current_module_scope.clone();
+        self.fold_import_tree(&scope, &node.tree, vec![]);
+    }
 }
 
 impl Visitor {
     /// path: full-qualified Path for file
-    pub(crate) fn new(scope: Scope, config: &Config) -> Self {
+    pub fn new(scope: ScopeChain, context: &Arc<RwLock<GlobalContext>>) -> Self {
         Self {
-            context: Context::new(config.crate_names.clone()),
-            parent: scope.clone(),
-            current_scope_stack: vec![],
+            context: context.clone(),
+            parent: scope.self_path_holder().clone(),
             current_module_scope: scope.clone(),
-            usage_info: UsageInfo::default(),
             inner_visitors: vec![],
-            tree: ScopeTreeExportItem::Tree(HashSet::new(), HashMap::default(), HashMap::default(), ItemContext::default()),
+            tree: ScopeTreeExportItem::with_global_context(scope, context.clone())
         }
     }
 
-    pub(crate) fn add_full_qualified_trait_match(&mut self, scope: Scope, item_trait: &ItemTrait) {
-        self.usage_info.used_traits_at_scopes.entry(scope.clone())
-            .or_default()
-            .insert(item_trait.ident.clone(), item_trait.clone());
+    pub fn merge_visitor_trees(&mut self) {
+        // Merge the trees of the inner visitors first.
+        for inner_visitor in &mut self.inner_visitors {
+            inner_visitor.merge_visitor_trees();
+        }
+        // Now merge the trees of the inner visitors into the current visitor's tree.
+        for Visitor { tree, .. } in &self.inner_visitors {
+            tree.merge_into(&mut self.tree);
+        }
     }
-    pub(crate) fn add_full_qualified_type_match(&mut self, scope: Scope, ty: &Type) {
-        let conversion = TypeConversion::from(ty);
-        let all_involved_types = conversion.get_all_type_paths_involved();
-        let all_involved_full_types = all_involved_types.into_iter().map(|tp| {
-            let ty: Type = parse_quote!(#tp);
-            let full_ty = self.update_nested_generics(&scope, &ty);
-            (TypeConversion::new(ty), full_ty)
-        }).collect::<HashMap<_, _>>();
-        // println!("add_full_qualified_type_match: [{}]: {}", quote!(#scope), quote!(#ty));
-        // println!(" ------------: {}" , format_types_dict(&all_involved_full_types));
+    pub fn into_code_tree(mut self) -> ScopeTreeExportItem {
+        self.merge_visitor_trees();
+        self.tree
+    }
+}
 
-        self.usage_info.used_types_at_scopes.entry(scope)
-            .or_default()
-            .extend(all_involved_full_types);
-    }
+/// Global Context Facade
+impl Visitor {
 
     /// Recursively processes Rust use paths to create a mapping
     /// between idents and their fully qualified paths.
-    pub(crate) fn fold_import_tree(&mut self, scope: &Scope, use_tree: &UseTree, mut current_path: Vec<Ident>) {
-        match use_tree {
-            UseTree::Path(UsePath { ident, tree, .. }) => {
-                current_path.push(ident.clone());
-                self.fold_import_tree(scope,tree, current_path);
+    pub(crate) fn fold_import_tree(&mut self, scope: &ScopeChain, use_tree: &UseTree, current_path: Vec<Ident>) {
+        let mut lock = self.context.write().unwrap();
+        lock.imports.fold_import_tree(scope, use_tree, current_path);
+    }
+
+    pub(crate) fn add_full_qualified_trait_match(&mut self, scope: &ScopeChain, item_trait: &ItemTrait, itself: &ObjectConversion) {
+        let mut lock = self.context.write().unwrap();
+        lock.traits.add_trait(scope, item_trait, itself);
+    }
+    pub(crate) fn add_generic_chain(&mut self, scope: &ScopeChain, generics: &Generics) {
+        let generics = create_generics_chain(self, generics, scope);
+        let mut lock = self.context.write().unwrap();
+        lock.generics.extend_in_scope(scope, generics)
+    }
+
+    fn scope_add_many(&self, types: TypeChain, scope: &ScopeChain) {
+        let mut lock = self.context.write().unwrap();
+        lock.scope_mut(scope)
+            .add_many(types);
+    }
+    pub(crate) fn scope_add_one(&self, ty: TypeHolder, object: ObjectConversion, scope: &ScopeChain) {
+        let mut lock = self.context.write().unwrap();
+        lock.scope_mut(scope)
+            .add_one(ty, object);
+    }
+    pub(crate) fn add_full_qualified_trait_type_from_macro(&mut self, item_trait_attrs: &[Attribute], scope: &ScopeChain) {
+        let trait_names = extract_trait_names(item_trait_attrs);
+        add_trait_names(self, scope, &trait_names);
+        let mut lock = self.context.write().unwrap();
+        lock.traits
+            .add_used_traits(scope, trait_names)
+        // let trait_names = extract_trait_names(item_trait_attrs);
+        // let self_scope = scope.joined(ident);
+        // trait_names.iter().for_each(|trait_name|
+        //     self.add_full_qualified_type_match(&scope, &self_scope,&parse_quote!(#trait_name), &VisitorContext::Object));
+        // let mut lock = self.context.write().unwrap();
+        // lock.used_traits_dictionary
+        //     .entry(self_scope)
+        //     .or_default()
+        //     .extend(trait_names.iter().map(|trait_name| PathHolder::from(trait_name)));
+    }
+
+    fn create_type_chain(&self, ty: &Type, scope: &ScopeChain) -> TypeChain {
+        let involved_types = ty.nested_items();
+        let mut destination = TypeChain::default();
+        for ty  in &involved_types {
+            let object = self.update_nested_generics(scope, ty);
+            destination.add_one(TypeHolder::from(ty), object);
+        }
+        destination
+    }
+
+    pub(crate) fn add_full_qualified_type_match(&mut self, scope: &ScopeChain, ty: &Type) {
+        nprint!(0, Emoji::Plus, "{} in [{}]", format_token_stream(ty), scope);
+        // let ff: HashMap<TypeHolder, ObjectConversion> = ty.scope_items();
+        // println!("::: scope_items: {}: {}", ty.to_token_stream(), format_types_dict(&ff));
+        let self_obj = &scope.self_scope().object;
+        let type_chain = self.create_type_chain(ty, scope);
+        match scope {
+            ScopeChain::CrateRoot { .. } |
+            ScopeChain::Mod { .. } => {
+                self.scope_add_many(type_chain.selfless(), scope);
             },
-            UseTree::Name(UseName { ident, .. }) |
-            UseTree::Rename(UseRename { rename: ident, .. }) => {
-                current_path.push(ident.clone());
-                self.usage_info.used_imports_at_scopes
-                    .entry(scope.clone())
-                    .or_default()
-                    .insert(ident.clone(), Path { leading_colon: None, segments: Punctuated::from_iter(current_path.into_iter().map(PathSegment::from)) });
+            ScopeChain::Impl { parent_scope_chain, .. } => {
+                self.scope_add_many(type_chain.selfless(), parent_scope_chain);
+                self.scope_add_many(type_chain, scope);
             },
-            UseTree::Group(UseGroup { items, .. }) =>
-                items.iter()
-                    .for_each(|tree| self.fold_import_tree(scope,tree,current_path.clone())),
-            UseTree::Glob(_) => {
-                // For a glob import, we can't determine the full path statically
-                // Just ignore them for now
+            ScopeChain::Trait { parent_scope_chain, .. } |
+            ScopeChain::Object { parent_scope_chain, .. } => {
+                println!("add_full_qualified_type_match: Obj or Trait: {} in {}", self_obj, scope);
+                self.scope_add_many(type_chain.clone(), scope);
+                self.scope_add_one(parse_quote!(Self), self_obj.clone(), scope);
+                self.scope_add_many(type_chain.selfless(), parent_scope_chain);
+            },
+            ScopeChain::Fn { parent_scope_chain, .. } => {
+                match &**parent_scope_chain {
+                    ScopeChain::CrateRoot { .. } | ScopeChain::Mod { .. } => {
+                        self.scope_add_many(type_chain.clone(), scope);
+                        self.scope_add_many(type_chain, parent_scope_chain);
+                    },
+                    ScopeChain::Trait { parent_scope_chain: parent_parent_scope_chain, .. } |
+                    ScopeChain::Object { parent_scope_chain: parent_parent_scope_chain, .. } |
+                    ScopeChain::Impl { parent_scope_chain: parent_parent_scope_chain, .. } => {
+                        self.scope_add_many(type_chain.selfless(), parent_parent_scope_chain);
+                        self.scope_add_many(type_chain.clone(), scope);
+                        self.scope_add_one(parse_quote!(Self), self_obj.clone(), scope);
+                        // self.scope_add_one(parse_quote!(Self), self_obj.clone(), parent_scope_chain);
+                        self.scope_add_many(type_chain, parent_scope_chain);
+
+                    },
+                    ScopeChain::Fn { parent_scope_chain: _parent_parent_scope_chain, .. } => {
+                        // TODO: actually there are may be anything wrapped into anything like trait inside a function...
+                    }
+
+                }
             }
         }
     }
 
-    fn update_local_path(path: &Path, scope: &Scope) -> Option<Scope> {
-        match PathConversion::from(path) {
-            PathConversion::Primitive(_p) => None,
-            PathConversion::Complex(p) => {
-                match p.segments.last().unwrap().ident.to_string().as_str() {
-                    "str" | "String" | "Option" | "Self" => None,
-                    _ => Some(scope.joined_path(p))
-                }
-            },
-            _ => None
-        }
-    }
 
-    /// Create a new TypePath with the updated base path and generic type parameters
-    /// `BTreeMap<u32, u32>` -> `std::collections::BTreeMap<u32, u32>`,
-    /// `BTreeMap<u32, BTreeMap<u32, u32>>` -> `std::collections::BTreeMap<u32, std::collections::BTreeMap<u32, u32>>`
-    fn update_nested_generics(&self, scope: &Scope, ty: &Type) -> Type {
-        match ty {
-            Type::Path(TypePath { qself, path, .. }) => {
-                let mut segments = path.segments.clone();
-                for segment in &mut segments {
-                    if let PathArguments::AngleBracketed(angle_bracketed_generic_arguments) = &mut segment.arguments {
-                        for arg in &mut angle_bracketed_generic_arguments.args {
-                            if let GenericArgument::Type(inner_type) = arg {
-                                *arg = GenericArgument::Type(self.update_nested_generics(scope, inner_type));
+    fn handle_full_path(&self, scope: &ScopeChain, path: &Path, qself: Option<QSelfComposition>) -> ObjectConversion {
+        nprint!(1, Emoji::Branch, "handle_full_path: {} with qself: [{}] in {}",
+            format_token_stream(path),
+            qself.as_ref().map_or(format!("None"), |q| format_token_stream(&q.qself.ty)),
+            scope);
+        let new_qself = qself.as_ref().map(|q| q.qself.clone());
+        let mut segments = path.segments.clone();
+        for segment in &mut segments {
+            if let PathArguments::AngleBracketed(angle_bracketed_generic_arguments) = &mut segment.arguments {
+                for arg in &mut angle_bracketed_generic_arguments.args {
+                    match arg {
+                        GenericArgument::Type(inner_type) => {
+                            let obj_conversion = self.update_nested_generics(scope,inner_type);
+                            *arg = GenericArgument::Type(obj_conversion.ty().cloned().unwrap())
+                        },
+                        _ => {}
+                    }
+                }
+            }
+        }
+
+        let first_segment = &segments.first().unwrap();
+        let first_ident = &first_segment.ident;
+        let last_segment = &segments.last().unwrap();
+        let last_ident = &last_segment.ident;
+        let import_seg: PathHolder = parse_quote!(#first_ident);
+        let lock = self.context.read().unwrap();
+
+        let obj_scope = scope.obj_root_chain().unwrap_or(scope);
+        let object_self_scope = obj_scope.self_scope();
+
+        if let Some(dict_type_composition) = scope.maybe_dictionary_type(&import_seg.0) {
+            ObjectConversion::Type(dict_type_composition)
+        } else if let Some(bounds_composition) = scope.maybe_generic_bound_for_path(&import_seg.0) {
+            nprint!(1, Emoji::Local, "(Local Generic Bound) {}", bounds_composition);
+            ObjectConversion::Type(TypeConversion::Bounds(bounds_composition))
+        } else if let Some(replacement_path) = lock.maybe_import(scope, &import_seg).cloned() {
+            nprint!(1, Emoji::Local, "(ScopeImport) {}", format_token_stream(&replacement_path));
+            let last_segment = segments.pop().unwrap();
+            segments.extend(replacement_path.segments.clone());
+            segments.last_mut().unwrap().arguments = last_segment.into_value().arguments;
+            ObjectConversion::Type(
+                TypeConversion::Unknown(
+                    TypeComposition::new(
+                        Type::Path(
+                            TypePath {
+                                qself: new_qself,
+                                path: Path { leading_colon: path.leading_colon, segments } }),
+                        None)))
+        } else if let Some(generic_bounds) = lock.generics.maybe_generic_bounds(scope, &import_seg) {
+            let first_bound = generic_bounds.first().unwrap();
+            let first_bound_as_scope = PathHolder::from(first_bound);
+            if let Some(imported) = lock.maybe_import(scope, &first_bound_as_scope).cloned() {
+                nprint!(1, Emoji::Local, "(Generic Bounds Imported) {}", format_token_stream(&segments));
+                let last_segment = segments.pop().unwrap();
+                let new_segments = imported.segments.clone();
+                segments.extend(new_segments);
+                segments.last_mut().unwrap().arguments = last_segment.into_value().arguments;
+            } else {
+                nprint!(1, Emoji::Local, "(Generic Bounds Local) {}", format_token_stream(&segments));
+                let last_segment = segments.pop().unwrap();
+                let scope = scope.self_path_holder();
+                let new_segments: Punctuated<PathSegment, Token![::]> = parse_quote!(#scope::#first_bound);
+                segments.extend(new_segments);
+                segments.last_mut().unwrap().arguments = last_segment.into_value().arguments;
+            }
+            ObjectConversion::Type(
+                TypeConversion::TraitType(
+                    TypeComposition::new(Type::Path(TypePath { qself: new_qself, path: Path { leading_colon: path.leading_colon, segments } }),
+                        None)))
+        } else {
+            // if let Some(same_mod_defined_obj) = lock.mayb
+            nprint!(1, Emoji::Local, "(Local or Global ....) {}", format_token_stream(&segments));
+            let self_scope_path = &object_self_scope.self_scope;
+            match first_ident.to_string().as_str() {
+                "Self" if segments.len() <= 1 => {
+                    nprint!(1, Emoji::Local, "(Self) {}", format_token_stream(first_ident));
+                    let last_segment = segments.pop().unwrap();
+                    let new_segments: Punctuated<PathSegment, Token![::]> = parse_quote!(#self_scope_path);
+                    println!("::: new_segments: {} ", new_segments.to_token_stream());
+                    segments.extend(new_segments);
+                    segments.last_mut().unwrap().arguments = last_segment.into_value().arguments;
+                    println!("::: add_obj_self: {} scope: [{}]", object_self_scope, scope);
+                    // object_self_scope.object.clone()
+
+                    ObjectConversion::Type(TypeConversion::Unknown(TypeComposition::new(
+                        Type::Path(
+                            TypePath {
+                                qself: new_qself,
+                                path: Path { leading_colon: path.leading_colon, segments } }),
+                        None)))
+
+                },
+                "Self" => {
+                    let tail = segments.iter().skip(1).cloned().collect::<Vec<_>>();
+                    let last_segment = segments.pop().unwrap();
+                    nprint!(1, Emoji::Local, "(SELF::->) {}: {}", format_token_stream(&last_segment), format_token_stream(&last_segment.clone().into_value().arguments));
+                    let new_path: Path = parse_quote!(#self_scope_path::#(#tail)::*);
+                    segments.last_mut().unwrap().arguments = last_segment.into_value().arguments;
+                    segments.clear();
+                    segments.extend(new_path.segments);
+
+                    match scope.obj_root_chain() {
+                        Some(ScopeChain::Object { .. } | ScopeChain::Impl { .. }) =>
+                            ObjectConversion::Type(
+                                TypeConversion::Object(
+                                    TypeComposition::new(
+                                        Type::Path(TypePath { qself: new_qself, path: Path { leading_colon: path.leading_colon, segments } }),
+                                        None))),
+                        Some(ScopeChain::Trait { .. }) =>
+                            ObjectConversion::Type(
+                                TypeConversion::TraitType(
+                                    TypeComposition::new(
+                                        Type::Path(TypePath { qself: new_qself, path: Path { leading_colon: path.leading_colon, segments } }),
+                                        None))),
+                        _ => panic!("Unexpected scope obj root chain")
+                    }
+
+                },
+                "Vec" => {
+                    ObjectConversion::Type(TypeConversion::Object(TypeComposition::new(
+                        Type::Path(
+                            TypePath {
+                                qself: new_qself,
+                                path: Path { leading_colon: path.leading_colon, segments } }),
+                        None)))
+                    // nprint!(*counter, Emoji::Nothing, "(Global Object) {}", format_token_stream(&path));
+                },
+                "Option" => {
+                    ObjectConversion::Type(TypeConversion::Object(TypeComposition::new(
+                        Type::Path(
+                            TypePath {
+                                qself: new_qself,
+                                path: Path { leading_colon: path.leading_colon, segments } }),
+                        None)))
+                },
+                "Result" if segments.len() == 1 => {
+                    ObjectConversion::Type(TypeConversion::Object(TypeComposition::new(
+                        Type::Path(
+                            TypePath {
+                                qself: new_qself,
+                                path: Path { leading_colon: path.leading_colon, segments } }),
+                        None)))
+                },
+                _ if last_ident.to_string().as_str() == "BTreeMap" || last_ident.to_string().as_str() == "HashMap" => {
+                    ObjectConversion::Type(TypeConversion::Object(TypeComposition::new(
+                        Type::Path(
+                            TypePath {
+                                qself: new_qself,
+                                path: Path { leading_colon: path.leading_colon, segments } }),
+                        None)))
+                },
+                _ => {
+                    let obj_parent_scope = obj_scope.parent_scope();
+                    let len = segments.len();
+                    if len == 1 {
+                        match obj_parent_scope {
+                            None => {
+                                // Global
+                                nprint!(1, Emoji::Local, "(Local join single (has no parent scope): {}) {} + {}", first_ident, scope, format_token_stream(&path));
+                                let last_segment = segments.pop().unwrap();
+                                let new_segments: Punctuated<PathSegment, Token![::]> = parse_quote!(#scope::#path);
+                                segments.extend(new_segments);
+                                segments.last_mut().unwrap().arguments = last_segment.into_value().arguments;
+                                ObjectConversion::Type(TypeConversion::Unknown(TypeComposition::new(
+                                    Type::Path(
+                                        TypePath {
+                                            qself: new_qself,
+                                            path: Path { leading_colon: path.leading_colon, segments } }),
+                                    None)))
+                            },
+                            Some(parent) => {
+                                let scope = parent.self_path_holder();
+                                nprint!(1, Emoji::Local, "(Local join single (has parent scope): {}) {} + {}", first_ident, scope, format_token_stream(&path));
+                                let last_segment = segments.pop().unwrap();
+                                let new_segments: Punctuated<PathSegment, Token![::]> = parse_quote!(#scope::#path);
+                                segments.extend(new_segments);
+                                segments.last_mut().unwrap().arguments = last_segment.into_value().arguments;
+                                ObjectConversion::Type(TypeConversion::Unknown(TypeComposition::new(
+                                    Type::Path(
+                                        TypePath {
+                                            qself: new_qself,
+                                            path: Path { leading_colon: path.leading_colon, segments } }),
+                                    None)))
                             }
                         }
+
+                    } else {
+                        let tail: Vec<_> = segments.iter().skip(1).cloned().collect();
+                        if let Some(QSelfComposition { qs: _, qself: QSelf { ty, .. } }) = qself.as_ref() {
+                            nprint!(1, Emoji::Local, "(Local join QSELF: {} [{}]) {} + {}", format_token_stream(ty), format_token_stream(&import_seg), format_token_stream(scope), format_token_stream(&path));
+
+                            println!("------ import local? {} in [{}]", import_seg.to_token_stream(), scope);
+                            println!("------ import parent? {} in [{:?}]", import_seg.to_token_stream(), scope.parent_scope());
+                            println!("------ import object? {} in [{:?}]", import_seg.to_token_stream(), obj_scope);
+                            println!("------ import object parent? {} in [{:?}]", import_seg.to_token_stream(), obj_parent_scope);
+
+                            let maybe_import = lock.maybe_scope_import_path(scope, &import_seg)
+                                .or(lock.maybe_scope_import_path(obj_scope, &import_seg))
+                                .or(obj_parent_scope.and_then(|obj_parent_scope|
+                                    lock.maybe_scope_import_path(obj_parent_scope, &import_seg)));
+
+                            let tt = if let Some(import) = maybe_import {
+                                import.clone()
+                            } else {
+                                let local = obj_parent_scope.unwrap_or(scope);
+                                parse_quote!(#local::#import_seg)
+                            };
+                            let tail_path = quote!(#(#tail)::*);
+                            // println!("{}: <{} as {}>::{}", tail.len(), format_token_stream(ty), format_token_stream(&tt), format_token_stream(&tail_path));
+                            match scope.obj_root_chain() {
+                                Some(ScopeChain::Trait { .. }) =>
+                                    ObjectConversion::Type(TypeConversion::TraitType(TypeComposition {
+                                        ty: match len {
+                                            0 => parse_quote!(<#ty as #tt>),
+                                            _ => parse_quote!(<#ty as #tt>::#tail_path)
+                                        },
+                                        generics: None,
+                                    })),
+                                Some(ScopeChain::Object { .. } | ScopeChain::Impl { .. }) =>
+                                    ObjectConversion::Type(TypeConversion::Object(TypeComposition {
+                                        ty: match len {
+                                            0 => parse_quote!(<#ty as #tt>),
+                                            _ => parse_quote!(<#ty as #tt>::#tail_path)
+                                        },
+                                        generics: None,
+                                    })),
+                                _ => ObjectConversion::Type(TypeConversion::Unknown(TypeComposition {
+                                    ty: match len {
+                                        0 => parse_quote!(<#ty as #tt>),
+                                        _ => parse_quote!(<#ty as #tt>::#tail_path)
+                                    },
+                                    generics: None,
+                                }))
+                            }
+                        } else {
+                            nprint!(1, Emoji::Local, "(Local join multi: {}) {} + {}", first_ident, format_token_stream(scope), format_token_stream(&path));
+                            let last_segment = segments.last().cloned().unwrap();
+                            let new_segments: Punctuated<PathSegment, Colon2> = parse_quote!(#scope::#path);
+                            segments.clear();
+                            segments.extend(new_segments);
+                            segments.last_mut().unwrap().arguments = last_segment.arguments;
+
+                            ObjectConversion::Type(TypeConversion::Unknown(TypeComposition::new(
+                                Type::Path(
+                                    TypePath {
+                                        qself: new_qself,
+                                        path: Path { leading_colon: path.leading_colon, segments } }),
+                                None)))
+                        }
                     }
-                }
-                match self.replacement_for(path, scope, &segments.last().unwrap().ident) {
-                    Replacement::ScopeImport { replacement_path } =>
-                        Self::update_segments_with_segments(replacement_path.segments.clone(), &mut segments),
-                    Replacement::Local { scope, path } => if let Some(local_type) = Self::update_local_path(path, scope) {
-                        Self::update_segments_with_segments(local_type.path.segments.clone(), &mut segments);
-                    }
-                }
-                Type::Path(TypePath { qself: qself.clone(), path: Path { leading_colon: path.leading_colon, segments } })
+                },
+            }
+        }
+    }
+
+    fn handle_qself(&self, scope: &ScopeChain, qself: &Option<QSelf>) -> Option<QSelfComposition> {
+        qself.as_ref().map(|qself| {
+            let mut new_qself = qself.clone();
+            let qs = self.update_nested_generics(scope, &qself.ty);
+            let qs = qs.type_conversion().unwrap().ty_composition().clone();
+            new_qself.ty = Box::new(qs.ty.clone());
+            QSelfComposition { qs, qself: new_qself }
+        })
+    }
+    fn update_nested_generics(&self, scope: &ScopeChain, ty: &Type) -> ObjectConversion {
+        nprint!(1, Emoji::Node, "=== {} [{:?}]", format_token_stream(ty), ty);
+        match ty {
+            Type::Path(type_path) =>
+                self.handle_full_path(scope, &type_path.path, self.handle_qself(scope, &type_path.qself)),
+            Type::TraitObject(type_trait_object) => {
+                let TypeTraitObject { dyn_token, bounds } = type_trait_object;
+                let mut bounds = bounds.clone();
+                bounds.iter_mut().for_each(|bound| match bound {
+                    TypeParamBound::Trait(TraitBound { path, .. }) => {
+                        let full_path = self.handle_full_path(scope, path, None);
+                        *path = parse_quote!(#full_path);
+                    },
+                    _ => {},
+                });
+                ObjectConversion::Type(TypeConversion::TraitType(TypeComposition::new(Type::TraitObject(TypeTraitObject {
+                    dyn_token: dyn_token.clone(),
+                    bounds
+                }), None)))
             },
-            _ => ty.clone(),
+            tttt =>
+                ObjectConversion::Type(TypeConversion::Unknown(TypeComposition::new(tttt.clone(), None)))
         }
     }
 
-    fn replacement_for<'a>(&'a self, path: &'a Path, scope: &'a Scope, ident: &'a Ident) -> Replacement<'a> {
-        self.usage_info.used_imports_at_scopes.get(scope)
-            .and_then(|scope_imports| scope_imports.get(ident))
-            .map_or(Replacement::Local { path, scope }, move |replacement_path| Replacement::ScopeImport { replacement_path })
-    }
-
-    fn update_segments_with_segments(new_segments: Punctuated<PathSegment, Token![::]>, segments: &mut Punctuated<PathSegment, Token![::]>) {
-        let last_segment = segments.pop().unwrap();
-        segments.extend(new_segments);
-        segments.last_mut().unwrap().arguments = last_segment.into_value().arguments;
-    }
-
-    fn current_scope_for(&self, item: &Item) -> Scope {
-        let is_mod = matches!(item, Item::Mod(..));
-        match self.current_scope_stack.first() {
-            Some(current_mod) if !is_mod => self.current_module_scope.joined(current_mod),
-            _ => self.current_module_scope.clone()
-        }
-    }
-
-    fn find_scope_tree<'a>(&'a mut self, scope: &Scope) -> &'a mut ScopeTreeExportItem {
+    fn find_scope_tree(&mut self, scope: &PathHolder) -> &mut ScopeTreeExportItem {
         let mut current_tree = &mut self.tree;
-        let path_to_traverse: Vec<Ident> = scope.path.segments.iter().skip(1).map(|segment| segment.ident.clone()).collect();
+        let path_to_traverse: Vec<ScopeTreeExportID> = scope.0.segments.iter().skip(1).map(|segment| ScopeTreeExportID::Ident(segment.ident.clone())).collect();
         for ident in &path_to_traverse {
             match current_tree {
                 ScopeTreeExportItem::Item(..) => panic!("Unexpected item while traversing the scope path"),  // Handle as appropriate
-                ScopeTreeExportItem::Tree(_, _, exported, item_context) => {
-                    item_context.context.merge(&self.context);
+                ScopeTreeExportItem::Tree(scope_context, _, _, exported) => {
                     if !exported.contains_key(ident) {
-                        exported.insert(ident.clone(), ScopeTreeExportItem::with_context(self.context.clone()));
+                        exported.insert(ident.clone(), ScopeTreeExportItem::with_scope_context(scope_context.clone()));
                     }
                     current_tree = exported.get_mut(ident).unwrap();
                 }
@@ -245,74 +530,32 @@ impl Visitor {
     }
 
     pub fn add_conversion(&mut self, item: Item) {
-        let scope = self.current_scope_for(&item);
-        if let Ok(conversion) = ItemConversion::try_from((item, &scope)) {
-            match conversion.macro_type() {
-                Some(MacroType::Export) => {
-                    let full_qualified = conversion.add_full_qualified_conversion(self);
-                    let usage_info = self.usage_info.clone();
-                    let current_tree = self.find_scope_tree(&scope);
-                    // let mut current_tree = &mut self.tree;
-                    // let path_to_traverse: Vec<Ident> = scope.path.segments.iter().skip(1).map(|segment| segment.ident.clone()).collect();
-                    // for ident in &path_to_traverse {
-                    //     match current_tree {
-                    //         ScopeTreeExportItem::Item(..) => panic!("Unexpected item while traversing the scope path"),  // Handle as appropriate
-                    //         ScopeTreeExportItem::Tree(_, _, exported, item_context) => {
-                    //             item_context.context.merge(&self.context);
-                    //             if !exported.contains_key(ident) {
-                    //                 exported.insert(ident.clone(), ScopeTreeExportItem::with_context(self.context.clone()));
-                    //             }
-                    //             current_tree = exported.get_mut(ident).unwrap();
-                    //         }
-                    //     }
-                    // }
-                    current_tree.add_item(full_qualified, &usage_info)
-                },
-                Some(MacroType::Register(ty)) => {
-                    if let ScopeTreeExportItem::Tree(_, _, _exported, item_context) = self.find_scope_tree(&scope) {
-                        let tc = TypeConversion::from(&ty);
-                        let ident = conversion.ident();
-                        let regular_type = item_context.scope_types.get(&tc).unwrap_or(&ty).clone();
-                        let ffi_type = parse_quote!(#scope::#ident);
-                        item_context.custom_conversions.entry(scope)
-                            .or_default()
-                            .insert(TypeConversion(regular_type), ffi_type);
-                    }
-                },
-                _ => {}
-            }
-        }
-    }
-}
-
-enum Replacement<'a> {
-    ScopeImport { replacement_path: &'a Path },
-    Local { scope: &'a Scope, path: &'a Path }
-}
-
-pub fn merge_visitor_trees(visitor: &mut Visitor) {
-    // Merge the trees of the inner visitors first.
-    for inner_visitor in &mut visitor.inner_visitors {
-        merge_visitor_trees(inner_visitor);
-    }
-
-    // Now merge the trees of the inner visitors into the current visitor's tree.
-    for inner_visitor in &visitor.inner_visitors {
-        merge_trees(&mut visitor.tree, &inner_visitor.tree);
-    }
-}
-
-fn merge_trees(destination: &mut ScopeTreeExportItem, source: &ScopeTreeExportItem) {
-    if let (ScopeTreeExportItem::Tree(_, _, dest_exports, _),
-        ScopeTreeExportItem::Tree(_, _, source_exports, _), ) = (destination, source) {
-        for (name, source_tree) in source_exports.iter() {
-            match dest_exports.entry(name.clone()) {
-                std::collections::hash_map::Entry::Occupied(mut o) =>
-                    merge_trees(o.get_mut(), source_tree),
-                std::collections::hash_map::Entry::Vacant(v) => {
-                    v.insert(source_tree.clone());
+        let ident = ident_from_item(&item);
+        let current_scope = self.current_module_scope.clone();
+        let self_scope = current_scope.self_scope().clone().self_scope;
+        match (MacroType::try_from(&item), ObjectConversion::try_from(&item)) {
+            (Ok(MacroType::Export), Ok(_object)) => {
+                if let Some(scope) = item.join_scope(&current_scope, self) {
+                    self.find_scope_tree(&self_scope)
+                        .add_item(item, scope);
                 }
-            }
+            },
+            (Ok(MacroType::Register(path)), Ok(_object)) => {
+                if let ScopeTreeExportItem::Tree(scope_context, ..) = self.find_scope_tree(&self_scope) {
+                    ident.map(|ident| {
+                        let ffi_type = parse_quote!(#self_scope::#ident);
+                        let ctx = scope_context.borrow();
+                        ctx.add_custom_conversion(current_scope, path, ffi_type);
+                    });
+                }
+            },
+            (_, Ok(_object)) if ident != Some(format_ident!("FFIConversion")) => if let Item::Impl(..) = item {
+                if let Some(_scope) = item.join_scope(&current_scope, self) {
+                }
+            },
+            _ => {}
         }
     }
 }
+
+
