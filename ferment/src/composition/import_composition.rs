@@ -2,6 +2,7 @@ use proc_macro2::{Ident, TokenStream as TokenStream2};
 use std::hash::{Hash, Hasher};
 use quote::ToTokens;
 use crate::conversion::ImportConversion;
+use crate::ext::Pop;
 use crate::holder::PathHolder;
 
 #[derive(Clone)]
@@ -21,16 +22,6 @@ impl<'a> From<(&'a Ident, &'a PathHolder)> for ImportComposition {
         Self { ident: value.0.clone(), scope: value.1.clone() }
     }
 }
-
-// impl<'a> From<&'a GenericConversion> for ImportComposition {
-//     fn from(value: &'a GenericConversion) -> Self {
-//         ImportComposition {
-//             ident: ffi_mangled_ident(value.0.ty()),
-//             scope: PathHolder::ffi_generics_scope()
-//         }
-//     }
-//
-// }
 
 impl std::fmt::Debug for ImportComposition {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {

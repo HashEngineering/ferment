@@ -3,6 +3,8 @@ use std::fmt::{Display, Formatter};
 use quote::{quote, ToTokens};
 use syn::{Ident, ItemTrait, Path, Signature, TraitBound, TraitItem, TraitItemMethod, TraitItemType, Type, TypeParamBound};
 use syn::__private::TokenStream2;
+use syn::punctuated::Punctuated;
+use syn::token::Comma;
 use crate::formatter::{format_token_stream, format_trait_decomposition_part1};
 use crate::composition::{Composition, FnSignatureComposition};
 use crate::composition::context::{FnSignatureCompositionContext, TraitDecompositionPart2Context};
@@ -10,7 +12,7 @@ use crate::composition::generic_composition::GenericsComposition;
 use crate::context::ScopeContext;
 use crate::conversion::TypeConversion;
 use crate::holder::PathHolder;
-use crate::presentation::FFIObjectPresentation;
+use crate::presentation::BindingPresentation;
 
 #[derive(Clone, Debug)]
 pub struct TraitBoundDecomposition {
@@ -100,14 +102,14 @@ pub struct TraitDecompositionPart2 {
 }
 
 impl TraitDecompositionPart2 {
-    pub fn from_trait_items(items: &[TraitItem], scope: &PathHolder, context: &ScopeContext) -> Self {
+    pub fn from_trait_items(items: &[TraitItem], self_ty: Option<Type>, scope: &PathHolder, context: &ScopeContext) -> Self {
         let mut methods = vec![];
         let mut types = HashMap::new();
         items
             .iter()
             .for_each(|trait_item| match trait_item {
                 TraitItem::Method(TraitItemMethod { sig, .. } ) => {
-                    methods.push(FnSignatureComposition::from_signature(sig, scope.clone(), context));
+                    methods.push(FnSignatureComposition::from_signature(sig, self_ty.clone(), scope.clone(), context));
                 },
                 TraitItem::Type(trait_item_type) => {
                     types.insert(trait_item_type.ident.clone(), TraitTypeDecomposition::from_item_type(trait_item_type));
@@ -124,7 +126,7 @@ impl TraitDecompositionPart2 {
 
 impl Composition for TraitDecompositionPart2 {
     type Context = TraitDecompositionPart2Context;
-    type Presentation = Vec<FFIObjectPresentation>;
+    type Presentation = Punctuated<BindingPresentation, Comma>;
 
     fn present(self, composition_context: Self::Context, context: &ScopeContext) -> Self::Presentation {
         match composition_context {

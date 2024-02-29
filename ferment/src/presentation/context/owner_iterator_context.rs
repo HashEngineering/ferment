@@ -1,82 +1,112 @@
-use quote::quote;
+use quote::{quote, ToTokens};
 use syn::__private::TokenStream2;
+use syn::punctuated::Punctuated;
+use syn::token::Comma;
+use crate::composer::{Depunctuated, OwnerIteratorLocalContext};
 use crate::context::ScopeContext;
-use crate::interface::{create_struct, CURLY_BRACES_FIELDS_PRESENTER, SIMPLE_PAIR_PRESENTER, SIMPLE_TERMINATED_PRESENTER};
-use crate::presentation::context::{OwnedItemPresenterContext, IteratorPresentationContext};
+use crate::interface::{create_struct, obj, package_boxed_expression, package_unboxed_root, SIMPLE_PAIR_PRESENTER};
+use crate::naming::Name;
+use crate::presentation::context::{OwnedItemPresentableContext, FieldTypePresentableContext};
 use crate::presentation::ScopeContextPresentable;
 
 
-#[derive(Debug)]
+#[derive(Clone, Debug)]
 pub enum OwnerIteratorPresentationContext {
-    CurlyBracesFields(TokenStream2, Vec<OwnedItemPresenterContext>),
-    RoundBracesFields(TokenStream2, Vec<OwnedItemPresenterContext>),
-    MatchFields(TokenStream2, Vec<OwnedItemPresenterContext>),
-    NoFields(TokenStream2),
-    EnumUnitFields(TokenStream2, Vec<OwnedItemPresenterContext>),
-    TypeAlias(TokenStream2, Vec<OwnedItemPresenterContext>),
-    TypeAliasFromConversion(Vec<OwnedItemPresenterContext>),
-    TypeAliasToConversion(TokenStream2, Vec<OwnedItemPresenterContext>),
-    NamedStruct(TokenStream2, Vec<OwnedItemPresenterContext>),
-    UnnamedStruct(TokenStream2, Vec<OwnedItemPresenterContext>),
-    EnumNamedVariant(TokenStream2, Vec<OwnedItemPresenterContext>),
-    EnumUnamedVariant(TokenStream2, Vec<OwnedItemPresenterContext>),
-    Enum(TokenStream2, Vec<OwnedItemPresenterContext>),
+    CurlyBracesFields(OwnerIteratorLocalContext<Comma>),
+    Variants((Name, Punctuated<OwnerIteratorPresentationContext, Comma>)),
+    RoundBracesFields(OwnerIteratorLocalContext<Comma>),
+    MatchFields((Box<FieldTypePresentableContext>, Punctuated<OwnedItemPresentableContext, Comma>)),
+    NoFields(Name),
+    EnumUnitFields(OwnerIteratorLocalContext<Comma>),
+    TypeAlias(OwnerIteratorLocalContext<Comma>),
+    TypeAliasFromConversion(Depunctuated<OwnedItemPresentableContext>),
+    TypeAliasToConversion(OwnerIteratorLocalContext<Comma>),
+    NamedStruct(OwnerIteratorLocalContext<Comma>),
+    UnnamedStruct(OwnerIteratorLocalContext<Comma>),
+    Enum(Box<OwnerIteratorPresentationContext>),
+    FromRoot(Box<OwnerIteratorPresentationContext>, Box<OwnerIteratorPresentationContext>),
+    Boxed(Box<OwnerIteratorPresentationContext>),
+    Lambda(Box<OwnerIteratorPresentationContext>, Box<OwnerIteratorPresentationContext>),
+    AddrDeref(TokenStream2),
+    Obj,
+    Empty,
+    UnboxedRoot
 }
 
 impl ScopeContextPresentable for OwnerIteratorPresentationContext {
     type Presentation = TokenStream2;
 
-    fn present(&self, context: &ScopeContext) -> Self::Presentation {
+    fn present(&self, source: &ScopeContext) -> Self::Presentation {
         match self {
-            OwnerIteratorPresentationContext::CurlyBracesFields(name, fields) => {
-                SIMPLE_PAIR_PRESENTER(quote!(#name), IteratorPresentationContext::Curly(fields.clone()).present(context))
+            OwnerIteratorPresentationContext::Variants((name, fields)) => {
+                let items = fields.present(source);
+                SIMPLE_PAIR_PRESENTER((quote!(#name), quote!({ #items })))
             },
-            OwnerIteratorPresentationContext::RoundBracesFields(name, fields) => {
-                SIMPLE_PAIR_PRESENTER(quote!(#name), IteratorPresentationContext::Round(fields.clone()).present(context))
+            OwnerIteratorPresentationContext::CurlyBracesFields((name, fields)) => {
+                let items = fields.present(source);
+                SIMPLE_PAIR_PRESENTER((quote!(#name), quote!({ #items })))
             },
-            OwnerIteratorPresentationContext::MatchFields(field_path, fields) => {
-                SIMPLE_PAIR_PRESENTER(quote!(match #field_path), IteratorPresentationContext::Curly(fields.clone()).present(context))
+            OwnerIteratorPresentationContext::RoundBracesFields((name, fields)) => {
+                let items = fields.present(source);
+                SIMPLE_PAIR_PRESENTER((quote!(#name), quote!(( #items ))))
             },
-            OwnerIteratorPresentationContext::NoFields(name) => {
-                quote!(#name)
+            OwnerIteratorPresentationContext::MatchFields((presentation_context, fields)) => {
+                let name = FieldTypePresentableContext::Match(presentation_context.clone()).present(source);
+                let items = fields.present(source);
+                SIMPLE_PAIR_PRESENTER((name, quote!({ #items })))
             },
-            OwnerIteratorPresentationContext::EnumUnitFields(name, fields) => {
-                let items = fields.iter().map(|item| item.present(context));
-                quote!(#name = #(#items)*)
+            OwnerIteratorPresentationContext::TypeAlias((name, fields)) |
+            OwnerIteratorPresentationContext::UnnamedStruct((name, fields)) => {
+                let items = fields.present(source);
+                create_struct(name, quote!(( #items );))
             },
-            OwnerIteratorPresentationContext::TypeAlias(name, fields) => {
-                create_struct(quote!(#name), SIMPLE_TERMINATED_PRESENTER(IteratorPresentationContext::Round(fields.clone()).present(context)))
+            OwnerIteratorPresentationContext::NamedStruct((name, fields)) => {
+                let items = fields.present(source);
+                create_struct(name, quote!({ #items }))
             },
-            OwnerIteratorPresentationContext::TypeAliasFromConversion(fields) => {
-                let items = fields.iter().map(|item| item.present(context)).collect::<Vec<_>>();
-                quote!(#(#items)*)
-            },
-            OwnerIteratorPresentationContext::TypeAliasToConversion(name, fields) => {
-                let items = fields.iter().map(|item| item.present(context)).collect::<Vec<_>>();
-                quote!(#name(#(#items),*))
-            },
-            OwnerIteratorPresentationContext::UnnamedStruct(name, fields) => {
-                create_struct(quote!(#name), SIMPLE_TERMINATED_PRESENTER(IteratorPresentationContext::Round(fields.clone()).present(context)))
-            },
-            OwnerIteratorPresentationContext::NamedStruct(name, fields) => {
-                create_struct(quote!(#name), IteratorPresentationContext::Curly(fields.clone()).present(context))
-
-            },
-            OwnerIteratorPresentationContext::EnumNamedVariant(name, fields) => {
-                SIMPLE_PAIR_PRESENTER(quote!(#name), IteratorPresentationContext::Curly(fields.clone()).present(context))
-            },
-            OwnerIteratorPresentationContext::EnumUnamedVariant(name, fields) => {
-                SIMPLE_PAIR_PRESENTER(quote!(#name), IteratorPresentationContext::Round(fields.clone()).present(context))
-            },
-            OwnerIteratorPresentationContext::Enum(name, fields) => {
-                let enum_presentation = CURLY_BRACES_FIELDS_PRESENTER((quote!(#name), fields.clone()))
-                    .present(context);
+            OwnerIteratorPresentationContext::Enum(context) => {
+                let enum_presentation = context.present(source);
                 quote! {
                     #[repr(C)]
                     #[derive(Clone)]
                     pub enum #enum_presentation
                 }
+            },
+            OwnerIteratorPresentationContext::TypeAliasFromConversion(fields) => {
+                fields.present(source)
+                    .to_token_stream()
+            },
+            OwnerIteratorPresentationContext::TypeAliasToConversion((name, fields)) => {
+                let items = fields.present(source);
+                quote!(#name(#items))
+            },
+            OwnerIteratorPresentationContext::NoFields(name) => {
+                quote!(#name)
+            },
+            OwnerIteratorPresentationContext::EnumUnitFields((name, fields)) => {
+                let items = fields.present(source);
+                quote!(#name = #items)
+            },
+            OwnerIteratorPresentationContext::FromRoot(field_context, conversions) => {
+                let conversions = conversions.present(source);
+                let field_path = field_context.present(source);
+                quote!(let ffi_ref = #field_path; #conversions)
             }
+            OwnerIteratorPresentationContext::Boxed(conversions) => {
+                package_boxed_expression(conversions.present(source))
+            }
+            OwnerIteratorPresentationContext::Lambda(l_value, r_value) => {
+                let l_value = l_value.present(source);
+                let r_value = r_value.present(source);
+                quote!(#l_value => #r_value)
+
+            }
+            OwnerIteratorPresentationContext::AddrDeref(field_path) => {
+                quote!(&*#field_path)
+            }
+            OwnerIteratorPresentationContext::Obj => obj(),
+            OwnerIteratorPresentationContext::Empty => quote!(),
+            OwnerIteratorPresentationContext::UnboxedRoot => package_unboxed_root(),
         }
     }
 }

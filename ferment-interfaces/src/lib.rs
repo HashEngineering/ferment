@@ -6,7 +6,6 @@ use std::ffi::CString;
 use std::hash::Hash;
 use std::mem;
 use std::os::raw::c_char;
-use std::ptr::NonNull;
 use std::sync::Arc;
 
 /// We pass here main context of parent program
@@ -42,7 +41,7 @@ pub trait FFIConversion<T> {
         //     None => println!("ffi: None")
         // }
         // a
-        (!ffi.is_null()).then(|| { <Self as FFIConversion<T>>::ffi_from(ffi) } )
+        (!ffi.is_null()).then(|| <Self as FFIConversion<T>>::ffi_from(ffi))
     }
     /// # Safety
     unsafe fn ffi_to_opt(obj: Option<T>) -> *mut Self where Self: Sized {
@@ -53,6 +52,7 @@ pub trait FFIConversion<T> {
         // println!("  result: {:p}", result);
         // result
         obj.map_or(std::ptr::null_mut(), |o| <Self as FFIConversion<T>>::ffi_to(o))
+        // obj.map_or(NonNull::<Self>::dangling().as_ptr(), |o| <Self as FFIConversion<T>>::ffi_to(o))
     }
     /// # Safety
     unsafe fn destroy(ffi: *mut Self) {

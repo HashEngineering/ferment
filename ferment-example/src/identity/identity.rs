@@ -1,5 +1,5 @@
 use std::collections::BTreeMap;
-use crate::nested::{BinaryData, Identifier, IdentifierBytes32, PlatformVersion, ProtocolError};
+use crate::nested::{BinaryData, FeatureVersionBounds, Identifier, IdentifierBytes32, PlatformVersion, ProtocolError};
 use dashcore::secp256k1::rand::rngs::StdRng as EcdsaRng;
 use dashcore::Network;
 use dashcore::secp256k1::Secp256k1;
@@ -160,6 +160,12 @@ impl Identity {
             balance: 0,
             public_keys: BTreeMap::new(),
         })
+    }
+
+    pub fn get_balance(&self) -> u64 {
+        match self {
+            Identity::V0(v0) => v0.balance,
+        }
     }
 }
 #[ferment_macro::export]
@@ -345,4 +351,13 @@ pub fn get_identity_contract_bounds(identifier: Identifier, contract_identifier:
         revision: 1,
     };
     Identity::V0(identity)
+}
+
+#[ferment_macro::export]
+pub fn create_platform_v0(identity: FeatureVersionBounds, proofs: FeatureVersionBounds) -> PlatformVersion {
+    PlatformVersion {
+        protocol_version: 0,
+        identity,
+        proofs,
+    }
 }
