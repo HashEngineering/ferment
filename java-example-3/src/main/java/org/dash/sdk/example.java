@@ -18,36 +18,12 @@ public class example {
     exampleJNI.rootStructDestroy(RootStruct.getCPtr(ffi), ffi);
   }
 
-  public static VecU8Holder vecU8HolderCtor(byte[] first) {
-    long cPtr = exampleJNI.vecU8HolderCtor(first);
-    return (cPtr == 0) ? null : new VecU8Holder(cPtr, false);
+  public static String rootStructGetName(RootStruct obj) {
+    return exampleJNI.rootStructGetName(RootStruct.getCPtr(obj), obj);
   }
 
-  public static void vecU8HolderDestroy(VecU8Holder ffi) {
-    exampleJNI.vecU8HolderDestroy(VecU8Holder.getCPtr(ffi), ffi);
-  }
-
-  public static OuterStruct createOuter(InnerStruct is1, InnerStruct is2) {
-    long cPtr = exampleJNI.createOuter(InnerStruct.getCPtr(is1), is1, InnerStruct.getCPtr(is2), is2);
-    return (cPtr == 0) ? null : new OuterStruct(cPtr, false);
-  }
-
-  public static InnerStruct innerStructCtor(java.math.BigInteger first, java.math.BigInteger second) {
-    long cPtr = exampleJNI.innerStructCtor(first, second);
-    return (cPtr == 0) ? null : new InnerStruct(cPtr, false);
-  }
-
-  public static void innerStructDestroy(InnerStruct ffi) {
-    exampleJNI.innerStructDestroy(InnerStruct.getCPtr(ffi), ffi);
-  }
-
-  public static OuterStruct outerStructCtor(InnerStruct first, InnerStruct second) {
-    long cPtr = exampleJNI.outerStructCtor(InnerStruct.getCPtr(first), first, InnerStruct.getCPtr(second), second);
-    return (cPtr == 0) ? null : new OuterStruct(cPtr, false);
-  }
-
-  public static void outerStructDestroy(OuterStruct ffi) {
-    exampleJNI.outerStructDestroy(OuterStruct.getCPtr(ffi), ffi);
+  public static void rootStructSetName(RootStruct obj, String value) {
+    exampleJNI.rootStructSetName(RootStruct.getCPtr(obj), obj, value);
   }
 
   public static BinaryData binaryDataCtor(byte[] o_0) {
@@ -59,6 +35,14 @@ public class example {
     exampleJNI.binaryDataDestroy(BinaryData.getCPtr(ffi), ffi);
   }
 
+  public static byte[] binaryDataGet0(BinaryData obj) {
+    return exampleJNI.binaryDataGet0(BinaryData.getCPtr(obj), obj);
+  }
+
+  public static void binaryDataSet0(BinaryData obj, byte[] value) {
+    exampleJNI.binaryDataSet0(BinaryData.getCPtr(obj), obj, value);
+  }
+
   public static OptionalFeatureVersion optionalFeatureVersionCtor(int o_0) {
     long cPtr = exampleJNI.optionalFeatureVersionCtor(o_0);
     return (cPtr == 0) ? null : new OptionalFeatureVersion(cPtr, false);
@@ -68,13 +52,54 @@ public class example {
     exampleJNI.optionalFeatureVersionDestroy(OptionalFeatureVersion.getCPtr(ffi), ffi);
   }
 
-  public static Identifier identifierCtor(IdentifierBytes32 o_0) {
-    long cPtr = exampleJNI.identifierCtor(IdentifierBytes32.getCPtr(o_0), o_0);
-    return (cPtr == 0) ? null : new Identifier(cPtr, false);
+  public static int optionalFeatureVersionGet0(OptionalFeatureVersion obj) {
+    return exampleJNI.optionalFeatureVersionGet0(OptionalFeatureVersion.getCPtr(obj), obj);
   }
 
-  public static void identifierDestroy(Identifier ffi) {
-    exampleJNI.identifierDestroy(Identifier.getCPtr(ffi), ffi);
+  public static void optionalFeatureVersionSet0(OptionalFeatureVersion obj, int value) {
+    exampleJNI.optionalFeatureVersionSet0(OptionalFeatureVersion.getCPtr(obj), obj, value);
+  }
+
+  public static SWIGTYPE_p_FeatureVersion featureVersionCtor(int o_0) {
+    long cPtr = exampleJNI.featureVersionCtor(o_0);
+    return (cPtr == 0) ? null : new SWIGTYPE_p_FeatureVersion(cPtr, false);
+  }
+
+  public static void featureVersionDestroy(SWIGTYPE_p_FeatureVersion ffi) {
+    exampleJNI.featureVersionDestroy(SWIGTYPE_p_FeatureVersion.getCPtr(ffi));
+  }
+
+  public static int featureVersionGet0(SWIGTYPE_p_FeatureVersion obj) {
+    return exampleJNI.featureVersionGet0(SWIGTYPE_p_FeatureVersion.getCPtr(obj));
+  }
+
+  public static void featureVersionSet0(SWIGTYPE_p_FeatureVersion obj, int value) {
+    exampleJNI.featureVersionSet0(SWIGTYPE_p_FeatureVersion.getCPtr(obj), value);
+  }
+
+  public static byte[] hashIDGet0(SWIGTYPE_p_HashID obj) {
+    return exampleJNI.hashIDGet0(SWIGTYPE_p_HashID.getCPtr(obj));
+  }
+
+  public static void hashIDSet0(SWIGTYPE_p_HashID obj, byte[] value) {
+    exampleJNI.hashIDSet0(SWIGTYPE_p_HashID.getCPtr(obj), value);
+  }
+
+  public static IdentifierBytes32 identifierBytes32Ctor(byte[] o_0) {
+    long cPtr = exampleJNI.identifierBytes32Ctor(o_0);
+    return (cPtr == 0) ? null : new IdentifierBytes32(cPtr, false);
+  }
+
+  public static void identifierBytes32Destroy(IdentifierBytes32 ffi) {
+    exampleJNI.identifierBytes32Destroy(IdentifierBytes32.getCPtr(ffi), ffi);
+  }
+
+  public static byte[] identifierBytes32Get0(IdentifierBytes32 obj) {
+    return exampleJNI.identifierBytes32Get0(IdentifierBytes32.getCPtr(obj), obj);
+  }
+
+  public static void identifierBytes32Set0(IdentifierBytes32 obj, byte[] value) {
+    exampleJNI.identifierBytes32Set0(IdentifierBytes32.getCPtr(obj), obj, value);
   }
 
   public static FeatureVersionBounds featureVersionBoundsCtor(SWIGTYPE_p_FeatureVersion min_version, SWIGTYPE_p_FeatureVersion max_version, SWIGTYPE_p_FeatureVersion default_current_version) {
@@ -84,6 +109,68 @@ public class example {
 
   public static void featureVersionBoundsDestroy(FeatureVersionBounds ffi) {
     exampleJNI.featureVersionBoundsDestroy(FeatureVersionBounds.getCPtr(ffi), ffi);
+  }
+
+  public static SWIGTYPE_p_FeatureVersion featureVersionBoundsGetMinVersion(FeatureVersionBounds obj) {
+    long cPtr = exampleJNI.featureVersionBoundsGetMinVersion(FeatureVersionBounds.getCPtr(obj), obj);
+    return (cPtr == 0) ? null : new SWIGTYPE_p_FeatureVersion(cPtr, false);
+  }
+
+  public static SWIGTYPE_p_FeatureVersion featureVersionBoundsGetMaxVersion(FeatureVersionBounds obj) {
+    long cPtr = exampleJNI.featureVersionBoundsGetMaxVersion(FeatureVersionBounds.getCPtr(obj), obj);
+    return (cPtr == 0) ? null : new SWIGTYPE_p_FeatureVersion(cPtr, false);
+  }
+
+  public static SWIGTYPE_p_FeatureVersion featureVersionBoundsGetDefaultCurrentVersion(FeatureVersionBounds obj) {
+    long cPtr = exampleJNI.featureVersionBoundsGetDefaultCurrentVersion(FeatureVersionBounds.getCPtr(obj), obj);
+    return (cPtr == 0) ? null : new SWIGTYPE_p_FeatureVersion(cPtr, false);
+  }
+
+  public static void featureVersionBoundsSetMinVersion(FeatureVersionBounds obj, SWIGTYPE_p_FeatureVersion value) {
+    exampleJNI.featureVersionBoundsSetMinVersion(FeatureVersionBounds.getCPtr(obj), obj, SWIGTYPE_p_FeatureVersion.getCPtr(value));
+  }
+
+  public static void featureVersionBoundsSetMaxVersion(FeatureVersionBounds obj, SWIGTYPE_p_FeatureVersion value) {
+    exampleJNI.featureVersionBoundsSetMaxVersion(FeatureVersionBounds.getCPtr(obj), obj, SWIGTYPE_p_FeatureVersion.getCPtr(value));
+  }
+
+  public static void featureVersionBoundsSetDefaultCurrentVersion(FeatureVersionBounds obj, SWIGTYPE_p_FeatureVersion value) {
+    exampleJNI.featureVersionBoundsSetDefaultCurrentVersion(FeatureVersionBounds.getCPtr(obj), obj, SWIGTYPE_p_FeatureVersion.getCPtr(value));
+  }
+
+  public static PlatformVersion platformVersionCtor(long protocol_version, FeatureVersionBounds identity, FeatureVersionBounds proofs) {
+    long cPtr = exampleJNI.platformVersionCtor(protocol_version, FeatureVersionBounds.getCPtr(identity), identity, FeatureVersionBounds.getCPtr(proofs), proofs);
+    return (cPtr == 0) ? null : new PlatformVersion(cPtr, false);
+  }
+
+  public static void platformVersionDestroy(PlatformVersion ffi) {
+    exampleJNI.platformVersionDestroy(PlatformVersion.getCPtr(ffi), ffi);
+  }
+
+  public static long platformVersionGetProtocolVersion(PlatformVersion obj) {
+    return exampleJNI.platformVersionGetProtocolVersion(PlatformVersion.getCPtr(obj), obj);
+  }
+
+  public static FeatureVersionBounds platformVersionGetIdentity(PlatformVersion obj) {
+    long cPtr = exampleJNI.platformVersionGetIdentity(PlatformVersion.getCPtr(obj), obj);
+    return (cPtr == 0) ? null : new FeatureVersionBounds(cPtr, false);
+  }
+
+  public static FeatureVersionBounds platformVersionGetProofs(PlatformVersion obj) {
+    long cPtr = exampleJNI.platformVersionGetProofs(PlatformVersion.getCPtr(obj), obj);
+    return (cPtr == 0) ? null : new FeatureVersionBounds(cPtr, false);
+  }
+
+  public static void platformVersionSetProtocolVersion(PlatformVersion obj, long value) {
+    exampleJNI.platformVersionSetProtocolVersion(PlatformVersion.getCPtr(obj), obj, value);
+  }
+
+  public static void platformVersionSetIdentity(PlatformVersion obj, FeatureVersionBounds value) {
+    exampleJNI.platformVersionSetIdentity(PlatformVersion.getCPtr(obj), obj, FeatureVersionBounds.getCPtr(value), value);
+  }
+
+  public static void platformVersionSetProofs(PlatformVersion obj, FeatureVersionBounds value) {
+    exampleJNI.platformVersionSetProofs(PlatformVersion.getCPtr(obj), obj, FeatureVersionBounds.getCPtr(value), value);
   }
 
   public static ProtocolError protocolErrorIdentifierErrorCtor(String o_0) {
@@ -135,31 +222,22 @@ public class example {
     exampleJNI.protocolErrorDestroy(ProtocolError.getCPtr(ffi), ffi);
   }
 
-  public static IdentifierBytes32 identifierBytes32Ctor(byte[] o_0) {
-    long cPtr = exampleJNI.identifierBytes32Ctor(o_0);
+  public static Identifier identifierCtor(IdentifierBytes32 o_0) {
+    long cPtr = exampleJNI.identifierCtor(IdentifierBytes32.getCPtr(o_0), o_0);
+    return (cPtr == 0) ? null : new Identifier(cPtr, false);
+  }
+
+  public static void identifierDestroy(Identifier ffi) {
+    exampleJNI.identifierDestroy(Identifier.getCPtr(ffi), ffi);
+  }
+
+  public static IdentifierBytes32 identifierGet0(Identifier obj) {
+    long cPtr = exampleJNI.identifierGet0(Identifier.getCPtr(obj), obj);
     return (cPtr == 0) ? null : new IdentifierBytes32(cPtr, false);
   }
 
-  public static void identifierBytes32Destroy(IdentifierBytes32 ffi) {
-    exampleJNI.identifierBytes32Destroy(IdentifierBytes32.getCPtr(ffi), ffi);
-  }
-
-  public static SWIGTYPE_p_FeatureVersion featureVersionCtor(int o_0) {
-    long cPtr = exampleJNI.featureVersionCtor(o_0);
-    return (cPtr == 0) ? null : new SWIGTYPE_p_FeatureVersion(cPtr, false);
-  }
-
-  public static void featureVersionDestroy(SWIGTYPE_p_FeatureVersion ffi) {
-    exampleJNI.featureVersionDestroy(SWIGTYPE_p_FeatureVersion.getCPtr(ffi));
-  }
-
-  public static PlatformVersion platformVersionCtor(long protocol_version, FeatureVersionBounds identity, FeatureVersionBounds proofs) {
-    long cPtr = exampleJNI.platformVersionCtor(protocol_version, FeatureVersionBounds.getCPtr(identity), identity, FeatureVersionBounds.getCPtr(proofs), proofs);
-    return (cPtr == 0) ? null : new PlatformVersion(cPtr, false);
-  }
-
-  public static void platformVersionDestroy(PlatformVersion ffi) {
-    exampleJNI.platformVersionDestroy(PlatformVersion.getCPtr(ffi), ffi);
+  public static void identifierSet0(Identifier obj, IdentifierBytes32 value) {
+    exampleJNI.identifierSet0(Identifier.getCPtr(obj), obj, IdentifierBytes32.getCPtr(value), value);
   }
 
   public static DataContractNotPresentError dataContractNotPresentErrorCtor(Identifier data_contract_id) {
@@ -171,69 +249,87 @@ public class example {
     exampleJNI.dataContractNotPresentErrorDestroy(DataContractNotPresentError.getCPtr(ffi), ffi);
   }
 
-  public static Revision revisionCtor(java.math.BigInteger o_0) {
-    long cPtr = exampleJNI.revisionCtor(o_0);
-    return (cPtr == 0) ? null : new Revision(cPtr, false);
+  public static Identifier dataContractNotPresentErrorGetDataContractId(DataContractNotPresentError obj) {
+    long cPtr = exampleJNI.dataContractNotPresentErrorGetDataContractId(DataContractNotPresentError.getCPtr(obj), obj);
+    return (cPtr == 0) ? null : new Identifier(cPtr, false);
   }
 
-  public static void revisionDestroy(Revision ffi) {
-    exampleJNI.revisionDestroy(Revision.getCPtr(ffi), ffi);
+  public static void dataContractNotPresentErrorSetDataContractId(DataContractNotPresentError obj, Identifier value) {
+    exampleJNI.dataContractNotPresentErrorSetDataContractId(DataContractNotPresentError.getCPtr(obj), obj, Identifier.getCPtr(value), value);
   }
 
-  public static void identityPublicKeyV0Destroy(IdentityPublicKeyV0 ffi) {
-    exampleJNI.identityPublicKeyV0Destroy(IdentityPublicKeyV0.getCPtr(ffi), ffi);
+  public static OuterStruct outerStructCtor(InnerStruct first, InnerStruct second) {
+    long cPtr = exampleJNI.outerStructCtor(InnerStruct.getCPtr(first), first, InnerStruct.getCPtr(second), second);
+    return (cPtr == 0) ? null : new OuterStruct(cPtr, false);
   }
 
-  public static Identity identityV0Ctor(IdentityV0 o_0) {
-    long cPtr = exampleJNI.identityV0Ctor__SWIG_0(IdentityV0.getCPtr(o_0), o_0);
-    return (cPtr == 0) ? null : new Identity(cPtr, false);
+  public static void outerStructDestroy(OuterStruct ffi) {
+    exampleJNI.outerStructDestroy(OuterStruct.getCPtr(ffi), ffi);
   }
 
-  public static void identityDestroy(Identity ffi) {
-    exampleJNI.identityDestroy(Identity.getCPtr(ffi), ffi);
+  public static InnerStruct outerStructGetFirst(OuterStruct obj) {
+    long cPtr = exampleJNI.outerStructGetFirst(OuterStruct.getCPtr(obj), obj);
+    return (cPtr == 0) ? null : new InnerStruct(cPtr, false);
   }
 
-  public static IdentityV0 identityV0Ctor(Identifier id, std_collections_Map_keys_crate_identity_identity_KeyID_values_crate_identity_identity_IdentityPublicKey public_keys, java.math.BigInteger balance, Revision revision) {
-    long cPtr = exampleJNI.identityV0Ctor__SWIG_1(Identifier.getCPtr(id), id, std_collections_Map_keys_crate_identity_identity_KeyID_values_crate_identity_identity_IdentityPublicKey.getCPtr(public_keys), public_keys, balance, Revision.getCPtr(revision), revision);
-    return (cPtr == 0) ? null : new IdentityV0(cPtr, false);
+  public static InnerStruct outerStructGetSecond(OuterStruct obj) {
+    long cPtr = exampleJNI.outerStructGetSecond(OuterStruct.getCPtr(obj), obj);
+    return (cPtr == 0) ? null : new InnerStruct(cPtr, false);
   }
 
-  public static void identityV0Destroy(IdentityV0 ffi) {
-    exampleJNI.identityV0Destroy(IdentityV0.getCPtr(ffi), ffi);
+  public static void outerStructSetFirst(OuterStruct obj, InnerStruct value) {
+    exampleJNI.outerStructSetFirst(OuterStruct.getCPtr(obj), obj, InnerStruct.getCPtr(value), value);
   }
 
-  public static Identity getAnIdentity() {
-    long cPtr = exampleJNI.getAnIdentity();
-    return (cPtr == 0) ? null : new Identity(cPtr, true);
+  public static void outerStructSetSecond(OuterStruct obj, InnerStruct value) {
+    exampleJNI.outerStructSetSecond(OuterStruct.getCPtr(obj), obj, InnerStruct.getCPtr(value), value);
   }
 
-  public static IdentityPublicKeyV0 randomKey(KeyID id) {
-    long cPtr = exampleJNI.randomKey(KeyID.getCPtr(id), id);
-    return (cPtr == 0) ? null : new IdentityPublicKeyV0(cPtr, true);
+  public static InnerStruct innerStructCtor(java.math.BigInteger first, java.math.BigInteger second) {
+    long cPtr = exampleJNI.innerStructCtor(first, second);
+    return (cPtr == 0) ? null : new InnerStruct(cPtr, false);
   }
 
-  public static IdentityPublicKeyV0 randomKeyArgs(KeyID id, Identifier contract_id, TimestampMillis timestamp_millis) {
-    long cPtr = exampleJNI.randomKeyArgs(KeyID.getCPtr(id), id, Identifier.getCPtr(contract_id), contract_id, TimestampMillis.getCPtr(timestamp_millis), timestamp_millis);
-    return (cPtr == 0) ? null : new IdentityPublicKeyV0(cPtr, true);
+  public static void innerStructDestroy(InnerStruct ffi) {
+    exampleJNI.innerStructDestroy(InnerStruct.getCPtr(ffi), ffi);
   }
 
-  public static TimestampMillis timestampMillisCtor(java.math.BigInteger o_0) {
-    long cPtr = exampleJNI.timestampMillisCtor(o_0);
-    return (cPtr == 0) ? null : new TimestampMillis(cPtr, false);
+  public static java.math.BigInteger innerStructGetFirst(InnerStruct obj) {
+    return exampleJNI.innerStructGetFirst(InnerStruct.getCPtr(obj), obj);
   }
 
-  public static void timestampMillisDestroy(TimestampMillis ffi) {
-    exampleJNI.timestampMillisDestroy(TimestampMillis.getCPtr(ffi), ffi);
+  public static java.math.BigInteger innerStructGetSecond(InnerStruct obj) {
+    return exampleJNI.innerStructGetSecond(InnerStruct.getCPtr(obj), obj);
   }
 
-  public static Identity getIdentityContractBounds(Identifier identifier, Identifier contract_identifier) {
-    long cPtr = exampleJNI.getIdentityContractBounds(Identifier.getCPtr(identifier), identifier, Identifier.getCPtr(contract_identifier), contract_identifier);
-    return (cPtr == 0) ? null : new Identity(cPtr, true);
+  public static void innerStructSetFirst(InnerStruct obj, java.math.BigInteger value) {
+    exampleJNI.innerStructSetFirst(InnerStruct.getCPtr(obj), obj, value);
   }
 
-  public static Identity getIdentity2(Identifier identifier) {
-    long cPtr = exampleJNI.getIdentity2(Identifier.getCPtr(identifier), identifier);
-    return (cPtr == 0) ? null : new Identity(cPtr, true);
+  public static void innerStructSetSecond(InnerStruct obj, java.math.BigInteger value) {
+    exampleJNI.innerStructSetSecond(InnerStruct.getCPtr(obj), obj, value);
+  }
+
+  public static VecU8Holder vecU8HolderCtor(byte[] first) {
+    long cPtr = exampleJNI.vecU8HolderCtor(first);
+    return (cPtr == 0) ? null : new VecU8Holder(cPtr, false);
+  }
+
+  public static void vecU8HolderDestroy(VecU8Holder ffi) {
+    exampleJNI.vecU8HolderDestroy(VecU8Holder.getCPtr(ffi), ffi);
+  }
+
+  public static byte[] vecU8HolderGetFirst(VecU8Holder obj) {
+    return exampleJNI.vecU8HolderGetFirst(VecU8Holder.getCPtr(obj), obj);
+  }
+
+  public static void vecU8HolderSetFirst(VecU8Holder obj, byte[] value) {
+    exampleJNI.vecU8HolderSetFirst(VecU8Holder.getCPtr(obj), obj, value);
+  }
+
+  public static OuterStruct createOuter(InnerStruct is1, InnerStruct is2) {
+    long cPtr = exampleJNI.createOuter(InnerStruct.getCPtr(is1), is1, InnerStruct.getCPtr(is2), is2);
+    return (cPtr == 0) ? null : new OuterStruct(cPtr, false);
   }
 
   public static Result_ok_crate_identity_identity_Identity_err_crate_nested_ProtocolError createBasicIdentity(byte[] id, PlatformVersion _platform_version) {
@@ -246,13 +342,8 @@ public class example {
     return (cPtr == 0) ? null : new Identity(cPtr, true);
   }
 
-  public static KeyID keyIDCtor(long o_0) {
-    long cPtr = exampleJNI.keyIDCtor(o_0);
-    return (cPtr == 0) ? null : new KeyID(cPtr, false);
-  }
-
-  public static void keyIDDestroy(KeyID ffi) {
-    exampleJNI.keyIDDestroy(KeyID.getCPtr(ffi), ffi);
+  public static java.math.BigInteger getBalance(Identity obj) {
+    return exampleJNI.getBalance(Identity.getCPtr(obj), obj);
   }
 
   public static void contractBoundsDestroy(ContractBounds ffi) {
@@ -268,12 +359,213 @@ public class example {
     exampleJNI.identityPublicKeyDestroy(IdentityPublicKey.getCPtr(ffi), ffi);
   }
 
-  public static byte[] vecU8Ctor(SWIGTYPE_p_unsigned_char values, long count) {
-    return exampleJNI.vecU8Ctor(SWIGTYPE_p_unsigned_char.getCPtr(values), count);
+  public static Revision revisionCtor(java.math.BigInteger o_0) {
+    long cPtr = exampleJNI.revisionCtor(o_0);
+    return (cPtr == 0) ? null : new Revision(cPtr, false);
   }
 
-  public static void vecU8Destroy(byte[] ffi) {
-    exampleJNI.vecU8Destroy(ffi);
+  public static void revisionDestroy(Revision ffi) {
+    exampleJNI.revisionDestroy(Revision.getCPtr(ffi), ffi);
+  }
+
+  public static java.math.BigInteger revisionGet0(Revision obj) {
+    return exampleJNI.revisionGet0(Revision.getCPtr(obj), obj);
+  }
+
+  public static void revisionSet0(Revision obj, java.math.BigInteger value) {
+    exampleJNI.revisionSet0(Revision.getCPtr(obj), obj, value);
+  }
+
+  public static Identity getAnIdentity() {
+    long cPtr = exampleJNI.getAnIdentity();
+    return (cPtr == 0) ? null : new Identity(cPtr, true);
+  }
+
+  public static PlatformVersion createPlatformV0(FeatureVersionBounds identity, FeatureVersionBounds proofs) {
+    long cPtr = exampleJNI.createPlatformV0(FeatureVersionBounds.getCPtr(identity), identity, FeatureVersionBounds.getCPtr(proofs), proofs);
+    return (cPtr == 0) ? null : new PlatformVersion(cPtr, false);
+  }
+
+  public static TimestampMillis timestampMillisCtor(java.math.BigInteger o_0) {
+    long cPtr = exampleJNI.timestampMillisCtor(o_0);
+    return (cPtr == 0) ? null : new TimestampMillis(cPtr, false);
+  }
+
+  public static void timestampMillisDestroy(TimestampMillis ffi) {
+    exampleJNI.timestampMillisDestroy(TimestampMillis.getCPtr(ffi), ffi);
+  }
+
+  public static java.math.BigInteger timestampMillisGet0(TimestampMillis obj) {
+    return exampleJNI.timestampMillisGet0(TimestampMillis.getCPtr(obj), obj);
+  }
+
+  public static void timestampMillisSet0(TimestampMillis obj, java.math.BigInteger value) {
+    exampleJNI.timestampMillisSet0(TimestampMillis.getCPtr(obj), obj, value);
+  }
+
+  public static Identity identityV0Ctor(IdentityV0 o_0) {
+    long cPtr = exampleJNI.identityV0Ctor__SWIG_0(IdentityV0.getCPtr(o_0), o_0);
+    return (cPtr == 0) ? null : new Identity(cPtr, false);
+  }
+
+  public static void identityDestroy(Identity ffi) {
+    exampleJNI.identityDestroy(Identity.getCPtr(ffi), ffi);
+  }
+
+  public static Identity getIdentity2(Identifier identifier) {
+    long cPtr = exampleJNI.getIdentity2(Identifier.getCPtr(identifier), identifier);
+    return (cPtr == 0) ? null : new Identity(cPtr, true);
+  }
+
+  public static KeyID keyIDCtor(long o_0) {
+    long cPtr = exampleJNI.keyIDCtor(o_0);
+    return (cPtr == 0) ? null : new KeyID(cPtr, false);
+  }
+
+  public static void keyIDDestroy(KeyID ffi) {
+    exampleJNI.keyIDDestroy(KeyID.getCPtr(ffi), ffi);
+  }
+
+  public static long keyIDGet0(KeyID obj) {
+    return exampleJNI.keyIDGet0(KeyID.getCPtr(obj), obj);
+  }
+
+  public static void keyIDSet0(KeyID obj, long value) {
+    exampleJNI.keyIDSet0(KeyID.getCPtr(obj), obj, value);
+  }
+
+  public static IdentityV0 identityV0Ctor(Identifier id, std_collections_Map_keys_crate_identity_identity_KeyID_values_crate_identity_identity_IdentityPublicKey public_keys, java.math.BigInteger balance, Revision revision) {
+    long cPtr = exampleJNI.identityV0Ctor__SWIG_1(Identifier.getCPtr(id), id, std_collections_Map_keys_crate_identity_identity_KeyID_values_crate_identity_identity_IdentityPublicKey.getCPtr(public_keys), public_keys, balance, Revision.getCPtr(revision), revision);
+    return (cPtr == 0) ? null : new IdentityV0(cPtr, false);
+  }
+
+  public static void identityV0Destroy(IdentityV0 ffi) {
+    exampleJNI.identityV0Destroy(IdentityV0.getCPtr(ffi), ffi);
+  }
+
+  public static Identifier identityV0GetId(IdentityV0 obj) {
+    long cPtr = exampleJNI.identityV0GetId(IdentityV0.getCPtr(obj), obj);
+    return (cPtr == 0) ? null : new Identifier(cPtr, false);
+  }
+
+  public static std_collections_Map_keys_crate_identity_identity_KeyID_values_crate_identity_identity_IdentityPublicKey identityV0GetPublicKeys(IdentityV0 obj) {
+    long cPtr = exampleJNI.identityV0GetPublicKeys(IdentityV0.getCPtr(obj), obj);
+    return (cPtr == 0) ? null : new std_collections_Map_keys_crate_identity_identity_KeyID_values_crate_identity_identity_IdentityPublicKey(cPtr, false);
+  }
+
+  public static java.math.BigInteger identityV0GetBalance(IdentityV0 obj) {
+    return exampleJNI.identityV0GetBalance(IdentityV0.getCPtr(obj), obj);
+  }
+
+  public static Revision identityV0GetRevision(IdentityV0 obj) {
+    long cPtr = exampleJNI.identityV0GetRevision(IdentityV0.getCPtr(obj), obj);
+    return (cPtr == 0) ? null : new Revision(cPtr, false);
+  }
+
+  public static void identityV0SetId(IdentityV0 obj, Identifier value) {
+    exampleJNI.identityV0SetId(IdentityV0.getCPtr(obj), obj, Identifier.getCPtr(value), value);
+  }
+
+  public static void identityV0SetPublicKeys(IdentityV0 obj, std_collections_Map_keys_crate_identity_identity_KeyID_values_crate_identity_identity_IdentityPublicKey value) {
+    exampleJNI.identityV0SetPublicKeys(IdentityV0.getCPtr(obj), obj, std_collections_Map_keys_crate_identity_identity_KeyID_values_crate_identity_identity_IdentityPublicKey.getCPtr(value), value);
+  }
+
+  public static void identityV0SetBalance(IdentityV0 obj, java.math.BigInteger value) {
+    exampleJNI.identityV0SetBalance(IdentityV0.getCPtr(obj), obj, value);
+  }
+
+  public static void identityV0SetRevision(IdentityV0 obj, Revision value) {
+    exampleJNI.identityV0SetRevision(IdentityV0.getCPtr(obj), obj, Revision.getCPtr(value), value);
+  }
+
+  public static void identityPublicKeyV0Destroy(IdentityPublicKeyV0 ffi) {
+    exampleJNI.identityPublicKeyV0Destroy(IdentityPublicKeyV0.getCPtr(ffi), ffi);
+  }
+
+  public static KeyID identityPublicKeyV0GetId(IdentityPublicKeyV0 obj) {
+    long cPtr = exampleJNI.identityPublicKeyV0GetId(IdentityPublicKeyV0.getCPtr(obj), obj);
+    return (cPtr == 0) ? null : new KeyID(cPtr, false);
+  }
+
+  public static SWIGTYPE_p_Purpose identityPublicKeyV0GetPurpose(IdentityPublicKeyV0 obj) {
+    long cPtr = exampleJNI.identityPublicKeyV0GetPurpose(IdentityPublicKeyV0.getCPtr(obj), obj);
+    return (cPtr == 0) ? null : new SWIGTYPE_p_Purpose(cPtr, false);
+  }
+
+  public static SWIGTYPE_p_SecurityLevel identityPublicKeyV0GetSecurityLevel(IdentityPublicKeyV0 obj) {
+    long cPtr = exampleJNI.identityPublicKeyV0GetSecurityLevel(IdentityPublicKeyV0.getCPtr(obj), obj);
+    return (cPtr == 0) ? null : new SWIGTYPE_p_SecurityLevel(cPtr, false);
+  }
+
+  public static ContractBounds identityPublicKeyV0GetContractBounds(IdentityPublicKeyV0 obj) {
+    long cPtr = exampleJNI.identityPublicKeyV0GetContractBounds(IdentityPublicKeyV0.getCPtr(obj), obj);
+    return (cPtr == 0) ? null : new ContractBounds(cPtr, false);
+  }
+
+  public static SWIGTYPE_p_KeyType identityPublicKeyV0GetKeyType(IdentityPublicKeyV0 obj) {
+    long cPtr = exampleJNI.identityPublicKeyV0GetKeyType(IdentityPublicKeyV0.getCPtr(obj), obj);
+    return (cPtr == 0) ? null : new SWIGTYPE_p_KeyType(cPtr, false);
+  }
+
+  public static boolean identityPublicKeyV0GetReadOnly(IdentityPublicKeyV0 obj) {
+    return exampleJNI.identityPublicKeyV0GetReadOnly(IdentityPublicKeyV0.getCPtr(obj), obj);
+  }
+
+  public static BinaryData identityPublicKeyV0GetData(IdentityPublicKeyV0 obj) {
+    long cPtr = exampleJNI.identityPublicKeyV0GetData(IdentityPublicKeyV0.getCPtr(obj), obj);
+    return (cPtr == 0) ? null : new BinaryData(cPtr, false);
+  }
+
+  public static TimestampMillis identityPublicKeyV0GetDisabledAt(IdentityPublicKeyV0 obj) {
+    long cPtr = exampleJNI.identityPublicKeyV0GetDisabledAt(IdentityPublicKeyV0.getCPtr(obj), obj);
+    return (cPtr == 0) ? null : new TimestampMillis(cPtr, false);
+  }
+
+  public static void identityPublicKeyV0SetId(IdentityPublicKeyV0 obj, KeyID value) {
+    exampleJNI.identityPublicKeyV0SetId(IdentityPublicKeyV0.getCPtr(obj), obj, KeyID.getCPtr(value), value);
+  }
+
+  public static void identityPublicKeyV0SetPurpose(IdentityPublicKeyV0 obj, SWIGTYPE_p_Purpose value) {
+    exampleJNI.identityPublicKeyV0SetPurpose(IdentityPublicKeyV0.getCPtr(obj), obj, SWIGTYPE_p_Purpose.getCPtr(value));
+  }
+
+  public static void identityPublicKeyV0SetSecurityLevel(IdentityPublicKeyV0 obj, SWIGTYPE_p_SecurityLevel value) {
+    exampleJNI.identityPublicKeyV0SetSecurityLevel(IdentityPublicKeyV0.getCPtr(obj), obj, SWIGTYPE_p_SecurityLevel.getCPtr(value));
+  }
+
+  public static void identityPublicKeyV0SetContractBounds(IdentityPublicKeyV0 obj, ContractBounds value) {
+    exampleJNI.identityPublicKeyV0SetContractBounds(IdentityPublicKeyV0.getCPtr(obj), obj, ContractBounds.getCPtr(value), value);
+  }
+
+  public static void identityPublicKeyV0SetKeyType(IdentityPublicKeyV0 obj, SWIGTYPE_p_KeyType value) {
+    exampleJNI.identityPublicKeyV0SetKeyType(IdentityPublicKeyV0.getCPtr(obj), obj, SWIGTYPE_p_KeyType.getCPtr(value));
+  }
+
+  public static void identityPublicKeyV0SetReadOnly(IdentityPublicKeyV0 obj, boolean value) {
+    exampleJNI.identityPublicKeyV0SetReadOnly(IdentityPublicKeyV0.getCPtr(obj), obj, value);
+  }
+
+  public static void identityPublicKeyV0SetData(IdentityPublicKeyV0 obj, BinaryData value) {
+    exampleJNI.identityPublicKeyV0SetData(IdentityPublicKeyV0.getCPtr(obj), obj, BinaryData.getCPtr(value), value);
+  }
+
+  public static void identityPublicKeyV0SetDisabledAt(IdentityPublicKeyV0 obj, TimestampMillis value) {
+    exampleJNI.identityPublicKeyV0SetDisabledAt(IdentityPublicKeyV0.getCPtr(obj), obj, TimestampMillis.getCPtr(value), value);
+  }
+
+  public static Identity getIdentityContractBounds(Identifier identifier, Identifier contract_identifier) {
+    long cPtr = exampleJNI.getIdentityContractBounds(Identifier.getCPtr(identifier), identifier, Identifier.getCPtr(contract_identifier), contract_identifier);
+    return (cPtr == 0) ? null : new Identity(cPtr, true);
+  }
+
+  public static IdentityPublicKeyV0 randomKey(KeyID id) {
+    long cPtr = exampleJNI.randomKey(KeyID.getCPtr(id), id);
+    return (cPtr == 0) ? null : new IdentityPublicKeyV0(cPtr, true);
+  }
+
+  public static IdentityPublicKeyV0 randomKeyArgs(KeyID id, Identifier contract_id, TimestampMillis timestamp_millis) {
+    long cPtr = exampleJNI.randomKeyArgs(KeyID.getCPtr(id), id, Identifier.getCPtr(contract_id), contract_id, TimestampMillis.getCPtr(timestamp_millis), timestamp_millis);
+    return (cPtr == 0) ? null : new IdentityPublicKeyV0(cPtr, true);
   }
 
   public static Result_ok_crate_identity_identity_Identity_err_crate_nested_ProtocolError resultOkCrateIdentityIdentityIdentityErrCrateNestedProtocolErrorCtor(Identity ok, ProtocolError error) {
@@ -285,13 +577,12 @@ public class example {
     exampleJNI.resultOkCrateIdentityIdentityIdentityErrCrateNestedProtocolErrorDestroy(Result_ok_crate_identity_identity_Identity_err_crate_nested_ProtocolError.getCPtr(ffi), ffi);
   }
 
-  public static std_collections_Map_keys_crate_identity_identity_KeyID_values_crate_identity_identity_IdentityPublicKey stdCollectionsMapKeysCrateIdentityIdentityKeyIDValuesCrateIdentityIdentityIdentityPublicKeyCtor(SWIGTYPE_p_p_KeyID keys, SWIGTYPE_p_p_IdentityPublicKey values, long count) {
-    long cPtr = exampleJNI.stdCollectionsMapKeysCrateIdentityIdentityKeyIDValuesCrateIdentityIdentityIdentityPublicKeyCtor(SWIGTYPE_p_p_KeyID.getCPtr(keys), SWIGTYPE_p_p_IdentityPublicKey.getCPtr(values), count);
-    return (cPtr == 0) ? null : new std_collections_Map_keys_crate_identity_identity_KeyID_values_crate_identity_identity_IdentityPublicKey(cPtr, false);
+  public static byte[] vecU8Ctor(SWIGTYPE_p_unsigned_char values, long count) {
+    return exampleJNI.vecU8Ctor(SWIGTYPE_p_unsigned_char.getCPtr(values), count);
   }
 
-  public static void stdCollectionsMapKeysCrateIdentityIdentityKeyIDValuesCrateIdentityIdentityIdentityPublicKeyDestroy(std_collections_Map_keys_crate_identity_identity_KeyID_values_crate_identity_identity_IdentityPublicKey ffi) {
-    exampleJNI.stdCollectionsMapKeysCrateIdentityIdentityKeyIDValuesCrateIdentityIdentityIdentityPublicKeyDestroy(std_collections_Map_keys_crate_identity_identity_KeyID_values_crate_identity_identity_IdentityPublicKey.getCPtr(ffi), ffi);
+  public static void vecU8Destroy(byte[] ffi) {
+    exampleJNI.vecU8Destroy(ffi);
   }
 
   public static SWIGTYPE_p_Vec_crate_nested_FeatureVersion vecCrateNestedFeatureVersionCtor(SWIGTYPE_p_p_FeatureVersion values, long count) {
@@ -301,6 +592,15 @@ public class example {
 
   public static void vecCrateNestedFeatureVersionDestroy(SWIGTYPE_p_Vec_crate_nested_FeatureVersion ffi) {
     exampleJNI.vecCrateNestedFeatureVersionDestroy(SWIGTYPE_p_Vec_crate_nested_FeatureVersion.getCPtr(ffi));
+  }
+
+  public static std_collections_Map_keys_crate_identity_identity_KeyID_values_crate_identity_identity_IdentityPublicKey stdCollectionsMapKeysCrateIdentityIdentityKeyIDValuesCrateIdentityIdentityIdentityPublicKeyCtor(SWIGTYPE_p_p_KeyID keys, SWIGTYPE_p_p_IdentityPublicKey values, long count) {
+    long cPtr = exampleJNI.stdCollectionsMapKeysCrateIdentityIdentityKeyIDValuesCrateIdentityIdentityIdentityPublicKeyCtor(SWIGTYPE_p_p_KeyID.getCPtr(keys), SWIGTYPE_p_p_IdentityPublicKey.getCPtr(values), count);
+    return (cPtr == 0) ? null : new std_collections_Map_keys_crate_identity_identity_KeyID_values_crate_identity_identity_IdentityPublicKey(cPtr, false);
+  }
+
+  public static void stdCollectionsMapKeysCrateIdentityIdentityKeyIDValuesCrateIdentityIdentityIdentityPublicKeyDestroy(std_collections_Map_keys_crate_identity_identity_KeyID_values_crate_identity_identity_IdentityPublicKey ffi) {
+    exampleJNI.stdCollectionsMapKeysCrateIdentityIdentityKeyIDValuesCrateIdentityIdentityIdentityPublicKeyDestroy(std_collections_Map_keys_crate_identity_identity_KeyID_values_crate_identity_identity_IdentityPublicKey.getCPtr(ffi), ffi);
   }
 
   public static void setMemoryFactory(MemoryFactory value) {

@@ -42,17 +42,9 @@
     ~IdentityPublicKeyV0() {
 //         printf("~IdentityPublicKeyV0(%lx)\n", (unsigned long)$self);
 //         printf("  ->purpose(%lx)\n", (uint64_t)$self->purpose);
-//         //Purpose_destroy($self->purpose);
-//         //SecurityLevel_destroy($self->security_level);
-//         //KeyType_destroy($self->key_type);
-//         //KeyID_destroy($self->id);
 //         printf("  ->data->_0(%lx)\n", (uint64_t)$self->data->_0);
 //         printf("  ->data->_0->values(%lx)\n", (uint64_t)$self->data->_0->values);
-//         //memoryFactory.destroyItem($self->data->_0->values);
-//         // Vec_u8_destroy($self->data->_0); // crash
 //         printf("  ->data(%lx)\n", (uint64_t)$self->data);
-//         // BinaryData_destroy($self->data); // crash
-//         //TimestampMillis_destroy($self->disabled_at);
         IdentityPublicKeyV0_destroy($self); //crash
     }
     enum KeyType getKeyType() {
