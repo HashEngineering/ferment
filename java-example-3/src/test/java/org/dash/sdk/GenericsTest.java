@@ -42,9 +42,9 @@ public class GenericsTest extends BaseTest {
 
     @Test
     public void createVecU8InRustAndDestroy() {
-        VecU8Holder holder = example.vecU8HolderCtor(identifier);
+        VecU8Holder holder = example.crateExampleMineVecU8HolderCtor(identifier);
         assertArrayEquals(identifier, holder.getFirst());
-        example.vecU8HolderDestroy(holder);
+        example.crateExampleMineVecU8HolderDestroy(holder);
         // does this leak Vec_u8
     }
 

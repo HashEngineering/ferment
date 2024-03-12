@@ -9,8 +9,8 @@
 package org.dash.sdk;
 
 public final class ContractBounds_Tag {
-  public final static ContractBounds_Tag ContractBounds_SingleContract = new ContractBounds_Tag("ContractBounds_SingleContract");
-  public final static ContractBounds_Tag ContractBounds_SingleContractDocumentType = new ContractBounds_Tag("ContractBounds_SingleContractDocumentType");
+  public final static ContractBounds_Tag SingleContract = new ContractBounds_Tag("SingleContract");
+  public final static ContractBounds_Tag SingleContractDocumentType = new ContractBounds_Tag("SingleContractDocumentType");
 
   public final int swigValue() {
     return swigValue;
@@ -46,7 +46,7 @@ public final class ContractBounds_Tag {
     swigNext = this.swigValue+1;
   }
 
-  private static ContractBounds_Tag[] swigValues = { ContractBounds_SingleContract, ContractBounds_SingleContractDocumentType };
+  private static ContractBounds_Tag[] swigValues = { SingleContract, SingleContractDocumentType };
   private static int swigNext = 0;
   private final int swigValue;
   private final String swigName;

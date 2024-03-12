@@ -9,10 +9,10 @@
 package org.dash.sdk;
 
 public final class SecurityLevel {
-  public final static SecurityLevel SecurityLevel_MASTER = new SecurityLevel("SecurityLevel_MASTER", exampleJNI.SecurityLevel_MASTER_get());
-  public final static SecurityLevel SecurityLevel_CRITICAL = new SecurityLevel("SecurityLevel_CRITICAL", exampleJNI.SecurityLevel_CRITICAL_get());
-  public final static SecurityLevel SecurityLevel_HIGH = new SecurityLevel("SecurityLevel_HIGH", exampleJNI.SecurityLevel_HIGH_get());
-  public final static SecurityLevel SecurityLevel_MEDIUM = new SecurityLevel("SecurityLevel_MEDIUM", exampleJNI.SecurityLevel_MEDIUM_get());
+  public final static SecurityLevel MASTER = new SecurityLevel("MASTER", exampleJNI.MASTER_get());
+  public final static SecurityLevel CRITICAL = new SecurityLevel("CRITICAL", exampleJNI.CRITICAL_get());
+  public final static SecurityLevel HIGH = new SecurityLevel("HIGH", exampleJNI.HIGH_get());
+  public final static SecurityLevel MEDIUM = new SecurityLevel("MEDIUM", exampleJNI.MEDIUM_get());
 
   public final int swigValue() {
     return swigValue;
@@ -48,7 +48,7 @@ public final class SecurityLevel {
     swigNext = this.swigValue+1;
   }
 
-  private static SecurityLevel[] swigValues = { SecurityLevel_MASTER, SecurityLevel_CRITICAL, SecurityLevel_HIGH, SecurityLevel_MEDIUM };
+  private static SecurityLevel[] swigValues = { MASTER, CRITICAL, HIGH, MEDIUM };
   private static int swigNext = 0;
   private final int swigValue;
   private final String swigName;

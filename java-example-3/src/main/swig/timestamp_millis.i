@@ -1,4 +1,5 @@
-%ignore TimestampMillis::_0;
+%ignore crate_identity_identity_TimestampMillis::_0;
+%rename(TimestampMillis) crate_identity_identity_TimestampMillis;
 // TODO: apply this to all types or specific types
 // %typemap(javacode) SWIGTYPE %{
 //   public boolean equals(Object obj) {
@@ -13,15 +14,15 @@
 //   }
 // %}
 
-%extend TimestampMillis {
-    TimestampMillis() {
-        return TimestampMillis_ctor(time(NULL) * 1000);
+%extend crate_identity_identity_TimestampMillis {
+    crate_identity_identity_TimestampMillis() {
+        return crate_identity_identity_TimestampMillis_ctor(time(NULL) * 1000);
     }
-    TimestampMillis(long long timestamp) {
-        return TimestampMillis_ctor(timestamp);
+    crate_identity_identity_TimestampMillis(long long timestamp) {
+        return crate_identity_identity_TimestampMillis_ctor(timestamp);
     }
-    ~TimestampMillis() {
-        TimestampMillis_destroy($self);
+    ~crate_identity_identity_TimestampMillis() {
+        crate_identity_identity_TimestampMillis_destroy($self);
     }
 
     long long toLong() {
@@ -32,7 +33,7 @@
 //         return (uint64_t)$self < 10;
 //     }
 
-    bool objectEquals(TimestampMillis* other) {
+    bool objectEquals(crate_identity_identity_TimestampMillis* other) {
         if ($self == other) return true;
         if ($self == nullptr || other == nullptr) return false;
         return $self->_0 == other->_0;

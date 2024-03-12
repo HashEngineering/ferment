@@ -50,22 +50,22 @@ public class std_collections_Map_keys_crate_identity_identity_KeyID_values_crate
     return exampleJNI.std_collections_Map_keys_crate_identity_identity_KeyID_values_crate_identity_identity_IdentityPublicKey_count_get(swigCPtr, this);
   }
 
-  public void setKeys(SWIGTYPE_p_p_KeyID value) {
-    exampleJNI.std_collections_Map_keys_crate_identity_identity_KeyID_values_crate_identity_identity_IdentityPublicKey_keys_set(swigCPtr, this, SWIGTYPE_p_p_KeyID.getCPtr(value));
+  public void setKeys(SWIGTYPE_p_p_crate_identity_identity_KeyID value) {
+    exampleJNI.std_collections_Map_keys_crate_identity_identity_KeyID_values_crate_identity_identity_IdentityPublicKey_keys_set(swigCPtr, this, SWIGTYPE_p_p_crate_identity_identity_KeyID.getCPtr(value));
   }
 
-  public SWIGTYPE_p_p_KeyID getKeys() {
+  public SWIGTYPE_p_p_crate_identity_identity_KeyID getKeys() {
     long cPtr = exampleJNI.std_collections_Map_keys_crate_identity_identity_KeyID_values_crate_identity_identity_IdentityPublicKey_keys_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new SWIGTYPE_p_p_KeyID(cPtr, false);
+    return (cPtr == 0) ? null : new SWIGTYPE_p_p_crate_identity_identity_KeyID(cPtr, false);
   }
 
-  public void setValues(SWIGTYPE_p_p_IdentityPublicKey value) {
-    exampleJNI.std_collections_Map_keys_crate_identity_identity_KeyID_values_crate_identity_identity_IdentityPublicKey_values_set(swigCPtr, this, SWIGTYPE_p_p_IdentityPublicKey.getCPtr(value));
+  public void setValues(SWIGTYPE_p_p_crate_identity_identity_IdentityPublicKey value) {
+    exampleJNI.std_collections_Map_keys_crate_identity_identity_KeyID_values_crate_identity_identity_IdentityPublicKey_values_set(swigCPtr, this, SWIGTYPE_p_p_crate_identity_identity_IdentityPublicKey.getCPtr(value));
   }
 
-  public SWIGTYPE_p_p_IdentityPublicKey getValues() {
+  public SWIGTYPE_p_p_crate_identity_identity_IdentityPublicKey getValues() {
     long cPtr = exampleJNI.std_collections_Map_keys_crate_identity_identity_KeyID_values_crate_identity_identity_IdentityPublicKey_values_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new SWIGTYPE_p_p_IdentityPublicKey(cPtr, false);
+    return (cPtr == 0) ? null : new SWIGTYPE_p_p_crate_identity_identity_IdentityPublicKey(cPtr, false);
   }
 
 }

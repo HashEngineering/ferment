@@ -17,8 +17,8 @@ MemoryFactory & memoryFactory = *MemoryFactory::getInstance();
 //%rename(renameCamelCase) "";
 //%rename("renameCamelCase") "^(ffi_)?(.+)$";
 //%rename("%(camelcase)s",%$isfunction) "";
-%ignore IdentityFactory_TraitObject::object;
-%ignore IdentityFactory_TraitObject::vtable;
+%ignore crate_identity_identity_IdentityFactory_TraitObject::object;
+%ignore crate_identity_identity_IdentityFactory_TraitObject::vtable;
 %ignore IdentityFactory_VTable;
 %ignore IHaveChainSettings_TraitObject::object;
 %ignore IHaveChainSettings_TraitObject::vtable;
@@ -54,7 +54,7 @@ MemoryFactory & memoryFactory = *MemoryFactory::getInstance();
 
 %ignore Vec_u8;
 
-//%ignore IdentifierBytes32;
+//%ignore crate_nested_IdentifierBytes32;
 //%rename("%(lowercamelcase)s") "";
 %include "stdint.i"
 // %include "arrays_java.i"
@@ -105,32 +105,32 @@ MemoryFactory & memoryFactory = *MemoryFactory::getInstance();
 //         HashID_destroy($self);
 //     }
 // }
-
-%extend VecU8Holder {
-    VecU8Holder(Vec_u8 * vec_u8) {
-        return VecU8Holder_ctor(vec_u8);
+%rename (VecU8Holder) crate_example_mine_VecU8Holder;
+%extend crate_example_mine_VecU8Holder {
+    crate_example_mine_VecU8Holder(Vec_u8 * vec_u8) {
+        return crate_example_mine_VecU8Holder_ctor(vec_u8);
     }
 
-    ~VecU8Holder() {
+    ~crate_example_mine_VecU8Holder() {
         //memoryFactory.destroyItem($self->first->values); //above
-        VecU8Holder_destroy($self); // causes crash with above, no crash if this is the only line, order doesn't matter
+        crate_example_mine_VecU8Holder_destroy($self); // causes crash with above, no crash if this is the only line, order doesn't matter
         //memoryFactory.destroyItem($self->first->values); //above
     }
 }
-
-%extend InnerStruct {
-    InnerStruct(long a, long b) {
-        return InnerStruct_ctor(a, b);
+%rename (InnerStruct) crate_example_mine_InnerStruct;
+%extend crate_example_mine_InnerStruct {
+    crate_example_mine_InnerStruct(long a, long b) {
+        return crate_example_mine_InnerStruct_ctor(a, b);
     }
 
-    ~InnerStruct() {
-        InnerStruct_destroy($self);
+    ~crate_example_mine_InnerStruct() {
+        crate_example_mine_InnerStruct_destroy($self);
     }
 }
-
-%extend OuterStruct {
-    OuterStruct(InnerStruct * is1, InnerStruct * is2) {
-        OuterStruct * os = create_outer(is1, is2);
+%rename (OuterStruct) crate_example_mine_OuterStruct;
+%extend crate_example_mine_OuterStruct {
+    crate_example_mine_OuterStruct(crate_example_mine_InnerStruct * is1, crate_example_mine_InnerStruct * is2) {
+        crate_example_mine_OuterStruct * os = create_outer(is1, is2);
         printf("is1 (%lx)\n", (uint64_t)is1);
         printf("is2 (%lx)\n", (uint64_t)is2);
         printf("os  (%lx)\n", (uint64_t)os);
@@ -138,10 +138,10 @@ MemoryFactory & memoryFactory = *MemoryFactory::getInstance();
         printf("os->is2 (%lx)\n", (uint64_t)os->second);
         return os;
     }
-    OuterStruct(long a, long b, long c, long d) {
-        InnerStruct * is1 = InnerStruct_ctor(a, b);
-        InnerStruct * is2 = InnerStruct_ctor(c, d);
-        OuterStruct * os = OuterStruct_ctor(is1, is2);
+    crate_example_mine_OuterStruct(long a, long b, long c, long d) {
+        crate_example_mine_InnerStruct * is1 = crate_example_mine_InnerStruct_ctor(a, b);
+        crate_example_mine_InnerStruct * is2 = crate_example_mine_InnerStruct_ctor(c, d);
+        crate_example_mine_OuterStruct * os = crate_example_mine_OuterStruct_ctor(is1, is2);
         printf("is1 (%lx)\n", (uint64_t)is1);
         printf("is2 (%lx)\n", (uint64_t)is2);
         printf("os  (%lx)\n", (uint64_t)os);
@@ -149,9 +149,9 @@ MemoryFactory & memoryFactory = *MemoryFactory::getInstance();
         printf("os->is2 (%lx)\n", (uint64_t)os->second);
         return os;
     }
-    ~OuterStruct() {
+    ~crate_example_mine_OuterStruct() {
         //InnerStruct * first = $self->first;
-        OuterStruct_destroy($self);
+        crate_example_mine_OuterStruct_destroy($self);
         //InnerStruct_destroy(first);
     }
 }

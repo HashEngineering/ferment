@@ -10,16 +10,16 @@ package org.dash.sdk;
 
 import org.dash.sdk.base.BaseObject;
 
-public class ProtocolError_MaxEncodedBytesReachedError_Body extends BaseObject {
+public class crate_nested_FeatureVersion extends BaseObject {
   private transient long swigCPtr;
   protected transient boolean swigCMemOwn;
 
-  protected ProtocolError_MaxEncodedBytesReachedError_Body(long cPtr, boolean cMemoryOwn) {
+  protected crate_nested_FeatureVersion(long cPtr, boolean cMemoryOwn) {
     swigCMemOwn = cMemoryOwn;
     swigCPtr = cPtr;
   }
 
-  protected static long getCPtr(ProtocolError_MaxEncodedBytesReachedError_Body obj) {
+  protected static long getCPtr(crate_nested_FeatureVersion obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 
@@ -32,7 +32,7 @@ public class ProtocolError_MaxEncodedBytesReachedError_Body extends BaseObject {
     if (swigCPtr != 0) {
       if (swigCMemOwn) {
         swigCMemOwn = false;
-        exampleJNI.delete_ProtocolError_MaxEncodedBytesReachedError_Body(swigCPtr);
+        exampleJNI.delete_crate_nested_FeatureVersion(swigCPtr);
       }
       swigCPtr = 0;
     }
@@ -42,20 +42,12 @@ public class ProtocolError_MaxEncodedBytesReachedError_Body extends BaseObject {
     return swigCPtr;
   }
 
-  public void setMax_size_kbytes(long value) {
-    exampleJNI.ProtocolError_MaxEncodedBytesReachedError_Body_max_size_kbytes_set(swigCPtr, this, value);
+  public void set_0(int value) {
+    exampleJNI.crate_nested_FeatureVersion__0_set(swigCPtr, this, value);
   }
 
-  public long getMax_size_kbytes() {
-    return exampleJNI.ProtocolError_MaxEncodedBytesReachedError_Body_max_size_kbytes_get(swigCPtr, this);
-  }
-
-  public void setSize_hit(long value) {
-    exampleJNI.ProtocolError_MaxEncodedBytesReachedError_Body_size_hit_set(swigCPtr, this, value);
-  }
-
-  public long getSize_hit() {
-    return exampleJNI.ProtocolError_MaxEncodedBytesReachedError_Body_size_hit_get(swigCPtr, this);
+  public int get_0() {
+    return exampleJNI.crate_nested_FeatureVersion__0_get(swigCPtr, this);
   }
 
 }

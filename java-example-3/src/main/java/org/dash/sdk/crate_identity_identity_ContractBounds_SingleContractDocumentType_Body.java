@@ -10,16 +10,16 @@ package org.dash.sdk;
 
 import org.dash.sdk.base.BaseObject;
 
-public class ContractBounds_SingleContractDocumentType_Body extends BaseObject {
+public class crate_identity_identity_ContractBounds_SingleContractDocumentType_Body extends BaseObject {
   private transient long swigCPtr;
   protected transient boolean swigCMemOwn;
 
-  protected ContractBounds_SingleContractDocumentType_Body(long cPtr, boolean cMemoryOwn) {
+  protected crate_identity_identity_ContractBounds_SingleContractDocumentType_Body(long cPtr, boolean cMemoryOwn) {
     swigCMemOwn = cMemoryOwn;
     swigCPtr = cPtr;
   }
 
-  protected static long getCPtr(ContractBounds_SingleContractDocumentType_Body obj) {
+  protected static long getCPtr(crate_identity_identity_ContractBounds_SingleContractDocumentType_Body obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 
@@ -32,7 +32,7 @@ public class ContractBounds_SingleContractDocumentType_Body extends BaseObject {
     if (swigCPtr != 0) {
       if (swigCMemOwn) {
         swigCMemOwn = false;
-        exampleJNI.delete_ContractBounds_SingleContractDocumentType_Body(swigCPtr);
+        exampleJNI.delete_crate_identity_identity_ContractBounds_SingleContractDocumentType_Body(swigCPtr);
       }
       swigCPtr = 0;
     }
@@ -43,20 +43,20 @@ public class ContractBounds_SingleContractDocumentType_Body extends BaseObject {
   }
 
   public void setId(Identifier value) {
-    exampleJNI.ContractBounds_SingleContractDocumentType_Body_id_set(swigCPtr, this, Identifier.getCPtr(value), value);
+    exampleJNI.crate_identity_identity_ContractBounds_SingleContractDocumentType_Body_id_set(swigCPtr, this, Identifier.getCPtr(value), value);
   }
 
   public Identifier getId() {
-    long cPtr = exampleJNI.ContractBounds_SingleContractDocumentType_Body_id_get(swigCPtr, this);
+    long cPtr = exampleJNI.crate_identity_identity_ContractBounds_SingleContractDocumentType_Body_id_get(swigCPtr, this);
     return (cPtr == 0) ? null : new Identifier(cPtr, false);
   }
 
   public void setDocument_type_name(String value) {
-    exampleJNI.ContractBounds_SingleContractDocumentType_Body_document_type_name_set(swigCPtr, this, value);
+    exampleJNI.crate_identity_identity_ContractBounds_SingleContractDocumentType_Body_document_type_name_set(swigCPtr, this, value);
   }
 
   public String getDocument_type_name() {
-    return exampleJNI.ContractBounds_SingleContractDocumentType_Body_document_type_name_get(swigCPtr, this);
+    return exampleJNI.crate_identity_identity_ContractBounds_SingleContractDocumentType_Body_document_type_name_get(swigCPtr, this);
   }
 
 }

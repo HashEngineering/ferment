@@ -54,4 +54,8 @@ public class Revision extends BaseObject {
     return exampleJNI.Revision_toLong(swigCPtr, this);
   }
 
+  public boolean objectEquals(Revision other) {
+    return exampleJNI.Revision_objectEquals(swigCPtr, this, Revision.getCPtr(other), other);
+  }
+
 }

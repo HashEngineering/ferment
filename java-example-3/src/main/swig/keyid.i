@@ -1,15 +1,16 @@
 %ignore KeyID::_0;
-%extend KeyID {
-    KeyID(int id) {
-        return KeyID_ctor(id);
+%rename(KeyID) crate_identity_identity_KeyID;
+%extend crate_identity_identity_KeyID {
+    crate_identity_identity_KeyID(int id) {
+        return crate_identity_identity_KeyID_ctor(id);
     }
-    ~KeyID() {
-        KeyID_destroy($self);
+    ~crate_identity_identity_KeyID() {
+        crate_identity_identity_KeyID_destroy($self);
     }
     int toInt() {
         return $self->_0;
     }
-    bool objectEquals(KeyID* other) {
+    bool objectEquals(crate_identity_identity_KeyID* other) {
         if ($self == other) return true;
         if ($self == nullptr || other == nullptr) return false;
         return $self->_0 == other->_0;

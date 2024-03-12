@@ -245,10 +245,53 @@ MemoryFactory & memoryFactory = *MemoryFactory::getInstance();
 
 #include <stdint.h>		// Use the C99 official header
 
-SWIGINTERN BinaryData *new_BinaryData(Vec_u8 *o_0){
-        return BinaryData_ctor(o_0);
+SWIGINTERN crate_nested_IdentifierBytes32 *new_crate_nested_IdentifierBytes32(uint8_t (*identifierBytes)[32]){
+        return crate_nested_IdentifierBytes32_ctor(identifierBytes);
     }
-SWIGINTERN void delete_BinaryData(BinaryData *self){
+SWIGINTERN void delete_crate_nested_IdentifierBytes32(crate_nested_IdentifierBytes32 *self){
+        printf("~IdentityBytes32(%lx)\n", (uint64_t)self);
+        // memoryFactory.destroyItem(self->_0); // crash
+        crate_nested_IdentifierBytes32_destroy(self);
+    }
+SWIGINTERN crate_nested_Identifier *new_crate_nested_Identifier(uint8_t (*byteArray)[32]){
+        crate_nested_IdentifierBytes32 * identifierBytes32 = crate_nested_IdentifierBytes32_ctor(byteArray);
+        return crate_nested_Identifier_ctor(identifierBytes32);
+    }
+SWIGINTERN void delete_crate_nested_Identifier(crate_nested_Identifier *self){
+        printf("~Identifier(%lx)\n", self);
+        //memoryFactory.destroyItem(self->_0->_0); //crash
+        crate_nested_Identifier_destroy(self);
+    }
+SWIGINTERN crate_identity_identity_KeyID *new_crate_identity_identity_KeyID(int id){
+        return crate_identity_identity_KeyID_ctor(id);
+    }
+SWIGINTERN void delete_crate_identity_identity_KeyID(crate_identity_identity_KeyID *self){
+        crate_identity_identity_KeyID_destroy(self);
+    }
+SWIGINTERN int crate_identity_identity_KeyID_toInt(crate_identity_identity_KeyID *self){
+        return self->_0;
+    }
+SWIGINTERN bool crate_identity_identity_KeyID_objectEquals(crate_identity_identity_KeyID *self,crate_identity_identity_KeyID *other){
+        if (self == other) return true;
+        if (self == nullptr || other == nullptr) return false;
+        return self->_0 == other->_0;
+    }
+SWIGINTERN crate_identity_identity_ContractBounds *new_crate_identity_identity_ContractBounds__SWIG_0(crate_nested_Identifier *id){
+        crate_identity_identity_ContractBounds * cb = crate_identity_identity_ContractBounds_SingleContract_ctor(Identifier_clone(id));
+        printf("ContractBounds: %lx->%lx\n", (unsigned long)cb, cb->single_contract.id);
+        return cb;
+    }
+SWIGINTERN crate_identity_identity_ContractBounds *new_crate_identity_identity_ContractBounds__SWIG_1(crate_nested_Identifier *id,char *document_type){
+        return crate_identity_identity_ContractBounds_SingleContractDocumentType_ctor(Identifier_clone(id), memoryFactory.clone(document_type));
+    }
+SWIGINTERN void delete_crate_identity_identity_ContractBounds(crate_identity_identity_ContractBounds *self){
+        printf("~ContractBounds: %lx->%lx\n", (unsigned long)self, self->single_contract.id);
+        crate_identity_identity_ContractBounds_destroy(self);
+    }
+SWIGINTERN crate_nested_BinaryData *new_crate_nested_BinaryData(Vec_u8 *o_0){
+        return crate_nested_BinaryData_ctor(o_0);
+    }
+SWIGINTERN void delete_crate_nested_BinaryData(crate_nested_BinaryData *self){
         printf("~BinaryData(%lx)\n", (uint64_t)self);
         printf("~BinaryData->_0(%lx)\n", (uint64_t)self->_0);
 
@@ -258,405 +301,359 @@ SWIGINTERN void delete_BinaryData(BinaryData *self){
 
         // Vec_u8_destroy(self->_0); // crash
         printf("~BinaryData->_0(%lx)\n", (uint64_t)self->_0);
-        BinaryData_destroy(self);
+        crate_nested_BinaryData_destroy(self);
         //printf("~BinaryData complete(%lx)\n", (uint64_t)self);
         //printf("~BinaryData->_0->values[0] = %d\n", (int)ptr[0]);
 
         //memoryFactory.destroyItem(ptr);
     }
-SWIGINTERN IdentifierBytes32 *new_IdentifierBytes32(uint8_t (*identifierBytes)[32]){
-        return IdentifierBytes32_ctor(identifierBytes);
+SWIGINTERN crate_identity_identity_TimestampMillis *new_crate_identity_identity_TimestampMillis__SWIG_0(){
+        return crate_identity_identity_TimestampMillis_ctor(time(NULL) * 1000);
     }
-SWIGINTERN void delete_IdentifierBytes32(IdentifierBytes32 *self){
-        printf("~IdentityBytes32(%lx)\n", (uint64_t)self);
-        // memoryFactory.destroyItem(self->_0); // crash
-        IdentifierBytes32_destroy(self);
+SWIGINTERN crate_identity_identity_TimestampMillis *new_crate_identity_identity_TimestampMillis__SWIG_1(long long timestamp){
+        return crate_identity_identity_TimestampMillis_ctor(timestamp);
     }
-SWIGINTERN Identifier *new_Identifier(uint8_t (*byteArray)[32]){
-        IdentifierBytes32 * identifierBytes32 = IdentifierBytes32_ctor(byteArray);
-        return Identifier_ctor(identifierBytes32);
+SWIGINTERN void delete_crate_identity_identity_TimestampMillis(crate_identity_identity_TimestampMillis *self){
+        crate_identity_identity_TimestampMillis_destroy(self);
     }
-SWIGINTERN void delete_Identifier(Identifier *self){
-        printf("~Identifier(%lx)\n", self);
-        //memoryFactory.destroyItem(self->_0->_0); //crash
-        Identifier_destroy(self);
-    }
-SWIGINTERN InnerStruct *new_InnerStruct(long a,long b){
-        return InnerStruct_ctor(a, b);
-    }
-SWIGINTERN void delete_InnerStruct(InnerStruct *self){
-        InnerStruct_destroy(self);
-    }
-SWIGINTERN OuterStruct *new_OuterStruct__SWIG_0(InnerStruct *is1,InnerStruct *is2){
-        OuterStruct * os = create_outer(is1, is2);
-        printf("is1 (%lx)\n", (uint64_t)is1);
-        printf("is2 (%lx)\n", (uint64_t)is2);
-        printf("os  (%lx)\n", (uint64_t)os);
-        printf("os->is1 (%lx)\n", (uint64_t)os->first);
-        printf("os->is2 (%lx)\n", (uint64_t)os->second);
-        return os;
-    }
-SWIGINTERN OuterStruct *new_OuterStruct__SWIG_1(long a,long b,long c,long d){
-        InnerStruct * is1 = InnerStruct_ctor(a, b);
-        InnerStruct * is2 = InnerStruct_ctor(c, d);
-        OuterStruct * os = OuterStruct_ctor(is1, is2);
-        printf("is1 (%lx)\n", (uint64_t)is1);
-        printf("is2 (%lx)\n", (uint64_t)is2);
-        printf("os  (%lx)\n", (uint64_t)os);
-        printf("os->is1 (%lx)\n", (uint64_t)os->first);
-        printf("os->is2 (%lx)\n", (uint64_t)os->second);
-        return os;
-    }
-SWIGINTERN void delete_OuterStruct(OuterStruct *self){
-        //InnerStruct * first = self->first;
-        OuterStruct_destroy(self);
-        //InnerStruct_destroy(first);
-    }
-SWIGINTERN VecU8Holder *new_VecU8Holder(Vec_u8 *vec_u8){
-        return VecU8Holder_ctor(vec_u8);
-    }
-SWIGINTERN void delete_VecU8Holder(VecU8Holder *self){
-        //memoryFactory.destroyItem(self->first->values); //above
-        VecU8Holder_destroy(self); // causes crash with above, no crash if this is the only line, order doesn't matter
-        //memoryFactory.destroyItem(self->first->values); //above
-    }
-SWIGINTERN KeyID *new_KeyID(int id){
-        return KeyID_ctor(id);
-    }
-SWIGINTERN void delete_KeyID(KeyID *self){
-        KeyID_destroy(self);
-    }
-SWIGINTERN int KeyID_toInt(KeyID *self){
-        return self->_0;
-    }
-SWIGINTERN bool KeyID_objectEquals(KeyID *self,KeyID *other){
-        if (self == other) return true;
-        if (self == nullptr || other == nullptr) return false;
-        return self->_0 == other->_0;
-    }
-SWIGINTERN ContractBounds *new_ContractBounds__SWIG_0(Identifier *id){
-        ContractBounds * cb = ContractBounds_SingleContract_ctor(Identifier_clone(id));
-        printf("ContractBounds: %lx->%lx\n", (unsigned long)cb, cb->single_contract.id);
-        return cb;
-    }
-SWIGINTERN ContractBounds *new_ContractBounds__SWIG_1(Identifier *id,char *document_type){
-        return ContractBounds_SingleContractDocumentType_ctor(Identifier_clone(id), memoryFactory.clone(document_type));
-    }
-SWIGINTERN void delete_ContractBounds(ContractBounds *self){
-        printf("~ContractBounds: %lx->%lx\n", (unsigned long)self, self->single_contract.id);
-        ContractBounds_destroy(self);
-    }
-SWIGINTERN TimestampMillis *new_TimestampMillis__SWIG_0(){
-        return TimestampMillis_ctor(time(NULL) * 1000);
-    }
-SWIGINTERN TimestampMillis *new_TimestampMillis__SWIG_1(long long timestamp){
-        return TimestampMillis_ctor(timestamp);
-    }
-SWIGINTERN void delete_TimestampMillis(TimestampMillis *self){
-        TimestampMillis_destroy(self);
-    }
-SWIGINTERN long long TimestampMillis_toLong(TimestampMillis *self){
+SWIGINTERN long long crate_identity_identity_TimestampMillis_toLong(crate_identity_identity_TimestampMillis *self){
         return self ? self->_0 : -1;
     }
-SWIGINTERN bool TimestampMillis_objectEquals(TimestampMillis *self,TimestampMillis *other){
+SWIGINTERN bool crate_identity_identity_TimestampMillis_objectEquals(crate_identity_identity_TimestampMillis *self,crate_identity_identity_TimestampMillis *other){
         if (self == other) return true;
         if (self == nullptr || other == nullptr) return false;
         return self->_0 == other->_0;
     }
-SWIGINTERN IdentityPublicKeyV0 *new_IdentityPublicKeyV0(KeyID *keyId,Purpose purpose,SecurityLevel securityLevel,ContractBounds *contract_bounds,KeyType key_type,bool read_only,BinaryData *data,TimestampMillis *disabled_at){
+SWIGINTERN crate_identity_identity_IdentityPublicKeyV0 *new_crate_identity_identity_IdentityPublicKeyV0(crate_identity_identity_KeyID *keyId,crate_identity_identity_Purpose purpose,crate_identity_identity_SecurityLevel securityLevel,crate_identity_identity_ContractBounds *contract_bounds,crate_identity_identity_KeyType key_type,bool read_only,crate_nested_BinaryData *data,crate_identity_identity_TimestampMillis *disabled_at){
 
         // enums
-        Purpose * purposeObject = intToPurpose(purpose);
-        KeyType * keyTypeObject = intToKeyType(key_type);
-        SecurityLevel * securityLevelObject = intToSecurityLevel(securityLevel);
+        crate_identity_identity_Purpose * purposeObject = intToPurpose(purpose);
+        crate_identity_identity_KeyType * keyTypeObject = intToKeyType(key_type);
+        crate_identity_identity_SecurityLevel * securityLevelObject = intToSecurityLevel(securityLevel);
 
         uint8_t * byteArray = (uint8_t*)memoryFactory.alloc(data->_0->count);
         memcpy(byteArray, data->_0->values, data->_0->count);
         Vec_u8 * vec_u8 = Vec_u8_ctor(byteArray, data->_0->count);
-        BinaryData * binaryData = BinaryData_ctor(vec_u8);
+        crate_nested_BinaryData * binaryData = crate_nested_BinaryData_ctor(vec_u8);
         printf("  ->data(%lx)\n", (uint64_t)binaryData);
         printf("  ->data->_0(%lx)\n", (uint64_t)binaryData->_0);
         printf("  ->data->_0->values(%lx)\n", (uint64_t)binaryData->_0->values);
-        ContractBounds * contract_bounds_copy = nullptr;
+        crate_identity_identity_ContractBounds * contract_bounds_copy = nullptr;
         if (contract_bounds != nullptr) {
-            if (contract_bounds->tag == ContractBounds_SingleContract) {
-                contract_bounds_copy = ContractBounds_SingleContract_ctor(Identifier_clone(contract_bounds->single_contract.id));
-            } else if (contract_bounds->tag == ContractBounds_SingleContractDocumentType) {
+            if (contract_bounds->tag == crate_identity_identity_ContractBounds_SingleContract) {
+                contract_bounds_copy = crate_identity_identity_ContractBounds_SingleContract_ctor(Identifier_clone(contract_bounds->single_contract.id));
+            } else if (contract_bounds->tag == crate_identity_identity_ContractBounds_SingleContractDocumentType) {
                 char * typeCopy = memoryFactory.clone(contract_bounds->single_contract_document_type.document_type_name);
-                contract_bounds_copy = ContractBounds_SingleContractDocumentType_ctor(Identifier_clone(contract_bounds->single_contract_document_type.id), typeCopy);
+                contract_bounds_copy = crate_identity_identity_ContractBounds_SingleContractDocumentType_ctor(Identifier_clone(contract_bounds->single_contract_document_type.id), typeCopy);
             }
         }
         printf("  ->contract_bounds(%lx): %d\n", (uint64_t)contract_bounds, contract_bounds != nullptr ? contract_bounds->tag : -1);
         printf("  ->contract_bounds_copy(%lx)\n", (uint64_t)contract_bounds_copy);
-        KeyID * keyIdObject = KeyID_ctor(keyId->_0);
-        TimestampMillis * disabled_at_copy = disabled_at != nullptr ? TimestampMillis_ctor(disabled_at->_0) : nullptr;
-        IdentityPublicKeyV0 * ipkv0 = IdentityPublicKeyV0_ctor(keyIdObject, purposeObject, securityLevelObject,
+        crate_identity_identity_KeyID * keyIdObject = crate_identity_identity_KeyID_ctor(keyId->_0);
+        crate_identity_identity_TimestampMillis * disabled_at_copy = disabled_at != nullptr ? crate_identity_identity_TimestampMillis_ctor(disabled_at->_0) : nullptr;
+        crate_identity_identity_IdentityPublicKeyV0 * ipkv0 = crate_identity_identity_IdentityPublicKeyV0_ctor(keyIdObject, purposeObject, securityLevelObject,
             contract_bounds_copy,
             keyTypeObject, read_only, binaryData, disabled_at_copy);
         printf("IdentityPublicKeyV0(%lx\n", (uint64_t)ipkv0);
         return ipkv0;
     }
-SWIGINTERN void delete_IdentityPublicKeyV0(IdentityPublicKeyV0 *self){
+SWIGINTERN void delete_crate_identity_identity_IdentityPublicKeyV0(crate_identity_identity_IdentityPublicKeyV0 *self){
 //         printf("~IdentityPublicKeyV0(%lx)\n", (unsigned long)self);
 //         printf("  ->purpose(%lx)\n", (uint64_t)self->purpose);
-//         //Purpose_destroy(self->purpose);
-//         //SecurityLevel_destroy(self->security_level);
-//         //KeyType_destroy(self->key_type);
-//         //KeyID_destroy(self->id);
 //         printf("  ->data->_0(%lx)\n", (uint64_t)self->data->_0);
 //         printf("  ->data->_0->values(%lx)\n", (uint64_t)self->data->_0->values);
-//         //memoryFactory.destroyItem(self->data->_0->values);
-//         // Vec_u8_destroy(self->data->_0); // crash
 //         printf("  ->data(%lx)\n", (uint64_t)self->data);
-//         // BinaryData_destroy(self->data); // crash
-//         //TimestampMillis_destroy(self->disabled_at);
-        IdentityPublicKeyV0_destroy(self); //crash
+        crate_identity_identity_IdentityPublicKeyV0_destroy(self); //crash
     }
-SWIGINTERN enum KeyType IdentityPublicKeyV0_getKeyType(IdentityPublicKeyV0 *self){
+SWIGINTERN enum crate_identity_identity_KeyType crate_identity_identity_IdentityPublicKeyV0_getKeyType(crate_identity_identity_IdentityPublicKeyV0 *self){
         return *self->key_type;
     }
-SWIGINTERN enum Purpose IdentityPublicKeyV0_getPurpose(IdentityPublicKeyV0 *self){
+SWIGINTERN enum crate_identity_identity_Purpose crate_identity_identity_IdentityPublicKeyV0_getPurpose(crate_identity_identity_IdentityPublicKeyV0 *self){
         return *self->purpose;
     }
-SWIGINTERN enum SecurityLevel IdentityPublicKeyV0_getSecurityLevel(IdentityPublicKeyV0 *self){
+SWIGINTERN enum crate_identity_identity_SecurityLevel crate_identity_identity_IdentityPublicKeyV0_getSecurityLevel(crate_identity_identity_IdentityPublicKeyV0 *self){
         return *self->security_level;
     }
-SWIGINTERN Revision *new_Revision__SWIG_0(){
-        return Revision_ctor(0);
+SWIGINTERN crate_identity_identity_Revision *new_crate_identity_identity_Revision__SWIG_0(){
+        return crate_identity_identity_Revision_ctor(0);
     }
-SWIGINTERN Revision *new_Revision__SWIG_1(long long timestamp){
-        return Revision_ctor(timestamp);
+SWIGINTERN crate_identity_identity_Revision *new_crate_identity_identity_Revision__SWIG_1(long long timestamp){
+        return crate_identity_identity_Revision_ctor(timestamp);
     }
-SWIGINTERN void delete_Revision(Revision *self){
-        Revision_destroy(self);
+SWIGINTERN void delete_crate_identity_identity_Revision(crate_identity_identity_Revision *self){
+        crate_identity_identity_Revision_destroy(self);
     }
-SWIGINTERN long long Revision_toLong(Revision *self){
+SWIGINTERN long long crate_identity_identity_Revision_toLong(crate_identity_identity_Revision *self){
         return self->_0;
     }
-SWIGINTERN void delete_IdentityV0(IdentityV0 *self){
-        printf("~IdentityV0(%lx)\n", (uint64_t)self);
-        IdentityV0_destroy(self);
+SWIGINTERN bool crate_identity_identity_Revision_objectEquals(crate_identity_identity_Revision *self,crate_identity_identity_Revision *other){
+        if (self == other) return true;
+        if (self == nullptr || other == nullptr) return false;
+        return self->_0 == other->_0;
     }
-SWIGINTERN int IdentityV0_getPublicKeyCount(IdentityV0 *self){
+SWIGINTERN void delete_crate_identity_identity_IdentityV0(crate_identity_identity_IdentityV0 *self){
+        printf("~IdentityV0(%lx)\n", (uint64_t)self);
+        crate_identity_identity_IdentityV0_destroy(self);
+    }
+SWIGINTERN int crate_identity_identity_IdentityV0_getPublicKeyCount(crate_identity_identity_IdentityV0 *self){
         return self->public_keys->count;
     }
-SWIGINTERN IdentityPublicKeyV0 *IdentityV0_getPublicKey(IdentityV0 *self,uint32_t index){
+SWIGINTERN crate_identity_identity_IdentityPublicKeyV0 *crate_identity_identity_IdentityV0_getPublicKey(crate_identity_identity_IdentityV0 *self,uint32_t index){
         if (index < self->public_keys->count) {
             return self->public_keys->values[index]->v0;
         } else {
             return NULL;
         }
     }
-SWIGINTERN IdentityPublicKeyV0 *IdentityV0_getPublicKeyById(IdentityV0 *self,uint32_t id){
+SWIGINTERN crate_identity_identity_IdentityPublicKeyV0 *crate_identity_identity_IdentityV0_getPublicKeyById(crate_identity_identity_IdentityV0 *self,uint32_t id){
         for (int i = 0; i < self->public_keys->count; ++i) {
             if (self->public_keys->keys[i]->_0 == id)
                 return self->public_keys->values[i]->v0;
         }
         return NULL;
     }
-SWIGINTERN long long IdentityV0_getBalance(IdentityV0 *self){
+SWIGINTERN long long crate_identity_identity_IdentityV0_getBalance(crate_identity_identity_IdentityV0 *self){
         return (long)self->balance;
     }
-SWIGINTERN Identity *new_Identity(){
+SWIGINTERN crate_identity_identity_Identity *new_crate_identity_identity_Identity(){
         return get_an_identity();
     }
-SWIGINTERN void delete_Identity(Identity *self){
+SWIGINTERN void delete_crate_identity_identity_Identity(crate_identity_identity_Identity *self){
         printf("~Identity(%lx)\n", (uint64_t)self);
-        Identity_destroy(self);
+        crate_identity_identity_Identity_destroy(self);
+    }
+SWIGINTERN crate_example_mine_InnerStruct *new_crate_example_mine_InnerStruct(long a,long b){
+        return crate_example_mine_InnerStruct_ctor(a, b);
+    }
+SWIGINTERN void delete_crate_example_mine_InnerStruct(crate_example_mine_InnerStruct *self){
+        crate_example_mine_InnerStruct_destroy(self);
+    }
+SWIGINTERN crate_example_mine_OuterStruct *new_crate_example_mine_OuterStruct__SWIG_0(crate_example_mine_InnerStruct *is1,crate_example_mine_InnerStruct *is2){
+        crate_example_mine_OuterStruct * os = create_outer(is1, is2);
+        printf("is1 (%lx)\n", (uint64_t)is1);
+        printf("is2 (%lx)\n", (uint64_t)is2);
+        printf("os  (%lx)\n", (uint64_t)os);
+        printf("os->is1 (%lx)\n", (uint64_t)os->first);
+        printf("os->is2 (%lx)\n", (uint64_t)os->second);
+        return os;
+    }
+SWIGINTERN crate_example_mine_OuterStruct *new_crate_example_mine_OuterStruct__SWIG_1(long a,long b,long c,long d){
+        crate_example_mine_InnerStruct * is1 = crate_example_mine_InnerStruct_ctor(a, b);
+        crate_example_mine_InnerStruct * is2 = crate_example_mine_InnerStruct_ctor(c, d);
+        crate_example_mine_OuterStruct * os = crate_example_mine_OuterStruct_ctor(is1, is2);
+        printf("is1 (%lx)\n", (uint64_t)is1);
+        printf("is2 (%lx)\n", (uint64_t)is2);
+        printf("os  (%lx)\n", (uint64_t)os);
+        printf("os->is1 (%lx)\n", (uint64_t)os->first);
+        printf("os->is2 (%lx)\n", (uint64_t)os->second);
+        return os;
+    }
+SWIGINTERN void delete_crate_example_mine_OuterStruct(crate_example_mine_OuterStruct *self){
+        //InnerStruct * first = self->first;
+        crate_example_mine_OuterStruct_destroy(self);
+        //InnerStruct_destroy(first);
+    }
+SWIGINTERN crate_example_mine_VecU8Holder *new_crate_example_mine_VecU8Holder(Vec_u8 *vec_u8){
+        return crate_example_mine_VecU8Holder_ctor(vec_u8);
+    }
+SWIGINTERN void delete_crate_example_mine_VecU8Holder(crate_example_mine_VecU8Holder *self){
+        //memoryFactory.destroyItem(self->first->values); //above
+        crate_example_mine_VecU8Holder_destroy(self); // causes crash with above, no crash if this is the only line, order doesn't matter
+        //memoryFactory.destroyItem(self->first->values); //above
     }
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-SWIGEXPORT jint JNICALL Java_org_dash_sdk_exampleJNI_KeyType_1ECDSA_1SECP256K1_1get(JNIEnv *jenv, jclass jcls) {
+SWIGEXPORT jint JNICALL Java_org_dash_sdk_exampleJNI_ECDSA_1SECP256K1_1get(JNIEnv *jenv, jclass jcls) {
   jint jresult = 0 ;
-  KeyType result;
+  crate_identity_identity_KeyType result;
   
   (void)jenv;
   (void)jcls;
-  result = (KeyType)KeyType_ECDSA_SECP256K1;
+  result = (crate_identity_identity_KeyType)crate_identity_identity_KeyType_ECDSA_SECP256K1;
   jresult = (jint)result; 
   return jresult;
 }
 
 
-SWIGEXPORT jint JNICALL Java_org_dash_sdk_exampleJNI_KeyType_1BLS12_1381_1get(JNIEnv *jenv, jclass jcls) {
+SWIGEXPORT jint JNICALL Java_org_dash_sdk_exampleJNI_BLS12_1381_1get(JNIEnv *jenv, jclass jcls) {
   jint jresult = 0 ;
-  KeyType result;
+  crate_identity_identity_KeyType result;
   
   (void)jenv;
   (void)jcls;
-  result = (KeyType)KeyType_BLS12_381;
+  result = (crate_identity_identity_KeyType)crate_identity_identity_KeyType_BLS12_381;
   jresult = (jint)result; 
   return jresult;
 }
 
 
-SWIGEXPORT jint JNICALL Java_org_dash_sdk_exampleJNI_KeyType_1ECDSA_1HASH160_1get(JNIEnv *jenv, jclass jcls) {
+SWIGEXPORT jint JNICALL Java_org_dash_sdk_exampleJNI_ECDSA_1HASH160_1get(JNIEnv *jenv, jclass jcls) {
   jint jresult = 0 ;
-  KeyType result;
+  crate_identity_identity_KeyType result;
   
   (void)jenv;
   (void)jcls;
-  result = (KeyType)KeyType_ECDSA_HASH160;
+  result = (crate_identity_identity_KeyType)crate_identity_identity_KeyType_ECDSA_HASH160;
   jresult = (jint)result; 
   return jresult;
 }
 
 
-SWIGEXPORT jint JNICALL Java_org_dash_sdk_exampleJNI_KeyType_1BIP13_1SCRIPT_1HASH_1get(JNIEnv *jenv, jclass jcls) {
+SWIGEXPORT jint JNICALL Java_org_dash_sdk_exampleJNI_BIP13_1SCRIPT_1HASH_1get(JNIEnv *jenv, jclass jcls) {
   jint jresult = 0 ;
-  KeyType result;
+  crate_identity_identity_KeyType result;
   
   (void)jenv;
   (void)jcls;
-  result = (KeyType)KeyType_BIP13_SCRIPT_HASH;
+  result = (crate_identity_identity_KeyType)crate_identity_identity_KeyType_BIP13_SCRIPT_HASH;
   jresult = (jint)result; 
   return jresult;
 }
 
 
-SWIGEXPORT jint JNICALL Java_org_dash_sdk_exampleJNI_KeyType_1EDDSA_125519_1HASH160_1get(JNIEnv *jenv, jclass jcls) {
+SWIGEXPORT jint JNICALL Java_org_dash_sdk_exampleJNI_EDDSA_125519_1HASH160_1get(JNIEnv *jenv, jclass jcls) {
   jint jresult = 0 ;
-  KeyType result;
+  crate_identity_identity_KeyType result;
   
   (void)jenv;
   (void)jcls;
-  result = (KeyType)KeyType_EDDSA_25519_HASH160;
+  result = (crate_identity_identity_KeyType)crate_identity_identity_KeyType_EDDSA_25519_HASH160;
   jresult = (jint)result; 
   return jresult;
 }
 
 
-SWIGEXPORT jint JNICALL Java_org_dash_sdk_exampleJNI_Purpose_1AUTHENTICATION_1get(JNIEnv *jenv, jclass jcls) {
+SWIGEXPORT jint JNICALL Java_org_dash_sdk_exampleJNI_AUTHENTICATION_1get(JNIEnv *jenv, jclass jcls) {
   jint jresult = 0 ;
-  Purpose result;
+  crate_identity_identity_Purpose result;
   
   (void)jenv;
   (void)jcls;
-  result = (Purpose)Purpose_AUTHENTICATION;
+  result = (crate_identity_identity_Purpose)crate_identity_identity_Purpose_AUTHENTICATION;
   jresult = (jint)result; 
   return jresult;
 }
 
 
-SWIGEXPORT jint JNICALL Java_org_dash_sdk_exampleJNI_Purpose_1ENCRYPTION_1get(JNIEnv *jenv, jclass jcls) {
+SWIGEXPORT jint JNICALL Java_org_dash_sdk_exampleJNI_ENCRYPTION_1get(JNIEnv *jenv, jclass jcls) {
   jint jresult = 0 ;
-  Purpose result;
+  crate_identity_identity_Purpose result;
   
   (void)jenv;
   (void)jcls;
-  result = (Purpose)Purpose_ENCRYPTION;
+  result = (crate_identity_identity_Purpose)crate_identity_identity_Purpose_ENCRYPTION;
   jresult = (jint)result; 
   return jresult;
 }
 
 
-SWIGEXPORT jint JNICALL Java_org_dash_sdk_exampleJNI_Purpose_1DECRYPTION_1get(JNIEnv *jenv, jclass jcls) {
+SWIGEXPORT jint JNICALL Java_org_dash_sdk_exampleJNI_DECRYPTION_1get(JNIEnv *jenv, jclass jcls) {
   jint jresult = 0 ;
-  Purpose result;
+  crate_identity_identity_Purpose result;
   
   (void)jenv;
   (void)jcls;
-  result = (Purpose)Purpose_DECRYPTION;
+  result = (crate_identity_identity_Purpose)crate_identity_identity_Purpose_DECRYPTION;
   jresult = (jint)result; 
   return jresult;
 }
 
 
-SWIGEXPORT jint JNICALL Java_org_dash_sdk_exampleJNI_Purpose_1WITHDRAW_1get(JNIEnv *jenv, jclass jcls) {
+SWIGEXPORT jint JNICALL Java_org_dash_sdk_exampleJNI_WITHDRAW_1get(JNIEnv *jenv, jclass jcls) {
   jint jresult = 0 ;
-  Purpose result;
+  crate_identity_identity_Purpose result;
   
   (void)jenv;
   (void)jcls;
-  result = (Purpose)Purpose_WITHDRAW;
+  result = (crate_identity_identity_Purpose)crate_identity_identity_Purpose_WITHDRAW;
   jresult = (jint)result; 
   return jresult;
 }
 
 
-SWIGEXPORT jint JNICALL Java_org_dash_sdk_exampleJNI_Purpose_1SYSTEM_1get(JNIEnv *jenv, jclass jcls) {
+SWIGEXPORT jint JNICALL Java_org_dash_sdk_exampleJNI_SYSTEM_1get(JNIEnv *jenv, jclass jcls) {
   jint jresult = 0 ;
-  Purpose result;
+  crate_identity_identity_Purpose result;
   
   (void)jenv;
   (void)jcls;
-  result = (Purpose)Purpose_SYSTEM;
+  result = (crate_identity_identity_Purpose)crate_identity_identity_Purpose_SYSTEM;
   jresult = (jint)result; 
   return jresult;
 }
 
 
-SWIGEXPORT jint JNICALL Java_org_dash_sdk_exampleJNI_Purpose_1VOTING_1get(JNIEnv *jenv, jclass jcls) {
+SWIGEXPORT jint JNICALL Java_org_dash_sdk_exampleJNI_VOTING_1get(JNIEnv *jenv, jclass jcls) {
   jint jresult = 0 ;
-  Purpose result;
+  crate_identity_identity_Purpose result;
   
   (void)jenv;
   (void)jcls;
-  result = (Purpose)Purpose_VOTING;
+  result = (crate_identity_identity_Purpose)crate_identity_identity_Purpose_VOTING;
   jresult = (jint)result; 
   return jresult;
 }
 
 
-SWIGEXPORT jint JNICALL Java_org_dash_sdk_exampleJNI_SecurityLevel_1MASTER_1get(JNIEnv *jenv, jclass jcls) {
+SWIGEXPORT jint JNICALL Java_org_dash_sdk_exampleJNI_MASTER_1get(JNIEnv *jenv, jclass jcls) {
   jint jresult = 0 ;
-  SecurityLevel result;
+  crate_identity_identity_SecurityLevel result;
   
   (void)jenv;
   (void)jcls;
-  result = (SecurityLevel)SecurityLevel_MASTER;
+  result = (crate_identity_identity_SecurityLevel)crate_identity_identity_SecurityLevel_MASTER;
   jresult = (jint)result; 
   return jresult;
 }
 
 
-SWIGEXPORT jint JNICALL Java_org_dash_sdk_exampleJNI_SecurityLevel_1CRITICAL_1get(JNIEnv *jenv, jclass jcls) {
+SWIGEXPORT jint JNICALL Java_org_dash_sdk_exampleJNI_CRITICAL_1get(JNIEnv *jenv, jclass jcls) {
   jint jresult = 0 ;
-  SecurityLevel result;
+  crate_identity_identity_SecurityLevel result;
   
   (void)jenv;
   (void)jcls;
-  result = (SecurityLevel)SecurityLevel_CRITICAL;
+  result = (crate_identity_identity_SecurityLevel)crate_identity_identity_SecurityLevel_CRITICAL;
   jresult = (jint)result; 
   return jresult;
 }
 
 
-SWIGEXPORT jint JNICALL Java_org_dash_sdk_exampleJNI_SecurityLevel_1HIGH_1get(JNIEnv *jenv, jclass jcls) {
+SWIGEXPORT jint JNICALL Java_org_dash_sdk_exampleJNI_HIGH_1get(JNIEnv *jenv, jclass jcls) {
   jint jresult = 0 ;
-  SecurityLevel result;
+  crate_identity_identity_SecurityLevel result;
   
   (void)jenv;
   (void)jcls;
-  result = (SecurityLevel)SecurityLevel_HIGH;
+  result = (crate_identity_identity_SecurityLevel)crate_identity_identity_SecurityLevel_HIGH;
   jresult = (jint)result; 
   return jresult;
 }
 
 
-SWIGEXPORT jint JNICALL Java_org_dash_sdk_exampleJNI_SecurityLevel_1MEDIUM_1get(JNIEnv *jenv, jclass jcls) {
+SWIGEXPORT jint JNICALL Java_org_dash_sdk_exampleJNI_MEDIUM_1get(JNIEnv *jenv, jclass jcls) {
   jint jresult = 0 ;
-  SecurityLevel result;
+  crate_identity_identity_SecurityLevel result;
   
   (void)jenv;
   (void)jcls;
-  result = (SecurityLevel)SecurityLevel_MEDIUM;
+  result = (crate_identity_identity_SecurityLevel)crate_identity_identity_SecurityLevel_MEDIUM;
   jresult = (jint)result; 
   return jresult;
 }
 
 
-SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_RootStruct_1name_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2) {
-  RootStruct *arg1 = (RootStruct *) 0 ;
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_crate_1RootStruct_1name_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2) {
+  crate_RootStruct *arg1 = (crate_RootStruct *) 0 ;
   char *arg2 = (char *) 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(RootStruct **)&jarg1; 
+  arg1 = *(crate_RootStruct **)&jarg1; 
   arg2 = 0;
   if (jarg2) {
     arg2 = (char *)jenv->GetStringUTFChars(jarg2, 0);
@@ -675,169 +672,40 @@ SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_RootStruct_1name_1set(JNIEn
 }
 
 
-SWIGEXPORT jstring JNICALL Java_org_dash_sdk_exampleJNI_RootStruct_1name_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jstring JNICALL Java_org_dash_sdk_exampleJNI_crate_1RootStruct_1name_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jstring jresult = 0 ;
-  RootStruct *arg1 = (RootStruct *) 0 ;
+  crate_RootStruct *arg1 = (crate_RootStruct *) 0 ;
   char *result = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(RootStruct **)&jarg1; 
+  arg1 = *(crate_RootStruct **)&jarg1; 
   result = (char *) ((arg1)->name);
   if (result) jresult = jenv->NewStringUTF((const char *)result);
   return jresult;
 }
 
 
-SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_delete_1RootStruct(JNIEnv *jenv, jclass jcls, jlong jarg1) {
-  RootStruct *arg1 = (RootStruct *) 0 ;
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_delete_1crate_1RootStruct(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  crate_RootStruct *arg1 = (crate_RootStruct *) 0 ;
   
   (void)jenv;
   (void)jcls;
-  arg1 = *(RootStruct **)&jarg1; 
-  delete arg1;
-}
-
-
-SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_BinaryData_1_10_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jbyteArray jarg2) {
-  BinaryData *arg1 = (BinaryData *) 0 ;
-  Vec_u8 *arg2 = (Vec_u8 *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(BinaryData **)&jarg1; 
-  
-  uint8_t * _buffer_arg2 = (uint8_t*)(jenv)->GetByteArrayElements(jarg2, 0);
-  int size_arg2 = (jenv)->GetArrayLength(jarg2);
-  uint8_t * byteArray_arg2 = (uint8_t *)memoryFactory.alloc(size_arg2);
-  memcpy(byteArray_arg2, _buffer_arg2, size_arg2);
-  arg2 = Vec_u8_ctor(byteArray_arg2, size_arg2);
-  printf("typemap(in) Vec_u8 *: %ld, [%lx]%d\n", arg2->count, (long)arg2->values, arg2->values[0]);
-  
-  if (arg1) (arg1)->_0 = arg2;
-  
-  printf("typemap(argout) Vec_u8 *: %ld, [%lx]%d\n", arg2->count, (long)arg2->values, arg2->values[0]);
-  //JCALL3(ReleaseByteArrayElements, jenv, jarg2, (jbyte *) _buffer_arg2, 0);
-  jenv->ReleaseByteArrayElements(jarg2, (jbyte *) _buffer_arg2, 0);
-  printf("typemap(argout) Vec_u8 *: %ld, [%lx]%d\n", arg2->count, (long)arg2->values, arg2->values[0]);
-  
-}
-
-
-SWIGEXPORT jbyteArray JNICALL Java_org_dash_sdk_exampleJNI_BinaryData_1_10_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jbyteArray jresult = 0 ;
-  BinaryData *arg1 = (BinaryData *) 0 ;
-  Vec_u8 *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(BinaryData **)&jarg1; 
-  result = (Vec_u8 *) ((arg1)->_0);
-  {
-    printf("typemap(out) Vec_u8* %lx\n", (long)result);
-    if (!result) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Vec_u8* null array");
-      return 0;
-    }
-    if (!result->values) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Vec_u8.values null array");
-      return 0;
-    }
-    printf("  (count: %ld, values: [%lx], %d)\n", result->count, (long)result->values, result->values[0]);
-    jresult = jenv->NewByteArray(result->count);
-    jenv->SetByteArrayRegion(jresult, 0, result->count, (jbyte *) result->values);
-  }
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_new_1BinaryData(JNIEnv *jenv, jclass jcls, jbyteArray jarg1) {
-  jlong jresult = 0 ;
-  Vec_u8 *arg1 = (Vec_u8 *) 0 ;
-  BinaryData *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  
-  uint8_t * _buffer_arg1 = (uint8_t*)(jenv)->GetByteArrayElements(jarg1, 0);
-  int size_arg1 = (jenv)->GetArrayLength(jarg1);
-  uint8_t * byteArray_arg1 = (uint8_t *)memoryFactory.alloc(size_arg1);
-  memcpy(byteArray_arg1, _buffer_arg1, size_arg1);
-  arg1 = Vec_u8_ctor(byteArray_arg1, size_arg1);
-  printf("typemap(in) Vec_u8 *: %ld, [%lx]%d\n", arg1->count, (long)arg1->values, arg1->values[0]);
-  
-  result = (BinaryData *)new_BinaryData(arg1);
-  *(BinaryData **)&jresult = result; 
-  
-  printf("typemap(argout) Vec_u8 *: %ld, [%lx]%d\n", arg1->count, (long)arg1->values, arg1->values[0]);
-  //JCALL3(ReleaseByteArrayElements, jenv, jarg1, (jbyte *) _buffer_arg1, 0);
-  jenv->ReleaseByteArrayElements(jarg1, (jbyte *) _buffer_arg1, 0);
-  printf("typemap(argout) Vec_u8 *: %ld, [%lx]%d\n", arg1->count, (long)arg1->values, arg1->values[0]);
-  
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_delete_1BinaryData(JNIEnv *jenv, jclass jcls, jlong jarg1) {
-  BinaryData *arg1 = (BinaryData *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  arg1 = *(BinaryData **)&jarg1; 
-  delete_BinaryData(arg1);
-}
-
-
-SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_OptionalFeatureVersion_1_10_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
-  OptionalFeatureVersion *arg1 = (OptionalFeatureVersion *) 0 ;
-  uint16_t arg2 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(OptionalFeatureVersion **)&jarg1; 
-  arg2 = (uint16_t)jarg2; 
-  if (arg1) (arg1)->_0 = arg2;
-}
-
-
-SWIGEXPORT jint JNICALL Java_org_dash_sdk_exampleJNI_OptionalFeatureVersion_1_10_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jint jresult = 0 ;
-  OptionalFeatureVersion *arg1 = (OptionalFeatureVersion *) 0 ;
-  uint16_t result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(OptionalFeatureVersion **)&jarg1; 
-  result = (uint16_t) ((arg1)->_0);
-  jresult = (jint)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_delete_1OptionalFeatureVersion(JNIEnv *jenv, jclass jcls, jlong jarg1) {
-  OptionalFeatureVersion *arg1 = (OptionalFeatureVersion *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  arg1 = *(OptionalFeatureVersion **)&jarg1; 
+  arg1 = *(crate_RootStruct **)&jarg1; 
   delete arg1;
 }
 
 
 SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_IdentifierBytes32_1_10_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jbyteArray jarg2) {
-  IdentifierBytes32 *arg1 = (IdentifierBytes32 *) 0 ;
+  crate_nested_IdentifierBytes32 *arg1 = (crate_nested_IdentifierBytes32 *) 0 ;
   uint8_t (*arg2)[32] = (uint8_t (*)[32]) 0 ;
   uint8_t *byteArray2 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(IdentifierBytes32 **)&jarg1; 
+  arg1 = *(crate_nested_IdentifierBytes32 **)&jarg1; 
   {
     if (!jarg2) {
       SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null array");
@@ -864,13 +732,13 @@ SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_IdentifierBytes32_1_10_1set
 
 SWIGEXPORT jbyteArray JNICALL Java_org_dash_sdk_exampleJNI_IdentifierBytes32_1_10_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jbyteArray jresult = 0 ;
-  IdentifierBytes32 *arg1 = (IdentifierBytes32 *) 0 ;
+  crate_nested_IdentifierBytes32 *arg1 = (crate_nested_IdentifierBytes32 *) 0 ;
   uint8_t (*result)[32] = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(IdentifierBytes32 **)&jarg1; 
+  arg1 = *(crate_nested_IdentifierBytes32 **)&jarg1; 
   result = (uint8_t (*)[32]) ((arg1)->_0);
   {
     jresult = jenv->NewByteArray(32);
@@ -884,7 +752,7 @@ SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_new_1IdentifierBytes32(JNI
   jlong jresult = 0 ;
   uint8_t (*arg1)[32] = (uint8_t (*)[32]) 0 ;
   uint8_t *byteArray1 ;
-  IdentifierBytes32 *result = 0 ;
+  crate_nested_IdentifierBytes32 *result = 0 ;
   
   (void)jenv;
   (void)jcls;
@@ -903,8 +771,8 @@ SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_new_1IdentifierBytes32(JNI
     jenv->ReleaseByteArrayElements(jarg1, jarr, JNI_ABORT);
     arg1 = (uint8_t (*) [32])byteArray1;
   }
-  result = (IdentifierBytes32 *)new_IdentifierBytes32((unsigned char (*)[32])arg1);
-  *(IdentifierBytes32 **)&jresult = result; 
+  result = (crate_nested_IdentifierBytes32 *)new_crate_nested_IdentifierBytes32((unsigned char (*)[32])arg1);
+  *(crate_nested_IdentifierBytes32 **)&jresult = result; 
   {
     //JCALL3(ReleaseByteArrayElements, jenv, jarg1, (jbyte *) *arg1, 0);
     
@@ -915,230 +783,40 @@ SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_new_1IdentifierBytes32(JNI
 
 
 SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_delete_1IdentifierBytes32(JNIEnv *jenv, jclass jcls, jlong jarg1) {
-  IdentifierBytes32 *arg1 = (IdentifierBytes32 *) 0 ;
+  crate_nested_IdentifierBytes32 *arg1 = (crate_nested_IdentifierBytes32 *) 0 ;
   
   (void)jenv;
   (void)jcls;
-  arg1 = *(IdentifierBytes32 **)&jarg1; 
-  delete_IdentifierBytes32(arg1);
-}
-
-
-SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_FeatureVersionBounds_1min_1version_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
-  FeatureVersionBounds *arg1 = (FeatureVersionBounds *) 0 ;
-  FeatureVersion *arg2 = (FeatureVersion *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(FeatureVersionBounds **)&jarg1; 
-  arg2 = *(FeatureVersion **)&jarg2; 
-  if (arg1) (arg1)->min_version = arg2;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_FeatureVersionBounds_1min_1version_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  FeatureVersionBounds *arg1 = (FeatureVersionBounds *) 0 ;
-  FeatureVersion *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(FeatureVersionBounds **)&jarg1; 
-  result = (FeatureVersion *) ((arg1)->min_version);
-  *(FeatureVersion **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_FeatureVersionBounds_1max_1version_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
-  FeatureVersionBounds *arg1 = (FeatureVersionBounds *) 0 ;
-  FeatureVersion *arg2 = (FeatureVersion *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(FeatureVersionBounds **)&jarg1; 
-  arg2 = *(FeatureVersion **)&jarg2; 
-  if (arg1) (arg1)->max_version = arg2;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_FeatureVersionBounds_1max_1version_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  FeatureVersionBounds *arg1 = (FeatureVersionBounds *) 0 ;
-  FeatureVersion *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(FeatureVersionBounds **)&jarg1; 
-  result = (FeatureVersion *) ((arg1)->max_version);
-  *(FeatureVersion **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_FeatureVersionBounds_1default_1current_1version_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
-  FeatureVersionBounds *arg1 = (FeatureVersionBounds *) 0 ;
-  FeatureVersion *arg2 = (FeatureVersion *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(FeatureVersionBounds **)&jarg1; 
-  arg2 = *(FeatureVersion **)&jarg2; 
-  if (arg1) (arg1)->default_current_version = arg2;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_FeatureVersionBounds_1default_1current_1version_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  FeatureVersionBounds *arg1 = (FeatureVersionBounds *) 0 ;
-  FeatureVersion *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(FeatureVersionBounds **)&jarg1; 
-  result = (FeatureVersion *) ((arg1)->default_current_version);
-  *(FeatureVersion **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_delete_1FeatureVersionBounds(JNIEnv *jenv, jclass jcls, jlong jarg1) {
-  FeatureVersionBounds *arg1 = (FeatureVersionBounds *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  arg1 = *(FeatureVersionBounds **)&jarg1; 
-  delete arg1;
-}
-
-
-SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_PlatformVersion_1protocol_1version_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
-  PlatformVersion *arg1 = (PlatformVersion *) 0 ;
-  uint32_t arg2 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(PlatformVersion **)&jarg1; 
-  arg2 = (uint32_t)jarg2; 
-  if (arg1) (arg1)->protocol_version = arg2;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_PlatformVersion_1protocol_1version_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  PlatformVersion *arg1 = (PlatformVersion *) 0 ;
-  uint32_t result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(PlatformVersion **)&jarg1; 
-  result = (uint32_t) ((arg1)->protocol_version);
-  jresult = (jlong)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_PlatformVersion_1identity_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  PlatformVersion *arg1 = (PlatformVersion *) 0 ;
-  FeatureVersionBounds *arg2 = (FeatureVersionBounds *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg2_;
-  arg1 = *(PlatformVersion **)&jarg1; 
-  arg2 = *(FeatureVersionBounds **)&jarg2; 
-  if (arg1) (arg1)->identity = arg2;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_PlatformVersion_1identity_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  PlatformVersion *arg1 = (PlatformVersion *) 0 ;
-  FeatureVersionBounds *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(PlatformVersion **)&jarg1; 
-  result = (FeatureVersionBounds *) ((arg1)->identity);
-  *(FeatureVersionBounds **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_PlatformVersion_1proofs_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  PlatformVersion *arg1 = (PlatformVersion *) 0 ;
-  FeatureVersionBounds *arg2 = (FeatureVersionBounds *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg2_;
-  arg1 = *(PlatformVersion **)&jarg1; 
-  arg2 = *(FeatureVersionBounds **)&jarg2; 
-  if (arg1) (arg1)->proofs = arg2;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_PlatformVersion_1proofs_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  PlatformVersion *arg1 = (PlatformVersion *) 0 ;
-  FeatureVersionBounds *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(PlatformVersion **)&jarg1; 
-  result = (FeatureVersionBounds *) ((arg1)->proofs);
-  *(FeatureVersionBounds **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_delete_1PlatformVersion(JNIEnv *jenv, jclass jcls, jlong jarg1) {
-  PlatformVersion *arg1 = (PlatformVersion *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  arg1 = *(PlatformVersion **)&jarg1; 
-  delete arg1;
+  arg1 = *(crate_nested_IdentifierBytes32 **)&jarg1; 
+  delete_crate_nested_IdentifierBytes32(arg1);
 }
 
 
 SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_Identifier_1_10_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  Identifier *arg1 = (Identifier *) 0 ;
-  IdentifierBytes32 *arg2 = (IdentifierBytes32 *) 0 ;
+  crate_nested_Identifier *arg1 = (crate_nested_Identifier *) 0 ;
+  crate_nested_IdentifierBytes32 *arg2 = (crate_nested_IdentifierBytes32 *) 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   (void)jarg2_;
-  arg1 = *(Identifier **)&jarg1; 
-  arg2 = *(IdentifierBytes32 **)&jarg2; 
+  arg1 = *(crate_nested_Identifier **)&jarg1; 
+  arg2 = *(crate_nested_IdentifierBytes32 **)&jarg2; 
   if (arg1) (arg1)->_0 = arg2;
 }
 
 
 SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_Identifier_1_10_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jlong jresult = 0 ;
-  Identifier *arg1 = (Identifier *) 0 ;
-  IdentifierBytes32 *result = 0 ;
+  crate_nested_Identifier *arg1 = (crate_nested_Identifier *) 0 ;
+  crate_nested_IdentifierBytes32 *result = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(Identifier **)&jarg1; 
-  result = (IdentifierBytes32 *) ((arg1)->_0);
-  *(IdentifierBytes32 **)&jresult = result; 
+  arg1 = *(crate_nested_Identifier **)&jarg1; 
+  result = (crate_nested_IdentifierBytes32 *) ((arg1)->_0);
+  *(crate_nested_IdentifierBytes32 **)&jresult = result; 
   return jresult;
 }
 
@@ -1147,7 +825,7 @@ SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_new_1Identifier(JNIEnv *je
   jlong jresult = 0 ;
   uint8_t (*arg1)[32] = (uint8_t (*)[32]) 0 ;
   uint8_t *byteArray1 ;
-  Identifier *result = 0 ;
+  crate_nested_Identifier *result = 0 ;
   
   (void)jenv;
   (void)jcls;
@@ -1166,8 +844,8 @@ SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_new_1Identifier(JNIEnv *je
     jenv->ReleaseByteArrayElements(jarg1, jarr, JNI_ABORT);
     arg1 = (uint8_t (*) [32])byteArray1;
   }
-  result = (Identifier *)new_Identifier((unsigned char (*)[32])arg1);
-  *(Identifier **)&jresult = result; 
+  result = (crate_nested_Identifier *)new_crate_nested_Identifier((unsigned char (*)[32])arg1);
+  *(crate_nested_Identifier **)&jresult = result; 
   {
     //JCALL3(ReleaseByteArrayElements, jenv, jarg1, (jbyte *) *arg1, 0);
     
@@ -1178,1021 +856,77 @@ SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_new_1Identifier(JNIEnv *je
 
 
 SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_delete_1Identifier(JNIEnv *jenv, jclass jcls, jlong jarg1) {
-  Identifier *arg1 = (Identifier *) 0 ;
+  crate_nested_Identifier *arg1 = (crate_nested_Identifier *) 0 ;
   
   (void)jenv;
   (void)jcls;
-  arg1 = *(Identifier **)&jarg1; 
-  delete_Identifier(arg1);
+  arg1 = *(crate_nested_Identifier **)&jarg1; 
+  delete_crate_nested_Identifier(arg1);
 }
 
 
-SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_DataContractNotPresentError_1data_1contract_1id_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  DataContractNotPresentError *arg1 = (DataContractNotPresentError *) 0 ;
-  Identifier *arg2 = (Identifier *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg2_;
-  arg1 = *(DataContractNotPresentError **)&jarg1; 
-  arg2 = *(Identifier **)&jarg2; 
-  if (arg1) (arg1)->data_contract_id = arg2;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_DataContractNotPresentError_1data_1contract_1id_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  DataContractNotPresentError *arg1 = (DataContractNotPresentError *) 0 ;
-  Identifier *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(DataContractNotPresentError **)&jarg1; 
-  result = (Identifier *) ((arg1)->data_contract_id);
-  *(Identifier **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_delete_1DataContractNotPresentError(JNIEnv *jenv, jclass jcls, jlong jarg1) {
-  DataContractNotPresentError *arg1 = (DataContractNotPresentError *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  arg1 = *(DataContractNotPresentError **)&jarg1; 
-  delete arg1;
-}
-
-
-SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_ProtocolError_1StringDecodeError2_1Body_1_10_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2) {
-  ProtocolError_StringDecodeError2_Body *arg1 = (ProtocolError_StringDecodeError2_Body *) 0 ;
-  char *arg2 = (char *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ProtocolError_StringDecodeError2_Body **)&jarg1; 
-  arg2 = 0;
-  if (jarg2) {
-    arg2 = (char *)jenv->GetStringUTFChars(jarg2, 0);
-    if (!arg2) return ;
-  }
-  {
-    delete [] arg1->_0;
-    if (arg2) {
-      arg1->_0 = (char *) (new char[strlen((const char *)arg2)+1]);
-      strcpy((char *)arg1->_0, (const char *)arg2);
-    } else {
-      arg1->_0 = 0;
-    }
-  }
-  if (arg2) jenv->ReleaseStringUTFChars(jarg2, (const char *)arg2);
-}
-
-
-SWIGEXPORT jstring JNICALL Java_org_dash_sdk_exampleJNI_ProtocolError_1StringDecodeError2_1Body_1_10_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jstring jresult = 0 ;
-  ProtocolError_StringDecodeError2_Body *arg1 = (ProtocolError_StringDecodeError2_Body *) 0 ;
-  char *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ProtocolError_StringDecodeError2_Body **)&jarg1; 
-  result = (char *) ((arg1)->_0);
-  if (result) jresult = jenv->NewStringUTF((const char *)result);
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_ProtocolError_1StringDecodeError2_1Body_1_11_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
-  ProtocolError_StringDecodeError2_Body *arg1 = (ProtocolError_StringDecodeError2_Body *) 0 ;
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_KeyID_1_10_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  crate_identity_identity_KeyID *arg1 = (crate_identity_identity_KeyID *) 0 ;
   uint32_t arg2 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(ProtocolError_StringDecodeError2_Body **)&jarg1; 
+  arg1 = *(crate_identity_identity_KeyID **)&jarg1; 
   arg2 = (uint32_t)jarg2; 
-  if (arg1) (arg1)->_1 = arg2;
+  if (arg1) (arg1)->_0 = arg2;
 }
 
 
-SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_ProtocolError_1StringDecodeError2_1Body_1_11_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_KeyID_1_10_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jlong jresult = 0 ;
-  ProtocolError_StringDecodeError2_Body *arg1 = (ProtocolError_StringDecodeError2_Body *) 0 ;
+  crate_identity_identity_KeyID *arg1 = (crate_identity_identity_KeyID *) 0 ;
   uint32_t result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(ProtocolError_StringDecodeError2_Body **)&jarg1; 
-  result = (uint32_t) ((arg1)->_1);
+  arg1 = *(crate_identity_identity_KeyID **)&jarg1; 
+  result = (uint32_t) ((arg1)->_0);
   jresult = (jlong)result; 
   return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_delete_1ProtocolError_1StringDecodeError2_1Body(JNIEnv *jenv, jclass jcls, jlong jarg1) {
-  ProtocolError_StringDecodeError2_Body *arg1 = (ProtocolError_StringDecodeError2_Body *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  arg1 = *(ProtocolError_StringDecodeError2_Body **)&jarg1; 
-  delete arg1;
-}
-
-
-SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_ProtocolError_1MaxEncodedBytesReachedError_1Body_1max_1size_1kbytes_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
-  ProtocolError_MaxEncodedBytesReachedError_Body *arg1 = (ProtocolError_MaxEncodedBytesReachedError_Body *) 0 ;
-  uintptr_t arg2 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ProtocolError_MaxEncodedBytesReachedError_Body **)&jarg1; 
-  arg2 = (uintptr_t)jarg2; 
-  if (arg1) (arg1)->max_size_kbytes = arg2;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_ProtocolError_1MaxEncodedBytesReachedError_1Body_1max_1size_1kbytes_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  ProtocolError_MaxEncodedBytesReachedError_Body *arg1 = (ProtocolError_MaxEncodedBytesReachedError_Body *) 0 ;
-  uintptr_t result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ProtocolError_MaxEncodedBytesReachedError_Body **)&jarg1; 
-  result = (uintptr_t) ((arg1)->max_size_kbytes);
-  jresult = (jlong)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_ProtocolError_1MaxEncodedBytesReachedError_1Body_1size_1hit_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
-  ProtocolError_MaxEncodedBytesReachedError_Body *arg1 = (ProtocolError_MaxEncodedBytesReachedError_Body *) 0 ;
-  uintptr_t arg2 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ProtocolError_MaxEncodedBytesReachedError_Body **)&jarg1; 
-  arg2 = (uintptr_t)jarg2; 
-  if (arg1) (arg1)->size_hit = arg2;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_ProtocolError_1MaxEncodedBytesReachedError_1Body_1size_1hit_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  ProtocolError_MaxEncodedBytesReachedError_Body *arg1 = (ProtocolError_MaxEncodedBytesReachedError_Body *) 0 ;
-  uintptr_t result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ProtocolError_MaxEncodedBytesReachedError_Body **)&jarg1; 
-  result = (uintptr_t) ((arg1)->size_hit);
-  jresult = (jlong)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_delete_1ProtocolError_1MaxEncodedBytesReachedError_1Body(JNIEnv *jenv, jclass jcls, jlong jarg1) {
-  ProtocolError_MaxEncodedBytesReachedError_Body *arg1 = (ProtocolError_MaxEncodedBytesReachedError_Body *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  arg1 = *(ProtocolError_MaxEncodedBytesReachedError_Body **)&jarg1; 
-  delete arg1;
-}
-
-
-SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_ProtocolError_1UnknownVersionMismatch_1Body_1method_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2) {
-  ProtocolError_UnknownVersionMismatch_Body *arg1 = (ProtocolError_UnknownVersionMismatch_Body *) 0 ;
-  char *arg2 = (char *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ProtocolError_UnknownVersionMismatch_Body **)&jarg1; 
-  arg2 = 0;
-  if (jarg2) {
-    arg2 = (char *)jenv->GetStringUTFChars(jarg2, 0);
-    if (!arg2) return ;
-  }
-  {
-    delete [] arg1->method;
-    if (arg2) {
-      arg1->method = (char *) (new char[strlen((const char *)arg2)+1]);
-      strcpy((char *)arg1->method, (const char *)arg2);
-    } else {
-      arg1->method = 0;
-    }
-  }
-  if (arg2) jenv->ReleaseStringUTFChars(jarg2, (const char *)arg2);
-}
-
-
-SWIGEXPORT jstring JNICALL Java_org_dash_sdk_exampleJNI_ProtocolError_1UnknownVersionMismatch_1Body_1method_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jstring jresult = 0 ;
-  ProtocolError_UnknownVersionMismatch_Body *arg1 = (ProtocolError_UnknownVersionMismatch_Body *) 0 ;
-  char *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ProtocolError_UnknownVersionMismatch_Body **)&jarg1; 
-  result = (char *) ((arg1)->method);
-  if (result) jresult = jenv->NewStringUTF((const char *)result);
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_ProtocolError_1UnknownVersionMismatch_1Body_1known_1versions_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
-  ProtocolError_UnknownVersionMismatch_Body *arg1 = (ProtocolError_UnknownVersionMismatch_Body *) 0 ;
-  Vec_crate_nested_FeatureVersion *arg2 = (Vec_crate_nested_FeatureVersion *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ProtocolError_UnknownVersionMismatch_Body **)&jarg1; 
-  arg2 = *(Vec_crate_nested_FeatureVersion **)&jarg2; 
-  if (arg1) (arg1)->known_versions = arg2;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_ProtocolError_1UnknownVersionMismatch_1Body_1known_1versions_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  ProtocolError_UnknownVersionMismatch_Body *arg1 = (ProtocolError_UnknownVersionMismatch_Body *) 0 ;
-  Vec_crate_nested_FeatureVersion *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ProtocolError_UnknownVersionMismatch_Body **)&jarg1; 
-  result = (Vec_crate_nested_FeatureVersion *) ((arg1)->known_versions);
-  *(Vec_crate_nested_FeatureVersion **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_ProtocolError_1UnknownVersionMismatch_1Body_1received_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
-  ProtocolError_UnknownVersionMismatch_Body *arg1 = (ProtocolError_UnknownVersionMismatch_Body *) 0 ;
-  FeatureVersion *arg2 = (FeatureVersion *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ProtocolError_UnknownVersionMismatch_Body **)&jarg1; 
-  arg2 = *(FeatureVersion **)&jarg2; 
-  if (arg1) (arg1)->received = arg2;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_ProtocolError_1UnknownVersionMismatch_1Body_1received_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  ProtocolError_UnknownVersionMismatch_Body *arg1 = (ProtocolError_UnknownVersionMismatch_Body *) 0 ;
-  FeatureVersion *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ProtocolError_UnknownVersionMismatch_Body **)&jarg1; 
-  result = (FeatureVersion *) ((arg1)->received);
-  *(FeatureVersion **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_delete_1ProtocolError_1UnknownVersionMismatch_1Body(JNIEnv *jenv, jclass jcls, jlong jarg1) {
-  ProtocolError_UnknownVersionMismatch_Body *arg1 = (ProtocolError_UnknownVersionMismatch_Body *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  arg1 = *(ProtocolError_UnknownVersionMismatch_Body **)&jarg1; 
-  delete arg1;
-}
-
-
-SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_ProtocolError_1tag_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
-  ProtocolError *arg1 = (ProtocolError *) 0 ;
-  enum ProtocolError_Tag arg2 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ProtocolError **)&jarg1; 
-  arg2 = (enum ProtocolError_Tag)jarg2; 
-  if (arg1) (arg1)->tag = arg2;
-}
-
-
-SWIGEXPORT jint JNICALL Java_org_dash_sdk_exampleJNI_ProtocolError_1tag_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jint jresult = 0 ;
-  ProtocolError *arg1 = (ProtocolError *) 0 ;
-  enum ProtocolError_Tag result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ProtocolError **)&jarg1; 
-  result = (enum ProtocolError_Tag) ((arg1)->tag);
-  jresult = (jint)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_ProtocolError_1identifier_1error_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2) {
-  ProtocolError *arg1 = (ProtocolError *) 0 ;
-  char *arg2 = (char *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ProtocolError **)&jarg1; 
-  arg2 = 0;
-  if (jarg2) {
-    arg2 = (char *)jenv->GetStringUTFChars(jarg2, 0);
-    if (!arg2) return ;
-  }
-  {
-    delete [] arg1->identifier_error;
-    if (arg2) {
-      arg1->identifier_error = (char *) (new char[strlen((const char *)arg2)+1]);
-      strcpy((char *)arg1->identifier_error, (const char *)arg2);
-    } else {
-      arg1->identifier_error = 0;
-    }
-  }
-  if (arg2) jenv->ReleaseStringUTFChars(jarg2, (const char *)arg2);
-}
-
-
-SWIGEXPORT jstring JNICALL Java_org_dash_sdk_exampleJNI_ProtocolError_1identifier_1error_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jstring jresult = 0 ;
-  ProtocolError *arg1 = (ProtocolError *) 0 ;
-  char *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ProtocolError **)&jarg1; 
-  result = (char *) ((arg1)->identifier_error);
-  if (result) jresult = jenv->NewStringUTF((const char *)result);
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_ProtocolError_1string_1decode_1error_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2) {
-  ProtocolError *arg1 = (ProtocolError *) 0 ;
-  char *arg2 = (char *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ProtocolError **)&jarg1; 
-  arg2 = 0;
-  if (jarg2) {
-    arg2 = (char *)jenv->GetStringUTFChars(jarg2, 0);
-    if (!arg2) return ;
-  }
-  {
-    delete [] arg1->string_decode_error;
-    if (arg2) {
-      arg1->string_decode_error = (char *) (new char[strlen((const char *)arg2)+1]);
-      strcpy((char *)arg1->string_decode_error, (const char *)arg2);
-    } else {
-      arg1->string_decode_error = 0;
-    }
-  }
-  if (arg2) jenv->ReleaseStringUTFChars(jarg2, (const char *)arg2);
-}
-
-
-SWIGEXPORT jstring JNICALL Java_org_dash_sdk_exampleJNI_ProtocolError_1string_1decode_1error_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jstring jresult = 0 ;
-  ProtocolError *arg1 = (ProtocolError *) 0 ;
-  char *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ProtocolError **)&jarg1; 
-  result = (char *) ((arg1)->string_decode_error);
-  if (result) jresult = jenv->NewStringUTF((const char *)result);
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_ProtocolError_1string_1decode_1error2_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  ProtocolError *arg1 = (ProtocolError *) 0 ;
-  ProtocolError_StringDecodeError2_Body *arg2 = (ProtocolError_StringDecodeError2_Body *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg2_;
-  arg1 = *(ProtocolError **)&jarg1; 
-  arg2 = *(ProtocolError_StringDecodeError2_Body **)&jarg2; 
-  if (arg1) (arg1)->string_decode_error2 = *arg2;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_ProtocolError_1string_1decode_1error2_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  ProtocolError *arg1 = (ProtocolError *) 0 ;
-  ProtocolError_StringDecodeError2_Body *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ProtocolError **)&jarg1; 
-  result = (ProtocolError_StringDecodeError2_Body *)& ((arg1)->string_decode_error2);
-  *(ProtocolError_StringDecodeError2_Body **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_ProtocolError_1max_1encoded_1bytes_1reached_1error_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  ProtocolError *arg1 = (ProtocolError *) 0 ;
-  ProtocolError_MaxEncodedBytesReachedError_Body *arg2 = (ProtocolError_MaxEncodedBytesReachedError_Body *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg2_;
-  arg1 = *(ProtocolError **)&jarg1; 
-  arg2 = *(ProtocolError_MaxEncodedBytesReachedError_Body **)&jarg2; 
-  if (arg1) (arg1)->max_encoded_bytes_reached_error = *arg2;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_ProtocolError_1max_1encoded_1bytes_1reached_1error_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  ProtocolError *arg1 = (ProtocolError *) 0 ;
-  ProtocolError_MaxEncodedBytesReachedError_Body *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ProtocolError **)&jarg1; 
-  result = (ProtocolError_MaxEncodedBytesReachedError_Body *)& ((arg1)->max_encoded_bytes_reached_error);
-  *(ProtocolError_MaxEncodedBytesReachedError_Body **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_ProtocolError_1encoding_1error_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2) {
-  ProtocolError *arg1 = (ProtocolError *) 0 ;
-  char *arg2 = (char *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ProtocolError **)&jarg1; 
-  arg2 = 0;
-  if (jarg2) {
-    arg2 = (char *)jenv->GetStringUTFChars(jarg2, 0);
-    if (!arg2) return ;
-  }
-  {
-    delete [] arg1->encoding_error;
-    if (arg2) {
-      arg1->encoding_error = (char *) (new char[strlen((const char *)arg2)+1]);
-      strcpy((char *)arg1->encoding_error, (const char *)arg2);
-    } else {
-      arg1->encoding_error = 0;
-    }
-  }
-  if (arg2) jenv->ReleaseStringUTFChars(jarg2, (const char *)arg2);
-}
-
-
-SWIGEXPORT jstring JNICALL Java_org_dash_sdk_exampleJNI_ProtocolError_1encoding_1error_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jstring jresult = 0 ;
-  ProtocolError *arg1 = (ProtocolError *) 0 ;
-  char *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ProtocolError **)&jarg1; 
-  result = (char *) ((arg1)->encoding_error);
-  if (result) jresult = jenv->NewStringUTF((const char *)result);
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_ProtocolError_1encoding_1error2_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2) {
-  ProtocolError *arg1 = (ProtocolError *) 0 ;
-  char *arg2 = (char *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ProtocolError **)&jarg1; 
-  arg2 = 0;
-  if (jarg2) {
-    arg2 = (char *)jenv->GetStringUTFChars(jarg2, 0);
-    if (!arg2) return ;
-  }
-  {
-    delete [] arg1->encoding_error2;
-    if (arg2) {
-      arg1->encoding_error2 = (char *) (new char[strlen((const char *)arg2)+1]);
-      strcpy((char *)arg1->encoding_error2, (const char *)arg2);
-    } else {
-      arg1->encoding_error2 = 0;
-    }
-  }
-  if (arg2) jenv->ReleaseStringUTFChars(jarg2, (const char *)arg2);
-}
-
-
-SWIGEXPORT jstring JNICALL Java_org_dash_sdk_exampleJNI_ProtocolError_1encoding_1error2_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jstring jresult = 0 ;
-  ProtocolError *arg1 = (ProtocolError *) 0 ;
-  char *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ProtocolError **)&jarg1; 
-  result = (char *) ((arg1)->encoding_error2);
-  if (result) jresult = jenv->NewStringUTF((const char *)result);
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_ProtocolError_1data_1contract_1not_1present_1error_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  ProtocolError *arg1 = (ProtocolError *) 0 ;
-  DataContractNotPresentError *arg2 = (DataContractNotPresentError *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg2_;
-  arg1 = *(ProtocolError **)&jarg1; 
-  arg2 = *(DataContractNotPresentError **)&jarg2; 
-  if (arg1) (arg1)->data_contract_not_present_error = arg2;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_ProtocolError_1data_1contract_1not_1present_1error_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  ProtocolError *arg1 = (ProtocolError *) 0 ;
-  DataContractNotPresentError *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ProtocolError **)&jarg1; 
-  result = (DataContractNotPresentError *) ((arg1)->data_contract_not_present_error);
-  *(DataContractNotPresentError **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_ProtocolError_1unknown_1version_1mismatch_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  ProtocolError *arg1 = (ProtocolError *) 0 ;
-  ProtocolError_UnknownVersionMismatch_Body *arg2 = (ProtocolError_UnknownVersionMismatch_Body *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg2_;
-  arg1 = *(ProtocolError **)&jarg1; 
-  arg2 = *(ProtocolError_UnknownVersionMismatch_Body **)&jarg2; 
-  if (arg1) (arg1)->unknown_version_mismatch = *arg2;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_ProtocolError_1unknown_1version_1mismatch_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  ProtocolError *arg1 = (ProtocolError *) 0 ;
-  ProtocolError_UnknownVersionMismatch_Body *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ProtocolError **)&jarg1; 
-  result = (ProtocolError_UnknownVersionMismatch_Body *)& ((arg1)->unknown_version_mismatch);
-  *(ProtocolError_UnknownVersionMismatch_Body **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_delete_1ProtocolError(JNIEnv *jenv, jclass jcls, jlong jarg1) {
-  ProtocolError *arg1 = (ProtocolError *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  arg1 = *(ProtocolError **)&jarg1; 
-  delete arg1;
-}
-
-
-SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_InnerStruct_1first_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jobject jarg2) {
-  InnerStruct *arg1 = (InnerStruct *) 0 ;
-  uint64_t arg2 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(InnerStruct **)&jarg1; 
-  {
-    jclass clazz;
-    jmethodID mid;
-    jbyteArray ba;
-    jbyte* bae;
-    jsize sz;
-    int i;
-    
-    if (!jarg2) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "BigInteger null");
-      return ;
-    }
-    clazz = jenv->GetObjectClass(jarg2);
-    mid = jenv->GetMethodID(clazz, "toByteArray", "()[B");
-    ba = (jbyteArray)jenv->CallObjectMethod(jarg2, mid);
-    bae = jenv->GetByteArrayElements(ba, 0);
-    sz = jenv->GetArrayLength(ba);
-    arg2 = 0;
-    if (sz > 0) {
-      arg2 = (uint64_t)(signed char)bae[0];
-      for(i=1; i<sz; i++) {
-        arg2 = (arg2 << 8) | (uint64_t)(unsigned char)bae[i];
-      }
-    }
-    jenv->ReleaseByteArrayElements(ba, bae, 0);
-  }
-  if (arg1) (arg1)->first = arg2;
-}
-
-
-SWIGEXPORT jobject JNICALL Java_org_dash_sdk_exampleJNI_InnerStruct_1first_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jobject jresult = 0 ;
-  InnerStruct *arg1 = (InnerStruct *) 0 ;
-  uint64_t result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(InnerStruct **)&jarg1; 
-  result = (uint64_t) ((arg1)->first);
-  {
-    jbyteArray ba = jenv->NewByteArray(9);
-    jbyte* bae = jenv->GetByteArrayElements(ba, 0);
-    jclass clazz = jenv->FindClass("java/math/BigInteger");
-    jmethodID mid = jenv->GetMethodID(clazz, "<init>", "([B)V");
-    jobject bigint;
-    int i;
-    
-    bae[0] = 0;
-    for(i=1; i<9; i++ ) {
-      bae[i] = (jbyte)(result>>8*(8-i));
-    }
-    
-    jenv->ReleaseByteArrayElements(ba, bae, 0);
-    bigint = jenv->NewObject(clazz, mid, ba);
-    jenv->DeleteLocalRef(ba);
-    jresult = bigint;
-  }
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_InnerStruct_1second_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jobject jarg2) {
-  InnerStruct *arg1 = (InnerStruct *) 0 ;
-  uint64_t arg2 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(InnerStruct **)&jarg1; 
-  {
-    jclass clazz;
-    jmethodID mid;
-    jbyteArray ba;
-    jbyte* bae;
-    jsize sz;
-    int i;
-    
-    if (!jarg2) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "BigInteger null");
-      return ;
-    }
-    clazz = jenv->GetObjectClass(jarg2);
-    mid = jenv->GetMethodID(clazz, "toByteArray", "()[B");
-    ba = (jbyteArray)jenv->CallObjectMethod(jarg2, mid);
-    bae = jenv->GetByteArrayElements(ba, 0);
-    sz = jenv->GetArrayLength(ba);
-    arg2 = 0;
-    if (sz > 0) {
-      arg2 = (uint64_t)(signed char)bae[0];
-      for(i=1; i<sz; i++) {
-        arg2 = (arg2 << 8) | (uint64_t)(unsigned char)bae[i];
-      }
-    }
-    jenv->ReleaseByteArrayElements(ba, bae, 0);
-  }
-  if (arg1) (arg1)->second = arg2;
-}
-
-
-SWIGEXPORT jobject JNICALL Java_org_dash_sdk_exampleJNI_InnerStruct_1second_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jobject jresult = 0 ;
-  InnerStruct *arg1 = (InnerStruct *) 0 ;
-  uint64_t result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(InnerStruct **)&jarg1; 
-  result = (uint64_t) ((arg1)->second);
-  {
-    jbyteArray ba = jenv->NewByteArray(9);
-    jbyte* bae = jenv->GetByteArrayElements(ba, 0);
-    jclass clazz = jenv->FindClass("java/math/BigInteger");
-    jmethodID mid = jenv->GetMethodID(clazz, "<init>", "([B)V");
-    jobject bigint;
-    int i;
-    
-    bae[0] = 0;
-    for(i=1; i<9; i++ ) {
-      bae[i] = (jbyte)(result>>8*(8-i));
-    }
-    
-    jenv->ReleaseByteArrayElements(ba, bae, 0);
-    bigint = jenv->NewObject(clazz, mid, ba);
-    jenv->DeleteLocalRef(ba);
-    jresult = bigint;
-  }
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_new_1InnerStruct(JNIEnv *jenv, jclass jcls, jint jarg1, jint jarg2) {
-  jlong jresult = 0 ;
-  long arg1 ;
-  long arg2 ;
-  InnerStruct *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  arg1 = (long)jarg1; 
-  arg2 = (long)jarg2; 
-  result = (InnerStruct *)new_InnerStruct(arg1,arg2);
-  *(InnerStruct **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_delete_1InnerStruct(JNIEnv *jenv, jclass jcls, jlong jarg1) {
-  InnerStruct *arg1 = (InnerStruct *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  arg1 = *(InnerStruct **)&jarg1; 
-  delete_InnerStruct(arg1);
-}
-
-
-SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_OuterStruct_1first_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  OuterStruct *arg1 = (OuterStruct *) 0 ;
-  InnerStruct *arg2 = (InnerStruct *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg2_;
-  arg1 = *(OuterStruct **)&jarg1; 
-  arg2 = *(InnerStruct **)&jarg2; 
-  if (arg1) (arg1)->first = arg2;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_OuterStruct_1first_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  OuterStruct *arg1 = (OuterStruct *) 0 ;
-  InnerStruct *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(OuterStruct **)&jarg1; 
-  result = (InnerStruct *) ((arg1)->first);
-  *(InnerStruct **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_OuterStruct_1second_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  OuterStruct *arg1 = (OuterStruct *) 0 ;
-  InnerStruct *arg2 = (InnerStruct *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg2_;
-  arg1 = *(OuterStruct **)&jarg1; 
-  arg2 = *(InnerStruct **)&jarg2; 
-  if (arg1) (arg1)->second = arg2;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_OuterStruct_1second_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  OuterStruct *arg1 = (OuterStruct *) 0 ;
-  InnerStruct *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(OuterStruct **)&jarg1; 
-  result = (InnerStruct *) ((arg1)->second);
-  *(InnerStruct **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_new_1OuterStruct_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  jlong jresult = 0 ;
-  InnerStruct *arg1 = (InnerStruct *) 0 ;
-  InnerStruct *arg2 = (InnerStruct *) 0 ;
-  OuterStruct *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg2_;
-  arg1 = *(InnerStruct **)&jarg1; 
-  arg2 = *(InnerStruct **)&jarg2; 
-  result = (OuterStruct *)new_OuterStruct__SWIG_0(arg1,arg2);
-  *(OuterStruct **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_new_1OuterStruct_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jint jarg1, jint jarg2, jint jarg3, jint jarg4) {
-  jlong jresult = 0 ;
-  long arg1 ;
-  long arg2 ;
-  long arg3 ;
-  long arg4 ;
-  OuterStruct *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  arg1 = (long)jarg1; 
-  arg2 = (long)jarg2; 
-  arg3 = (long)jarg3; 
-  arg4 = (long)jarg4; 
-  result = (OuterStruct *)new_OuterStruct__SWIG_1(arg1,arg2,arg3,arg4);
-  *(OuterStruct **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_delete_1OuterStruct(JNIEnv *jenv, jclass jcls, jlong jarg1) {
-  OuterStruct *arg1 = (OuterStruct *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  arg1 = *(OuterStruct **)&jarg1; 
-  delete_OuterStruct(arg1);
-}
-
-
-SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_VecU8Holder_1first_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jbyteArray jarg2) {
-  VecU8Holder *arg1 = (VecU8Holder *) 0 ;
-  Vec_u8 *arg2 = (Vec_u8 *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(VecU8Holder **)&jarg1; 
-  
-  uint8_t * _buffer_arg2 = (uint8_t*)(jenv)->GetByteArrayElements(jarg2, 0);
-  int size_arg2 = (jenv)->GetArrayLength(jarg2);
-  uint8_t * byteArray_arg2 = (uint8_t *)memoryFactory.alloc(size_arg2);
-  memcpy(byteArray_arg2, _buffer_arg2, size_arg2);
-  arg2 = Vec_u8_ctor(byteArray_arg2, size_arg2);
-  printf("typemap(in) Vec_u8 *: %ld, [%lx]%d\n", arg2->count, (long)arg2->values, arg2->values[0]);
-  
-  if (arg1) (arg1)->first = arg2;
-  
-  printf("typemap(argout) Vec_u8 *: %ld, [%lx]%d\n", arg2->count, (long)arg2->values, arg2->values[0]);
-  //JCALL3(ReleaseByteArrayElements, jenv, jarg2, (jbyte *) _buffer_arg2, 0);
-  jenv->ReleaseByteArrayElements(jarg2, (jbyte *) _buffer_arg2, 0);
-  printf("typemap(argout) Vec_u8 *: %ld, [%lx]%d\n", arg2->count, (long)arg2->values, arg2->values[0]);
-  
-}
-
-
-SWIGEXPORT jbyteArray JNICALL Java_org_dash_sdk_exampleJNI_VecU8Holder_1first_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jbyteArray jresult = 0 ;
-  VecU8Holder *arg1 = (VecU8Holder *) 0 ;
-  Vec_u8 *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(VecU8Holder **)&jarg1; 
-  result = (Vec_u8 *) ((arg1)->first);
-  {
-    printf("typemap(out) Vec_u8* %lx\n", (long)result);
-    if (!result) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Vec_u8* null array");
-      return 0;
-    }
-    if (!result->values) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Vec_u8.values null array");
-      return 0;
-    }
-    printf("  (count: %ld, values: [%lx], %d)\n", result->count, (long)result->values, result->values[0]);
-    jresult = jenv->NewByteArray(result->count);
-    jenv->SetByteArrayRegion(jresult, 0, result->count, (jbyte *) result->values);
-  }
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_new_1VecU8Holder(JNIEnv *jenv, jclass jcls, jbyteArray jarg1) {
-  jlong jresult = 0 ;
-  Vec_u8 *arg1 = (Vec_u8 *) 0 ;
-  VecU8Holder *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  
-  uint8_t * _buffer_arg1 = (uint8_t*)(jenv)->GetByteArrayElements(jarg1, 0);
-  int size_arg1 = (jenv)->GetArrayLength(jarg1);
-  uint8_t * byteArray_arg1 = (uint8_t *)memoryFactory.alloc(size_arg1);
-  memcpy(byteArray_arg1, _buffer_arg1, size_arg1);
-  arg1 = Vec_u8_ctor(byteArray_arg1, size_arg1);
-  printf("typemap(in) Vec_u8 *: %ld, [%lx]%d\n", arg1->count, (long)arg1->values, arg1->values[0]);
-  
-  result = (VecU8Holder *)new_VecU8Holder(arg1);
-  *(VecU8Holder **)&jresult = result; 
-  
-  printf("typemap(argout) Vec_u8 *: %ld, [%lx]%d\n", arg1->count, (long)arg1->values, arg1->values[0]);
-  //JCALL3(ReleaseByteArrayElements, jenv, jarg1, (jbyte *) _buffer_arg1, 0);
-  jenv->ReleaseByteArrayElements(jarg1, (jbyte *) _buffer_arg1, 0);
-  printf("typemap(argout) Vec_u8 *: %ld, [%lx]%d\n", arg1->count, (long)arg1->values, arg1->values[0]);
-  
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_delete_1VecU8Holder(JNIEnv *jenv, jclass jcls, jlong jarg1) {
-  VecU8Holder *arg1 = (VecU8Holder *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  arg1 = *(VecU8Holder **)&jarg1; 
-  delete_VecU8Holder(arg1);
 }
 
 
 SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_new_1KeyID(JNIEnv *jenv, jclass jcls, jint jarg1) {
   jlong jresult = 0 ;
   int arg1 ;
-  KeyID *result = 0 ;
+  crate_identity_identity_KeyID *result = 0 ;
   
   (void)jenv;
   (void)jcls;
   arg1 = (int)jarg1; 
-  result = (KeyID *)new_KeyID(arg1);
-  *(KeyID **)&jresult = result; 
+  result = (crate_identity_identity_KeyID *)new_crate_identity_identity_KeyID(arg1);
+  *(crate_identity_identity_KeyID **)&jresult = result; 
   return jresult;
 }
 
 
 SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_delete_1KeyID(JNIEnv *jenv, jclass jcls, jlong jarg1) {
-  KeyID *arg1 = (KeyID *) 0 ;
+  crate_identity_identity_KeyID *arg1 = (crate_identity_identity_KeyID *) 0 ;
   
   (void)jenv;
   (void)jcls;
-  arg1 = *(KeyID **)&jarg1; 
-  delete_KeyID(arg1);
+  arg1 = *(crate_identity_identity_KeyID **)&jarg1; 
+  delete_crate_identity_identity_KeyID(arg1);
 }
 
 
 SWIGEXPORT jint JNICALL Java_org_dash_sdk_exampleJNI_KeyID_1toInt(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jint jresult = 0 ;
-  KeyID *arg1 = (KeyID *) 0 ;
+  crate_identity_identity_KeyID *arg1 = (crate_identity_identity_KeyID *) 0 ;
   int result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(KeyID **)&jarg1; 
-  result = (int)KeyID_toInt(arg1);
+  arg1 = *(crate_identity_identity_KeyID **)&jarg1; 
+  result = (int)crate_identity_identity_KeyID_toInt(arg1);
   jresult = (jint)result; 
   return jresult;
 }
@@ -2200,98 +934,98 @@ SWIGEXPORT jint JNICALL Java_org_dash_sdk_exampleJNI_KeyID_1toInt(JNIEnv *jenv, 
 
 SWIGEXPORT jboolean JNICALL Java_org_dash_sdk_exampleJNI_KeyID_1objectEquals(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
   jboolean jresult = 0 ;
-  KeyID *arg1 = (KeyID *) 0 ;
-  KeyID *arg2 = (KeyID *) 0 ;
+  crate_identity_identity_KeyID *arg1 = (crate_identity_identity_KeyID *) 0 ;
+  crate_identity_identity_KeyID *arg2 = (crate_identity_identity_KeyID *) 0 ;
   bool result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   (void)jarg2_;
-  arg1 = *(KeyID **)&jarg1; 
-  arg2 = *(KeyID **)&jarg2; 
-  result = (bool)KeyID_objectEquals(arg1,arg2);
+  arg1 = *(crate_identity_identity_KeyID **)&jarg1; 
+  arg2 = *(crate_identity_identity_KeyID **)&jarg2; 
+  result = (bool)crate_identity_identity_KeyID_objectEquals(arg1,arg2);
   jresult = (jboolean)result; 
   return jresult;
 }
 
 
-SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_ContractBounds_1SingleContract_1Body_1id_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  ContractBounds_SingleContract_Body *arg1 = (ContractBounds_SingleContract_Body *) 0 ;
-  Identifier *arg2 = (Identifier *) 0 ;
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_crate_1identity_1identity_1ContractBounds_1SingleContract_1Body_1id_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  crate_identity_identity_ContractBounds_SingleContract_Body *arg1 = (crate_identity_identity_ContractBounds_SingleContract_Body *) 0 ;
+  crate_nested_Identifier *arg2 = (crate_nested_Identifier *) 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   (void)jarg2_;
-  arg1 = *(ContractBounds_SingleContract_Body **)&jarg1; 
-  arg2 = *(Identifier **)&jarg2; 
+  arg1 = *(crate_identity_identity_ContractBounds_SingleContract_Body **)&jarg1; 
+  arg2 = *(crate_nested_Identifier **)&jarg2; 
   if (arg1) (arg1)->id = arg2;
 }
 
 
-SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_ContractBounds_1SingleContract_1Body_1id_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_crate_1identity_1identity_1ContractBounds_1SingleContract_1Body_1id_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jlong jresult = 0 ;
-  ContractBounds_SingleContract_Body *arg1 = (ContractBounds_SingleContract_Body *) 0 ;
-  Identifier *result = 0 ;
+  crate_identity_identity_ContractBounds_SingleContract_Body *arg1 = (crate_identity_identity_ContractBounds_SingleContract_Body *) 0 ;
+  crate_nested_Identifier *result = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(ContractBounds_SingleContract_Body **)&jarg1; 
-  result = (Identifier *) ((arg1)->id);
-  *(Identifier **)&jresult = result; 
+  arg1 = *(crate_identity_identity_ContractBounds_SingleContract_Body **)&jarg1; 
+  result = (crate_nested_Identifier *) ((arg1)->id);
+  *(crate_nested_Identifier **)&jresult = result; 
   return jresult;
 }
 
 
-SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_delete_1ContractBounds_1SingleContract_1Body(JNIEnv *jenv, jclass jcls, jlong jarg1) {
-  ContractBounds_SingleContract_Body *arg1 = (ContractBounds_SingleContract_Body *) 0 ;
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_delete_1crate_1identity_1identity_1ContractBounds_1SingleContract_1Body(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  crate_identity_identity_ContractBounds_SingleContract_Body *arg1 = (crate_identity_identity_ContractBounds_SingleContract_Body *) 0 ;
   
   (void)jenv;
   (void)jcls;
-  arg1 = *(ContractBounds_SingleContract_Body **)&jarg1; 
+  arg1 = *(crate_identity_identity_ContractBounds_SingleContract_Body **)&jarg1; 
   delete arg1;
 }
 
 
-SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_ContractBounds_1SingleContractDocumentType_1Body_1id_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  ContractBounds_SingleContractDocumentType_Body *arg1 = (ContractBounds_SingleContractDocumentType_Body *) 0 ;
-  Identifier *arg2 = (Identifier *) 0 ;
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_crate_1identity_1identity_1ContractBounds_1SingleContractDocumentType_1Body_1id_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  crate_identity_identity_ContractBounds_SingleContractDocumentType_Body *arg1 = (crate_identity_identity_ContractBounds_SingleContractDocumentType_Body *) 0 ;
+  crate_nested_Identifier *arg2 = (crate_nested_Identifier *) 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   (void)jarg2_;
-  arg1 = *(ContractBounds_SingleContractDocumentType_Body **)&jarg1; 
-  arg2 = *(Identifier **)&jarg2; 
+  arg1 = *(crate_identity_identity_ContractBounds_SingleContractDocumentType_Body **)&jarg1; 
+  arg2 = *(crate_nested_Identifier **)&jarg2; 
   if (arg1) (arg1)->id = arg2;
 }
 
 
-SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_ContractBounds_1SingleContractDocumentType_1Body_1id_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_crate_1identity_1identity_1ContractBounds_1SingleContractDocumentType_1Body_1id_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jlong jresult = 0 ;
-  ContractBounds_SingleContractDocumentType_Body *arg1 = (ContractBounds_SingleContractDocumentType_Body *) 0 ;
-  Identifier *result = 0 ;
+  crate_identity_identity_ContractBounds_SingleContractDocumentType_Body *arg1 = (crate_identity_identity_ContractBounds_SingleContractDocumentType_Body *) 0 ;
+  crate_nested_Identifier *result = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(ContractBounds_SingleContractDocumentType_Body **)&jarg1; 
-  result = (Identifier *) ((arg1)->id);
-  *(Identifier **)&jresult = result; 
+  arg1 = *(crate_identity_identity_ContractBounds_SingleContractDocumentType_Body **)&jarg1; 
+  result = (crate_nested_Identifier *) ((arg1)->id);
+  *(crate_nested_Identifier **)&jresult = result; 
   return jresult;
 }
 
 
-SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_ContractBounds_1SingleContractDocumentType_1Body_1document_1type_1name_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2) {
-  ContractBounds_SingleContractDocumentType_Body *arg1 = (ContractBounds_SingleContractDocumentType_Body *) 0 ;
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_crate_1identity_1identity_1ContractBounds_1SingleContractDocumentType_1Body_1document_1type_1name_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2) {
+  crate_identity_identity_ContractBounds_SingleContractDocumentType_Body *arg1 = (crate_identity_identity_ContractBounds_SingleContractDocumentType_Body *) 0 ;
   char *arg2 = (char *) 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(ContractBounds_SingleContractDocumentType_Body **)&jarg1; 
+  arg1 = *(crate_identity_identity_ContractBounds_SingleContractDocumentType_Body **)&jarg1; 
   arg2 = 0;
   if (jarg2) {
     arg2 = (char *)jenv->GetStringUTFChars(jarg2, 0);
@@ -2310,172 +1044,263 @@ SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_ContractBounds_1SingleContr
 }
 
 
-SWIGEXPORT jstring JNICALL Java_org_dash_sdk_exampleJNI_ContractBounds_1SingleContractDocumentType_1Body_1document_1type_1name_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jstring JNICALL Java_org_dash_sdk_exampleJNI_crate_1identity_1identity_1ContractBounds_1SingleContractDocumentType_1Body_1document_1type_1name_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jstring jresult = 0 ;
-  ContractBounds_SingleContractDocumentType_Body *arg1 = (ContractBounds_SingleContractDocumentType_Body *) 0 ;
+  crate_identity_identity_ContractBounds_SingleContractDocumentType_Body *arg1 = (crate_identity_identity_ContractBounds_SingleContractDocumentType_Body *) 0 ;
   char *result = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(ContractBounds_SingleContractDocumentType_Body **)&jarg1; 
+  arg1 = *(crate_identity_identity_ContractBounds_SingleContractDocumentType_Body **)&jarg1; 
   result = (char *) ((arg1)->document_type_name);
   if (result) jresult = jenv->NewStringUTF((const char *)result);
   return jresult;
 }
 
 
-SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_delete_1ContractBounds_1SingleContractDocumentType_1Body(JNIEnv *jenv, jclass jcls, jlong jarg1) {
-  ContractBounds_SingleContractDocumentType_Body *arg1 = (ContractBounds_SingleContractDocumentType_Body *) 0 ;
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_delete_1crate_1identity_1identity_1ContractBounds_1SingleContractDocumentType_1Body(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  crate_identity_identity_ContractBounds_SingleContractDocumentType_Body *arg1 = (crate_identity_identity_ContractBounds_SingleContractDocumentType_Body *) 0 ;
   
   (void)jenv;
   (void)jcls;
-  arg1 = *(ContractBounds_SingleContractDocumentType_Body **)&jarg1; 
+  arg1 = *(crate_identity_identity_ContractBounds_SingleContractDocumentType_Body **)&jarg1; 
   delete arg1;
 }
 
 
 SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_ContractBounds_1tag_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
-  ContractBounds *arg1 = (ContractBounds *) 0 ;
-  enum ContractBounds_Tag arg2 ;
+  crate_identity_identity_ContractBounds *arg1 = (crate_identity_identity_ContractBounds *) 0 ;
+  enum crate_identity_identity_ContractBounds_Tag arg2 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(ContractBounds **)&jarg1; 
-  arg2 = (enum ContractBounds_Tag)jarg2; 
+  arg1 = *(crate_identity_identity_ContractBounds **)&jarg1; 
+  arg2 = (enum crate_identity_identity_ContractBounds_Tag)jarg2; 
   if (arg1) (arg1)->tag = arg2;
 }
 
 
 SWIGEXPORT jint JNICALL Java_org_dash_sdk_exampleJNI_ContractBounds_1tag_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jint jresult = 0 ;
-  ContractBounds *arg1 = (ContractBounds *) 0 ;
-  enum ContractBounds_Tag result;
+  crate_identity_identity_ContractBounds *arg1 = (crate_identity_identity_ContractBounds *) 0 ;
+  enum crate_identity_identity_ContractBounds_Tag result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(ContractBounds **)&jarg1; 
-  result = (enum ContractBounds_Tag) ((arg1)->tag);
+  arg1 = *(crate_identity_identity_ContractBounds **)&jarg1; 
+  result = (enum crate_identity_identity_ContractBounds_Tag) ((arg1)->tag);
   jresult = (jint)result; 
   return jresult;
 }
 
 
 SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_ContractBounds_1single_1contract_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  ContractBounds *arg1 = (ContractBounds *) 0 ;
-  ContractBounds_SingleContract_Body *arg2 = (ContractBounds_SingleContract_Body *) 0 ;
+  crate_identity_identity_ContractBounds *arg1 = (crate_identity_identity_ContractBounds *) 0 ;
+  crate_identity_identity_ContractBounds_SingleContract_Body *arg2 = (crate_identity_identity_ContractBounds_SingleContract_Body *) 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   (void)jarg2_;
-  arg1 = *(ContractBounds **)&jarg1; 
-  arg2 = *(ContractBounds_SingleContract_Body **)&jarg2; 
+  arg1 = *(crate_identity_identity_ContractBounds **)&jarg1; 
+  arg2 = *(crate_identity_identity_ContractBounds_SingleContract_Body **)&jarg2; 
   if (arg1) (arg1)->single_contract = *arg2;
 }
 
 
 SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_ContractBounds_1single_1contract_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jlong jresult = 0 ;
-  ContractBounds *arg1 = (ContractBounds *) 0 ;
-  ContractBounds_SingleContract_Body *result = 0 ;
+  crate_identity_identity_ContractBounds *arg1 = (crate_identity_identity_ContractBounds *) 0 ;
+  crate_identity_identity_ContractBounds_SingleContract_Body *result = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(ContractBounds **)&jarg1; 
-  result = (ContractBounds_SingleContract_Body *)& ((arg1)->single_contract);
-  *(ContractBounds_SingleContract_Body **)&jresult = result; 
+  arg1 = *(crate_identity_identity_ContractBounds **)&jarg1; 
+  result = (crate_identity_identity_ContractBounds_SingleContract_Body *)& ((arg1)->single_contract);
+  *(crate_identity_identity_ContractBounds_SingleContract_Body **)&jresult = result; 
   return jresult;
 }
 
 
 SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_ContractBounds_1single_1contract_1document_1type_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  ContractBounds *arg1 = (ContractBounds *) 0 ;
-  ContractBounds_SingleContractDocumentType_Body *arg2 = (ContractBounds_SingleContractDocumentType_Body *) 0 ;
+  crate_identity_identity_ContractBounds *arg1 = (crate_identity_identity_ContractBounds *) 0 ;
+  crate_identity_identity_ContractBounds_SingleContractDocumentType_Body *arg2 = (crate_identity_identity_ContractBounds_SingleContractDocumentType_Body *) 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   (void)jarg2_;
-  arg1 = *(ContractBounds **)&jarg1; 
-  arg2 = *(ContractBounds_SingleContractDocumentType_Body **)&jarg2; 
+  arg1 = *(crate_identity_identity_ContractBounds **)&jarg1; 
+  arg2 = *(crate_identity_identity_ContractBounds_SingleContractDocumentType_Body **)&jarg2; 
   if (arg1) (arg1)->single_contract_document_type = *arg2;
 }
 
 
 SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_ContractBounds_1single_1contract_1document_1type_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jlong jresult = 0 ;
-  ContractBounds *arg1 = (ContractBounds *) 0 ;
-  ContractBounds_SingleContractDocumentType_Body *result = 0 ;
+  crate_identity_identity_ContractBounds *arg1 = (crate_identity_identity_ContractBounds *) 0 ;
+  crate_identity_identity_ContractBounds_SingleContractDocumentType_Body *result = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(ContractBounds **)&jarg1; 
-  result = (ContractBounds_SingleContractDocumentType_Body *)& ((arg1)->single_contract_document_type);
-  *(ContractBounds_SingleContractDocumentType_Body **)&jresult = result; 
+  arg1 = *(crate_identity_identity_ContractBounds **)&jarg1; 
+  result = (crate_identity_identity_ContractBounds_SingleContractDocumentType_Body *)& ((arg1)->single_contract_document_type);
+  *(crate_identity_identity_ContractBounds_SingleContractDocumentType_Body **)&jresult = result; 
   return jresult;
 }
 
 
 SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_new_1ContractBounds_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jlong jresult = 0 ;
-  Identifier *arg1 = (Identifier *) 0 ;
-  ContractBounds *result = 0 ;
+  crate_nested_Identifier *arg1 = (crate_nested_Identifier *) 0 ;
+  crate_identity_identity_ContractBounds *result = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(Identifier **)&jarg1; 
-  result = (ContractBounds *)new_ContractBounds__SWIG_0(arg1);
-  *(ContractBounds **)&jresult = result; 
+  arg1 = *(crate_nested_Identifier **)&jarg1; 
+  result = (crate_identity_identity_ContractBounds *)new_crate_identity_identity_ContractBounds__SWIG_0(arg1);
+  *(crate_identity_identity_ContractBounds **)&jresult = result; 
   return jresult;
 }
 
 
 SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_new_1ContractBounds_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2) {
   jlong jresult = 0 ;
-  Identifier *arg1 = (Identifier *) 0 ;
+  crate_nested_Identifier *arg1 = (crate_nested_Identifier *) 0 ;
   char *arg2 = (char *) 0 ;
-  ContractBounds *result = 0 ;
+  crate_identity_identity_ContractBounds *result = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(Identifier **)&jarg1; 
+  arg1 = *(crate_nested_Identifier **)&jarg1; 
   arg2 = 0;
   if (jarg2) {
     arg2 = (char *)jenv->GetStringUTFChars(jarg2, 0);
     if (!arg2) return 0;
   }
-  result = (ContractBounds *)new_ContractBounds__SWIG_1(arg1,arg2);
-  *(ContractBounds **)&jresult = result; 
+  result = (crate_identity_identity_ContractBounds *)new_crate_identity_identity_ContractBounds__SWIG_1(arg1,arg2);
+  *(crate_identity_identity_ContractBounds **)&jresult = result; 
   if (arg2) jenv->ReleaseStringUTFChars(jarg2, (const char *)arg2);
   return jresult;
 }
 
 
 SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_delete_1ContractBounds(JNIEnv *jenv, jclass jcls, jlong jarg1) {
-  ContractBounds *arg1 = (ContractBounds *) 0 ;
+  crate_identity_identity_ContractBounds *arg1 = (crate_identity_identity_ContractBounds *) 0 ;
   
   (void)jenv;
   (void)jcls;
-  arg1 = *(ContractBounds **)&jarg1; 
-  delete_ContractBounds(arg1);
+  arg1 = *(crate_identity_identity_ContractBounds **)&jarg1; 
+  delete_crate_identity_identity_ContractBounds(arg1);
+}
+
+
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_BinaryData_1_10_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jbyteArray jarg2) {
+  crate_nested_BinaryData *arg1 = (crate_nested_BinaryData *) 0 ;
+  Vec_u8 *arg2 = (Vec_u8 *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_nested_BinaryData **)&jarg1; 
+  
+  uint8_t * _buffer_arg2 = (uint8_t*)(jenv)->GetByteArrayElements(jarg2, 0);
+  int size_arg2 = (jenv)->GetArrayLength(jarg2);
+  uint8_t * byteArray_arg2 = (uint8_t *)memoryFactory.alloc(size_arg2);
+  memcpy(byteArray_arg2, _buffer_arg2, size_arg2);
+  arg2 = Vec_u8_ctor(byteArray_arg2, size_arg2);
+  printf("typemap(in) Vec_u8 *: %ld, [%lx]%d\n", arg2->count, (long)arg2->values, arg2->values[0]);
+  
+  if (arg1) (arg1)->_0 = arg2;
+  
+  printf("typemap(argout) Vec_u8 *: %ld, [%lx]%d\n", arg2->count, (long)arg2->values, arg2->values[0]);
+  //JCALL3(ReleaseByteArrayElements, jenv, jarg2, (jbyte *) _buffer_arg2, 0);
+  jenv->ReleaseByteArrayElements(jarg2, (jbyte *) _buffer_arg2, 0);
+  printf("typemap(argout) Vec_u8 *: %ld, [%lx]%d\n", arg2->count, (long)arg2->values, arg2->values[0]);
+  
+}
+
+
+SWIGEXPORT jbyteArray JNICALL Java_org_dash_sdk_exampleJNI_BinaryData_1_10_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jbyteArray jresult = 0 ;
+  crate_nested_BinaryData *arg1 = (crate_nested_BinaryData *) 0 ;
+  Vec_u8 *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_nested_BinaryData **)&jarg1; 
+  result = (Vec_u8 *) ((arg1)->_0);
+  {
+    printf("typemap(out) Vec_u8* %lx\n", (long)result);
+    if (!result) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Vec_u8* null array");
+      return 0;
+    }
+    if (!result->values) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Vec_u8.values null array");
+      return 0;
+    }
+    printf("  (count: %ld, values: [%lx], %d)\n", result->count, (long)result->values, result->values[0]);
+    jresult = jenv->NewByteArray(result->count);
+    jenv->SetByteArrayRegion(jresult, 0, result->count, (jbyte *) result->values);
+  }
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_new_1BinaryData(JNIEnv *jenv, jclass jcls, jbyteArray jarg1) {
+  jlong jresult = 0 ;
+  Vec_u8 *arg1 = (Vec_u8 *) 0 ;
+  crate_nested_BinaryData *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  
+  uint8_t * _buffer_arg1 = (uint8_t*)(jenv)->GetByteArrayElements(jarg1, 0);
+  int size_arg1 = (jenv)->GetArrayLength(jarg1);
+  uint8_t * byteArray_arg1 = (uint8_t *)memoryFactory.alloc(size_arg1);
+  memcpy(byteArray_arg1, _buffer_arg1, size_arg1);
+  arg1 = Vec_u8_ctor(byteArray_arg1, size_arg1);
+  printf("typemap(in) Vec_u8 *: %ld, [%lx]%d\n", arg1->count, (long)arg1->values, arg1->values[0]);
+  
+  result = (crate_nested_BinaryData *)new_crate_nested_BinaryData(arg1);
+  *(crate_nested_BinaryData **)&jresult = result; 
+  
+  printf("typemap(argout) Vec_u8 *: %ld, [%lx]%d\n", arg1->count, (long)arg1->values, arg1->values[0]);
+  //JCALL3(ReleaseByteArrayElements, jenv, jarg1, (jbyte *) _buffer_arg1, 0);
+  jenv->ReleaseByteArrayElements(jarg1, (jbyte *) _buffer_arg1, 0);
+  printf("typemap(argout) Vec_u8 *: %ld, [%lx]%d\n", arg1->count, (long)arg1->values, arg1->values[0]);
+  
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_delete_1BinaryData(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  crate_nested_BinaryData *arg1 = (crate_nested_BinaryData *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(crate_nested_BinaryData **)&jarg1; 
+  delete_crate_nested_BinaryData(arg1);
 }
 
 
 SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_new_1TimestampMillis_1_1SWIG_10(JNIEnv *jenv, jclass jcls) {
   jlong jresult = 0 ;
-  TimestampMillis *result = 0 ;
+  crate_identity_identity_TimestampMillis *result = 0 ;
   
   (void)jenv;
   (void)jcls;
-  result = (TimestampMillis *)new_TimestampMillis__SWIG_0();
-  *(TimestampMillis **)&jresult = result; 
+  result = (crate_identity_identity_TimestampMillis *)new_crate_identity_identity_TimestampMillis__SWIG_0();
+  *(crate_identity_identity_TimestampMillis **)&jresult = result; 
   return jresult;
 }
 
@@ -2483,37 +1308,37 @@ SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_new_1TimestampMillis_1_1SW
 SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_new_1TimestampMillis_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1) {
   jlong jresult = 0 ;
   long long arg1 ;
-  TimestampMillis *result = 0 ;
+  crate_identity_identity_TimestampMillis *result = 0 ;
   
   (void)jenv;
   (void)jcls;
   arg1 = (long long)jarg1; 
-  result = (TimestampMillis *)new_TimestampMillis__SWIG_1(arg1);
-  *(TimestampMillis **)&jresult = result; 
+  result = (crate_identity_identity_TimestampMillis *)new_crate_identity_identity_TimestampMillis__SWIG_1(arg1);
+  *(crate_identity_identity_TimestampMillis **)&jresult = result; 
   return jresult;
 }
 
 
 SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_delete_1TimestampMillis(JNIEnv *jenv, jclass jcls, jlong jarg1) {
-  TimestampMillis *arg1 = (TimestampMillis *) 0 ;
+  crate_identity_identity_TimestampMillis *arg1 = (crate_identity_identity_TimestampMillis *) 0 ;
   
   (void)jenv;
   (void)jcls;
-  arg1 = *(TimestampMillis **)&jarg1; 
-  delete_TimestampMillis(arg1);
+  arg1 = *(crate_identity_identity_TimestampMillis **)&jarg1; 
+  delete_crate_identity_identity_TimestampMillis(arg1);
 }
 
 
 SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_TimestampMillis_1toLong(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jlong jresult = 0 ;
-  TimestampMillis *arg1 = (TimestampMillis *) 0 ;
+  crate_identity_identity_TimestampMillis *arg1 = (crate_identity_identity_TimestampMillis *) 0 ;
   long long result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(TimestampMillis **)&jarg1; 
-  result = (long long)TimestampMillis_toLong(arg1);
+  arg1 = *(crate_identity_identity_TimestampMillis **)&jarg1; 
+  result = (long long)crate_identity_identity_TimestampMillis_toLong(arg1);
   jresult = (jlong)result; 
   return jresult;
 }
@@ -2521,88 +1346,88 @@ SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_TimestampMillis_1toLong(JN
 
 SWIGEXPORT jboolean JNICALL Java_org_dash_sdk_exampleJNI_TimestampMillis_1objectEquals(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
   jboolean jresult = 0 ;
-  TimestampMillis *arg1 = (TimestampMillis *) 0 ;
-  TimestampMillis *arg2 = (TimestampMillis *) 0 ;
+  crate_identity_identity_TimestampMillis *arg1 = (crate_identity_identity_TimestampMillis *) 0 ;
+  crate_identity_identity_TimestampMillis *arg2 = (crate_identity_identity_TimestampMillis *) 0 ;
   bool result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   (void)jarg2_;
-  arg1 = *(TimestampMillis **)&jarg1; 
-  arg2 = *(TimestampMillis **)&jarg2; 
-  result = (bool)TimestampMillis_objectEquals(arg1,arg2);
+  arg1 = *(crate_identity_identity_TimestampMillis **)&jarg1; 
+  arg2 = *(crate_identity_identity_TimestampMillis **)&jarg2; 
+  result = (bool)crate_identity_identity_TimestampMillis_objectEquals(arg1,arg2);
   jresult = (jboolean)result; 
   return jresult;
 }
 
 
 SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_IdentityPublicKeyV0_1id_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  IdentityPublicKeyV0 *arg1 = (IdentityPublicKeyV0 *) 0 ;
-  KeyID *arg2 = (KeyID *) 0 ;
+  crate_identity_identity_IdentityPublicKeyV0 *arg1 = (crate_identity_identity_IdentityPublicKeyV0 *) 0 ;
+  crate_identity_identity_KeyID *arg2 = (crate_identity_identity_KeyID *) 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   (void)jarg2_;
-  arg1 = *(IdentityPublicKeyV0 **)&jarg1; 
-  arg2 = *(KeyID **)&jarg2; 
+  arg1 = *(crate_identity_identity_IdentityPublicKeyV0 **)&jarg1; 
+  arg2 = *(crate_identity_identity_KeyID **)&jarg2; 
   if (arg1) (arg1)->id = arg2;
 }
 
 
 SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_IdentityPublicKeyV0_1id_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jlong jresult = 0 ;
-  IdentityPublicKeyV0 *arg1 = (IdentityPublicKeyV0 *) 0 ;
-  KeyID *result = 0 ;
+  crate_identity_identity_IdentityPublicKeyV0 *arg1 = (crate_identity_identity_IdentityPublicKeyV0 *) 0 ;
+  crate_identity_identity_KeyID *result = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(IdentityPublicKeyV0 **)&jarg1; 
-  result = (KeyID *) ((arg1)->id);
-  *(KeyID **)&jresult = result; 
+  arg1 = *(crate_identity_identity_IdentityPublicKeyV0 **)&jarg1; 
+  result = (crate_identity_identity_KeyID *) ((arg1)->id);
+  *(crate_identity_identity_KeyID **)&jresult = result; 
   return jresult;
 }
 
 
 SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_IdentityPublicKeyV0_1contract_1bounds_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  IdentityPublicKeyV0 *arg1 = (IdentityPublicKeyV0 *) 0 ;
-  ContractBounds *arg2 = (ContractBounds *) 0 ;
+  crate_identity_identity_IdentityPublicKeyV0 *arg1 = (crate_identity_identity_IdentityPublicKeyV0 *) 0 ;
+  crate_identity_identity_ContractBounds *arg2 = (crate_identity_identity_ContractBounds *) 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   (void)jarg2_;
-  arg1 = *(IdentityPublicKeyV0 **)&jarg1; 
-  arg2 = *(ContractBounds **)&jarg2; 
+  arg1 = *(crate_identity_identity_IdentityPublicKeyV0 **)&jarg1; 
+  arg2 = *(crate_identity_identity_ContractBounds **)&jarg2; 
   if (arg1) (arg1)->contract_bounds = arg2;
 }
 
 
 SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_IdentityPublicKeyV0_1contract_1bounds_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jlong jresult = 0 ;
-  IdentityPublicKeyV0 *arg1 = (IdentityPublicKeyV0 *) 0 ;
-  ContractBounds *result = 0 ;
+  crate_identity_identity_IdentityPublicKeyV0 *arg1 = (crate_identity_identity_IdentityPublicKeyV0 *) 0 ;
+  crate_identity_identity_ContractBounds *result = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(IdentityPublicKeyV0 **)&jarg1; 
-  result = (ContractBounds *) ((arg1)->contract_bounds);
-  *(ContractBounds **)&jresult = result; 
+  arg1 = *(crate_identity_identity_IdentityPublicKeyV0 **)&jarg1; 
+  result = (crate_identity_identity_ContractBounds *) ((arg1)->contract_bounds);
+  *(crate_identity_identity_ContractBounds **)&jresult = result; 
   return jresult;
 }
 
 
 SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_IdentityPublicKeyV0_1read_1only_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jboolean jarg2) {
-  IdentityPublicKeyV0 *arg1 = (IdentityPublicKeyV0 *) 0 ;
+  crate_identity_identity_IdentityPublicKeyV0 *arg1 = (crate_identity_identity_IdentityPublicKeyV0 *) 0 ;
   bool arg2 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(IdentityPublicKeyV0 **)&jarg1; 
+  arg1 = *(crate_identity_identity_IdentityPublicKeyV0 **)&jarg1; 
   arg2 = jarg2 ? true : false; 
   if (arg1) (arg1)->read_only = arg2;
 }
@@ -2610,13 +1435,13 @@ SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_IdentityPublicKeyV0_1read_1
 
 SWIGEXPORT jboolean JNICALL Java_org_dash_sdk_exampleJNI_IdentityPublicKeyV0_1read_1only_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jboolean jresult = 0 ;
-  IdentityPublicKeyV0 *arg1 = (IdentityPublicKeyV0 *) 0 ;
+  crate_identity_identity_IdentityPublicKeyV0 *arg1 = (crate_identity_identity_IdentityPublicKeyV0 *) 0 ;
   bool result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(IdentityPublicKeyV0 **)&jarg1; 
+  arg1 = *(crate_identity_identity_IdentityPublicKeyV0 **)&jarg1; 
   result = (bool) ((arg1)->read_only);
   jresult = (jboolean)result; 
   return jresult;
@@ -2624,74 +1449,74 @@ SWIGEXPORT jboolean JNICALL Java_org_dash_sdk_exampleJNI_IdentityPublicKeyV0_1re
 
 
 SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_IdentityPublicKeyV0_1data_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  IdentityPublicKeyV0 *arg1 = (IdentityPublicKeyV0 *) 0 ;
-  BinaryData *arg2 = (BinaryData *) 0 ;
+  crate_identity_identity_IdentityPublicKeyV0 *arg1 = (crate_identity_identity_IdentityPublicKeyV0 *) 0 ;
+  crate_nested_BinaryData *arg2 = (crate_nested_BinaryData *) 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   (void)jarg2_;
-  arg1 = *(IdentityPublicKeyV0 **)&jarg1; 
-  arg2 = *(BinaryData **)&jarg2; 
+  arg1 = *(crate_identity_identity_IdentityPublicKeyV0 **)&jarg1; 
+  arg2 = *(crate_nested_BinaryData **)&jarg2; 
   if (arg1) (arg1)->data = arg2;
 }
 
 
 SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_IdentityPublicKeyV0_1data_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jlong jresult = 0 ;
-  IdentityPublicKeyV0 *arg1 = (IdentityPublicKeyV0 *) 0 ;
-  BinaryData *result = 0 ;
+  crate_identity_identity_IdentityPublicKeyV0 *arg1 = (crate_identity_identity_IdentityPublicKeyV0 *) 0 ;
+  crate_nested_BinaryData *result = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(IdentityPublicKeyV0 **)&jarg1; 
-  result = (BinaryData *) ((arg1)->data);
-  *(BinaryData **)&jresult = result; 
+  arg1 = *(crate_identity_identity_IdentityPublicKeyV0 **)&jarg1; 
+  result = (crate_nested_BinaryData *) ((arg1)->data);
+  *(crate_nested_BinaryData **)&jresult = result; 
   return jresult;
 }
 
 
 SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_IdentityPublicKeyV0_1disabled_1at_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  IdentityPublicKeyV0 *arg1 = (IdentityPublicKeyV0 *) 0 ;
-  TimestampMillis *arg2 = (TimestampMillis *) 0 ;
+  crate_identity_identity_IdentityPublicKeyV0 *arg1 = (crate_identity_identity_IdentityPublicKeyV0 *) 0 ;
+  crate_identity_identity_TimestampMillis *arg2 = (crate_identity_identity_TimestampMillis *) 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   (void)jarg2_;
-  arg1 = *(IdentityPublicKeyV0 **)&jarg1; 
-  arg2 = *(TimestampMillis **)&jarg2; 
+  arg1 = *(crate_identity_identity_IdentityPublicKeyV0 **)&jarg1; 
+  arg2 = *(crate_identity_identity_TimestampMillis **)&jarg2; 
   if (arg1) (arg1)->disabled_at = arg2;
 }
 
 
 SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_IdentityPublicKeyV0_1disabled_1at_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jlong jresult = 0 ;
-  IdentityPublicKeyV0 *arg1 = (IdentityPublicKeyV0 *) 0 ;
-  TimestampMillis *result = 0 ;
+  crate_identity_identity_IdentityPublicKeyV0 *arg1 = (crate_identity_identity_IdentityPublicKeyV0 *) 0 ;
+  crate_identity_identity_TimestampMillis *result = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(IdentityPublicKeyV0 **)&jarg1; 
-  result = (TimestampMillis *) ((arg1)->disabled_at);
-  *(TimestampMillis **)&jresult = result; 
+  arg1 = *(crate_identity_identity_IdentityPublicKeyV0 **)&jarg1; 
+  result = (crate_identity_identity_TimestampMillis *) ((arg1)->disabled_at);
+  *(crate_identity_identity_TimestampMillis **)&jresult = result; 
   return jresult;
 }
 
 
 SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_new_1IdentityPublicKeyV0(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2, jint jarg3, jlong jarg4, jobject jarg4_, jint jarg5, jboolean jarg6, jlong jarg7, jobject jarg7_, jlong jarg8, jobject jarg8_) {
   jlong jresult = 0 ;
-  KeyID *arg1 = (KeyID *) 0 ;
-  Purpose arg2 ;
-  SecurityLevel arg3 ;
-  ContractBounds *arg4 = (ContractBounds *) 0 ;
-  KeyType arg5 ;
+  crate_identity_identity_KeyID *arg1 = (crate_identity_identity_KeyID *) 0 ;
+  crate_identity_identity_Purpose arg2 ;
+  crate_identity_identity_SecurityLevel arg3 ;
+  crate_identity_identity_ContractBounds *arg4 = (crate_identity_identity_ContractBounds *) 0 ;
+  crate_identity_identity_KeyType arg5 ;
   bool arg6 ;
-  BinaryData *arg7 = (BinaryData *) 0 ;
-  TimestampMillis *arg8 = (TimestampMillis *) 0 ;
-  IdentityPublicKeyV0 *result = 0 ;
+  crate_nested_BinaryData *arg7 = (crate_nested_BinaryData *) 0 ;
+  crate_identity_identity_TimestampMillis *arg8 = (crate_identity_identity_TimestampMillis *) 0 ;
+  crate_identity_identity_IdentityPublicKeyV0 *result = 0 ;
   
   (void)jenv;
   (void)jcls;
@@ -2699,40 +1524,40 @@ SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_new_1IdentityPublicKeyV0(J
   (void)jarg4_;
   (void)jarg7_;
   (void)jarg8_;
-  arg1 = *(KeyID **)&jarg1; 
-  arg2 = (Purpose)jarg2; 
-  arg3 = (SecurityLevel)jarg3; 
-  arg4 = *(ContractBounds **)&jarg4; 
-  arg5 = (KeyType)jarg5; 
+  arg1 = *(crate_identity_identity_KeyID **)&jarg1; 
+  arg2 = (crate_identity_identity_Purpose)jarg2; 
+  arg3 = (crate_identity_identity_SecurityLevel)jarg3; 
+  arg4 = *(crate_identity_identity_ContractBounds **)&jarg4; 
+  arg5 = (crate_identity_identity_KeyType)jarg5; 
   arg6 = jarg6 ? true : false; 
-  arg7 = *(BinaryData **)&jarg7; 
-  arg8 = *(TimestampMillis **)&jarg8; 
-  result = (IdentityPublicKeyV0 *)new_IdentityPublicKeyV0(arg1,arg2,arg3,arg4,arg5,arg6,arg7,arg8);
-  *(IdentityPublicKeyV0 **)&jresult = result; 
+  arg7 = *(crate_nested_BinaryData **)&jarg7; 
+  arg8 = *(crate_identity_identity_TimestampMillis **)&jarg8; 
+  result = (crate_identity_identity_IdentityPublicKeyV0 *)new_crate_identity_identity_IdentityPublicKeyV0(arg1,arg2,arg3,arg4,arg5,arg6,arg7,arg8);
+  *(crate_identity_identity_IdentityPublicKeyV0 **)&jresult = result; 
   return jresult;
 }
 
 
 SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_delete_1IdentityPublicKeyV0(JNIEnv *jenv, jclass jcls, jlong jarg1) {
-  IdentityPublicKeyV0 *arg1 = (IdentityPublicKeyV0 *) 0 ;
+  crate_identity_identity_IdentityPublicKeyV0 *arg1 = (crate_identity_identity_IdentityPublicKeyV0 *) 0 ;
   
   (void)jenv;
   (void)jcls;
-  arg1 = *(IdentityPublicKeyV0 **)&jarg1; 
-  delete_IdentityPublicKeyV0(arg1);
+  arg1 = *(crate_identity_identity_IdentityPublicKeyV0 **)&jarg1; 
+  delete_crate_identity_identity_IdentityPublicKeyV0(arg1);
 }
 
 
 SWIGEXPORT jint JNICALL Java_org_dash_sdk_exampleJNI_IdentityPublicKeyV0_1getKeyType(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jint jresult = 0 ;
-  IdentityPublicKeyV0 *arg1 = (IdentityPublicKeyV0 *) 0 ;
-  enum KeyType result;
+  crate_identity_identity_IdentityPublicKeyV0 *arg1 = (crate_identity_identity_IdentityPublicKeyV0 *) 0 ;
+  enum crate_identity_identity_KeyType result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(IdentityPublicKeyV0 **)&jarg1; 
-  result = (enum KeyType)IdentityPublicKeyV0_getKeyType(arg1);
+  arg1 = *(crate_identity_identity_IdentityPublicKeyV0 **)&jarg1; 
+  result = (enum crate_identity_identity_KeyType)crate_identity_identity_IdentityPublicKeyV0_getKeyType(arg1);
   jresult = (jint)result; 
   return jresult;
 }
@@ -2740,14 +1565,14 @@ SWIGEXPORT jint JNICALL Java_org_dash_sdk_exampleJNI_IdentityPublicKeyV0_1getKey
 
 SWIGEXPORT jint JNICALL Java_org_dash_sdk_exampleJNI_IdentityPublicKeyV0_1getPurpose(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jint jresult = 0 ;
-  IdentityPublicKeyV0 *arg1 = (IdentityPublicKeyV0 *) 0 ;
-  enum Purpose result;
+  crate_identity_identity_IdentityPublicKeyV0 *arg1 = (crate_identity_identity_IdentityPublicKeyV0 *) 0 ;
+  enum crate_identity_identity_Purpose result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(IdentityPublicKeyV0 **)&jarg1; 
-  result = (enum Purpose)IdentityPublicKeyV0_getPurpose(arg1);
+  arg1 = *(crate_identity_identity_IdentityPublicKeyV0 **)&jarg1; 
+  result = (enum crate_identity_identity_Purpose)crate_identity_identity_IdentityPublicKeyV0_getPurpose(arg1);
   jresult = (jint)result; 
   return jresult;
 }
@@ -2755,82 +1580,82 @@ SWIGEXPORT jint JNICALL Java_org_dash_sdk_exampleJNI_IdentityPublicKeyV0_1getPur
 
 SWIGEXPORT jint JNICALL Java_org_dash_sdk_exampleJNI_IdentityPublicKeyV0_1getSecurityLevel(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jint jresult = 0 ;
-  IdentityPublicKeyV0 *arg1 = (IdentityPublicKeyV0 *) 0 ;
-  enum SecurityLevel result;
+  crate_identity_identity_IdentityPublicKeyV0 *arg1 = (crate_identity_identity_IdentityPublicKeyV0 *) 0 ;
+  enum crate_identity_identity_SecurityLevel result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(IdentityPublicKeyV0 **)&jarg1; 
-  result = (enum SecurityLevel)IdentityPublicKeyV0_getSecurityLevel(arg1);
+  arg1 = *(crate_identity_identity_IdentityPublicKeyV0 **)&jarg1; 
+  result = (enum crate_identity_identity_SecurityLevel)crate_identity_identity_IdentityPublicKeyV0_getSecurityLevel(arg1);
   jresult = (jint)result; 
   return jresult;
 }
 
 
 SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_IdentityPublicKey_1tag_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
-  IdentityPublicKey *arg1 = (IdentityPublicKey *) 0 ;
-  enum IdentityPublicKey_Tag arg2 ;
+  crate_identity_identity_IdentityPublicKey *arg1 = (crate_identity_identity_IdentityPublicKey *) 0 ;
+  enum crate_identity_identity_IdentityPublicKey_Tag arg2 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(IdentityPublicKey **)&jarg1; 
-  arg2 = (enum IdentityPublicKey_Tag)jarg2; 
+  arg1 = *(crate_identity_identity_IdentityPublicKey **)&jarg1; 
+  arg2 = (enum crate_identity_identity_IdentityPublicKey_Tag)jarg2; 
   if (arg1) (arg1)->tag = arg2;
 }
 
 
 SWIGEXPORT jint JNICALL Java_org_dash_sdk_exampleJNI_IdentityPublicKey_1tag_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jint jresult = 0 ;
-  IdentityPublicKey *arg1 = (IdentityPublicKey *) 0 ;
-  enum IdentityPublicKey_Tag result;
+  crate_identity_identity_IdentityPublicKey *arg1 = (crate_identity_identity_IdentityPublicKey *) 0 ;
+  enum crate_identity_identity_IdentityPublicKey_Tag result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(IdentityPublicKey **)&jarg1; 
-  result = (enum IdentityPublicKey_Tag) ((arg1)->tag);
+  arg1 = *(crate_identity_identity_IdentityPublicKey **)&jarg1; 
+  result = (enum crate_identity_identity_IdentityPublicKey_Tag) ((arg1)->tag);
   jresult = (jint)result; 
   return jresult;
 }
 
 
 SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_IdentityPublicKey_1v0_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  IdentityPublicKey *arg1 = (IdentityPublicKey *) 0 ;
-  IdentityPublicKeyV0 *arg2 = (IdentityPublicKeyV0 *) 0 ;
+  crate_identity_identity_IdentityPublicKey *arg1 = (crate_identity_identity_IdentityPublicKey *) 0 ;
+  crate_identity_identity_IdentityPublicKeyV0 *arg2 = (crate_identity_identity_IdentityPublicKeyV0 *) 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   (void)jarg2_;
-  arg1 = *(IdentityPublicKey **)&jarg1; 
-  arg2 = *(IdentityPublicKeyV0 **)&jarg2; 
+  arg1 = *(crate_identity_identity_IdentityPublicKey **)&jarg1; 
+  arg2 = *(crate_identity_identity_IdentityPublicKeyV0 **)&jarg2; 
   if (arg1) (arg1)->v0 = arg2;
 }
 
 
 SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_IdentityPublicKey_1v0_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jlong jresult = 0 ;
-  IdentityPublicKey *arg1 = (IdentityPublicKey *) 0 ;
-  IdentityPublicKeyV0 *result = 0 ;
+  crate_identity_identity_IdentityPublicKey *arg1 = (crate_identity_identity_IdentityPublicKey *) 0 ;
+  crate_identity_identity_IdentityPublicKeyV0 *result = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(IdentityPublicKey **)&jarg1; 
-  result = (IdentityPublicKeyV0 *) ((arg1)->v0);
-  *(IdentityPublicKeyV0 **)&jresult = result; 
+  arg1 = *(crate_identity_identity_IdentityPublicKey **)&jarg1; 
+  result = (crate_identity_identity_IdentityPublicKeyV0 *) ((arg1)->v0);
+  *(crate_identity_identity_IdentityPublicKeyV0 **)&jresult = result; 
   return jresult;
 }
 
 
 SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_delete_1IdentityPublicKey(JNIEnv *jenv, jclass jcls, jlong jarg1) {
-  IdentityPublicKey *arg1 = (IdentityPublicKey *) 0 ;
+  crate_identity_identity_IdentityPublicKey *arg1 = (crate_identity_identity_IdentityPublicKey *) 0 ;
   
   (void)jenv;
   (void)jcls;
-  arg1 = *(IdentityPublicKey **)&jarg1; 
+  arg1 = *(crate_identity_identity_IdentityPublicKey **)&jarg1; 
   delete arg1;
 }
 
@@ -2865,13 +1690,13 @@ SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_std_1collections_1Map_1key
 
 SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_std_1collections_1Map_1keys_1crate_1identity_1identity_1KeyID_1values_1crate_1identity_1identity_1IdentityPublicKey_1keys_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
   std_collections_Map_keys_crate_identity_identity_KeyID_values_crate_identity_identity_IdentityPublicKey *arg1 = (std_collections_Map_keys_crate_identity_identity_KeyID_values_crate_identity_identity_IdentityPublicKey *) 0 ;
-  KeyID **arg2 = (KeyID **) 0 ;
+  crate_identity_identity_KeyID **arg2 = (crate_identity_identity_KeyID **) 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(std_collections_Map_keys_crate_identity_identity_KeyID_values_crate_identity_identity_IdentityPublicKey **)&jarg1; 
-  arg2 = *(KeyID ***)&jarg2; 
+  arg2 = *(crate_identity_identity_KeyID ***)&jarg2; 
   if (arg1) (arg1)->keys = arg2;
 }
 
@@ -2879,27 +1704,27 @@ SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_std_1collections_1Map_1keys
 SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_std_1collections_1Map_1keys_1crate_1identity_1identity_1KeyID_1values_1crate_1identity_1identity_1IdentityPublicKey_1keys_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jlong jresult = 0 ;
   std_collections_Map_keys_crate_identity_identity_KeyID_values_crate_identity_identity_IdentityPublicKey *arg1 = (std_collections_Map_keys_crate_identity_identity_KeyID_values_crate_identity_identity_IdentityPublicKey *) 0 ;
-  KeyID **result = 0 ;
+  crate_identity_identity_KeyID **result = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(std_collections_Map_keys_crate_identity_identity_KeyID_values_crate_identity_identity_IdentityPublicKey **)&jarg1; 
-  result = (KeyID **) ((arg1)->keys);
-  *(KeyID ***)&jresult = result; 
+  result = (crate_identity_identity_KeyID **) ((arg1)->keys);
+  *(crate_identity_identity_KeyID ***)&jresult = result; 
   return jresult;
 }
 
 
 SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_std_1collections_1Map_1keys_1crate_1identity_1identity_1KeyID_1values_1crate_1identity_1identity_1IdentityPublicKey_1values_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
   std_collections_Map_keys_crate_identity_identity_KeyID_values_crate_identity_identity_IdentityPublicKey *arg1 = (std_collections_Map_keys_crate_identity_identity_KeyID_values_crate_identity_identity_IdentityPublicKey *) 0 ;
-  IdentityPublicKey **arg2 = (IdentityPublicKey **) 0 ;
+  crate_identity_identity_IdentityPublicKey **arg2 = (crate_identity_identity_IdentityPublicKey **) 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(std_collections_Map_keys_crate_identity_identity_KeyID_values_crate_identity_identity_IdentityPublicKey **)&jarg1; 
-  arg2 = *(IdentityPublicKey ***)&jarg2; 
+  arg2 = *(crate_identity_identity_IdentityPublicKey ***)&jarg2; 
   if (arg1) (arg1)->values = arg2;
 }
 
@@ -2907,14 +1732,14 @@ SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_std_1collections_1Map_1keys
 SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_std_1collections_1Map_1keys_1crate_1identity_1identity_1KeyID_1values_1crate_1identity_1identity_1IdentityPublicKey_1values_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jlong jresult = 0 ;
   std_collections_Map_keys_crate_identity_identity_KeyID_values_crate_identity_identity_IdentityPublicKey *arg1 = (std_collections_Map_keys_crate_identity_identity_KeyID_values_crate_identity_identity_IdentityPublicKey *) 0 ;
-  IdentityPublicKey **result = 0 ;
+  crate_identity_identity_IdentityPublicKey **result = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(std_collections_Map_keys_crate_identity_identity_KeyID_values_crate_identity_identity_IdentityPublicKey **)&jarg1; 
-  result = (IdentityPublicKey **) ((arg1)->values);
-  *(IdentityPublicKey ***)&jresult = result; 
+  result = (crate_identity_identity_IdentityPublicKey **) ((arg1)->values);
+  *(crate_identity_identity_IdentityPublicKey ***)&jresult = result; 
   return jresult;
 }
 
@@ -2931,12 +1756,12 @@ SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_delete_1std_1collections_1M
 
 SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_new_1Revision_1_1SWIG_10(JNIEnv *jenv, jclass jcls) {
   jlong jresult = 0 ;
-  Revision *result = 0 ;
+  crate_identity_identity_Revision *result = 0 ;
   
   (void)jenv;
   (void)jcls;
-  result = (Revision *)new_Revision__SWIG_0();
-  *(Revision **)&jresult = result; 
+  result = (crate_identity_identity_Revision *)new_crate_identity_identity_Revision__SWIG_0();
+  *(crate_identity_identity_Revision **)&jresult = result; 
   return jresult;
 }
 
@@ -2944,120 +1769,138 @@ SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_new_1Revision_1_1SWIG_10(J
 SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_new_1Revision_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1) {
   jlong jresult = 0 ;
   long long arg1 ;
-  Revision *result = 0 ;
+  crate_identity_identity_Revision *result = 0 ;
   
   (void)jenv;
   (void)jcls;
   arg1 = (long long)jarg1; 
-  result = (Revision *)new_Revision__SWIG_1(arg1);
-  *(Revision **)&jresult = result; 
+  result = (crate_identity_identity_Revision *)new_crate_identity_identity_Revision__SWIG_1(arg1);
+  *(crate_identity_identity_Revision **)&jresult = result; 
   return jresult;
 }
 
 
 SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_delete_1Revision(JNIEnv *jenv, jclass jcls, jlong jarg1) {
-  Revision *arg1 = (Revision *) 0 ;
+  crate_identity_identity_Revision *arg1 = (crate_identity_identity_Revision *) 0 ;
   
   (void)jenv;
   (void)jcls;
-  arg1 = *(Revision **)&jarg1; 
-  delete_Revision(arg1);
+  arg1 = *(crate_identity_identity_Revision **)&jarg1; 
+  delete_crate_identity_identity_Revision(arg1);
 }
 
 
 SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_Revision_1toLong(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jlong jresult = 0 ;
-  Revision *arg1 = (Revision *) 0 ;
+  crate_identity_identity_Revision *arg1 = (crate_identity_identity_Revision *) 0 ;
   long long result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(Revision **)&jarg1; 
-  result = (long long)Revision_toLong(arg1);
+  arg1 = *(crate_identity_identity_Revision **)&jarg1; 
+  result = (long long)crate_identity_identity_Revision_toLong(arg1);
   jresult = (jlong)result; 
   return jresult;
 }
 
 
-SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_IdentityV0_1id_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  IdentityV0 *arg1 = (IdentityV0 *) 0 ;
-  Identifier *arg2 = (Identifier *) 0 ;
+SWIGEXPORT jboolean JNICALL Java_org_dash_sdk_exampleJNI_Revision_1objectEquals(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  jboolean jresult = 0 ;
+  crate_identity_identity_Revision *arg1 = (crate_identity_identity_Revision *) 0 ;
+  crate_identity_identity_Revision *arg2 = (crate_identity_identity_Revision *) 0 ;
+  bool result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   (void)jarg2_;
-  arg1 = *(IdentityV0 **)&jarg1; 
-  arg2 = *(Identifier **)&jarg2; 
+  arg1 = *(crate_identity_identity_Revision **)&jarg1; 
+  arg2 = *(crate_identity_identity_Revision **)&jarg2; 
+  result = (bool)crate_identity_identity_Revision_objectEquals(arg1,arg2);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_IdentityV0_1id_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  crate_identity_identity_IdentityV0 *arg1 = (crate_identity_identity_IdentityV0 *) 0 ;
+  crate_nested_Identifier *arg2 = (crate_nested_Identifier *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(crate_identity_identity_IdentityV0 **)&jarg1; 
+  arg2 = *(crate_nested_Identifier **)&jarg2; 
   if (arg1) (arg1)->id = arg2;
 }
 
 
 SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_IdentityV0_1id_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jlong jresult = 0 ;
-  IdentityV0 *arg1 = (IdentityV0 *) 0 ;
-  Identifier *result = 0 ;
+  crate_identity_identity_IdentityV0 *arg1 = (crate_identity_identity_IdentityV0 *) 0 ;
+  crate_nested_Identifier *result = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(IdentityV0 **)&jarg1; 
-  result = (Identifier *) ((arg1)->id);
-  *(Identifier **)&jresult = result; 
+  arg1 = *(crate_identity_identity_IdentityV0 **)&jarg1; 
+  result = (crate_nested_Identifier *) ((arg1)->id);
+  *(crate_nested_Identifier **)&jresult = result; 
   return jresult;
 }
 
 
 SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_IdentityV0_1revision_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  IdentityV0 *arg1 = (IdentityV0 *) 0 ;
-  Revision *arg2 = (Revision *) 0 ;
+  crate_identity_identity_IdentityV0 *arg1 = (crate_identity_identity_IdentityV0 *) 0 ;
+  crate_identity_identity_Revision *arg2 = (crate_identity_identity_Revision *) 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   (void)jarg2_;
-  arg1 = *(IdentityV0 **)&jarg1; 
-  arg2 = *(Revision **)&jarg2; 
+  arg1 = *(crate_identity_identity_IdentityV0 **)&jarg1; 
+  arg2 = *(crate_identity_identity_Revision **)&jarg2; 
   if (arg1) (arg1)->revision = arg2;
 }
 
 
 SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_IdentityV0_1revision_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jlong jresult = 0 ;
-  IdentityV0 *arg1 = (IdentityV0 *) 0 ;
-  Revision *result = 0 ;
+  crate_identity_identity_IdentityV0 *arg1 = (crate_identity_identity_IdentityV0 *) 0 ;
+  crate_identity_identity_Revision *result = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(IdentityV0 **)&jarg1; 
-  result = (Revision *) ((arg1)->revision);
-  *(Revision **)&jresult = result; 
+  arg1 = *(crate_identity_identity_IdentityV0 **)&jarg1; 
+  result = (crate_identity_identity_Revision *) ((arg1)->revision);
+  *(crate_identity_identity_Revision **)&jresult = result; 
   return jresult;
 }
 
 
 SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_delete_1IdentityV0(JNIEnv *jenv, jclass jcls, jlong jarg1) {
-  IdentityV0 *arg1 = (IdentityV0 *) 0 ;
+  crate_identity_identity_IdentityV0 *arg1 = (crate_identity_identity_IdentityV0 *) 0 ;
   
   (void)jenv;
   (void)jcls;
-  arg1 = *(IdentityV0 **)&jarg1; 
-  delete_IdentityV0(arg1);
+  arg1 = *(crate_identity_identity_IdentityV0 **)&jarg1; 
+  delete_crate_identity_identity_IdentityV0(arg1);
 }
 
 
 SWIGEXPORT jint JNICALL Java_org_dash_sdk_exampleJNI_IdentityV0_1getPublicKeyCount(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jint jresult = 0 ;
-  IdentityV0 *arg1 = (IdentityV0 *) 0 ;
+  crate_identity_identity_IdentityV0 *arg1 = (crate_identity_identity_IdentityV0 *) 0 ;
   int result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(IdentityV0 **)&jarg1; 
-  result = (int)IdentityV0_getPublicKeyCount(arg1);
+  arg1 = *(crate_identity_identity_IdentityV0 **)&jarg1; 
+  result = (int)crate_identity_identity_IdentityV0_getPublicKeyCount(arg1);
   jresult = (jint)result; 
   return jresult;
 }
@@ -3065,142 +1908,983 @@ SWIGEXPORT jint JNICALL Java_org_dash_sdk_exampleJNI_IdentityV0_1getPublicKeyCou
 
 SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_IdentityV0_1getPublicKey(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
   jlong jresult = 0 ;
-  IdentityV0 *arg1 = (IdentityV0 *) 0 ;
+  crate_identity_identity_IdentityV0 *arg1 = (crate_identity_identity_IdentityV0 *) 0 ;
   uint32_t arg2 ;
-  IdentityPublicKeyV0 *result = 0 ;
+  crate_identity_identity_IdentityPublicKeyV0 *result = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(IdentityV0 **)&jarg1; 
+  arg1 = *(crate_identity_identity_IdentityV0 **)&jarg1; 
   arg2 = (uint32_t)jarg2; 
-  result = (IdentityPublicKeyV0 *)IdentityV0_getPublicKey(arg1,arg2);
-  *(IdentityPublicKeyV0 **)&jresult = result; 
+  result = (crate_identity_identity_IdentityPublicKeyV0 *)crate_identity_identity_IdentityV0_getPublicKey(arg1,arg2);
+  *(crate_identity_identity_IdentityPublicKeyV0 **)&jresult = result; 
   return jresult;
 }
 
 
 SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_IdentityV0_1getPublicKeyById(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
   jlong jresult = 0 ;
-  IdentityV0 *arg1 = (IdentityV0 *) 0 ;
+  crate_identity_identity_IdentityV0 *arg1 = (crate_identity_identity_IdentityV0 *) 0 ;
   uint32_t arg2 ;
-  IdentityPublicKeyV0 *result = 0 ;
+  crate_identity_identity_IdentityPublicKeyV0 *result = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(IdentityV0 **)&jarg1; 
+  arg1 = *(crate_identity_identity_IdentityV0 **)&jarg1; 
   arg2 = (uint32_t)jarg2; 
-  result = (IdentityPublicKeyV0 *)IdentityV0_getPublicKeyById(arg1,arg2);
-  *(IdentityPublicKeyV0 **)&jresult = result; 
+  result = (crate_identity_identity_IdentityPublicKeyV0 *)crate_identity_identity_IdentityV0_getPublicKeyById(arg1,arg2);
+  *(crate_identity_identity_IdentityPublicKeyV0 **)&jresult = result; 
   return jresult;
 }
 
 
 SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_IdentityV0_1getBalance(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jlong jresult = 0 ;
-  IdentityV0 *arg1 = (IdentityV0 *) 0 ;
+  crate_identity_identity_IdentityV0 *arg1 = (crate_identity_identity_IdentityV0 *) 0 ;
   long long result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(IdentityV0 **)&jarg1; 
-  result = (long long)IdentityV0_getBalance(arg1);
+  arg1 = *(crate_identity_identity_IdentityV0 **)&jarg1; 
+  result = (long long)crate_identity_identity_IdentityV0_getBalance(arg1);
   jresult = (jlong)result; 
   return jresult;
 }
 
 
 SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_Identity_1tag_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
-  Identity *arg1 = (Identity *) 0 ;
-  enum Identity_Tag arg2 ;
+  crate_identity_identity_Identity *arg1 = (crate_identity_identity_Identity *) 0 ;
+  enum crate_identity_identity_Identity_Tag arg2 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(Identity **)&jarg1; 
-  arg2 = (enum Identity_Tag)jarg2; 
+  arg1 = *(crate_identity_identity_Identity **)&jarg1; 
+  arg2 = (enum crate_identity_identity_Identity_Tag)jarg2; 
   if (arg1) (arg1)->tag = arg2;
 }
 
 
 SWIGEXPORT jint JNICALL Java_org_dash_sdk_exampleJNI_Identity_1tag_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jint jresult = 0 ;
-  Identity *arg1 = (Identity *) 0 ;
-  enum Identity_Tag result;
+  crate_identity_identity_Identity *arg1 = (crate_identity_identity_Identity *) 0 ;
+  enum crate_identity_identity_Identity_Tag result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(Identity **)&jarg1; 
-  result = (enum Identity_Tag) ((arg1)->tag);
+  arg1 = *(crate_identity_identity_Identity **)&jarg1; 
+  result = (enum crate_identity_identity_Identity_Tag) ((arg1)->tag);
   jresult = (jint)result; 
   return jresult;
 }
 
 
 SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_Identity_1v0_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  Identity *arg1 = (Identity *) 0 ;
-  IdentityV0 *arg2 = (IdentityV0 *) 0 ;
+  crate_identity_identity_Identity *arg1 = (crate_identity_identity_Identity *) 0 ;
+  crate_identity_identity_IdentityV0 *arg2 = (crate_identity_identity_IdentityV0 *) 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   (void)jarg2_;
-  arg1 = *(Identity **)&jarg1; 
-  arg2 = *(IdentityV0 **)&jarg2; 
+  arg1 = *(crate_identity_identity_Identity **)&jarg1; 
+  arg2 = *(crate_identity_identity_IdentityV0 **)&jarg2; 
   if (arg1) (arg1)->v0 = arg2;
 }
 
 
 SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_Identity_1v0_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jlong jresult = 0 ;
-  Identity *arg1 = (Identity *) 0 ;
-  IdentityV0 *result = 0 ;
+  crate_identity_identity_Identity *arg1 = (crate_identity_identity_Identity *) 0 ;
+  crate_identity_identity_IdentityV0 *result = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(Identity **)&jarg1; 
-  result = (IdentityV0 *) ((arg1)->v0);
-  *(IdentityV0 **)&jresult = result; 
+  arg1 = *(crate_identity_identity_Identity **)&jarg1; 
+  result = (crate_identity_identity_IdentityV0 *) ((arg1)->v0);
+  *(crate_identity_identity_IdentityV0 **)&jresult = result; 
   return jresult;
 }
 
 
 SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_new_1Identity(JNIEnv *jenv, jclass jcls) {
   jlong jresult = 0 ;
-  Identity *result = 0 ;
+  crate_identity_identity_Identity *result = 0 ;
   
   (void)jenv;
   (void)jcls;
-  result = (Identity *)new_Identity();
-  *(Identity **)&jresult = result; 
+  result = (crate_identity_identity_Identity *)new_crate_identity_identity_Identity();
+  *(crate_identity_identity_Identity **)&jresult = result; 
   return jresult;
 }
 
 
 SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_delete_1Identity(JNIEnv *jenv, jclass jcls, jlong jarg1) {
-  Identity *arg1 = (Identity *) 0 ;
+  crate_identity_identity_Identity *arg1 = (crate_identity_identity_Identity *) 0 ;
   
   (void)jenv;
   (void)jcls;
-  arg1 = *(Identity **)&jarg1; 
-  delete_Identity(arg1);
+  arg1 = *(crate_identity_identity_Identity **)&jarg1; 
+  delete_crate_identity_identity_Identity(arg1);
+}
+
+
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_crate_1nested_1FeatureVersion_1_10_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  crate_nested_FeatureVersion *arg1 = (crate_nested_FeatureVersion *) 0 ;
+  uint16_t arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_nested_FeatureVersion **)&jarg1; 
+  arg2 = (uint16_t)jarg2; 
+  if (arg1) (arg1)->_0 = arg2;
+}
+
+
+SWIGEXPORT jint JNICALL Java_org_dash_sdk_exampleJNI_crate_1nested_1FeatureVersion_1_10_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  crate_nested_FeatureVersion *arg1 = (crate_nested_FeatureVersion *) 0 ;
+  uint16_t result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_nested_FeatureVersion **)&jarg1; 
+  result = (uint16_t) ((arg1)->_0);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_delete_1crate_1nested_1FeatureVersion(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  crate_nested_FeatureVersion *arg1 = (crate_nested_FeatureVersion *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(crate_nested_FeatureVersion **)&jarg1; 
+  delete arg1;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_crate_1nested_1FeatureVersionBounds_1min_1version_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  crate_nested_FeatureVersionBounds *arg1 = (crate_nested_FeatureVersionBounds *) 0 ;
+  crate_nested_FeatureVersion *arg2 = (crate_nested_FeatureVersion *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(crate_nested_FeatureVersionBounds **)&jarg1; 
+  arg2 = *(crate_nested_FeatureVersion **)&jarg2; 
+  if (arg1) (arg1)->min_version = arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_crate_1nested_1FeatureVersionBounds_1min_1version_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  crate_nested_FeatureVersionBounds *arg1 = (crate_nested_FeatureVersionBounds *) 0 ;
+  crate_nested_FeatureVersion *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_nested_FeatureVersionBounds **)&jarg1; 
+  result = (crate_nested_FeatureVersion *) ((arg1)->min_version);
+  *(crate_nested_FeatureVersion **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_crate_1nested_1FeatureVersionBounds_1max_1version_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  crate_nested_FeatureVersionBounds *arg1 = (crate_nested_FeatureVersionBounds *) 0 ;
+  crate_nested_FeatureVersion *arg2 = (crate_nested_FeatureVersion *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(crate_nested_FeatureVersionBounds **)&jarg1; 
+  arg2 = *(crate_nested_FeatureVersion **)&jarg2; 
+  if (arg1) (arg1)->max_version = arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_crate_1nested_1FeatureVersionBounds_1max_1version_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  crate_nested_FeatureVersionBounds *arg1 = (crate_nested_FeatureVersionBounds *) 0 ;
+  crate_nested_FeatureVersion *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_nested_FeatureVersionBounds **)&jarg1; 
+  result = (crate_nested_FeatureVersion *) ((arg1)->max_version);
+  *(crate_nested_FeatureVersion **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_crate_1nested_1FeatureVersionBounds_1default_1current_1version_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  crate_nested_FeatureVersionBounds *arg1 = (crate_nested_FeatureVersionBounds *) 0 ;
+  crate_nested_FeatureVersion *arg2 = (crate_nested_FeatureVersion *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(crate_nested_FeatureVersionBounds **)&jarg1; 
+  arg2 = *(crate_nested_FeatureVersion **)&jarg2; 
+  if (arg1) (arg1)->default_current_version = arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_crate_1nested_1FeatureVersionBounds_1default_1current_1version_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  crate_nested_FeatureVersionBounds *arg1 = (crate_nested_FeatureVersionBounds *) 0 ;
+  crate_nested_FeatureVersion *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_nested_FeatureVersionBounds **)&jarg1; 
+  result = (crate_nested_FeatureVersion *) ((arg1)->default_current_version);
+  *(crate_nested_FeatureVersion **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_delete_1crate_1nested_1FeatureVersionBounds(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  crate_nested_FeatureVersionBounds *arg1 = (crate_nested_FeatureVersionBounds *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(crate_nested_FeatureVersionBounds **)&jarg1; 
+  delete arg1;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_crate_1nested_1PlatformVersion_1protocol_1version_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  crate_nested_PlatformVersion *arg1 = (crate_nested_PlatformVersion *) 0 ;
+  uint32_t arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_nested_PlatformVersion **)&jarg1; 
+  arg2 = (uint32_t)jarg2; 
+  if (arg1) (arg1)->protocol_version = arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_crate_1nested_1PlatformVersion_1protocol_1version_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  crate_nested_PlatformVersion *arg1 = (crate_nested_PlatformVersion *) 0 ;
+  uint32_t result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_nested_PlatformVersion **)&jarg1; 
+  result = (uint32_t) ((arg1)->protocol_version);
+  jresult = (jlong)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_crate_1nested_1PlatformVersion_1identity_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  crate_nested_PlatformVersion *arg1 = (crate_nested_PlatformVersion *) 0 ;
+  crate_nested_FeatureVersionBounds *arg2 = (crate_nested_FeatureVersionBounds *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(crate_nested_PlatformVersion **)&jarg1; 
+  arg2 = *(crate_nested_FeatureVersionBounds **)&jarg2; 
+  if (arg1) (arg1)->identity = arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_crate_1nested_1PlatformVersion_1identity_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  crate_nested_PlatformVersion *arg1 = (crate_nested_PlatformVersion *) 0 ;
+  crate_nested_FeatureVersionBounds *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_nested_PlatformVersion **)&jarg1; 
+  result = (crate_nested_FeatureVersionBounds *) ((arg1)->identity);
+  *(crate_nested_FeatureVersionBounds **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_crate_1nested_1PlatformVersion_1proofs_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  crate_nested_PlatformVersion *arg1 = (crate_nested_PlatformVersion *) 0 ;
+  crate_nested_FeatureVersionBounds *arg2 = (crate_nested_FeatureVersionBounds *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(crate_nested_PlatformVersion **)&jarg1; 
+  arg2 = *(crate_nested_FeatureVersionBounds **)&jarg2; 
+  if (arg1) (arg1)->proofs = arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_crate_1nested_1PlatformVersion_1proofs_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  crate_nested_PlatformVersion *arg1 = (crate_nested_PlatformVersion *) 0 ;
+  crate_nested_FeatureVersionBounds *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_nested_PlatformVersion **)&jarg1; 
+  result = (crate_nested_FeatureVersionBounds *) ((arg1)->proofs);
+  *(crate_nested_FeatureVersionBounds **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_delete_1crate_1nested_1PlatformVersion(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  crate_nested_PlatformVersion *arg1 = (crate_nested_PlatformVersion *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(crate_nested_PlatformVersion **)&jarg1; 
+  delete arg1;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_crate_1nested_1DataContractNotPresentError_1data_1contract_1id_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  crate_nested_DataContractNotPresentError *arg1 = (crate_nested_DataContractNotPresentError *) 0 ;
+  crate_nested_Identifier *arg2 = (crate_nested_Identifier *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(crate_nested_DataContractNotPresentError **)&jarg1; 
+  arg2 = *(crate_nested_Identifier **)&jarg2; 
+  if (arg1) (arg1)->data_contract_id = arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_crate_1nested_1DataContractNotPresentError_1data_1contract_1id_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  crate_nested_DataContractNotPresentError *arg1 = (crate_nested_DataContractNotPresentError *) 0 ;
+  crate_nested_Identifier *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_nested_DataContractNotPresentError **)&jarg1; 
+  result = (crate_nested_Identifier *) ((arg1)->data_contract_id);
+  *(crate_nested_Identifier **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_delete_1crate_1nested_1DataContractNotPresentError(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  crate_nested_DataContractNotPresentError *arg1 = (crate_nested_DataContractNotPresentError *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(crate_nested_DataContractNotPresentError **)&jarg1; 
+  delete arg1;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_crate_1nested_1ProtocolError_1StringDecodeError2_1Body_1_10_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2) {
+  crate_nested_ProtocolError_StringDecodeError2_Body *arg1 = (crate_nested_ProtocolError_StringDecodeError2_Body *) 0 ;
+  char *arg2 = (char *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_nested_ProtocolError_StringDecodeError2_Body **)&jarg1; 
+  arg2 = 0;
+  if (jarg2) {
+    arg2 = (char *)jenv->GetStringUTFChars(jarg2, 0);
+    if (!arg2) return ;
+  }
+  {
+    delete [] arg1->_0;
+    if (arg2) {
+      arg1->_0 = (char *) (new char[strlen((const char *)arg2)+1]);
+      strcpy((char *)arg1->_0, (const char *)arg2);
+    } else {
+      arg1->_0 = 0;
+    }
+  }
+  if (arg2) jenv->ReleaseStringUTFChars(jarg2, (const char *)arg2);
+}
+
+
+SWIGEXPORT jstring JNICALL Java_org_dash_sdk_exampleJNI_crate_1nested_1ProtocolError_1StringDecodeError2_1Body_1_10_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jstring jresult = 0 ;
+  crate_nested_ProtocolError_StringDecodeError2_Body *arg1 = (crate_nested_ProtocolError_StringDecodeError2_Body *) 0 ;
+  char *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_nested_ProtocolError_StringDecodeError2_Body **)&jarg1; 
+  result = (char *) ((arg1)->_0);
+  if (result) jresult = jenv->NewStringUTF((const char *)result);
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_crate_1nested_1ProtocolError_1StringDecodeError2_1Body_1_11_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  crate_nested_ProtocolError_StringDecodeError2_Body *arg1 = (crate_nested_ProtocolError_StringDecodeError2_Body *) 0 ;
+  uint32_t arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_nested_ProtocolError_StringDecodeError2_Body **)&jarg1; 
+  arg2 = (uint32_t)jarg2; 
+  if (arg1) (arg1)->_1 = arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_crate_1nested_1ProtocolError_1StringDecodeError2_1Body_1_11_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  crate_nested_ProtocolError_StringDecodeError2_Body *arg1 = (crate_nested_ProtocolError_StringDecodeError2_Body *) 0 ;
+  uint32_t result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_nested_ProtocolError_StringDecodeError2_Body **)&jarg1; 
+  result = (uint32_t) ((arg1)->_1);
+  jresult = (jlong)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_delete_1crate_1nested_1ProtocolError_1StringDecodeError2_1Body(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  crate_nested_ProtocolError_StringDecodeError2_Body *arg1 = (crate_nested_ProtocolError_StringDecodeError2_Body *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(crate_nested_ProtocolError_StringDecodeError2_Body **)&jarg1; 
+  delete arg1;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_crate_1nested_1ProtocolError_1MaxEncodedBytesReachedError_1Body_1max_1size_1kbytes_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  crate_nested_ProtocolError_MaxEncodedBytesReachedError_Body *arg1 = (crate_nested_ProtocolError_MaxEncodedBytesReachedError_Body *) 0 ;
+  uintptr_t arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_nested_ProtocolError_MaxEncodedBytesReachedError_Body **)&jarg1; 
+  arg2 = (uintptr_t)jarg2; 
+  if (arg1) (arg1)->max_size_kbytes = arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_crate_1nested_1ProtocolError_1MaxEncodedBytesReachedError_1Body_1max_1size_1kbytes_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  crate_nested_ProtocolError_MaxEncodedBytesReachedError_Body *arg1 = (crate_nested_ProtocolError_MaxEncodedBytesReachedError_Body *) 0 ;
+  uintptr_t result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_nested_ProtocolError_MaxEncodedBytesReachedError_Body **)&jarg1; 
+  result = (uintptr_t) ((arg1)->max_size_kbytes);
+  jresult = (jlong)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_crate_1nested_1ProtocolError_1MaxEncodedBytesReachedError_1Body_1size_1hit_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  crate_nested_ProtocolError_MaxEncodedBytesReachedError_Body *arg1 = (crate_nested_ProtocolError_MaxEncodedBytesReachedError_Body *) 0 ;
+  uintptr_t arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_nested_ProtocolError_MaxEncodedBytesReachedError_Body **)&jarg1; 
+  arg2 = (uintptr_t)jarg2; 
+  if (arg1) (arg1)->size_hit = arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_crate_1nested_1ProtocolError_1MaxEncodedBytesReachedError_1Body_1size_1hit_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  crate_nested_ProtocolError_MaxEncodedBytesReachedError_Body *arg1 = (crate_nested_ProtocolError_MaxEncodedBytesReachedError_Body *) 0 ;
+  uintptr_t result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_nested_ProtocolError_MaxEncodedBytesReachedError_Body **)&jarg1; 
+  result = (uintptr_t) ((arg1)->size_hit);
+  jresult = (jlong)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_delete_1crate_1nested_1ProtocolError_1MaxEncodedBytesReachedError_1Body(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  crate_nested_ProtocolError_MaxEncodedBytesReachedError_Body *arg1 = (crate_nested_ProtocolError_MaxEncodedBytesReachedError_Body *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(crate_nested_ProtocolError_MaxEncodedBytesReachedError_Body **)&jarg1; 
+  delete arg1;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_crate_1nested_1ProtocolError_1UnknownVersionMismatch_1Body_1method_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2) {
+  crate_nested_ProtocolError_UnknownVersionMismatch_Body *arg1 = (crate_nested_ProtocolError_UnknownVersionMismatch_Body *) 0 ;
+  char *arg2 = (char *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_nested_ProtocolError_UnknownVersionMismatch_Body **)&jarg1; 
+  arg2 = 0;
+  if (jarg2) {
+    arg2 = (char *)jenv->GetStringUTFChars(jarg2, 0);
+    if (!arg2) return ;
+  }
+  {
+    delete [] arg1->method;
+    if (arg2) {
+      arg1->method = (char *) (new char[strlen((const char *)arg2)+1]);
+      strcpy((char *)arg1->method, (const char *)arg2);
+    } else {
+      arg1->method = 0;
+    }
+  }
+  if (arg2) jenv->ReleaseStringUTFChars(jarg2, (const char *)arg2);
+}
+
+
+SWIGEXPORT jstring JNICALL Java_org_dash_sdk_exampleJNI_crate_1nested_1ProtocolError_1UnknownVersionMismatch_1Body_1method_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jstring jresult = 0 ;
+  crate_nested_ProtocolError_UnknownVersionMismatch_Body *arg1 = (crate_nested_ProtocolError_UnknownVersionMismatch_Body *) 0 ;
+  char *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_nested_ProtocolError_UnknownVersionMismatch_Body **)&jarg1; 
+  result = (char *) ((arg1)->method);
+  if (result) jresult = jenv->NewStringUTF((const char *)result);
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_crate_1nested_1ProtocolError_1UnknownVersionMismatch_1Body_1known_1versions_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  crate_nested_ProtocolError_UnknownVersionMismatch_Body *arg1 = (crate_nested_ProtocolError_UnknownVersionMismatch_Body *) 0 ;
+  Vec_crate_nested_FeatureVersion *arg2 = (Vec_crate_nested_FeatureVersion *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_nested_ProtocolError_UnknownVersionMismatch_Body **)&jarg1; 
+  arg2 = *(Vec_crate_nested_FeatureVersion **)&jarg2; 
+  if (arg1) (arg1)->known_versions = arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_crate_1nested_1ProtocolError_1UnknownVersionMismatch_1Body_1known_1versions_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  crate_nested_ProtocolError_UnknownVersionMismatch_Body *arg1 = (crate_nested_ProtocolError_UnknownVersionMismatch_Body *) 0 ;
+  Vec_crate_nested_FeatureVersion *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_nested_ProtocolError_UnknownVersionMismatch_Body **)&jarg1; 
+  result = (Vec_crate_nested_FeatureVersion *) ((arg1)->known_versions);
+  *(Vec_crate_nested_FeatureVersion **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_crate_1nested_1ProtocolError_1UnknownVersionMismatch_1Body_1received_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  crate_nested_ProtocolError_UnknownVersionMismatch_Body *arg1 = (crate_nested_ProtocolError_UnknownVersionMismatch_Body *) 0 ;
+  crate_nested_FeatureVersion *arg2 = (crate_nested_FeatureVersion *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(crate_nested_ProtocolError_UnknownVersionMismatch_Body **)&jarg1; 
+  arg2 = *(crate_nested_FeatureVersion **)&jarg2; 
+  if (arg1) (arg1)->received = arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_crate_1nested_1ProtocolError_1UnknownVersionMismatch_1Body_1received_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  crate_nested_ProtocolError_UnknownVersionMismatch_Body *arg1 = (crate_nested_ProtocolError_UnknownVersionMismatch_Body *) 0 ;
+  crate_nested_FeatureVersion *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_nested_ProtocolError_UnknownVersionMismatch_Body **)&jarg1; 
+  result = (crate_nested_FeatureVersion *) ((arg1)->received);
+  *(crate_nested_FeatureVersion **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_delete_1crate_1nested_1ProtocolError_1UnknownVersionMismatch_1Body(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  crate_nested_ProtocolError_UnknownVersionMismatch_Body *arg1 = (crate_nested_ProtocolError_UnknownVersionMismatch_Body *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(crate_nested_ProtocolError_UnknownVersionMismatch_Body **)&jarg1; 
+  delete arg1;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_crate_1nested_1ProtocolError_1tag_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  crate_nested_ProtocolError *arg1 = (crate_nested_ProtocolError *) 0 ;
+  enum crate_nested_ProtocolError_Tag arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_nested_ProtocolError **)&jarg1; 
+  arg2 = (enum crate_nested_ProtocolError_Tag)jarg2; 
+  if (arg1) (arg1)->tag = arg2;
+}
+
+
+SWIGEXPORT jint JNICALL Java_org_dash_sdk_exampleJNI_crate_1nested_1ProtocolError_1tag_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  crate_nested_ProtocolError *arg1 = (crate_nested_ProtocolError *) 0 ;
+  enum crate_nested_ProtocolError_Tag result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_nested_ProtocolError **)&jarg1; 
+  result = (enum crate_nested_ProtocolError_Tag) ((arg1)->tag);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_crate_1nested_1ProtocolError_1identifier_1error_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2) {
+  crate_nested_ProtocolError *arg1 = (crate_nested_ProtocolError *) 0 ;
+  char *arg2 = (char *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_nested_ProtocolError **)&jarg1; 
+  arg2 = 0;
+  if (jarg2) {
+    arg2 = (char *)jenv->GetStringUTFChars(jarg2, 0);
+    if (!arg2) return ;
+  }
+  {
+    delete [] arg1->identifier_error;
+    if (arg2) {
+      arg1->identifier_error = (char *) (new char[strlen((const char *)arg2)+1]);
+      strcpy((char *)arg1->identifier_error, (const char *)arg2);
+    } else {
+      arg1->identifier_error = 0;
+    }
+  }
+  if (arg2) jenv->ReleaseStringUTFChars(jarg2, (const char *)arg2);
+}
+
+
+SWIGEXPORT jstring JNICALL Java_org_dash_sdk_exampleJNI_crate_1nested_1ProtocolError_1identifier_1error_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jstring jresult = 0 ;
+  crate_nested_ProtocolError *arg1 = (crate_nested_ProtocolError *) 0 ;
+  char *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_nested_ProtocolError **)&jarg1; 
+  result = (char *) ((arg1)->identifier_error);
+  if (result) jresult = jenv->NewStringUTF((const char *)result);
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_crate_1nested_1ProtocolError_1string_1decode_1error_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2) {
+  crate_nested_ProtocolError *arg1 = (crate_nested_ProtocolError *) 0 ;
+  char *arg2 = (char *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_nested_ProtocolError **)&jarg1; 
+  arg2 = 0;
+  if (jarg2) {
+    arg2 = (char *)jenv->GetStringUTFChars(jarg2, 0);
+    if (!arg2) return ;
+  }
+  {
+    delete [] arg1->string_decode_error;
+    if (arg2) {
+      arg1->string_decode_error = (char *) (new char[strlen((const char *)arg2)+1]);
+      strcpy((char *)arg1->string_decode_error, (const char *)arg2);
+    } else {
+      arg1->string_decode_error = 0;
+    }
+  }
+  if (arg2) jenv->ReleaseStringUTFChars(jarg2, (const char *)arg2);
+}
+
+
+SWIGEXPORT jstring JNICALL Java_org_dash_sdk_exampleJNI_crate_1nested_1ProtocolError_1string_1decode_1error_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jstring jresult = 0 ;
+  crate_nested_ProtocolError *arg1 = (crate_nested_ProtocolError *) 0 ;
+  char *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_nested_ProtocolError **)&jarg1; 
+  result = (char *) ((arg1)->string_decode_error);
+  if (result) jresult = jenv->NewStringUTF((const char *)result);
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_crate_1nested_1ProtocolError_1string_1decode_1error2_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  crate_nested_ProtocolError *arg1 = (crate_nested_ProtocolError *) 0 ;
+  crate_nested_ProtocolError_StringDecodeError2_Body *arg2 = (crate_nested_ProtocolError_StringDecodeError2_Body *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(crate_nested_ProtocolError **)&jarg1; 
+  arg2 = *(crate_nested_ProtocolError_StringDecodeError2_Body **)&jarg2; 
+  if (arg1) (arg1)->string_decode_error2 = *arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_crate_1nested_1ProtocolError_1string_1decode_1error2_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  crate_nested_ProtocolError *arg1 = (crate_nested_ProtocolError *) 0 ;
+  crate_nested_ProtocolError_StringDecodeError2_Body *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_nested_ProtocolError **)&jarg1; 
+  result = (crate_nested_ProtocolError_StringDecodeError2_Body *)& ((arg1)->string_decode_error2);
+  *(crate_nested_ProtocolError_StringDecodeError2_Body **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_crate_1nested_1ProtocolError_1max_1encoded_1bytes_1reached_1error_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  crate_nested_ProtocolError *arg1 = (crate_nested_ProtocolError *) 0 ;
+  crate_nested_ProtocolError_MaxEncodedBytesReachedError_Body *arg2 = (crate_nested_ProtocolError_MaxEncodedBytesReachedError_Body *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(crate_nested_ProtocolError **)&jarg1; 
+  arg2 = *(crate_nested_ProtocolError_MaxEncodedBytesReachedError_Body **)&jarg2; 
+  if (arg1) (arg1)->max_encoded_bytes_reached_error = *arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_crate_1nested_1ProtocolError_1max_1encoded_1bytes_1reached_1error_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  crate_nested_ProtocolError *arg1 = (crate_nested_ProtocolError *) 0 ;
+  crate_nested_ProtocolError_MaxEncodedBytesReachedError_Body *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_nested_ProtocolError **)&jarg1; 
+  result = (crate_nested_ProtocolError_MaxEncodedBytesReachedError_Body *)& ((arg1)->max_encoded_bytes_reached_error);
+  *(crate_nested_ProtocolError_MaxEncodedBytesReachedError_Body **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_crate_1nested_1ProtocolError_1encoding_1error_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2) {
+  crate_nested_ProtocolError *arg1 = (crate_nested_ProtocolError *) 0 ;
+  char *arg2 = (char *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_nested_ProtocolError **)&jarg1; 
+  arg2 = 0;
+  if (jarg2) {
+    arg2 = (char *)jenv->GetStringUTFChars(jarg2, 0);
+    if (!arg2) return ;
+  }
+  {
+    delete [] arg1->encoding_error;
+    if (arg2) {
+      arg1->encoding_error = (char *) (new char[strlen((const char *)arg2)+1]);
+      strcpy((char *)arg1->encoding_error, (const char *)arg2);
+    } else {
+      arg1->encoding_error = 0;
+    }
+  }
+  if (arg2) jenv->ReleaseStringUTFChars(jarg2, (const char *)arg2);
+}
+
+
+SWIGEXPORT jstring JNICALL Java_org_dash_sdk_exampleJNI_crate_1nested_1ProtocolError_1encoding_1error_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jstring jresult = 0 ;
+  crate_nested_ProtocolError *arg1 = (crate_nested_ProtocolError *) 0 ;
+  char *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_nested_ProtocolError **)&jarg1; 
+  result = (char *) ((arg1)->encoding_error);
+  if (result) jresult = jenv->NewStringUTF((const char *)result);
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_crate_1nested_1ProtocolError_1encoding_1error2_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2) {
+  crate_nested_ProtocolError *arg1 = (crate_nested_ProtocolError *) 0 ;
+  char *arg2 = (char *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_nested_ProtocolError **)&jarg1; 
+  arg2 = 0;
+  if (jarg2) {
+    arg2 = (char *)jenv->GetStringUTFChars(jarg2, 0);
+    if (!arg2) return ;
+  }
+  {
+    delete [] arg1->encoding_error2;
+    if (arg2) {
+      arg1->encoding_error2 = (char *) (new char[strlen((const char *)arg2)+1]);
+      strcpy((char *)arg1->encoding_error2, (const char *)arg2);
+    } else {
+      arg1->encoding_error2 = 0;
+    }
+  }
+  if (arg2) jenv->ReleaseStringUTFChars(jarg2, (const char *)arg2);
+}
+
+
+SWIGEXPORT jstring JNICALL Java_org_dash_sdk_exampleJNI_crate_1nested_1ProtocolError_1encoding_1error2_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jstring jresult = 0 ;
+  crate_nested_ProtocolError *arg1 = (crate_nested_ProtocolError *) 0 ;
+  char *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_nested_ProtocolError **)&jarg1; 
+  result = (char *) ((arg1)->encoding_error2);
+  if (result) jresult = jenv->NewStringUTF((const char *)result);
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_crate_1nested_1ProtocolError_1data_1contract_1not_1present_1error_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  crate_nested_ProtocolError *arg1 = (crate_nested_ProtocolError *) 0 ;
+  crate_nested_DataContractNotPresentError *arg2 = (crate_nested_DataContractNotPresentError *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(crate_nested_ProtocolError **)&jarg1; 
+  arg2 = *(crate_nested_DataContractNotPresentError **)&jarg2; 
+  if (arg1) (arg1)->data_contract_not_present_error = arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_crate_1nested_1ProtocolError_1data_1contract_1not_1present_1error_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  crate_nested_ProtocolError *arg1 = (crate_nested_ProtocolError *) 0 ;
+  crate_nested_DataContractNotPresentError *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_nested_ProtocolError **)&jarg1; 
+  result = (crate_nested_DataContractNotPresentError *) ((arg1)->data_contract_not_present_error);
+  *(crate_nested_DataContractNotPresentError **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_crate_1nested_1ProtocolError_1unknown_1version_1mismatch_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  crate_nested_ProtocolError *arg1 = (crate_nested_ProtocolError *) 0 ;
+  crate_nested_ProtocolError_UnknownVersionMismatch_Body *arg2 = (crate_nested_ProtocolError_UnknownVersionMismatch_Body *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(crate_nested_ProtocolError **)&jarg1; 
+  arg2 = *(crate_nested_ProtocolError_UnknownVersionMismatch_Body **)&jarg2; 
+  if (arg1) (arg1)->unknown_version_mismatch = *arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_crate_1nested_1ProtocolError_1unknown_1version_1mismatch_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  crate_nested_ProtocolError *arg1 = (crate_nested_ProtocolError *) 0 ;
+  crate_nested_ProtocolError_UnknownVersionMismatch_Body *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_nested_ProtocolError **)&jarg1; 
+  result = (crate_nested_ProtocolError_UnknownVersionMismatch_Body *)& ((arg1)->unknown_version_mismatch);
+  *(crate_nested_ProtocolError_UnknownVersionMismatch_Body **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_delete_1crate_1nested_1ProtocolError(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  crate_nested_ProtocolError *arg1 = (crate_nested_ProtocolError *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(crate_nested_ProtocolError **)&jarg1; 
+  delete arg1;
 }
 
 
 SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_Result_1ok_1crate_1identity_1identity_1Identity_1err_1crate_1nested_1ProtocolError_1ok_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
   Result_ok_crate_identity_identity_Identity_err_crate_nested_ProtocolError *arg1 = (Result_ok_crate_identity_identity_Identity_err_crate_nested_ProtocolError *) 0 ;
-  Identity *arg2 = (Identity *) 0 ;
+  crate_identity_identity_Identity *arg2 = (crate_identity_identity_Identity *) 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   (void)jarg2_;
   arg1 = *(Result_ok_crate_identity_identity_Identity_err_crate_nested_ProtocolError **)&jarg1; 
-  arg2 = *(Identity **)&jarg2; 
+  arg2 = *(crate_identity_identity_Identity **)&jarg2; 
   if (arg1) (arg1)->ok = arg2;
 }
 
@@ -3208,28 +2892,28 @@ SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_Result_1ok_1crate_1identity
 SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_Result_1ok_1crate_1identity_1identity_1Identity_1err_1crate_1nested_1ProtocolError_1ok_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jlong jresult = 0 ;
   Result_ok_crate_identity_identity_Identity_err_crate_nested_ProtocolError *arg1 = (Result_ok_crate_identity_identity_Identity_err_crate_nested_ProtocolError *) 0 ;
-  Identity *result = 0 ;
+  crate_identity_identity_Identity *result = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(Result_ok_crate_identity_identity_Identity_err_crate_nested_ProtocolError **)&jarg1; 
-  result = (Identity *) ((arg1)->ok);
-  *(Identity **)&jresult = result; 
+  result = (crate_identity_identity_Identity *) ((arg1)->ok);
+  *(crate_identity_identity_Identity **)&jresult = result; 
   return jresult;
 }
 
 
 SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_Result_1ok_1crate_1identity_1identity_1Identity_1err_1crate_1nested_1ProtocolError_1error_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
   Result_ok_crate_identity_identity_Identity_err_crate_nested_ProtocolError *arg1 = (Result_ok_crate_identity_identity_Identity_err_crate_nested_ProtocolError *) 0 ;
-  ProtocolError *arg2 = (ProtocolError *) 0 ;
+  crate_nested_ProtocolError *arg2 = (crate_nested_ProtocolError *) 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   (void)jarg2_;
   arg1 = *(Result_ok_crate_identity_identity_Identity_err_crate_nested_ProtocolError **)&jarg1; 
-  arg2 = *(ProtocolError **)&jarg2; 
+  arg2 = *(crate_nested_ProtocolError **)&jarg2; 
   if (arg1) (arg1)->error = arg2;
 }
 
@@ -3237,14 +2921,14 @@ SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_Result_1ok_1crate_1identity
 SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_Result_1ok_1crate_1identity_1identity_1Identity_1err_1crate_1nested_1ProtocolError_1error_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jlong jresult = 0 ;
   Result_ok_crate_identity_identity_Identity_err_crate_nested_ProtocolError *arg1 = (Result_ok_crate_identity_identity_Identity_err_crate_nested_ProtocolError *) 0 ;
-  ProtocolError *result = 0 ;
+  crate_nested_ProtocolError *result = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(Result_ok_crate_identity_identity_Identity_err_crate_nested_ProtocolError **)&jarg1; 
-  result = (ProtocolError *) ((arg1)->error);
-  *(ProtocolError **)&jresult = result; 
+  result = (crate_nested_ProtocolError *) ((arg1)->error);
+  *(crate_nested_ProtocolError **)&jresult = result; 
   return jresult;
 }
 
@@ -3259,10 +2943,472 @@ SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_delete_1Result_1ok_1crate_1
 }
 
 
-SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_rootStructCtor(JNIEnv *jenv, jclass jcls, jstring jarg1) {
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_InnerStruct_1first_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jobject jarg2) {
+  crate_example_mine_InnerStruct *arg1 = (crate_example_mine_InnerStruct *) 0 ;
+  uint64_t arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_example_mine_InnerStruct **)&jarg1; 
+  {
+    jclass clazz;
+    jmethodID mid;
+    jbyteArray ba;
+    jbyte* bae;
+    jsize sz;
+    int i;
+    
+    if (!jarg2) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "BigInteger null");
+      return ;
+    }
+    clazz = jenv->GetObjectClass(jarg2);
+    mid = jenv->GetMethodID(clazz, "toByteArray", "()[B");
+    ba = (jbyteArray)jenv->CallObjectMethod(jarg2, mid);
+    bae = jenv->GetByteArrayElements(ba, 0);
+    sz = jenv->GetArrayLength(ba);
+    arg2 = 0;
+    if (sz > 0) {
+      arg2 = (uint64_t)(signed char)bae[0];
+      for(i=1; i<sz; i++) {
+        arg2 = (arg2 << 8) | (uint64_t)(unsigned char)bae[i];
+      }
+    }
+    jenv->ReleaseByteArrayElements(ba, bae, 0);
+  }
+  if (arg1) (arg1)->first = arg2;
+}
+
+
+SWIGEXPORT jobject JNICALL Java_org_dash_sdk_exampleJNI_InnerStruct_1first_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jobject jresult = 0 ;
+  crate_example_mine_InnerStruct *arg1 = (crate_example_mine_InnerStruct *) 0 ;
+  uint64_t result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_example_mine_InnerStruct **)&jarg1; 
+  result = (uint64_t) ((arg1)->first);
+  {
+    jbyteArray ba = jenv->NewByteArray(9);
+    jbyte* bae = jenv->GetByteArrayElements(ba, 0);
+    jclass clazz = jenv->FindClass("java/math/BigInteger");
+    jmethodID mid = jenv->GetMethodID(clazz, "<init>", "([B)V");
+    jobject bigint;
+    int i;
+    
+    bae[0] = 0;
+    for(i=1; i<9; i++ ) {
+      bae[i] = (jbyte)(result>>8*(8-i));
+    }
+    
+    jenv->ReleaseByteArrayElements(ba, bae, 0);
+    bigint = jenv->NewObject(clazz, mid, ba);
+    jenv->DeleteLocalRef(ba);
+    jresult = bigint;
+  }
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_InnerStruct_1second_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jobject jarg2) {
+  crate_example_mine_InnerStruct *arg1 = (crate_example_mine_InnerStruct *) 0 ;
+  uint64_t arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_example_mine_InnerStruct **)&jarg1; 
+  {
+    jclass clazz;
+    jmethodID mid;
+    jbyteArray ba;
+    jbyte* bae;
+    jsize sz;
+    int i;
+    
+    if (!jarg2) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "BigInteger null");
+      return ;
+    }
+    clazz = jenv->GetObjectClass(jarg2);
+    mid = jenv->GetMethodID(clazz, "toByteArray", "()[B");
+    ba = (jbyteArray)jenv->CallObjectMethod(jarg2, mid);
+    bae = jenv->GetByteArrayElements(ba, 0);
+    sz = jenv->GetArrayLength(ba);
+    arg2 = 0;
+    if (sz > 0) {
+      arg2 = (uint64_t)(signed char)bae[0];
+      for(i=1; i<sz; i++) {
+        arg2 = (arg2 << 8) | (uint64_t)(unsigned char)bae[i];
+      }
+    }
+    jenv->ReleaseByteArrayElements(ba, bae, 0);
+  }
+  if (arg1) (arg1)->second = arg2;
+}
+
+
+SWIGEXPORT jobject JNICALL Java_org_dash_sdk_exampleJNI_InnerStruct_1second_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jobject jresult = 0 ;
+  crate_example_mine_InnerStruct *arg1 = (crate_example_mine_InnerStruct *) 0 ;
+  uint64_t result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_example_mine_InnerStruct **)&jarg1; 
+  result = (uint64_t) ((arg1)->second);
+  {
+    jbyteArray ba = jenv->NewByteArray(9);
+    jbyte* bae = jenv->GetByteArrayElements(ba, 0);
+    jclass clazz = jenv->FindClass("java/math/BigInteger");
+    jmethodID mid = jenv->GetMethodID(clazz, "<init>", "([B)V");
+    jobject bigint;
+    int i;
+    
+    bae[0] = 0;
+    for(i=1; i<9; i++ ) {
+      bae[i] = (jbyte)(result>>8*(8-i));
+    }
+    
+    jenv->ReleaseByteArrayElements(ba, bae, 0);
+    bigint = jenv->NewObject(clazz, mid, ba);
+    jenv->DeleteLocalRef(ba);
+    jresult = bigint;
+  }
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_new_1InnerStruct(JNIEnv *jenv, jclass jcls, jint jarg1, jint jarg2) {
+  jlong jresult = 0 ;
+  long arg1 ;
+  long arg2 ;
+  crate_example_mine_InnerStruct *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = (long)jarg1; 
+  arg2 = (long)jarg2; 
+  result = (crate_example_mine_InnerStruct *)new_crate_example_mine_InnerStruct(arg1,arg2);
+  *(crate_example_mine_InnerStruct **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_delete_1InnerStruct(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  crate_example_mine_InnerStruct *arg1 = (crate_example_mine_InnerStruct *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(crate_example_mine_InnerStruct **)&jarg1; 
+  delete_crate_example_mine_InnerStruct(arg1);
+}
+
+
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_OuterStruct_1first_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  crate_example_mine_OuterStruct *arg1 = (crate_example_mine_OuterStruct *) 0 ;
+  crate_example_mine_InnerStruct *arg2 = (crate_example_mine_InnerStruct *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(crate_example_mine_OuterStruct **)&jarg1; 
+  arg2 = *(crate_example_mine_InnerStruct **)&jarg2; 
+  if (arg1) (arg1)->first = arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_OuterStruct_1first_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  crate_example_mine_OuterStruct *arg1 = (crate_example_mine_OuterStruct *) 0 ;
+  crate_example_mine_InnerStruct *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_example_mine_OuterStruct **)&jarg1; 
+  result = (crate_example_mine_InnerStruct *) ((arg1)->first);
+  *(crate_example_mine_InnerStruct **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_OuterStruct_1second_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  crate_example_mine_OuterStruct *arg1 = (crate_example_mine_OuterStruct *) 0 ;
+  crate_example_mine_InnerStruct *arg2 = (crate_example_mine_InnerStruct *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(crate_example_mine_OuterStruct **)&jarg1; 
+  arg2 = *(crate_example_mine_InnerStruct **)&jarg2; 
+  if (arg1) (arg1)->second = arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_OuterStruct_1second_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  crate_example_mine_OuterStruct *arg1 = (crate_example_mine_OuterStruct *) 0 ;
+  crate_example_mine_InnerStruct *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_example_mine_OuterStruct **)&jarg1; 
+  result = (crate_example_mine_InnerStruct *) ((arg1)->second);
+  *(crate_example_mine_InnerStruct **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_new_1OuterStruct_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  jlong jresult = 0 ;
+  crate_example_mine_InnerStruct *arg1 = (crate_example_mine_InnerStruct *) 0 ;
+  crate_example_mine_InnerStruct *arg2 = (crate_example_mine_InnerStruct *) 0 ;
+  crate_example_mine_OuterStruct *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(crate_example_mine_InnerStruct **)&jarg1; 
+  arg2 = *(crate_example_mine_InnerStruct **)&jarg2; 
+  result = (crate_example_mine_OuterStruct *)new_crate_example_mine_OuterStruct__SWIG_0(arg1,arg2);
+  *(crate_example_mine_OuterStruct **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_new_1OuterStruct_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jint jarg1, jint jarg2, jint jarg3, jint jarg4) {
+  jlong jresult = 0 ;
+  long arg1 ;
+  long arg2 ;
+  long arg3 ;
+  long arg4 ;
+  crate_example_mine_OuterStruct *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = (long)jarg1; 
+  arg2 = (long)jarg2; 
+  arg3 = (long)jarg3; 
+  arg4 = (long)jarg4; 
+  result = (crate_example_mine_OuterStruct *)new_crate_example_mine_OuterStruct__SWIG_1(arg1,arg2,arg3,arg4);
+  *(crate_example_mine_OuterStruct **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_delete_1OuterStruct(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  crate_example_mine_OuterStruct *arg1 = (crate_example_mine_OuterStruct *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(crate_example_mine_OuterStruct **)&jarg1; 
+  delete_crate_example_mine_OuterStruct(arg1);
+}
+
+
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_VecU8Holder_1first_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jbyteArray jarg2) {
+  crate_example_mine_VecU8Holder *arg1 = (crate_example_mine_VecU8Holder *) 0 ;
+  Vec_u8 *arg2 = (Vec_u8 *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_example_mine_VecU8Holder **)&jarg1; 
+  
+  uint8_t * _buffer_arg2 = (uint8_t*)(jenv)->GetByteArrayElements(jarg2, 0);
+  int size_arg2 = (jenv)->GetArrayLength(jarg2);
+  uint8_t * byteArray_arg2 = (uint8_t *)memoryFactory.alloc(size_arg2);
+  memcpy(byteArray_arg2, _buffer_arg2, size_arg2);
+  arg2 = Vec_u8_ctor(byteArray_arg2, size_arg2);
+  printf("typemap(in) Vec_u8 *: %ld, [%lx]%d\n", arg2->count, (long)arg2->values, arg2->values[0]);
+  
+  if (arg1) (arg1)->first = arg2;
+  
+  printf("typemap(argout) Vec_u8 *: %ld, [%lx]%d\n", arg2->count, (long)arg2->values, arg2->values[0]);
+  //JCALL3(ReleaseByteArrayElements, jenv, jarg2, (jbyte *) _buffer_arg2, 0);
+  jenv->ReleaseByteArrayElements(jarg2, (jbyte *) _buffer_arg2, 0);
+  printf("typemap(argout) Vec_u8 *: %ld, [%lx]%d\n", arg2->count, (long)arg2->values, arg2->values[0]);
+  
+}
+
+
+SWIGEXPORT jbyteArray JNICALL Java_org_dash_sdk_exampleJNI_VecU8Holder_1first_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jbyteArray jresult = 0 ;
+  crate_example_mine_VecU8Holder *arg1 = (crate_example_mine_VecU8Holder *) 0 ;
+  Vec_u8 *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_example_mine_VecU8Holder **)&jarg1; 
+  result = (Vec_u8 *) ((arg1)->first);
+  {
+    printf("typemap(out) Vec_u8* %lx\n", (long)result);
+    if (!result) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Vec_u8* null array");
+      return 0;
+    }
+    if (!result->values) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Vec_u8.values null array");
+      return 0;
+    }
+    printf("  (count: %ld, values: [%lx], %d)\n", result->count, (long)result->values, result->values[0]);
+    jresult = jenv->NewByteArray(result->count);
+    jenv->SetByteArrayRegion(jresult, 0, result->count, (jbyte *) result->values);
+  }
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_new_1VecU8Holder(JNIEnv *jenv, jclass jcls, jbyteArray jarg1) {
+  jlong jresult = 0 ;
+  Vec_u8 *arg1 = (Vec_u8 *) 0 ;
+  crate_example_mine_VecU8Holder *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  
+  uint8_t * _buffer_arg1 = (uint8_t*)(jenv)->GetByteArrayElements(jarg1, 0);
+  int size_arg1 = (jenv)->GetArrayLength(jarg1);
+  uint8_t * byteArray_arg1 = (uint8_t *)memoryFactory.alloc(size_arg1);
+  memcpy(byteArray_arg1, _buffer_arg1, size_arg1);
+  arg1 = Vec_u8_ctor(byteArray_arg1, size_arg1);
+  printf("typemap(in) Vec_u8 *: %ld, [%lx]%d\n", arg1->count, (long)arg1->values, arg1->values[0]);
+  
+  result = (crate_example_mine_VecU8Holder *)new_crate_example_mine_VecU8Holder(arg1);
+  *(crate_example_mine_VecU8Holder **)&jresult = result; 
+  
+  printf("typemap(argout) Vec_u8 *: %ld, [%lx]%d\n", arg1->count, (long)arg1->values, arg1->values[0]);
+  //JCALL3(ReleaseByteArrayElements, jenv, jarg1, (jbyte *) _buffer_arg1, 0);
+  jenv->ReleaseByteArrayElements(jarg1, (jbyte *) _buffer_arg1, 0);
+  printf("typemap(argout) Vec_u8 *: %ld, [%lx]%d\n", arg1->count, (long)arg1->values, arg1->values[0]);
+  
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_delete_1VecU8Holder(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  crate_example_mine_VecU8Holder *arg1 = (crate_example_mine_VecU8Holder *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(crate_example_mine_VecU8Holder **)&jarg1; 
+  delete_crate_example_mine_VecU8Holder(arg1);
+}
+
+
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_crate_1nested_1OptionalFeatureVersion_1_10_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  crate_nested_OptionalFeatureVersion *arg1 = (crate_nested_OptionalFeatureVersion *) 0 ;
+  uint16_t arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_nested_OptionalFeatureVersion **)&jarg1; 
+  arg2 = (uint16_t)jarg2; 
+  if (arg1) (arg1)->_0 = arg2;
+}
+
+
+SWIGEXPORT jint JNICALL Java_org_dash_sdk_exampleJNI_crate_1nested_1OptionalFeatureVersion_1_10_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  crate_nested_OptionalFeatureVersion *arg1 = (crate_nested_OptionalFeatureVersion *) 0 ;
+  uint16_t result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_nested_OptionalFeatureVersion **)&jarg1; 
+  result = (uint16_t) ((arg1)->_0);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_delete_1crate_1nested_1OptionalFeatureVersion(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  crate_nested_OptionalFeatureVersion *arg1 = (crate_nested_OptionalFeatureVersion *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(crate_nested_OptionalFeatureVersion **)&jarg1; 
+  delete arg1;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_crate_1nested_1HashID_1_10_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jbyteArray jarg2) {
+  crate_nested_HashID *arg1 = (crate_nested_HashID *) 0 ;
+  uint8_t (*arg2)[32] = (uint8_t (*)[32]) 0 ;
+  uint8_t *byteArray2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_nested_HashID **)&jarg1; 
+  {
+    if (!jarg2) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null array");
+      return ;
+    }
+    const jsize sz = jenv->GetArrayLength(jarg2);
+    jbyte* const jarr = jenv->GetByteArrayElements(jarg2, 0);
+    if (!jarr) return ;
+    byteArray2 = (uint8_t *)memoryFactory.alloc(32); // this is a memory leak?
+    memcpy(byteArray2, jarr, sz);
+    
+    //memcpy(arg2, jarr, sz);
+    jenv->ReleaseByteArrayElements(jarg2, jarr, JNI_ABORT);
+    arg2 = (uint8_t (*) [32])byteArray2;
+  }
+  if (arg1) (arg1)->_0 = (uint8_t (*)[32])arg2;
+  {
+    //JCALL3(ReleaseByteArrayElements, jenv, jarg2, (jbyte *) *arg2, 0);
+    
+  }
+  
+}
+
+
+SWIGEXPORT jbyteArray JNICALL Java_org_dash_sdk_exampleJNI_crate_1nested_1HashID_1_10_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jbyteArray jresult = 0 ;
+  crate_nested_HashID *arg1 = (crate_nested_HashID *) 0 ;
+  uint8_t (*result)[32] = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_nested_HashID **)&jarg1; 
+  result = (uint8_t (*)[32]) ((arg1)->_0);
+  {
+    jresult = jenv->NewByteArray(32);
+    jenv->SetByteArrayRegion(jresult, 0, 32, (jbyte *)(*result));
+  }
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_delete_1crate_1nested_1HashID(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  crate_nested_HashID *arg1 = (crate_nested_HashID *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(crate_nested_HashID **)&jarg1; 
+  delete arg1;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_crateRootStructCtor(JNIEnv *jenv, jclass jcls, jstring jarg1) {
   jlong jresult = 0 ;
   char *arg1 = (char *) 0 ;
-  RootStruct *result = 0 ;
+  crate_RootStruct *result = 0 ;
   
   (void)jenv;
   (void)jcls;
@@ -3271,1843 +3417,676 @@ SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_rootStructCtor(JNIEnv *jen
     arg1 = (char *)jenv->GetStringUTFChars(jarg1, 0);
     if (!arg1) return 0;
   }
-  result = (RootStruct *)RootStruct_ctor(arg1);
-  *(RootStruct **)&jresult = result; 
+  result = (crate_RootStruct *)crate_RootStruct_ctor(arg1);
+  *(crate_RootStruct **)&jresult = result; 
   if (arg1) jenv->ReleaseStringUTFChars(jarg1, (const char *)arg1);
   return jresult;
 }
 
 
-SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_rootStructDestroy(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  RootStruct *arg1 = (RootStruct *) 0 ;
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_crateRootStructDestroy(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  crate_RootStruct *arg1 = (crate_RootStruct *) 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(RootStruct **)&jarg1; 
-  RootStruct_destroy(arg1);
+  arg1 = *(crate_RootStruct **)&jarg1; 
+  crate_RootStruct_destroy(arg1);
 }
 
 
-SWIGEXPORT jstring JNICALL Java_org_dash_sdk_exampleJNI_rootStructGetName(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jstring JNICALL Java_org_dash_sdk_exampleJNI_crateRootStructGetName(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jstring jresult = 0 ;
-  RootStruct *arg1 = (RootStruct *) 0 ;
+  crate_RootStruct *arg1 = (crate_RootStruct *) 0 ;
   char *result = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(RootStruct **)&jarg1; 
-  result = (char *)RootStruct_get_name((RootStruct const *)arg1);
+  arg1 = *(crate_RootStruct **)&jarg1; 
+  result = (char *)crate_RootStruct_get_name((crate_RootStruct const *)arg1);
   if (result) jresult = jenv->NewStringUTF((const char *)result);
   return jresult;
 }
 
 
-SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_rootStructSetName(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2) {
-  RootStruct *arg1 = (RootStruct *) 0 ;
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_crateRootStructSetName(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2) {
+  crate_RootStruct *arg1 = (crate_RootStruct *) 0 ;
   char *arg2 = (char *) 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(RootStruct **)&jarg1; 
+  arg1 = *(crate_RootStruct **)&jarg1; 
   arg2 = 0;
   if (jarg2) {
     arg2 = (char *)jenv->GetStringUTFChars(jarg2, 0);
     if (!arg2) return ;
   }
-  RootStruct_set_name(arg1,arg2);
+  crate_RootStruct_set_name(arg1,arg2);
   if (arg2) jenv->ReleaseStringUTFChars(jarg2, (const char *)arg2);
 }
 
 
-SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_binaryDataCtor(JNIEnv *jenv, jclass jcls, jbyteArray jarg1) {
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_getIdentity2(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jlong jresult = 0 ;
-  Vec_u8 *arg1 = (Vec_u8 *) 0 ;
-  BinaryData *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  
-  uint8_t * _buffer_arg1 = (uint8_t*)(jenv)->GetByteArrayElements(jarg1, 0);
-  int size_arg1 = (jenv)->GetArrayLength(jarg1);
-  uint8_t * byteArray_arg1 = (uint8_t *)memoryFactory.alloc(size_arg1);
-  memcpy(byteArray_arg1, _buffer_arg1, size_arg1);
-  arg1 = Vec_u8_ctor(byteArray_arg1, size_arg1);
-  printf("typemap(in) Vec_u8 *: %ld, [%lx]%d\n", arg1->count, (long)arg1->values, arg1->values[0]);
-  
-  result = (BinaryData *)BinaryData_ctor(arg1);
-  *(BinaryData **)&jresult = result; 
-  
-  printf("typemap(argout) Vec_u8 *: %ld, [%lx]%d\n", arg1->count, (long)arg1->values, arg1->values[0]);
-  //JCALL3(ReleaseByteArrayElements, jenv, jarg1, (jbyte *) _buffer_arg1, 0);
-  jenv->ReleaseByteArrayElements(jarg1, (jbyte *) _buffer_arg1, 0);
-  printf("typemap(argout) Vec_u8 *: %ld, [%lx]%d\n", arg1->count, (long)arg1->values, arg1->values[0]);
-  
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_binaryDataDestroy(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  BinaryData *arg1 = (BinaryData *) 0 ;
+  crate_nested_Identifier *arg1 = (crate_nested_Identifier *) 0 ;
+  crate_identity_identity_Identity *result = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(BinaryData **)&jarg1; 
-  BinaryData_destroy(arg1);
-}
-
-
-SWIGEXPORT jbyteArray JNICALL Java_org_dash_sdk_exampleJNI_binaryDataGet0(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jbyteArray jresult = 0 ;
-  BinaryData *arg1 = (BinaryData *) 0 ;
-  Vec_u8 *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(BinaryData **)&jarg1; 
-  result = (Vec_u8 *)BinaryData_get_0((BinaryData const *)arg1);
-  {
-    printf("typemap(out) Vec_u8* %lx\n", (long)result);
-    if (!result) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Vec_u8* null array");
-      return 0;
-    }
-    if (!result->values) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Vec_u8.values null array");
-      return 0;
-    }
-    printf("  (count: %ld, values: [%lx], %d)\n", result->count, (long)result->values, result->values[0]);
-    jresult = jenv->NewByteArray(result->count);
-    jenv->SetByteArrayRegion(jresult, 0, result->count, (jbyte *) result->values);
-  }
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_binaryDataSet0(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jbyteArray jarg2) {
-  BinaryData *arg1 = (BinaryData *) 0 ;
-  Vec_u8 *arg2 = (Vec_u8 *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(BinaryData **)&jarg1; 
-  
-  uint8_t * _buffer_arg2 = (uint8_t*)(jenv)->GetByteArrayElements(jarg2, 0);
-  int size_arg2 = (jenv)->GetArrayLength(jarg2);
-  uint8_t * byteArray_arg2 = (uint8_t *)memoryFactory.alloc(size_arg2);
-  memcpy(byteArray_arg2, _buffer_arg2, size_arg2);
-  arg2 = Vec_u8_ctor(byteArray_arg2, size_arg2);
-  printf("typemap(in) Vec_u8 *: %ld, [%lx]%d\n", arg2->count, (long)arg2->values, arg2->values[0]);
-  
-  BinaryData_set_0(arg1,arg2);
-  
-  printf("typemap(argout) Vec_u8 *: %ld, [%lx]%d\n", arg2->count, (long)arg2->values, arg2->values[0]);
-  //JCALL3(ReleaseByteArrayElements, jenv, jarg2, (jbyte *) _buffer_arg2, 0);
-  jenv->ReleaseByteArrayElements(jarg2, (jbyte *) _buffer_arg2, 0);
-  printf("typemap(argout) Vec_u8 *: %ld, [%lx]%d\n", arg2->count, (long)arg2->values, arg2->values[0]);
-  
-}
-
-
-SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_optionalFeatureVersionCtor(JNIEnv *jenv, jclass jcls, jint jarg1) {
-  jlong jresult = 0 ;
-  uint16_t arg1 ;
-  OptionalFeatureVersion *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  arg1 = (uint16_t)jarg1; 
-  result = (OptionalFeatureVersion *)OptionalFeatureVersion_ctor(arg1);
-  *(OptionalFeatureVersion **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_optionalFeatureVersionDestroy(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  OptionalFeatureVersion *arg1 = (OptionalFeatureVersion *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(OptionalFeatureVersion **)&jarg1; 
-  OptionalFeatureVersion_destroy(arg1);
-}
-
-
-SWIGEXPORT jint JNICALL Java_org_dash_sdk_exampleJNI_optionalFeatureVersionGet0(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jint jresult = 0 ;
-  OptionalFeatureVersion *arg1 = (OptionalFeatureVersion *) 0 ;
-  uint16_t result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(OptionalFeatureVersion **)&jarg1; 
-  result = (uint16_t)OptionalFeatureVersion_get_0((OptionalFeatureVersion const *)arg1);
-  jresult = (jint)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_optionalFeatureVersionSet0(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
-  OptionalFeatureVersion *arg1 = (OptionalFeatureVersion *) 0 ;
-  uint16_t arg2 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(OptionalFeatureVersion **)&jarg1; 
-  arg2 = (uint16_t)jarg2; 
-  OptionalFeatureVersion_set_0(arg1,arg2);
-}
-
-
-SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_featureVersionCtor(JNIEnv *jenv, jclass jcls, jint jarg1) {
-  jlong jresult = 0 ;
-  uint16_t arg1 ;
-  FeatureVersion *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  arg1 = (uint16_t)jarg1; 
-  result = (FeatureVersion *)FeatureVersion_ctor(arg1);
-  *(FeatureVersion **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_featureVersionDestroy(JNIEnv *jenv, jclass jcls, jlong jarg1) {
-  FeatureVersion *arg1 = (FeatureVersion *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  arg1 = *(FeatureVersion **)&jarg1; 
-  FeatureVersion_destroy(arg1);
-}
-
-
-SWIGEXPORT jint JNICALL Java_org_dash_sdk_exampleJNI_featureVersionGet0(JNIEnv *jenv, jclass jcls, jlong jarg1) {
-  jint jresult = 0 ;
-  FeatureVersion *arg1 = (FeatureVersion *) 0 ;
-  uint16_t result;
-  
-  (void)jenv;
-  (void)jcls;
-  arg1 = *(FeatureVersion **)&jarg1; 
-  result = (uint16_t)FeatureVersion_get_0((FeatureVersion const *)arg1);
-  jresult = (jint)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_featureVersionSet0(JNIEnv *jenv, jclass jcls, jlong jarg1, jint jarg2) {
-  FeatureVersion *arg1 = (FeatureVersion *) 0 ;
-  uint16_t arg2 ;
-  
-  (void)jenv;
-  (void)jcls;
-  arg1 = *(FeatureVersion **)&jarg1; 
-  arg2 = (uint16_t)jarg2; 
-  FeatureVersion_set_0(arg1,arg2);
-}
-
-
-SWIGEXPORT jbyteArray JNICALL Java_org_dash_sdk_exampleJNI_hashIDGet0(JNIEnv *jenv, jclass jcls, jlong jarg1) {
-  jbyteArray jresult = 0 ;
-  HashID *arg1 = (HashID *) 0 ;
-  uint8_t (*result)[32] = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  arg1 = *(HashID **)&jarg1; 
-  result = (uint8_t (*)[32])HashID_get_0((HashID const *)arg1);
-  {
-    jresult = jenv->NewByteArray(32);
-    jenv->SetByteArrayRegion(jresult, 0, 32, (jbyte *)(*result));
-  }
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_hashIDSet0(JNIEnv *jenv, jclass jcls, jlong jarg1, jbyteArray jarg2) {
-  HashID *arg1 = (HashID *) 0 ;
-  uint8_t (*arg2)[32] = (uint8_t (*)[32]) 0 ;
-  uint8_t *byteArray2 ;
-  
-  (void)jenv;
-  (void)jcls;
-  arg1 = *(HashID **)&jarg1; 
-  {
-    if (!jarg2) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null array");
-      return ;
-    }
-    const jsize sz = jenv->GetArrayLength(jarg2);
-    jbyte* const jarr = jenv->GetByteArrayElements(jarg2, 0);
-    if (!jarr) return ;
-    byteArray2 = (uint8_t *)memoryFactory.alloc(32); // this is a memory leak?
-    memcpy(byteArray2, jarr, sz);
-    
-    //memcpy(arg2, jarr, sz);
-    jenv->ReleaseByteArrayElements(jarg2, jarr, JNI_ABORT);
-    arg2 = (uint8_t (*) [32])byteArray2;
-  }
-  HashID_set_0(arg1,(unsigned char (*)[32])arg2);
-  {
-    //JCALL3(ReleaseByteArrayElements, jenv, jarg2, (jbyte *) *arg2, 0);
-    
-  }
-  
-}
-
-
-SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_identifierBytes32Ctor(JNIEnv *jenv, jclass jcls, jbyteArray jarg1) {
-  jlong jresult = 0 ;
-  uint8_t (*arg1)[32] = (uint8_t (*)[32]) 0 ;
-  uint8_t *byteArray1 ;
-  IdentifierBytes32 *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  {
-    if (!jarg1) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null array");
-      return 0;
-    }
-    const jsize sz = jenv->GetArrayLength(jarg1);
-    jbyte* const jarr = jenv->GetByteArrayElements(jarg1, 0);
-    if (!jarr) return 0;
-    byteArray1 = (uint8_t *)memoryFactory.alloc(32); // this is a memory leak?
-    memcpy(byteArray1, jarr, sz);
-    
-    //memcpy(arg1, jarr, sz);
-    jenv->ReleaseByteArrayElements(jarg1, jarr, JNI_ABORT);
-    arg1 = (uint8_t (*) [32])byteArray1;
-  }
-  result = (IdentifierBytes32 *)IdentifierBytes32_ctor((unsigned char (*)[32])arg1);
-  *(IdentifierBytes32 **)&jresult = result; 
-  {
-    //JCALL3(ReleaseByteArrayElements, jenv, jarg1, (jbyte *) *arg1, 0);
-    
-  }
-  
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_identifierBytes32Destroy(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  IdentifierBytes32 *arg1 = (IdentifierBytes32 *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(IdentifierBytes32 **)&jarg1; 
-  IdentifierBytes32_destroy(arg1);
-}
-
-
-SWIGEXPORT jbyteArray JNICALL Java_org_dash_sdk_exampleJNI_identifierBytes32Get0(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jbyteArray jresult = 0 ;
-  IdentifierBytes32 *arg1 = (IdentifierBytes32 *) 0 ;
-  uint8_t (*result)[32] = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(IdentifierBytes32 **)&jarg1; 
-  result = (uint8_t (*)[32])IdentifierBytes32_get_0((IdentifierBytes32 const *)arg1);
-  {
-    jresult = jenv->NewByteArray(32);
-    jenv->SetByteArrayRegion(jresult, 0, 32, (jbyte *)(*result));
-  }
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_identifierBytes32Set0(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jbyteArray jarg2) {
-  IdentifierBytes32 *arg1 = (IdentifierBytes32 *) 0 ;
-  uint8_t (*arg2)[32] = (uint8_t (*)[32]) 0 ;
-  uint8_t *byteArray2 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(IdentifierBytes32 **)&jarg1; 
-  {
-    if (!jarg2) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null array");
-      return ;
-    }
-    const jsize sz = jenv->GetArrayLength(jarg2);
-    jbyte* const jarr = jenv->GetByteArrayElements(jarg2, 0);
-    if (!jarr) return ;
-    byteArray2 = (uint8_t *)memoryFactory.alloc(32); // this is a memory leak?
-    memcpy(byteArray2, jarr, sz);
-    
-    //memcpy(arg2, jarr, sz);
-    jenv->ReleaseByteArrayElements(jarg2, jarr, JNI_ABORT);
-    arg2 = (uint8_t (*) [32])byteArray2;
-  }
-  IdentifierBytes32_set_0(arg1,(unsigned char (*)[32])arg2);
-  {
-    //JCALL3(ReleaseByteArrayElements, jenv, jarg2, (jbyte *) *arg2, 0);
-    
-  }
-  
-}
-
-
-SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_featureVersionBoundsCtor(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2, jlong jarg3) {
-  jlong jresult = 0 ;
-  FeatureVersion *arg1 = (FeatureVersion *) 0 ;
-  FeatureVersion *arg2 = (FeatureVersion *) 0 ;
-  FeatureVersion *arg3 = (FeatureVersion *) 0 ;
-  FeatureVersionBounds *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  arg1 = *(FeatureVersion **)&jarg1; 
-  arg2 = *(FeatureVersion **)&jarg2; 
-  arg3 = *(FeatureVersion **)&jarg3; 
-  result = (FeatureVersionBounds *)FeatureVersionBounds_ctor(arg1,arg2,arg3);
-  *(FeatureVersionBounds **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_featureVersionBoundsDestroy(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  FeatureVersionBounds *arg1 = (FeatureVersionBounds *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(FeatureVersionBounds **)&jarg1; 
-  FeatureVersionBounds_destroy(arg1);
-}
-
-
-SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_featureVersionBoundsGetMinVersion(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  FeatureVersionBounds *arg1 = (FeatureVersionBounds *) 0 ;
-  FeatureVersion *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(FeatureVersionBounds **)&jarg1; 
-  result = (FeatureVersion *)FeatureVersionBounds_get_min_version((FeatureVersionBounds const *)arg1);
-  *(FeatureVersion **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_featureVersionBoundsGetMaxVersion(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  FeatureVersionBounds *arg1 = (FeatureVersionBounds *) 0 ;
-  FeatureVersion *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(FeatureVersionBounds **)&jarg1; 
-  result = (FeatureVersion *)FeatureVersionBounds_get_max_version((FeatureVersionBounds const *)arg1);
-  *(FeatureVersion **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_featureVersionBoundsGetDefaultCurrentVersion(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  FeatureVersionBounds *arg1 = (FeatureVersionBounds *) 0 ;
-  FeatureVersion *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(FeatureVersionBounds **)&jarg1; 
-  result = (FeatureVersion *)FeatureVersionBounds_get_default_current_version((FeatureVersionBounds const *)arg1);
-  *(FeatureVersion **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_featureVersionBoundsSetMinVersion(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
-  FeatureVersionBounds *arg1 = (FeatureVersionBounds *) 0 ;
-  FeatureVersion *arg2 = (FeatureVersion *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(FeatureVersionBounds **)&jarg1; 
-  arg2 = *(FeatureVersion **)&jarg2; 
-  FeatureVersionBounds_set_min_version(arg1,arg2);
-}
-
-
-SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_featureVersionBoundsSetMaxVersion(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
-  FeatureVersionBounds *arg1 = (FeatureVersionBounds *) 0 ;
-  FeatureVersion *arg2 = (FeatureVersion *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(FeatureVersionBounds **)&jarg1; 
-  arg2 = *(FeatureVersion **)&jarg2; 
-  FeatureVersionBounds_set_max_version(arg1,arg2);
-}
-
-
-SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_featureVersionBoundsSetDefaultCurrentVersion(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
-  FeatureVersionBounds *arg1 = (FeatureVersionBounds *) 0 ;
-  FeatureVersion *arg2 = (FeatureVersion *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(FeatureVersionBounds **)&jarg1; 
-  arg2 = *(FeatureVersion **)&jarg2; 
-  FeatureVersionBounds_set_default_current_version(arg1,arg2);
-}
-
-
-SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_platformVersionCtor(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2, jobject jarg2_, jlong jarg3, jobject jarg3_) {
-  jlong jresult = 0 ;
-  uint32_t arg1 ;
-  FeatureVersionBounds *arg2 = (FeatureVersionBounds *) 0 ;
-  FeatureVersionBounds *arg3 = (FeatureVersionBounds *) 0 ;
-  PlatformVersion *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg2_;
-  (void)jarg3_;
-  arg1 = (uint32_t)jarg1; 
-  arg2 = *(FeatureVersionBounds **)&jarg2; 
-  arg3 = *(FeatureVersionBounds **)&jarg3; 
-  result = (PlatformVersion *)PlatformVersion_ctor(arg1,arg2,arg3);
-  *(PlatformVersion **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_platformVersionDestroy(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  PlatformVersion *arg1 = (PlatformVersion *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(PlatformVersion **)&jarg1; 
-  PlatformVersion_destroy(arg1);
-}
-
-
-SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_platformVersionGetProtocolVersion(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  PlatformVersion *arg1 = (PlatformVersion *) 0 ;
-  uint32_t result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(PlatformVersion **)&jarg1; 
-  result = (uint32_t)PlatformVersion_get_protocol_version((PlatformVersion const *)arg1);
-  jresult = (jlong)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_platformVersionGetIdentity(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  PlatformVersion *arg1 = (PlatformVersion *) 0 ;
-  FeatureVersionBounds *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(PlatformVersion **)&jarg1; 
-  result = (FeatureVersionBounds *)PlatformVersion_get_identity((PlatformVersion const *)arg1);
-  *(FeatureVersionBounds **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_platformVersionGetProofs(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  PlatformVersion *arg1 = (PlatformVersion *) 0 ;
-  FeatureVersionBounds *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(PlatformVersion **)&jarg1; 
-  result = (FeatureVersionBounds *)PlatformVersion_get_proofs((PlatformVersion const *)arg1);
-  *(FeatureVersionBounds **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_platformVersionSetProtocolVersion(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
-  PlatformVersion *arg1 = (PlatformVersion *) 0 ;
-  uint32_t arg2 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(PlatformVersion **)&jarg1; 
-  arg2 = (uint32_t)jarg2; 
-  PlatformVersion_set_protocol_version(arg1,arg2);
-}
-
-
-SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_platformVersionSetIdentity(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  PlatformVersion *arg1 = (PlatformVersion *) 0 ;
-  FeatureVersionBounds *arg2 = (FeatureVersionBounds *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg2_;
-  arg1 = *(PlatformVersion **)&jarg1; 
-  arg2 = *(FeatureVersionBounds **)&jarg2; 
-  PlatformVersion_set_identity(arg1,arg2);
-}
-
-
-SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_platformVersionSetProofs(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  PlatformVersion *arg1 = (PlatformVersion *) 0 ;
-  FeatureVersionBounds *arg2 = (FeatureVersionBounds *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg2_;
-  arg1 = *(PlatformVersion **)&jarg1; 
-  arg2 = *(FeatureVersionBounds **)&jarg2; 
-  PlatformVersion_set_proofs(arg1,arg2);
-}
-
-
-SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_protocolErrorIdentifierErrorCtor(JNIEnv *jenv, jclass jcls, jstring jarg1) {
-  jlong jresult = 0 ;
-  char *arg1 = (char *) 0 ;
-  ProtocolError *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  arg1 = 0;
-  if (jarg1) {
-    arg1 = (char *)jenv->GetStringUTFChars(jarg1, 0);
-    if (!arg1) return 0;
-  }
-  result = (ProtocolError *)ProtocolError_IdentifierError_ctor(arg1);
-  *(ProtocolError **)&jresult = result; 
-  if (arg1) jenv->ReleaseStringUTFChars(jarg1, (const char *)arg1);
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_protocolErrorStringDecodeErrorCtor(JNIEnv *jenv, jclass jcls, jstring jarg1) {
-  jlong jresult = 0 ;
-  char *arg1 = (char *) 0 ;
-  ProtocolError *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  arg1 = 0;
-  if (jarg1) {
-    arg1 = (char *)jenv->GetStringUTFChars(jarg1, 0);
-    if (!arg1) return 0;
-  }
-  result = (ProtocolError *)ProtocolError_StringDecodeError_ctor(arg1);
-  *(ProtocolError **)&jresult = result; 
-  if (arg1) jenv->ReleaseStringUTFChars(jarg1, (const char *)arg1);
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_protocolErrorStringDecodeError2Ctor(JNIEnv *jenv, jclass jcls, jstring jarg1, jlong jarg2) {
-  jlong jresult = 0 ;
-  char *arg1 = (char *) 0 ;
-  uint32_t arg2 ;
-  ProtocolError *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  arg1 = 0;
-  if (jarg1) {
-    arg1 = (char *)jenv->GetStringUTFChars(jarg1, 0);
-    if (!arg1) return 0;
-  }
-  arg2 = (uint32_t)jarg2; 
-  result = (ProtocolError *)ProtocolError_StringDecodeError2_ctor(arg1,arg2);
-  *(ProtocolError **)&jresult = result; 
-  if (arg1) jenv->ReleaseStringUTFChars(jarg1, (const char *)arg1);
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_protocolErrorEmptyPublicKeyDataErrorCtor(JNIEnv *jenv, jclass jcls) {
-  jlong jresult = 0 ;
-  ProtocolError *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  result = (ProtocolError *)ProtocolError_EmptyPublicKeyDataError_ctor();
-  *(ProtocolError **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_protocolErrorMaxEncodedBytesReachedErrorCtor(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2) {
-  jlong jresult = 0 ;
-  uintptr_t arg1 ;
-  uintptr_t arg2 ;
-  ProtocolError *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  arg1 = (uintptr_t)jarg1; 
-  arg2 = (uintptr_t)jarg2; 
-  result = (ProtocolError *)ProtocolError_MaxEncodedBytesReachedError_ctor(arg1,arg2);
-  *(ProtocolError **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_protocolErrorEncodingErrorCtor(JNIEnv *jenv, jclass jcls, jstring jarg1) {
-  jlong jresult = 0 ;
-  char *arg1 = (char *) 0 ;
-  ProtocolError *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  arg1 = 0;
-  if (jarg1) {
-    arg1 = (char *)jenv->GetStringUTFChars(jarg1, 0);
-    if (!arg1) return 0;
-  }
-  result = (ProtocolError *)ProtocolError_EncodingError_ctor(arg1);
-  *(ProtocolError **)&jresult = result; 
-  if (arg1) jenv->ReleaseStringUTFChars(jarg1, (const char *)arg1);
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_protocolErrorEncodingError2Ctor(JNIEnv *jenv, jclass jcls, jstring jarg1) {
-  jlong jresult = 0 ;
-  char *arg1 = (char *) 0 ;
-  ProtocolError *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  arg1 = 0;
-  if (jarg1) {
-    arg1 = (char *)jenv->GetStringUTFChars(jarg1, 0);
-    if (!arg1) return 0;
-  }
-  result = (ProtocolError *)ProtocolError_EncodingError2_ctor(arg1);
-  *(ProtocolError **)&jresult = result; 
-  if (arg1) jenv->ReleaseStringUTFChars(jarg1, (const char *)arg1);
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_protocolErrorDataContractNotPresentErrorCtor(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  DataContractNotPresentError *arg1 = (DataContractNotPresentError *) 0 ;
-  ProtocolError *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(DataContractNotPresentError **)&jarg1; 
-  result = (ProtocolError *)ProtocolError_DataContractNotPresentError_ctor(arg1);
-  *(ProtocolError **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_protocolErrorUnknownVersionMismatchCtor(JNIEnv *jenv, jclass jcls, jstring jarg1, jlong jarg2, jlong jarg3) {
-  jlong jresult = 0 ;
-  char *arg1 = (char *) 0 ;
-  Vec_crate_nested_FeatureVersion *arg2 = (Vec_crate_nested_FeatureVersion *) 0 ;
-  FeatureVersion *arg3 = (FeatureVersion *) 0 ;
-  ProtocolError *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  arg1 = 0;
-  if (jarg1) {
-    arg1 = (char *)jenv->GetStringUTFChars(jarg1, 0);
-    if (!arg1) return 0;
-  }
-  arg2 = *(Vec_crate_nested_FeatureVersion **)&jarg2; 
-  arg3 = *(FeatureVersion **)&jarg3; 
-  result = (ProtocolError *)ProtocolError_UnknownVersionMismatch_ctor(arg1,arg2,arg3);
-  *(ProtocolError **)&jresult = result; 
-  if (arg1) jenv->ReleaseStringUTFChars(jarg1, (const char *)arg1);
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_protocolErrorDestroy(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  ProtocolError *arg1 = (ProtocolError *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ProtocolError **)&jarg1; 
-  ProtocolError_destroy(arg1);
-}
-
-
-SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_identifierCtor(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  IdentifierBytes32 *arg1 = (IdentifierBytes32 *) 0 ;
-  Identifier *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(IdentifierBytes32 **)&jarg1; 
-  result = (Identifier *)Identifier_ctor(arg1);
-  *(Identifier **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_identifierDestroy(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  Identifier *arg1 = (Identifier *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(Identifier **)&jarg1; 
-  Identifier_destroy(arg1);
-}
-
-
-SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_identifierGet0(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  Identifier *arg1 = (Identifier *) 0 ;
-  IdentifierBytes32 *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(Identifier **)&jarg1; 
-  result = (IdentifierBytes32 *)Identifier_get_0((Identifier const *)arg1);
-  *(IdentifierBytes32 **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_identifierSet0(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  Identifier *arg1 = (Identifier *) 0 ;
-  IdentifierBytes32 *arg2 = (IdentifierBytes32 *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg2_;
-  arg1 = *(Identifier **)&jarg1; 
-  arg2 = *(IdentifierBytes32 **)&jarg2; 
-  Identifier_set_0(arg1,arg2);
-}
-
-
-SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_dataContractNotPresentErrorCtor(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  Identifier *arg1 = (Identifier *) 0 ;
-  DataContractNotPresentError *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(Identifier **)&jarg1; 
-  result = (DataContractNotPresentError *)DataContractNotPresentError_ctor(arg1);
-  *(DataContractNotPresentError **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_dataContractNotPresentErrorDestroy(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  DataContractNotPresentError *arg1 = (DataContractNotPresentError *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(DataContractNotPresentError **)&jarg1; 
-  DataContractNotPresentError_destroy(arg1);
-}
-
-
-SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_dataContractNotPresentErrorGetDataContractId(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  DataContractNotPresentError *arg1 = (DataContractNotPresentError *) 0 ;
-  Identifier *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(DataContractNotPresentError **)&jarg1; 
-  result = (Identifier *)DataContractNotPresentError_get_data_contract_id((DataContractNotPresentError const *)arg1);
-  *(Identifier **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_dataContractNotPresentErrorSetDataContractId(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  DataContractNotPresentError *arg1 = (DataContractNotPresentError *) 0 ;
-  Identifier *arg2 = (Identifier *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg2_;
-  arg1 = *(DataContractNotPresentError **)&jarg1; 
-  arg2 = *(Identifier **)&jarg2; 
-  DataContractNotPresentError_set_data_contract_id(arg1,arg2);
-}
-
-
-SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_outerStructCtor(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  jlong jresult = 0 ;
-  InnerStruct *arg1 = (InnerStruct *) 0 ;
-  InnerStruct *arg2 = (InnerStruct *) 0 ;
-  OuterStruct *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg2_;
-  arg1 = *(InnerStruct **)&jarg1; 
-  arg2 = *(InnerStruct **)&jarg2; 
-  result = (OuterStruct *)OuterStruct_ctor(arg1,arg2);
-  *(OuterStruct **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_outerStructDestroy(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  OuterStruct *arg1 = (OuterStruct *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(OuterStruct **)&jarg1; 
-  OuterStruct_destroy(arg1);
-}
-
-
-SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_outerStructGetFirst(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  OuterStruct *arg1 = (OuterStruct *) 0 ;
-  InnerStruct *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(OuterStruct **)&jarg1; 
-  result = (InnerStruct *)OuterStruct_get_first((OuterStruct const *)arg1);
-  *(InnerStruct **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_outerStructGetSecond(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  OuterStruct *arg1 = (OuterStruct *) 0 ;
-  InnerStruct *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(OuterStruct **)&jarg1; 
-  result = (InnerStruct *)OuterStruct_get_second((OuterStruct const *)arg1);
-  *(InnerStruct **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_outerStructSetFirst(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  OuterStruct *arg1 = (OuterStruct *) 0 ;
-  InnerStruct *arg2 = (InnerStruct *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg2_;
-  arg1 = *(OuterStruct **)&jarg1; 
-  arg2 = *(InnerStruct **)&jarg2; 
-  OuterStruct_set_first(arg1,arg2);
-}
-
-
-SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_outerStructSetSecond(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  OuterStruct *arg1 = (OuterStruct *) 0 ;
-  InnerStruct *arg2 = (InnerStruct *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg2_;
-  arg1 = *(OuterStruct **)&jarg1; 
-  arg2 = *(InnerStruct **)&jarg2; 
-  OuterStruct_set_second(arg1,arg2);
-}
-
-
-SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_innerStructCtor(JNIEnv *jenv, jclass jcls, jobject jarg1, jobject jarg2) {
-  jlong jresult = 0 ;
-  uint64_t arg1 ;
-  uint64_t arg2 ;
-  InnerStruct *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  {
-    jclass clazz;
-    jmethodID mid;
-    jbyteArray ba;
-    jbyte* bae;
-    jsize sz;
-    int i;
-    
-    if (!jarg1) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "BigInteger null");
-      return 0;
-    }
-    clazz = jenv->GetObjectClass(jarg1);
-    mid = jenv->GetMethodID(clazz, "toByteArray", "()[B");
-    ba = (jbyteArray)jenv->CallObjectMethod(jarg1, mid);
-    bae = jenv->GetByteArrayElements(ba, 0);
-    sz = jenv->GetArrayLength(ba);
-    arg1 = 0;
-    if (sz > 0) {
-      arg1 = (uint64_t)(signed char)bae[0];
-      for(i=1; i<sz; i++) {
-        arg1 = (arg1 << 8) | (uint64_t)(unsigned char)bae[i];
-      }
-    }
-    jenv->ReleaseByteArrayElements(ba, bae, 0);
-  }
-  {
-    jclass clazz;
-    jmethodID mid;
-    jbyteArray ba;
-    jbyte* bae;
-    jsize sz;
-    int i;
-    
-    if (!jarg2) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "BigInteger null");
-      return 0;
-    }
-    clazz = jenv->GetObjectClass(jarg2);
-    mid = jenv->GetMethodID(clazz, "toByteArray", "()[B");
-    ba = (jbyteArray)jenv->CallObjectMethod(jarg2, mid);
-    bae = jenv->GetByteArrayElements(ba, 0);
-    sz = jenv->GetArrayLength(ba);
-    arg2 = 0;
-    if (sz > 0) {
-      arg2 = (uint64_t)(signed char)bae[0];
-      for(i=1; i<sz; i++) {
-        arg2 = (arg2 << 8) | (uint64_t)(unsigned char)bae[i];
-      }
-    }
-    jenv->ReleaseByteArrayElements(ba, bae, 0);
-  }
-  result = (InnerStruct *)InnerStruct_ctor(arg1,arg2);
-  *(InnerStruct **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_innerStructDestroy(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  InnerStruct *arg1 = (InnerStruct *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(InnerStruct **)&jarg1; 
-  InnerStruct_destroy(arg1);
-}
-
-
-SWIGEXPORT jobject JNICALL Java_org_dash_sdk_exampleJNI_innerStructGetFirst(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jobject jresult = 0 ;
-  InnerStruct *arg1 = (InnerStruct *) 0 ;
-  uint64_t result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(InnerStruct **)&jarg1; 
-  result = (uint64_t)InnerStruct_get_first((InnerStruct const *)arg1);
-  {
-    jbyteArray ba = jenv->NewByteArray(9);
-    jbyte* bae = jenv->GetByteArrayElements(ba, 0);
-    jclass clazz = jenv->FindClass("java/math/BigInteger");
-    jmethodID mid = jenv->GetMethodID(clazz, "<init>", "([B)V");
-    jobject bigint;
-    int i;
-    
-    bae[0] = 0;
-    for(i=1; i<9; i++ ) {
-      bae[i] = (jbyte)(result>>8*(8-i));
-    }
-    
-    jenv->ReleaseByteArrayElements(ba, bae, 0);
-    bigint = jenv->NewObject(clazz, mid, ba);
-    jenv->DeleteLocalRef(ba);
-    jresult = bigint;
-  }
-  return jresult;
-}
-
-
-SWIGEXPORT jobject JNICALL Java_org_dash_sdk_exampleJNI_innerStructGetSecond(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jobject jresult = 0 ;
-  InnerStruct *arg1 = (InnerStruct *) 0 ;
-  uint64_t result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(InnerStruct **)&jarg1; 
-  result = (uint64_t)InnerStruct_get_second((InnerStruct const *)arg1);
-  {
-    jbyteArray ba = jenv->NewByteArray(9);
-    jbyte* bae = jenv->GetByteArrayElements(ba, 0);
-    jclass clazz = jenv->FindClass("java/math/BigInteger");
-    jmethodID mid = jenv->GetMethodID(clazz, "<init>", "([B)V");
-    jobject bigint;
-    int i;
-    
-    bae[0] = 0;
-    for(i=1; i<9; i++ ) {
-      bae[i] = (jbyte)(result>>8*(8-i));
-    }
-    
-    jenv->ReleaseByteArrayElements(ba, bae, 0);
-    bigint = jenv->NewObject(clazz, mid, ba);
-    jenv->DeleteLocalRef(ba);
-    jresult = bigint;
-  }
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_innerStructSetFirst(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jobject jarg2) {
-  InnerStruct *arg1 = (InnerStruct *) 0 ;
-  uint64_t arg2 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(InnerStruct **)&jarg1; 
-  {
-    jclass clazz;
-    jmethodID mid;
-    jbyteArray ba;
-    jbyte* bae;
-    jsize sz;
-    int i;
-    
-    if (!jarg2) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "BigInteger null");
-      return ;
-    }
-    clazz = jenv->GetObjectClass(jarg2);
-    mid = jenv->GetMethodID(clazz, "toByteArray", "()[B");
-    ba = (jbyteArray)jenv->CallObjectMethod(jarg2, mid);
-    bae = jenv->GetByteArrayElements(ba, 0);
-    sz = jenv->GetArrayLength(ba);
-    arg2 = 0;
-    if (sz > 0) {
-      arg2 = (uint64_t)(signed char)bae[0];
-      for(i=1; i<sz; i++) {
-        arg2 = (arg2 << 8) | (uint64_t)(unsigned char)bae[i];
-      }
-    }
-    jenv->ReleaseByteArrayElements(ba, bae, 0);
-  }
-  InnerStruct_set_first(arg1,arg2);
-}
-
-
-SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_innerStructSetSecond(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jobject jarg2) {
-  InnerStruct *arg1 = (InnerStruct *) 0 ;
-  uint64_t arg2 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(InnerStruct **)&jarg1; 
-  {
-    jclass clazz;
-    jmethodID mid;
-    jbyteArray ba;
-    jbyte* bae;
-    jsize sz;
-    int i;
-    
-    if (!jarg2) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "BigInteger null");
-      return ;
-    }
-    clazz = jenv->GetObjectClass(jarg2);
-    mid = jenv->GetMethodID(clazz, "toByteArray", "()[B");
-    ba = (jbyteArray)jenv->CallObjectMethod(jarg2, mid);
-    bae = jenv->GetByteArrayElements(ba, 0);
-    sz = jenv->GetArrayLength(ba);
-    arg2 = 0;
-    if (sz > 0) {
-      arg2 = (uint64_t)(signed char)bae[0];
-      for(i=1; i<sz; i++) {
-        arg2 = (arg2 << 8) | (uint64_t)(unsigned char)bae[i];
-      }
-    }
-    jenv->ReleaseByteArrayElements(ba, bae, 0);
-  }
-  InnerStruct_set_second(arg1,arg2);
-}
-
-
-SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_vecU8HolderCtor(JNIEnv *jenv, jclass jcls, jbyteArray jarg1) {
-  jlong jresult = 0 ;
-  Vec_u8 *arg1 = (Vec_u8 *) 0 ;
-  VecU8Holder *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  
-  uint8_t * _buffer_arg1 = (uint8_t*)(jenv)->GetByteArrayElements(jarg1, 0);
-  int size_arg1 = (jenv)->GetArrayLength(jarg1);
-  uint8_t * byteArray_arg1 = (uint8_t *)memoryFactory.alloc(size_arg1);
-  memcpy(byteArray_arg1, _buffer_arg1, size_arg1);
-  arg1 = Vec_u8_ctor(byteArray_arg1, size_arg1);
-  printf("typemap(in) Vec_u8 *: %ld, [%lx]%d\n", arg1->count, (long)arg1->values, arg1->values[0]);
-  
-  result = (VecU8Holder *)VecU8Holder_ctor(arg1);
-  *(VecU8Holder **)&jresult = result; 
-  
-  printf("typemap(argout) Vec_u8 *: %ld, [%lx]%d\n", arg1->count, (long)arg1->values, arg1->values[0]);
-  //JCALL3(ReleaseByteArrayElements, jenv, jarg1, (jbyte *) _buffer_arg1, 0);
-  jenv->ReleaseByteArrayElements(jarg1, (jbyte *) _buffer_arg1, 0);
-  printf("typemap(argout) Vec_u8 *: %ld, [%lx]%d\n", arg1->count, (long)arg1->values, arg1->values[0]);
-  
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_vecU8HolderDestroy(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  VecU8Holder *arg1 = (VecU8Holder *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(VecU8Holder **)&jarg1; 
-  VecU8Holder_destroy(arg1);
-}
-
-
-SWIGEXPORT jbyteArray JNICALL Java_org_dash_sdk_exampleJNI_vecU8HolderGetFirst(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jbyteArray jresult = 0 ;
-  VecU8Holder *arg1 = (VecU8Holder *) 0 ;
-  Vec_u8 *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(VecU8Holder **)&jarg1; 
-  result = (Vec_u8 *)VecU8Holder_get_first((VecU8Holder const *)arg1);
-  {
-    printf("typemap(out) Vec_u8* %lx\n", (long)result);
-    if (!result) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Vec_u8* null array");
-      return 0;
-    }
-    if (!result->values) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Vec_u8.values null array");
-      return 0;
-    }
-    printf("  (count: %ld, values: [%lx], %d)\n", result->count, (long)result->values, result->values[0]);
-    jresult = jenv->NewByteArray(result->count);
-    jenv->SetByteArrayRegion(jresult, 0, result->count, (jbyte *) result->values);
-  }
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_vecU8HolderSetFirst(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jbyteArray jarg2) {
-  VecU8Holder *arg1 = (VecU8Holder *) 0 ;
-  Vec_u8 *arg2 = (Vec_u8 *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(VecU8Holder **)&jarg1; 
-  
-  uint8_t * _buffer_arg2 = (uint8_t*)(jenv)->GetByteArrayElements(jarg2, 0);
-  int size_arg2 = (jenv)->GetArrayLength(jarg2);
-  uint8_t * byteArray_arg2 = (uint8_t *)memoryFactory.alloc(size_arg2);
-  memcpy(byteArray_arg2, _buffer_arg2, size_arg2);
-  arg2 = Vec_u8_ctor(byteArray_arg2, size_arg2);
-  printf("typemap(in) Vec_u8 *: %ld, [%lx]%d\n", arg2->count, (long)arg2->values, arg2->values[0]);
-  
-  VecU8Holder_set_first(arg1,arg2);
-  
-  printf("typemap(argout) Vec_u8 *: %ld, [%lx]%d\n", arg2->count, (long)arg2->values, arg2->values[0]);
-  //JCALL3(ReleaseByteArrayElements, jenv, jarg2, (jbyte *) _buffer_arg2, 0);
-  jenv->ReleaseByteArrayElements(jarg2, (jbyte *) _buffer_arg2, 0);
-  printf("typemap(argout) Vec_u8 *: %ld, [%lx]%d\n", arg2->count, (long)arg2->values, arg2->values[0]);
-  
-}
-
-
-SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_createOuter(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  jlong jresult = 0 ;
-  InnerStruct *arg1 = (InnerStruct *) 0 ;
-  InnerStruct *arg2 = (InnerStruct *) 0 ;
-  OuterStruct *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg2_;
-  arg1 = *(InnerStruct **)&jarg1; 
-  arg2 = *(InnerStruct **)&jarg2; 
-  result = (OuterStruct *)create_outer(arg1,arg2);
-  *(OuterStruct **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_createBasicIdentity(JNIEnv *jenv, jclass jcls, jbyteArray jarg1, jlong jarg2, jobject jarg2_) {
-  jlong jresult = 0 ;
-  uint8_t (*arg1)[32] = (uint8_t (*)[32]) 0 ;
-  PlatformVersion *arg2 = (PlatformVersion *) 0 ;
-  uint8_t *byteArray1 ;
-  Result_ok_crate_identity_identity_Identity_err_crate_nested_ProtocolError *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg2_;
-  {
-    if (!jarg1) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null array");
-      return 0;
-    }
-    const jsize sz = jenv->GetArrayLength(jarg1);
-    jbyte* const jarr = jenv->GetByteArrayElements(jarg1, 0);
-    if (!jarr) return 0;
-    byteArray1 = (uint8_t *)memoryFactory.alloc(32); // this is a memory leak?
-    memcpy(byteArray1, jarr, sz);
-    
-    //memcpy(arg1, jarr, sz);
-    jenv->ReleaseByteArrayElements(jarg1, jarr, JNI_ABORT);
-    arg1 = (uint8_t (*) [32])byteArray1;
-  }
-  arg2 = *(PlatformVersion **)&jarg2; 
-  result = (Result_ok_crate_identity_identity_Identity_err_crate_nested_ProtocolError *)create_basic_identity((unsigned char (*)[32])arg1,arg2);
-  *(Result_ok_crate_identity_identity_Identity_err_crate_nested_ProtocolError **)&jresult = result; 
-  {
-    //JCALL3(ReleaseByteArrayElements, jenv, jarg1, (jbyte *) *arg1, 0);
-    
-  }
-  
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_createBasicIdentityV0(JNIEnv *jenv, jclass jcls, jbyteArray jarg1) {
-  jlong jresult = 0 ;
-  uint8_t (*arg1)[32] = (uint8_t (*)[32]) 0 ;
-  uint8_t *byteArray1 ;
-  Identity *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  {
-    if (!jarg1) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null array");
-      return 0;
-    }
-    const jsize sz = jenv->GetArrayLength(jarg1);
-    jbyte* const jarr = jenv->GetByteArrayElements(jarg1, 0);
-    if (!jarr) return 0;
-    byteArray1 = (uint8_t *)memoryFactory.alloc(32); // this is a memory leak?
-    memcpy(byteArray1, jarr, sz);
-    
-    //memcpy(arg1, jarr, sz);
-    jenv->ReleaseByteArrayElements(jarg1, jarr, JNI_ABORT);
-    arg1 = (uint8_t (*) [32])byteArray1;
-  }
-  result = (Identity *)create_basic_identity_v0((unsigned char (*)[32])arg1);
-  *(Identity **)&jresult = result; 
-  {
-    //JCALL3(ReleaseByteArrayElements, jenv, jarg1, (jbyte *) *arg1, 0);
-    
-  }
-  
-  return jresult;
-}
-
-
-SWIGEXPORT jobject JNICALL Java_org_dash_sdk_exampleJNI_getBalance(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jobject jresult = 0 ;
-  Identity *arg1 = (Identity *) 0 ;
-  uint64_t result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(Identity **)&jarg1; 
-  result = (uint64_t)get_balance(arg1);
-  {
-    jbyteArray ba = jenv->NewByteArray(9);
-    jbyte* bae = jenv->GetByteArrayElements(ba, 0);
-    jclass clazz = jenv->FindClass("java/math/BigInteger");
-    jmethodID mid = jenv->GetMethodID(clazz, "<init>", "([B)V");
-    jobject bigint;
-    int i;
-    
-    bae[0] = 0;
-    for(i=1; i<9; i++ ) {
-      bae[i] = (jbyte)(result>>8*(8-i));
-    }
-    
-    jenv->ReleaseByteArrayElements(ba, bae, 0);
-    bigint = jenv->NewObject(clazz, mid, ba);
-    jenv->DeleteLocalRef(ba);
-    jresult = bigint;
-  }
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_contractBoundsDestroy(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  ContractBounds *arg1 = (ContractBounds *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ContractBounds **)&jarg1; 
-  ContractBounds_destroy(arg1);
-}
-
-
-SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_identityPublicKeyV0Ctor(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  IdentityPublicKeyV0 *arg1 = (IdentityPublicKeyV0 *) 0 ;
-  IdentityPublicKey *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(IdentityPublicKeyV0 **)&jarg1; 
-  result = (IdentityPublicKey *)IdentityPublicKey_V0_ctor(arg1);
-  *(IdentityPublicKey **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_identityPublicKeyDestroy(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  IdentityPublicKey *arg1 = (IdentityPublicKey *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(IdentityPublicKey **)&jarg1; 
-  IdentityPublicKey_destroy(arg1);
-}
-
-
-SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_revisionCtor(JNIEnv *jenv, jclass jcls, jobject jarg1) {
-  jlong jresult = 0 ;
-  uint64_t arg1 ;
-  Revision *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  {
-    jclass clazz;
-    jmethodID mid;
-    jbyteArray ba;
-    jbyte* bae;
-    jsize sz;
-    int i;
-    
-    if (!jarg1) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "BigInteger null");
-      return 0;
-    }
-    clazz = jenv->GetObjectClass(jarg1);
-    mid = jenv->GetMethodID(clazz, "toByteArray", "()[B");
-    ba = (jbyteArray)jenv->CallObjectMethod(jarg1, mid);
-    bae = jenv->GetByteArrayElements(ba, 0);
-    sz = jenv->GetArrayLength(ba);
-    arg1 = 0;
-    if (sz > 0) {
-      arg1 = (uint64_t)(signed char)bae[0];
-      for(i=1; i<sz; i++) {
-        arg1 = (arg1 << 8) | (uint64_t)(unsigned char)bae[i];
-      }
-    }
-    jenv->ReleaseByteArrayElements(ba, bae, 0);
-  }
-  result = (Revision *)Revision_ctor(arg1);
-  *(Revision **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_revisionDestroy(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  Revision *arg1 = (Revision *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(Revision **)&jarg1; 
-  Revision_destroy(arg1);
-}
-
-
-SWIGEXPORT jobject JNICALL Java_org_dash_sdk_exampleJNI_revisionGet0(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jobject jresult = 0 ;
-  Revision *arg1 = (Revision *) 0 ;
-  uint64_t result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(Revision **)&jarg1; 
-  result = (uint64_t)Revision_get_0((Revision const *)arg1);
-  {
-    jbyteArray ba = jenv->NewByteArray(9);
-    jbyte* bae = jenv->GetByteArrayElements(ba, 0);
-    jclass clazz = jenv->FindClass("java/math/BigInteger");
-    jmethodID mid = jenv->GetMethodID(clazz, "<init>", "([B)V");
-    jobject bigint;
-    int i;
-    
-    bae[0] = 0;
-    for(i=1; i<9; i++ ) {
-      bae[i] = (jbyte)(result>>8*(8-i));
-    }
-    
-    jenv->ReleaseByteArrayElements(ba, bae, 0);
-    bigint = jenv->NewObject(clazz, mid, ba);
-    jenv->DeleteLocalRef(ba);
-    jresult = bigint;
-  }
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_revisionSet0(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jobject jarg2) {
-  Revision *arg1 = (Revision *) 0 ;
-  uint64_t arg2 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(Revision **)&jarg1; 
-  {
-    jclass clazz;
-    jmethodID mid;
-    jbyteArray ba;
-    jbyte* bae;
-    jsize sz;
-    int i;
-    
-    if (!jarg2) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "BigInteger null");
-      return ;
-    }
-    clazz = jenv->GetObjectClass(jarg2);
-    mid = jenv->GetMethodID(clazz, "toByteArray", "()[B");
-    ba = (jbyteArray)jenv->CallObjectMethod(jarg2, mid);
-    bae = jenv->GetByteArrayElements(ba, 0);
-    sz = jenv->GetArrayLength(ba);
-    arg2 = 0;
-    if (sz > 0) {
-      arg2 = (uint64_t)(signed char)bae[0];
-      for(i=1; i<sz; i++) {
-        arg2 = (arg2 << 8) | (uint64_t)(unsigned char)bae[i];
-      }
-    }
-    jenv->ReleaseByteArrayElements(ba, bae, 0);
-  }
-  Revision_set_0(arg1,arg2);
-}
-
-
-SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_getAnIdentity(JNIEnv *jenv, jclass jcls) {
-  jlong jresult = 0 ;
-  Identity *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  result = (Identity *)get_an_identity();
-  *(Identity **)&jresult = result; 
+  arg1 = *(crate_nested_Identifier **)&jarg1; 
+  result = (crate_identity_identity_Identity *)get_identity2(arg1);
+  *(crate_identity_identity_Identity **)&jresult = result; 
   return jresult;
 }
 
 
 SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_createPlatformV0(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
   jlong jresult = 0 ;
-  FeatureVersionBounds *arg1 = (FeatureVersionBounds *) 0 ;
-  FeatureVersionBounds *arg2 = (FeatureVersionBounds *) 0 ;
-  PlatformVersion *result = 0 ;
+  crate_nested_FeatureVersionBounds *arg1 = (crate_nested_FeatureVersionBounds *) 0 ;
+  crate_nested_FeatureVersionBounds *arg2 = (crate_nested_FeatureVersionBounds *) 0 ;
+  crate_nested_PlatformVersion *result = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   (void)jarg2_;
-  arg1 = *(FeatureVersionBounds **)&jarg1; 
-  arg2 = *(FeatureVersionBounds **)&jarg2; 
-  result = (PlatformVersion *)create_platform_v0(arg1,arg2);
-  *(PlatformVersion **)&jresult = result; 
+  arg1 = *(crate_nested_FeatureVersionBounds **)&jarg1; 
+  arg2 = *(crate_nested_FeatureVersionBounds **)&jarg2; 
+  result = (crate_nested_PlatformVersion *)create_platform_v0(arg1,arg2);
+  *(crate_nested_PlatformVersion **)&jresult = result; 
   return jresult;
 }
 
 
-SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_timestampMillisCtor(JNIEnv *jenv, jclass jcls, jobject jarg1) {
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_crateIdentityIdentityIdentityPublicKeyV0Ctor_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jlong jresult = 0 ;
-  uint64_t arg1 ;
-  TimestampMillis *result = 0 ;
+  crate_identity_identity_IdentityPublicKeyV0 *arg1 = (crate_identity_identity_IdentityPublicKeyV0 *) 0 ;
+  crate_identity_identity_IdentityPublicKey *result = 0 ;
   
   (void)jenv;
   (void)jcls;
-  {
-    jclass clazz;
-    jmethodID mid;
-    jbyteArray ba;
-    jbyte* bae;
-    jsize sz;
-    int i;
-    
-    if (!jarg1) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "BigInteger null");
-      return 0;
-    }
-    clazz = jenv->GetObjectClass(jarg1);
-    mid = jenv->GetMethodID(clazz, "toByteArray", "()[B");
-    ba = (jbyteArray)jenv->CallObjectMethod(jarg1, mid);
-    bae = jenv->GetByteArrayElements(ba, 0);
-    sz = jenv->GetArrayLength(ba);
-    arg1 = 0;
-    if (sz > 0) {
-      arg1 = (uint64_t)(signed char)bae[0];
-      for(i=1; i<sz; i++) {
-        arg1 = (arg1 << 8) | (uint64_t)(unsigned char)bae[i];
-      }
-    }
-    jenv->ReleaseByteArrayElements(ba, bae, 0);
-  }
-  result = (TimestampMillis *)TimestampMillis_ctor(arg1);
-  *(TimestampMillis **)&jresult = result; 
+  (void)jarg1_;
+  arg1 = *(crate_identity_identity_IdentityPublicKeyV0 **)&jarg1; 
+  result = (crate_identity_identity_IdentityPublicKey *)crate_identity_identity_IdentityPublicKey_V0_ctor(arg1);
+  *(crate_identity_identity_IdentityPublicKey **)&jresult = result; 
   return jresult;
 }
 
 
-SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_timestampMillisDestroy(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  TimestampMillis *arg1 = (TimestampMillis *) 0 ;
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_crateIdentityIdentityIdentityPublicKeyDestroy(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  crate_identity_identity_IdentityPublicKey *arg1 = (crate_identity_identity_IdentityPublicKey *) 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(TimestampMillis **)&jarg1; 
-  TimestampMillis_destroy(arg1);
+  arg1 = *(crate_identity_identity_IdentityPublicKey **)&jarg1; 
+  crate_identity_identity_IdentityPublicKey_destroy(arg1);
 }
 
 
-SWIGEXPORT jobject JNICALL Java_org_dash_sdk_exampleJNI_timestampMillisGet0(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jobject jresult = 0 ;
-  TimestampMillis *arg1 = (TimestampMillis *) 0 ;
-  uint64_t result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(TimestampMillis **)&jarg1; 
-  result = (uint64_t)TimestampMillis_get_0((TimestampMillis const *)arg1);
-  {
-    jbyteArray ba = jenv->NewByteArray(9);
-    jbyte* bae = jenv->GetByteArrayElements(ba, 0);
-    jclass clazz = jenv->FindClass("java/math/BigInteger");
-    jmethodID mid = jenv->GetMethodID(clazz, "<init>", "([B)V");
-    jobject bigint;
-    int i;
-    
-    bae[0] = 0;
-    for(i=1; i<9; i++ ) {
-      bae[i] = (jbyte)(result>>8*(8-i));
-    }
-    
-    jenv->ReleaseByteArrayElements(ba, bae, 0);
-    bigint = jenv->NewObject(clazz, mid, ba);
-    jenv->DeleteLocalRef(ba);
-    jresult = bigint;
-  }
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_timestampMillisSet0(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jobject jarg2) {
-  TimestampMillis *arg1 = (TimestampMillis *) 0 ;
-  uint64_t arg2 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(TimestampMillis **)&jarg1; 
-  {
-    jclass clazz;
-    jmethodID mid;
-    jbyteArray ba;
-    jbyte* bae;
-    jsize sz;
-    int i;
-    
-    if (!jarg2) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "BigInteger null");
-      return ;
-    }
-    clazz = jenv->GetObjectClass(jarg2);
-    mid = jenv->GetMethodID(clazz, "toByteArray", "()[B");
-    ba = (jbyteArray)jenv->CallObjectMethod(jarg2, mid);
-    bae = jenv->GetByteArrayElements(ba, 0);
-    sz = jenv->GetArrayLength(ba);
-    arg2 = 0;
-    if (sz > 0) {
-      arg2 = (uint64_t)(signed char)bae[0];
-      for(i=1; i<sz; i++) {
-        arg2 = (arg2 << 8) | (uint64_t)(unsigned char)bae[i];
-      }
-    }
-    jenv->ReleaseByteArrayElements(ba, bae, 0);
-  }
-  TimestampMillis_set_0(arg1,arg2);
-}
-
-
-SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_identityV0Ctor_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_crateIdentityIdentityKeyTypeECDSASECP256K1Ctor(JNIEnv *jenv, jclass jcls) {
   jlong jresult = 0 ;
-  IdentityV0 *arg1 = (IdentityV0 *) 0 ;
-  Identity *result = 0 ;
+  enum crate_identity_identity_KeyType *result = 0 ;
   
   (void)jenv;
   (void)jcls;
-  (void)jarg1_;
-  arg1 = *(IdentityV0 **)&jarg1; 
-  result = (Identity *)Identity_V0_ctor(arg1);
-  *(Identity **)&jresult = result; 
+  result = (enum crate_identity_identity_KeyType *)crate_identity_identity_KeyType_ECDSA_SECP256K1_ctor();
+  *(enum crate_identity_identity_KeyType **)&jresult = result; 
   return jresult;
 }
 
 
-SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_identityDestroy(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  Identity *arg1 = (Identity *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(Identity **)&jarg1; 
-  Identity_destroy(arg1);
-}
-
-
-SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_getIdentity2(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_crateIdentityIdentityKeyTypeBLS12381Ctor(JNIEnv *jenv, jclass jcls) {
   jlong jresult = 0 ;
-  Identifier *arg1 = (Identifier *) 0 ;
-  Identity *result = 0 ;
+  enum crate_identity_identity_KeyType *result = 0 ;
   
   (void)jenv;
   (void)jcls;
-  (void)jarg1_;
-  arg1 = *(Identifier **)&jarg1; 
-  result = (Identity *)get_identity2(arg1);
-  *(Identity **)&jresult = result; 
+  result = (enum crate_identity_identity_KeyType *)crate_identity_identity_KeyType_BLS12_381_ctor();
+  *(enum crate_identity_identity_KeyType **)&jresult = result; 
   return jresult;
 }
 
 
-SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_keyIDCtor(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_crateIdentityIdentityKeyTypeECDSAHASH160Ctor(JNIEnv *jenv, jclass jcls) {
   jlong jresult = 0 ;
-  uint32_t arg1 ;
-  KeyID *result = 0 ;
+  enum crate_identity_identity_KeyType *result = 0 ;
   
   (void)jenv;
   (void)jcls;
-  arg1 = (uint32_t)jarg1; 
-  result = (KeyID *)KeyID_ctor(arg1);
-  *(KeyID **)&jresult = result; 
+  result = (enum crate_identity_identity_KeyType *)crate_identity_identity_KeyType_ECDSA_HASH160_ctor();
+  *(enum crate_identity_identity_KeyType **)&jresult = result; 
   return jresult;
 }
 
 
-SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_keyIDDestroy(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  KeyID *arg1 = (KeyID *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(KeyID **)&jarg1; 
-  KeyID_destroy(arg1);
-}
-
-
-SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_keyIDGet0(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_crateIdentityIdentityKeyTypeBIP13SCRIPTHASHCtor(JNIEnv *jenv, jclass jcls) {
   jlong jresult = 0 ;
-  KeyID *arg1 = (KeyID *) 0 ;
-  uint32_t result;
+  enum crate_identity_identity_KeyType *result = 0 ;
   
   (void)jenv;
   (void)jcls;
-  (void)jarg1_;
-  arg1 = *(KeyID **)&jarg1; 
-  result = (uint32_t)KeyID_get_0((KeyID const *)arg1);
-  jresult = (jlong)result; 
+  result = (enum crate_identity_identity_KeyType *)crate_identity_identity_KeyType_BIP13_SCRIPT_HASH_ctor();
+  *(enum crate_identity_identity_KeyType **)&jresult = result; 
   return jresult;
 }
 
 
-SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_keyIDSet0(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
-  KeyID *arg1 = (KeyID *) 0 ;
-  uint32_t arg2 ;
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_crateIdentityIdentityKeyTypeEDDSA25519HASH160Ctor(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  enum crate_identity_identity_KeyType *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (enum crate_identity_identity_KeyType *)crate_identity_identity_KeyType_EDDSA_25519_HASH160_ctor();
+  *(enum crate_identity_identity_KeyType **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_crateIdentityIdentityKeyTypeDestroy(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  enum crate_identity_identity_KeyType *arg1 = (enum crate_identity_identity_KeyType *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(enum crate_identity_identity_KeyType **)&jarg1; 
+  crate_identity_identity_KeyType_destroy(arg1);
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_crateIdentityIdentitySecurityLevelMASTERCtor(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  enum crate_identity_identity_SecurityLevel *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (enum crate_identity_identity_SecurityLevel *)crate_identity_identity_SecurityLevel_MASTER_ctor();
+  *(enum crate_identity_identity_SecurityLevel **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_crateIdentityIdentitySecurityLevelCRITICALCtor(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  enum crate_identity_identity_SecurityLevel *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (enum crate_identity_identity_SecurityLevel *)crate_identity_identity_SecurityLevel_CRITICAL_ctor();
+  *(enum crate_identity_identity_SecurityLevel **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_crateIdentityIdentitySecurityLevelHIGHCtor(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  enum crate_identity_identity_SecurityLevel *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (enum crate_identity_identity_SecurityLevel *)crate_identity_identity_SecurityLevel_HIGH_ctor();
+  *(enum crate_identity_identity_SecurityLevel **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_crateIdentityIdentitySecurityLevelMEDIUMCtor(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  enum crate_identity_identity_SecurityLevel *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (enum crate_identity_identity_SecurityLevel *)crate_identity_identity_SecurityLevel_MEDIUM_ctor();
+  *(enum crate_identity_identity_SecurityLevel **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_crateIdentityIdentitySecurityLevelDestroy(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  enum crate_identity_identity_SecurityLevel *arg1 = (enum crate_identity_identity_SecurityLevel *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(enum crate_identity_identity_SecurityLevel **)&jarg1; 
+  crate_identity_identity_SecurityLevel_destroy(arg1);
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_crateIdentityIdentityIdentityPublicKeyV0Ctor_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jlong jarg3, jlong jarg4, jobject jarg4_, jlong jarg5, jboolean jarg6, jlong jarg7, jobject jarg7_, jlong jarg8, jobject jarg8_) {
+  jlong jresult = 0 ;
+  crate_identity_identity_KeyID *arg1 = (crate_identity_identity_KeyID *) 0 ;
+  enum crate_identity_identity_Purpose *arg2 = (enum crate_identity_identity_Purpose *) 0 ;
+  enum crate_identity_identity_SecurityLevel *arg3 = (enum crate_identity_identity_SecurityLevel *) 0 ;
+  crate_identity_identity_ContractBounds *arg4 = (crate_identity_identity_ContractBounds *) 0 ;
+  enum crate_identity_identity_KeyType *arg5 = (enum crate_identity_identity_KeyType *) 0 ;
+  bool arg6 ;
+  crate_nested_BinaryData *arg7 = (crate_nested_BinaryData *) 0 ;
+  crate_identity_identity_TimestampMillis *arg8 = (crate_identity_identity_TimestampMillis *) 0 ;
+  crate_identity_identity_IdentityPublicKeyV0 *result = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(KeyID **)&jarg1; 
-  arg2 = (uint32_t)jarg2; 
-  KeyID_set_0(arg1,arg2);
+  (void)jarg4_;
+  (void)jarg7_;
+  (void)jarg8_;
+  arg1 = *(crate_identity_identity_KeyID **)&jarg1; 
+  arg2 = *(enum crate_identity_identity_Purpose **)&jarg2; 
+  arg3 = *(enum crate_identity_identity_SecurityLevel **)&jarg3; 
+  arg4 = *(crate_identity_identity_ContractBounds **)&jarg4; 
+  arg5 = *(enum crate_identity_identity_KeyType **)&jarg5; 
+  arg6 = jarg6 ? true : false; 
+  arg7 = *(crate_nested_BinaryData **)&jarg7; 
+  arg8 = *(crate_identity_identity_TimestampMillis **)&jarg8; 
+  result = (crate_identity_identity_IdentityPublicKeyV0 *)crate_identity_identity_IdentityPublicKeyV0_ctor(arg1,arg2,arg3,arg4,arg5,arg6,arg7,arg8);
+  *(crate_identity_identity_IdentityPublicKeyV0 **)&jresult = result; 
+  return jresult;
 }
 
 
-SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_identityV0Ctor_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jobject jarg3, jlong jarg4, jobject jarg4_) {
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_crateIdentityIdentityIdentityPublicKeyV0Destroy(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  crate_identity_identity_IdentityPublicKeyV0 *arg1 = (crate_identity_identity_IdentityPublicKeyV0 *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_identity_identity_IdentityPublicKeyV0 **)&jarg1; 
+  crate_identity_identity_IdentityPublicKeyV0_destroy(arg1);
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_crateIdentityIdentityIdentityPublicKeyV0GetId(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jlong jresult = 0 ;
-  Identifier *arg1 = (Identifier *) 0 ;
+  crate_identity_identity_IdentityPublicKeyV0 *arg1 = (crate_identity_identity_IdentityPublicKeyV0 *) 0 ;
+  crate_identity_identity_KeyID *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_identity_identity_IdentityPublicKeyV0 **)&jarg1; 
+  result = (crate_identity_identity_KeyID *)crate_identity_identity_IdentityPublicKeyV0_get_id((crate_identity_identity_IdentityPublicKeyV0 const *)arg1);
+  *(crate_identity_identity_KeyID **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_crateIdentityIdentityIdentityPublicKeyV0GetPurpose(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  crate_identity_identity_IdentityPublicKeyV0 *arg1 = (crate_identity_identity_IdentityPublicKeyV0 *) 0 ;
+  enum crate_identity_identity_Purpose *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_identity_identity_IdentityPublicKeyV0 **)&jarg1; 
+  result = (enum crate_identity_identity_Purpose *)crate_identity_identity_IdentityPublicKeyV0_get_purpose((crate_identity_identity_IdentityPublicKeyV0 const *)arg1);
+  *(enum crate_identity_identity_Purpose **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_crateIdentityIdentityIdentityPublicKeyV0GetSecurityLevel(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  crate_identity_identity_IdentityPublicKeyV0 *arg1 = (crate_identity_identity_IdentityPublicKeyV0 *) 0 ;
+  enum crate_identity_identity_SecurityLevel *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_identity_identity_IdentityPublicKeyV0 **)&jarg1; 
+  result = (enum crate_identity_identity_SecurityLevel *)crate_identity_identity_IdentityPublicKeyV0_get_security_level((crate_identity_identity_IdentityPublicKeyV0 const *)arg1);
+  *(enum crate_identity_identity_SecurityLevel **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_crateIdentityIdentityIdentityPublicKeyV0GetContractBounds(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  crate_identity_identity_IdentityPublicKeyV0 *arg1 = (crate_identity_identity_IdentityPublicKeyV0 *) 0 ;
+  crate_identity_identity_ContractBounds *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_identity_identity_IdentityPublicKeyV0 **)&jarg1; 
+  result = (crate_identity_identity_ContractBounds *)crate_identity_identity_IdentityPublicKeyV0_get_contract_bounds((crate_identity_identity_IdentityPublicKeyV0 const *)arg1);
+  *(crate_identity_identity_ContractBounds **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_crateIdentityIdentityIdentityPublicKeyV0GetKeyType(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  crate_identity_identity_IdentityPublicKeyV0 *arg1 = (crate_identity_identity_IdentityPublicKeyV0 *) 0 ;
+  enum crate_identity_identity_KeyType *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_identity_identity_IdentityPublicKeyV0 **)&jarg1; 
+  result = (enum crate_identity_identity_KeyType *)crate_identity_identity_IdentityPublicKeyV0_get_key_type((crate_identity_identity_IdentityPublicKeyV0 const *)arg1);
+  *(enum crate_identity_identity_KeyType **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_org_dash_sdk_exampleJNI_crateIdentityIdentityIdentityPublicKeyV0GetReadOnly(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jboolean jresult = 0 ;
+  crate_identity_identity_IdentityPublicKeyV0 *arg1 = (crate_identity_identity_IdentityPublicKeyV0 *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_identity_identity_IdentityPublicKeyV0 **)&jarg1; 
+  result = (bool)crate_identity_identity_IdentityPublicKeyV0_get_read_only((crate_identity_identity_IdentityPublicKeyV0 const *)arg1);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_crateIdentityIdentityIdentityPublicKeyV0GetData(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  crate_identity_identity_IdentityPublicKeyV0 *arg1 = (crate_identity_identity_IdentityPublicKeyV0 *) 0 ;
+  crate_nested_BinaryData *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_identity_identity_IdentityPublicKeyV0 **)&jarg1; 
+  result = (crate_nested_BinaryData *)crate_identity_identity_IdentityPublicKeyV0_get_data((crate_identity_identity_IdentityPublicKeyV0 const *)arg1);
+  *(crate_nested_BinaryData **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_crateIdentityIdentityIdentityPublicKeyV0GetDisabledAt(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  crate_identity_identity_IdentityPublicKeyV0 *arg1 = (crate_identity_identity_IdentityPublicKeyV0 *) 0 ;
+  crate_identity_identity_TimestampMillis *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_identity_identity_IdentityPublicKeyV0 **)&jarg1; 
+  result = (crate_identity_identity_TimestampMillis *)crate_identity_identity_IdentityPublicKeyV0_get_disabled_at((crate_identity_identity_IdentityPublicKeyV0 const *)arg1);
+  *(crate_identity_identity_TimestampMillis **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_crateIdentityIdentityIdentityPublicKeyV0SetId(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  crate_identity_identity_IdentityPublicKeyV0 *arg1 = (crate_identity_identity_IdentityPublicKeyV0 *) 0 ;
+  crate_identity_identity_KeyID *arg2 = (crate_identity_identity_KeyID *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(crate_identity_identity_IdentityPublicKeyV0 **)&jarg1; 
+  arg2 = *(crate_identity_identity_KeyID **)&jarg2; 
+  crate_identity_identity_IdentityPublicKeyV0_set_id(arg1,arg2);
+}
+
+
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_crateIdentityIdentityIdentityPublicKeyV0SetPurpose(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  crate_identity_identity_IdentityPublicKeyV0 *arg1 = (crate_identity_identity_IdentityPublicKeyV0 *) 0 ;
+  enum crate_identity_identity_Purpose *arg2 = (enum crate_identity_identity_Purpose *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_identity_identity_IdentityPublicKeyV0 **)&jarg1; 
+  arg2 = *(enum crate_identity_identity_Purpose **)&jarg2; 
+  crate_identity_identity_IdentityPublicKeyV0_set_purpose(arg1,arg2);
+}
+
+
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_crateIdentityIdentityIdentityPublicKeyV0SetSecurityLevel(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  crate_identity_identity_IdentityPublicKeyV0 *arg1 = (crate_identity_identity_IdentityPublicKeyV0 *) 0 ;
+  enum crate_identity_identity_SecurityLevel *arg2 = (enum crate_identity_identity_SecurityLevel *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_identity_identity_IdentityPublicKeyV0 **)&jarg1; 
+  arg2 = *(enum crate_identity_identity_SecurityLevel **)&jarg2; 
+  crate_identity_identity_IdentityPublicKeyV0_set_security_level(arg1,arg2);
+}
+
+
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_crateIdentityIdentityIdentityPublicKeyV0SetContractBounds(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  crate_identity_identity_IdentityPublicKeyV0 *arg1 = (crate_identity_identity_IdentityPublicKeyV0 *) 0 ;
+  crate_identity_identity_ContractBounds *arg2 = (crate_identity_identity_ContractBounds *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(crate_identity_identity_IdentityPublicKeyV0 **)&jarg1; 
+  arg2 = *(crate_identity_identity_ContractBounds **)&jarg2; 
+  crate_identity_identity_IdentityPublicKeyV0_set_contract_bounds(arg1,arg2);
+}
+
+
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_crateIdentityIdentityIdentityPublicKeyV0SetKeyType(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  crate_identity_identity_IdentityPublicKeyV0 *arg1 = (crate_identity_identity_IdentityPublicKeyV0 *) 0 ;
+  enum crate_identity_identity_KeyType *arg2 = (enum crate_identity_identity_KeyType *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_identity_identity_IdentityPublicKeyV0 **)&jarg1; 
+  arg2 = *(enum crate_identity_identity_KeyType **)&jarg2; 
+  crate_identity_identity_IdentityPublicKeyV0_set_key_type(arg1,arg2);
+}
+
+
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_crateIdentityIdentityIdentityPublicKeyV0SetReadOnly(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jboolean jarg2) {
+  crate_identity_identity_IdentityPublicKeyV0 *arg1 = (crate_identity_identity_IdentityPublicKeyV0 *) 0 ;
+  bool arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_identity_identity_IdentityPublicKeyV0 **)&jarg1; 
+  arg2 = jarg2 ? true : false; 
+  crate_identity_identity_IdentityPublicKeyV0_set_read_only(arg1,arg2);
+}
+
+
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_crateIdentityIdentityIdentityPublicKeyV0SetData(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  crate_identity_identity_IdentityPublicKeyV0 *arg1 = (crate_identity_identity_IdentityPublicKeyV0 *) 0 ;
+  crate_nested_BinaryData *arg2 = (crate_nested_BinaryData *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(crate_identity_identity_IdentityPublicKeyV0 **)&jarg1; 
+  arg2 = *(crate_nested_BinaryData **)&jarg2; 
+  crate_identity_identity_IdentityPublicKeyV0_set_data(arg1,arg2);
+}
+
+
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_crateIdentityIdentityIdentityPublicKeyV0SetDisabledAt(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  crate_identity_identity_IdentityPublicKeyV0 *arg1 = (crate_identity_identity_IdentityPublicKeyV0 *) 0 ;
+  crate_identity_identity_TimestampMillis *arg2 = (crate_identity_identity_TimestampMillis *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(crate_identity_identity_IdentityPublicKeyV0 **)&jarg1; 
+  arg2 = *(crate_identity_identity_TimestampMillis **)&jarg2; 
+  crate_identity_identity_IdentityPublicKeyV0_set_disabled_at(arg1,arg2);
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_getIdentityContractBounds(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  jlong jresult = 0 ;
+  crate_nested_Identifier *arg1 = (crate_nested_Identifier *) 0 ;
+  crate_nested_Identifier *arg2 = (crate_nested_Identifier *) 0 ;
+  crate_identity_identity_Identity *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(crate_nested_Identifier **)&jarg1; 
+  arg2 = *(crate_nested_Identifier **)&jarg2; 
+  result = (crate_identity_identity_Identity *)get_identity_contract_bounds(arg1,arg2);
+  *(crate_identity_identity_Identity **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_crateIdentityIdentityContractBoundsDestroy(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  crate_identity_identity_ContractBounds *arg1 = (crate_identity_identity_ContractBounds *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_identity_identity_ContractBounds **)&jarg1; 
+  crate_identity_identity_ContractBounds_destroy(arg1);
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_crateIdentityIdentityPurposeAUTHENTICATIONCtor(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  enum crate_identity_identity_Purpose *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (enum crate_identity_identity_Purpose *)crate_identity_identity_Purpose_AUTHENTICATION_ctor();
+  *(enum crate_identity_identity_Purpose **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_crateIdentityIdentityPurposeENCRYPTIONCtor(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  enum crate_identity_identity_Purpose *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (enum crate_identity_identity_Purpose *)crate_identity_identity_Purpose_ENCRYPTION_ctor();
+  *(enum crate_identity_identity_Purpose **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_crateIdentityIdentityPurposeDECRYPTIONCtor(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  enum crate_identity_identity_Purpose *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (enum crate_identity_identity_Purpose *)crate_identity_identity_Purpose_DECRYPTION_ctor();
+  *(enum crate_identity_identity_Purpose **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_crateIdentityIdentityPurposeWITHDRAWCtor(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  enum crate_identity_identity_Purpose *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (enum crate_identity_identity_Purpose *)crate_identity_identity_Purpose_WITHDRAW_ctor();
+  *(enum crate_identity_identity_Purpose **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_crateIdentityIdentityPurposeSYSTEMCtor(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  enum crate_identity_identity_Purpose *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (enum crate_identity_identity_Purpose *)crate_identity_identity_Purpose_SYSTEM_ctor();
+  *(enum crate_identity_identity_Purpose **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_crateIdentityIdentityPurposeVOTINGCtor(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  enum crate_identity_identity_Purpose *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (enum crate_identity_identity_Purpose *)crate_identity_identity_Purpose_VOTING_ctor();
+  *(enum crate_identity_identity_Purpose **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_crateIdentityIdentityPurposeDestroy(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  enum crate_identity_identity_Purpose *arg1 = (enum crate_identity_identity_Purpose *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(enum crate_identity_identity_Purpose **)&jarg1; 
+  crate_identity_identity_Purpose_destroy(arg1);
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_randomKey(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  crate_identity_identity_KeyID *arg1 = (crate_identity_identity_KeyID *) 0 ;
+  crate_identity_identity_IdentityPublicKeyV0 *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_identity_identity_KeyID **)&jarg1; 
+  result = (crate_identity_identity_IdentityPublicKeyV0 *)random_key(arg1);
+  *(crate_identity_identity_IdentityPublicKeyV0 **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_randomKeyArgs(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3, jobject jarg3_) {
+  jlong jresult = 0 ;
+  crate_identity_identity_KeyID *arg1 = (crate_identity_identity_KeyID *) 0 ;
+  crate_nested_Identifier *arg2 = (crate_nested_Identifier *) 0 ;
+  crate_identity_identity_TimestampMillis *arg3 = (crate_identity_identity_TimestampMillis *) 0 ;
+  crate_identity_identity_IdentityPublicKeyV0 *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  (void)jarg3_;
+  arg1 = *(crate_identity_identity_KeyID **)&jarg1; 
+  arg2 = *(crate_nested_Identifier **)&jarg2; 
+  arg3 = *(crate_identity_identity_TimestampMillis **)&jarg3; 
+  result = (crate_identity_identity_IdentityPublicKeyV0 *)random_key_args(arg1,arg2,arg3);
+  *(crate_identity_identity_IdentityPublicKeyV0 **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_crateIdentityIdentityIdentityV0Ctor_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jobject jarg3, jlong jarg4, jobject jarg4_) {
+  jlong jresult = 0 ;
+  crate_nested_Identifier *arg1 = (crate_nested_Identifier *) 0 ;
   std_collections_Map_keys_crate_identity_identity_KeyID_values_crate_identity_identity_IdentityPublicKey *arg2 = (std_collections_Map_keys_crate_identity_identity_KeyID_values_crate_identity_identity_IdentityPublicKey *) 0 ;
   uint64_t arg3 ;
-  Revision *arg4 = (Revision *) 0 ;
-  IdentityV0 *result = 0 ;
+  crate_identity_identity_Revision *arg4 = (crate_identity_identity_Revision *) 0 ;
+  crate_identity_identity_IdentityV0 *result = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   (void)jarg2_;
   (void)jarg4_;
-  arg1 = *(Identifier **)&jarg1; 
+  arg1 = *(crate_nested_Identifier **)&jarg1; 
   arg2 = *(std_collections_Map_keys_crate_identity_identity_KeyID_values_crate_identity_identity_IdentityPublicKey **)&jarg2; 
   {
     jclass clazz;
@@ -5135,64 +4114,64 @@ SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_identityV0Ctor_1_1SWIG_11(
     }
     jenv->ReleaseByteArrayElements(ba, bae, 0);
   }
-  arg4 = *(Revision **)&jarg4; 
-  result = (IdentityV0 *)IdentityV0_ctor(arg1,arg2,arg3,arg4);
-  *(IdentityV0 **)&jresult = result; 
+  arg4 = *(crate_identity_identity_Revision **)&jarg4; 
+  result = (crate_identity_identity_IdentityV0 *)crate_identity_identity_IdentityV0_ctor(arg1,arg2,arg3,arg4);
+  *(crate_identity_identity_IdentityV0 **)&jresult = result; 
   return jresult;
 }
 
 
-SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_identityV0Destroy(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  IdentityV0 *arg1 = (IdentityV0 *) 0 ;
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_crateIdentityIdentityIdentityV0Destroy(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  crate_identity_identity_IdentityV0 *arg1 = (crate_identity_identity_IdentityV0 *) 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(IdentityV0 **)&jarg1; 
-  IdentityV0_destroy(arg1);
+  arg1 = *(crate_identity_identity_IdentityV0 **)&jarg1; 
+  crate_identity_identity_IdentityV0_destroy(arg1);
 }
 
 
-SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_identityV0GetId(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_crateIdentityIdentityIdentityV0GetId(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jlong jresult = 0 ;
-  IdentityV0 *arg1 = (IdentityV0 *) 0 ;
-  Identifier *result = 0 ;
+  crate_identity_identity_IdentityV0 *arg1 = (crate_identity_identity_IdentityV0 *) 0 ;
+  crate_nested_Identifier *result = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(IdentityV0 **)&jarg1; 
-  result = (Identifier *)IdentityV0_get_id((IdentityV0 const *)arg1);
-  *(Identifier **)&jresult = result; 
+  arg1 = *(crate_identity_identity_IdentityV0 **)&jarg1; 
+  result = (crate_nested_Identifier *)crate_identity_identity_IdentityV0_get_id((crate_identity_identity_IdentityV0 const *)arg1);
+  *(crate_nested_Identifier **)&jresult = result; 
   return jresult;
 }
 
 
-SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_identityV0GetPublicKeys(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_crateIdentityIdentityIdentityV0GetPublicKeys(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jlong jresult = 0 ;
-  IdentityV0 *arg1 = (IdentityV0 *) 0 ;
+  crate_identity_identity_IdentityV0 *arg1 = (crate_identity_identity_IdentityV0 *) 0 ;
   std_collections_Map_keys_crate_identity_identity_KeyID_values_crate_identity_identity_IdentityPublicKey *result = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(IdentityV0 **)&jarg1; 
-  result = (std_collections_Map_keys_crate_identity_identity_KeyID_values_crate_identity_identity_IdentityPublicKey *)IdentityV0_get_public_keys((IdentityV0 const *)arg1);
+  arg1 = *(crate_identity_identity_IdentityV0 **)&jarg1; 
+  result = (std_collections_Map_keys_crate_identity_identity_KeyID_values_crate_identity_identity_IdentityPublicKey *)crate_identity_identity_IdentityV0_get_public_keys((crate_identity_identity_IdentityV0 const *)arg1);
   *(std_collections_Map_keys_crate_identity_identity_KeyID_values_crate_identity_identity_IdentityPublicKey **)&jresult = result; 
   return jresult;
 }
 
 
-SWIGEXPORT jobject JNICALL Java_org_dash_sdk_exampleJNI_identityV0GetBalance(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jobject JNICALL Java_org_dash_sdk_exampleJNI_crateIdentityIdentityIdentityV0GetBalance(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jobject jresult = 0 ;
-  IdentityV0 *arg1 = (IdentityV0 *) 0 ;
+  crate_identity_identity_IdentityV0 *arg1 = (crate_identity_identity_IdentityV0 *) 0 ;
   uint64_t result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(IdentityV0 **)&jarg1; 
-  result = (uint64_t)IdentityV0_get_balance((IdentityV0 const *)arg1);
+  arg1 = *(crate_identity_identity_IdentityV0 **)&jarg1; 
+  result = (uint64_t)crate_identity_identity_IdentityV0_get_balance((crate_identity_identity_IdentityV0 const *)arg1);
   {
     jbyteArray ba = jenv->NewByteArray(9);
     jbyte* bae = jenv->GetByteArrayElements(ba, 0);
@@ -5215,57 +4194,57 @@ SWIGEXPORT jobject JNICALL Java_org_dash_sdk_exampleJNI_identityV0GetBalance(JNI
 }
 
 
-SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_identityV0GetRevision(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_crateIdentityIdentityIdentityV0GetRevision(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jlong jresult = 0 ;
-  IdentityV0 *arg1 = (IdentityV0 *) 0 ;
-  Revision *result = 0 ;
+  crate_identity_identity_IdentityV0 *arg1 = (crate_identity_identity_IdentityV0 *) 0 ;
+  crate_identity_identity_Revision *result = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(IdentityV0 **)&jarg1; 
-  result = (Revision *)IdentityV0_get_revision((IdentityV0 const *)arg1);
-  *(Revision **)&jresult = result; 
+  arg1 = *(crate_identity_identity_IdentityV0 **)&jarg1; 
+  result = (crate_identity_identity_Revision *)crate_identity_identity_IdentityV0_get_revision((crate_identity_identity_IdentityV0 const *)arg1);
+  *(crate_identity_identity_Revision **)&jresult = result; 
   return jresult;
 }
 
 
-SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_identityV0SetId(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  IdentityV0 *arg1 = (IdentityV0 *) 0 ;
-  Identifier *arg2 = (Identifier *) 0 ;
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_crateIdentityIdentityIdentityV0SetId(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  crate_identity_identity_IdentityV0 *arg1 = (crate_identity_identity_IdentityV0 *) 0 ;
+  crate_nested_Identifier *arg2 = (crate_nested_Identifier *) 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   (void)jarg2_;
-  arg1 = *(IdentityV0 **)&jarg1; 
-  arg2 = *(Identifier **)&jarg2; 
-  IdentityV0_set_id(arg1,arg2);
+  arg1 = *(crate_identity_identity_IdentityV0 **)&jarg1; 
+  arg2 = *(crate_nested_Identifier **)&jarg2; 
+  crate_identity_identity_IdentityV0_set_id(arg1,arg2);
 }
 
 
-SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_identityV0SetPublicKeys(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  IdentityV0 *arg1 = (IdentityV0 *) 0 ;
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_crateIdentityIdentityIdentityV0SetPublicKeys(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  crate_identity_identity_IdentityV0 *arg1 = (crate_identity_identity_IdentityV0 *) 0 ;
   std_collections_Map_keys_crate_identity_identity_KeyID_values_crate_identity_identity_IdentityPublicKey *arg2 = (std_collections_Map_keys_crate_identity_identity_KeyID_values_crate_identity_identity_IdentityPublicKey *) 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   (void)jarg2_;
-  arg1 = *(IdentityV0 **)&jarg1; 
+  arg1 = *(crate_identity_identity_IdentityV0 **)&jarg1; 
   arg2 = *(std_collections_Map_keys_crate_identity_identity_KeyID_values_crate_identity_identity_IdentityPublicKey **)&jarg2; 
-  IdentityV0_set_public_keys(arg1,arg2);
+  crate_identity_identity_IdentityV0_set_public_keys(arg1,arg2);
 }
 
 
-SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_identityV0SetBalance(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jobject jarg2) {
-  IdentityV0 *arg1 = (IdentityV0 *) 0 ;
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_crateIdentityIdentityIdentityV0SetBalance(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jobject jarg2) {
+  crate_identity_identity_IdentityV0 *arg1 = (crate_identity_identity_IdentityV0 *) 0 ;
   uint64_t arg2 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(IdentityV0 **)&jarg1; 
+  arg1 = *(crate_identity_identity_IdentityV0 **)&jarg1; 
   {
     jclass clazz;
     jmethodID mid;
@@ -5292,329 +4271,1824 @@ SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_identityV0SetBalance(JNIEnv
     }
     jenv->ReleaseByteArrayElements(ba, bae, 0);
   }
-  IdentityV0_set_balance(arg1,arg2);
+  crate_identity_identity_IdentityV0_set_balance(arg1,arg2);
 }
 
 
-SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_identityV0SetRevision(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  IdentityV0 *arg1 = (IdentityV0 *) 0 ;
-  Revision *arg2 = (Revision *) 0 ;
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_crateIdentityIdentityIdentityV0SetRevision(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  crate_identity_identity_IdentityV0 *arg1 = (crate_identity_identity_IdentityV0 *) 0 ;
+  crate_identity_identity_Revision *arg2 = (crate_identity_identity_Revision *) 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   (void)jarg2_;
-  arg1 = *(IdentityV0 **)&jarg1; 
-  arg2 = *(Revision **)&jarg2; 
-  IdentityV0_set_revision(arg1,arg2);
+  arg1 = *(crate_identity_identity_IdentityV0 **)&jarg1; 
+  arg2 = *(crate_identity_identity_Revision **)&jarg2; 
+  crate_identity_identity_IdentityV0_set_revision(arg1,arg2);
 }
 
 
-SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_identityPublicKeyV0Destroy(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  IdentityPublicKeyV0 *arg1 = (IdentityPublicKeyV0 *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(IdentityPublicKeyV0 **)&jarg1; 
-  IdentityPublicKeyV0_destroy(arg1);
-}
-
-
-SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_identityPublicKeyV0GetId(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_createBasicIdentity(JNIEnv *jenv, jclass jcls, jbyteArray jarg1, jlong jarg2, jobject jarg2_) {
   jlong jresult = 0 ;
-  IdentityPublicKeyV0 *arg1 = (IdentityPublicKeyV0 *) 0 ;
-  KeyID *result = 0 ;
+  uint8_t (*arg1)[32] = (uint8_t (*)[32]) 0 ;
+  crate_nested_PlatformVersion *arg2 = (crate_nested_PlatformVersion *) 0 ;
+  uint8_t *byteArray1 ;
+  Result_ok_crate_identity_identity_Identity_err_crate_nested_ProtocolError *result = 0 ;
   
   (void)jenv;
   (void)jcls;
-  (void)jarg1_;
-  arg1 = *(IdentityPublicKeyV0 **)&jarg1; 
-  result = (KeyID *)IdentityPublicKeyV0_get_id((IdentityPublicKeyV0 const *)arg1);
-  *(KeyID **)&jresult = result; 
+  (void)jarg2_;
+  {
+    if (!jarg1) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null array");
+      return 0;
+    }
+    const jsize sz = jenv->GetArrayLength(jarg1);
+    jbyte* const jarr = jenv->GetByteArrayElements(jarg1, 0);
+    if (!jarr) return 0;
+    byteArray1 = (uint8_t *)memoryFactory.alloc(32); // this is a memory leak?
+    memcpy(byteArray1, jarr, sz);
+    
+    //memcpy(arg1, jarr, sz);
+    jenv->ReleaseByteArrayElements(jarg1, jarr, JNI_ABORT);
+    arg1 = (uint8_t (*) [32])byteArray1;
+  }
+  arg2 = *(crate_nested_PlatformVersion **)&jarg2; 
+  result = (Result_ok_crate_identity_identity_Identity_err_crate_nested_ProtocolError *)create_basic_identity((unsigned char (*)[32])arg1,arg2);
+  *(Result_ok_crate_identity_identity_Identity_err_crate_nested_ProtocolError **)&jresult = result; 
+  {
+    //JCALL3(ReleaseByteArrayElements, jenv, jarg1, (jbyte *) *arg1, 0);
+    
+  }
+  
   return jresult;
 }
 
 
-SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_identityPublicKeyV0GetPurpose(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_createBasicIdentityV0(JNIEnv *jenv, jclass jcls, jbyteArray jarg1) {
   jlong jresult = 0 ;
-  IdentityPublicKeyV0 *arg1 = (IdentityPublicKeyV0 *) 0 ;
-  enum Purpose *result = 0 ;
+  uint8_t (*arg1)[32] = (uint8_t (*)[32]) 0 ;
+  uint8_t *byteArray1 ;
+  crate_identity_identity_Identity *result = 0 ;
   
   (void)jenv;
   (void)jcls;
-  (void)jarg1_;
-  arg1 = *(IdentityPublicKeyV0 **)&jarg1; 
-  result = (enum Purpose *)IdentityPublicKeyV0_get_purpose((IdentityPublicKeyV0 const *)arg1);
-  *(enum Purpose **)&jresult = result; 
+  {
+    if (!jarg1) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null array");
+      return 0;
+    }
+    const jsize sz = jenv->GetArrayLength(jarg1);
+    jbyte* const jarr = jenv->GetByteArrayElements(jarg1, 0);
+    if (!jarr) return 0;
+    byteArray1 = (uint8_t *)memoryFactory.alloc(32); // this is a memory leak?
+    memcpy(byteArray1, jarr, sz);
+    
+    //memcpy(arg1, jarr, sz);
+    jenv->ReleaseByteArrayElements(jarg1, jarr, JNI_ABORT);
+    arg1 = (uint8_t (*) [32])byteArray1;
+  }
+  result = (crate_identity_identity_Identity *)create_basic_identity_v0((unsigned char (*)[32])arg1);
+  *(crate_identity_identity_Identity **)&jresult = result; 
+  {
+    //JCALL3(ReleaseByteArrayElements, jenv, jarg1, (jbyte *) *arg1, 0);
+    
+  }
+  
   return jresult;
 }
 
 
-SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_identityPublicKeyV0GetSecurityLevel(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jobject JNICALL Java_org_dash_sdk_exampleJNI_getBalance(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jobject jresult = 0 ;
+  crate_identity_identity_Identity *arg1 = (crate_identity_identity_Identity *) 0 ;
+  uint64_t result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_identity_identity_Identity **)&jarg1; 
+  result = (uint64_t)get_balance(arg1);
+  {
+    jbyteArray ba = jenv->NewByteArray(9);
+    jbyte* bae = jenv->GetByteArrayElements(ba, 0);
+    jclass clazz = jenv->FindClass("java/math/BigInteger");
+    jmethodID mid = jenv->GetMethodID(clazz, "<init>", "([B)V");
+    jobject bigint;
+    int i;
+    
+    bae[0] = 0;
+    for(i=1; i<9; i++ ) {
+      bae[i] = (jbyte)(result>>8*(8-i));
+    }
+    
+    jenv->ReleaseByteArrayElements(ba, bae, 0);
+    bigint = jenv->NewObject(clazz, mid, ba);
+    jenv->DeleteLocalRef(ba);
+    jresult = bigint;
+  }
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_getAnIdentity(JNIEnv *jenv, jclass jcls) {
   jlong jresult = 0 ;
-  IdentityPublicKeyV0 *arg1 = (IdentityPublicKeyV0 *) 0 ;
-  enum SecurityLevel *result = 0 ;
+  crate_identity_identity_Identity *result = 0 ;
   
   (void)jenv;
   (void)jcls;
-  (void)jarg1_;
-  arg1 = *(IdentityPublicKeyV0 **)&jarg1; 
-  result = (enum SecurityLevel *)IdentityPublicKeyV0_get_security_level((IdentityPublicKeyV0 const *)arg1);
-  *(enum SecurityLevel **)&jresult = result; 
+  result = (crate_identity_identity_Identity *)get_an_identity();
+  *(crate_identity_identity_Identity **)&jresult = result; 
   return jresult;
 }
 
 
-SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_identityPublicKeyV0GetContractBounds(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_crateIdentityIdentityIdentityV0Ctor_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jlong jresult = 0 ;
-  IdentityPublicKeyV0 *arg1 = (IdentityPublicKeyV0 *) 0 ;
-  ContractBounds *result = 0 ;
+  crate_identity_identity_IdentityV0 *arg1 = (crate_identity_identity_IdentityV0 *) 0 ;
+  crate_identity_identity_Identity *result = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(IdentityPublicKeyV0 **)&jarg1; 
-  result = (ContractBounds *)IdentityPublicKeyV0_get_contract_bounds((IdentityPublicKeyV0 const *)arg1);
-  *(ContractBounds **)&jresult = result; 
+  arg1 = *(crate_identity_identity_IdentityV0 **)&jarg1; 
+  result = (crate_identity_identity_Identity *)crate_identity_identity_Identity_V0_ctor(arg1);
+  *(crate_identity_identity_Identity **)&jresult = result; 
   return jresult;
 }
 
 
-SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_identityPublicKeyV0GetKeyType(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_crateIdentityIdentityIdentityDestroy(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  crate_identity_identity_Identity *arg1 = (crate_identity_identity_Identity *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_identity_identity_Identity **)&jarg1; 
+  crate_identity_identity_Identity_destroy(arg1);
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_crateIdentityIdentityKeyIDCtor(JNIEnv *jenv, jclass jcls, jlong jarg1) {
   jlong jresult = 0 ;
-  IdentityPublicKeyV0 *arg1 = (IdentityPublicKeyV0 *) 0 ;
-  enum KeyType *result = 0 ;
+  uint32_t arg1 ;
+  crate_identity_identity_KeyID *result = 0 ;
   
   (void)jenv;
   (void)jcls;
-  (void)jarg1_;
-  arg1 = *(IdentityPublicKeyV0 **)&jarg1; 
-  result = (enum KeyType *)IdentityPublicKeyV0_get_key_type((IdentityPublicKeyV0 const *)arg1);
-  *(enum KeyType **)&jresult = result; 
+  arg1 = (uint32_t)jarg1; 
+  result = (crate_identity_identity_KeyID *)crate_identity_identity_KeyID_ctor(arg1);
+  *(crate_identity_identity_KeyID **)&jresult = result; 
   return jresult;
 }
 
 
-SWIGEXPORT jboolean JNICALL Java_org_dash_sdk_exampleJNI_identityPublicKeyV0GetReadOnly(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jboolean jresult = 0 ;
-  IdentityPublicKeyV0 *arg1 = (IdentityPublicKeyV0 *) 0 ;
-  bool result;
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_crateIdentityIdentityKeyIDDestroy(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  crate_identity_identity_KeyID *arg1 = (crate_identity_identity_KeyID *) 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(IdentityPublicKeyV0 **)&jarg1; 
-  result = (bool)IdentityPublicKeyV0_get_read_only((IdentityPublicKeyV0 const *)arg1);
-  jresult = (jboolean)result; 
-  return jresult;
+  arg1 = *(crate_identity_identity_KeyID **)&jarg1; 
+  crate_identity_identity_KeyID_destroy(arg1);
 }
 
 
-SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_identityPublicKeyV0GetData(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_crateIdentityIdentityKeyIDGet0(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jlong jresult = 0 ;
-  IdentityPublicKeyV0 *arg1 = (IdentityPublicKeyV0 *) 0 ;
-  BinaryData *result = 0 ;
+  crate_identity_identity_KeyID *arg1 = (crate_identity_identity_KeyID *) 0 ;
+  uint32_t result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(IdentityPublicKeyV0 **)&jarg1; 
-  result = (BinaryData *)IdentityPublicKeyV0_get_data((IdentityPublicKeyV0 const *)arg1);
-  *(BinaryData **)&jresult = result; 
+  arg1 = *(crate_identity_identity_KeyID **)&jarg1; 
+  result = (uint32_t)crate_identity_identity_KeyID_get_0((crate_identity_identity_KeyID const *)arg1);
+  jresult = (jlong)result; 
   return jresult;
 }
 
 
-SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_identityPublicKeyV0GetDisabledAt(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_crateIdentityIdentityKeyIDSet0(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  crate_identity_identity_KeyID *arg1 = (crate_identity_identity_KeyID *) 0 ;
+  uint32_t arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_identity_identity_KeyID **)&jarg1; 
+  arg2 = (uint32_t)jarg2; 
+  crate_identity_identity_KeyID_set_0(arg1,arg2);
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_crateIdentityIdentityTimestampMillisCtor(JNIEnv *jenv, jclass jcls, jobject jarg1) {
   jlong jresult = 0 ;
-  IdentityPublicKeyV0 *arg1 = (IdentityPublicKeyV0 *) 0 ;
-  TimestampMillis *result = 0 ;
+  uint64_t arg1 ;
+  crate_identity_identity_TimestampMillis *result = 0 ;
   
   (void)jenv;
   (void)jcls;
-  (void)jarg1_;
-  arg1 = *(IdentityPublicKeyV0 **)&jarg1; 
-  result = (TimestampMillis *)IdentityPublicKeyV0_get_disabled_at((IdentityPublicKeyV0 const *)arg1);
-  *(TimestampMillis **)&jresult = result; 
+  {
+    jclass clazz;
+    jmethodID mid;
+    jbyteArray ba;
+    jbyte* bae;
+    jsize sz;
+    int i;
+    
+    if (!jarg1) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "BigInteger null");
+      return 0;
+    }
+    clazz = jenv->GetObjectClass(jarg1);
+    mid = jenv->GetMethodID(clazz, "toByteArray", "()[B");
+    ba = (jbyteArray)jenv->CallObjectMethod(jarg1, mid);
+    bae = jenv->GetByteArrayElements(ba, 0);
+    sz = jenv->GetArrayLength(ba);
+    arg1 = 0;
+    if (sz > 0) {
+      arg1 = (uint64_t)(signed char)bae[0];
+      for(i=1; i<sz; i++) {
+        arg1 = (arg1 << 8) | (uint64_t)(unsigned char)bae[i];
+      }
+    }
+    jenv->ReleaseByteArrayElements(ba, bae, 0);
+  }
+  result = (crate_identity_identity_TimestampMillis *)crate_identity_identity_TimestampMillis_ctor(arg1);
+  *(crate_identity_identity_TimestampMillis **)&jresult = result; 
   return jresult;
 }
 
 
-SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_identityPublicKeyV0SetId(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  IdentityPublicKeyV0 *arg1 = (IdentityPublicKeyV0 *) 0 ;
-  KeyID *arg2 = (KeyID *) 0 ;
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_crateIdentityIdentityTimestampMillisDestroy(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  crate_identity_identity_TimestampMillis *arg1 = (crate_identity_identity_TimestampMillis *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_identity_identity_TimestampMillis **)&jarg1; 
+  crate_identity_identity_TimestampMillis_destroy(arg1);
+}
+
+
+SWIGEXPORT jobject JNICALL Java_org_dash_sdk_exampleJNI_crateIdentityIdentityTimestampMillisGet0(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jobject jresult = 0 ;
+  crate_identity_identity_TimestampMillis *arg1 = (crate_identity_identity_TimestampMillis *) 0 ;
+  uint64_t result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_identity_identity_TimestampMillis **)&jarg1; 
+  result = (uint64_t)crate_identity_identity_TimestampMillis_get_0((crate_identity_identity_TimestampMillis const *)arg1);
+  {
+    jbyteArray ba = jenv->NewByteArray(9);
+    jbyte* bae = jenv->GetByteArrayElements(ba, 0);
+    jclass clazz = jenv->FindClass("java/math/BigInteger");
+    jmethodID mid = jenv->GetMethodID(clazz, "<init>", "([B)V");
+    jobject bigint;
+    int i;
+    
+    bae[0] = 0;
+    for(i=1; i<9; i++ ) {
+      bae[i] = (jbyte)(result>>8*(8-i));
+    }
+    
+    jenv->ReleaseByteArrayElements(ba, bae, 0);
+    bigint = jenv->NewObject(clazz, mid, ba);
+    jenv->DeleteLocalRef(ba);
+    jresult = bigint;
+  }
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_crateIdentityIdentityTimestampMillisSet0(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jobject jarg2) {
+  crate_identity_identity_TimestampMillis *arg1 = (crate_identity_identity_TimestampMillis *) 0 ;
+  uint64_t arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_identity_identity_TimestampMillis **)&jarg1; 
+  {
+    jclass clazz;
+    jmethodID mid;
+    jbyteArray ba;
+    jbyte* bae;
+    jsize sz;
+    int i;
+    
+    if (!jarg2) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "BigInteger null");
+      return ;
+    }
+    clazz = jenv->GetObjectClass(jarg2);
+    mid = jenv->GetMethodID(clazz, "toByteArray", "()[B");
+    ba = (jbyteArray)jenv->CallObjectMethod(jarg2, mid);
+    bae = jenv->GetByteArrayElements(ba, 0);
+    sz = jenv->GetArrayLength(ba);
+    arg2 = 0;
+    if (sz > 0) {
+      arg2 = (uint64_t)(signed char)bae[0];
+      for(i=1; i<sz; i++) {
+        arg2 = (arg2 << 8) | (uint64_t)(unsigned char)bae[i];
+      }
+    }
+    jenv->ReleaseByteArrayElements(ba, bae, 0);
+  }
+  crate_identity_identity_TimestampMillis_set_0(arg1,arg2);
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_crateIdentityIdentityRevisionCtor(JNIEnv *jenv, jclass jcls, jobject jarg1) {
+  jlong jresult = 0 ;
+  uint64_t arg1 ;
+  crate_identity_identity_Revision *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  {
+    jclass clazz;
+    jmethodID mid;
+    jbyteArray ba;
+    jbyte* bae;
+    jsize sz;
+    int i;
+    
+    if (!jarg1) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "BigInteger null");
+      return 0;
+    }
+    clazz = jenv->GetObjectClass(jarg1);
+    mid = jenv->GetMethodID(clazz, "toByteArray", "()[B");
+    ba = (jbyteArray)jenv->CallObjectMethod(jarg1, mid);
+    bae = jenv->GetByteArrayElements(ba, 0);
+    sz = jenv->GetArrayLength(ba);
+    arg1 = 0;
+    if (sz > 0) {
+      arg1 = (uint64_t)(signed char)bae[0];
+      for(i=1; i<sz; i++) {
+        arg1 = (arg1 << 8) | (uint64_t)(unsigned char)bae[i];
+      }
+    }
+    jenv->ReleaseByteArrayElements(ba, bae, 0);
+  }
+  result = (crate_identity_identity_Revision *)crate_identity_identity_Revision_ctor(arg1);
+  *(crate_identity_identity_Revision **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_crateIdentityIdentityRevisionDestroy(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  crate_identity_identity_Revision *arg1 = (crate_identity_identity_Revision *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_identity_identity_Revision **)&jarg1; 
+  crate_identity_identity_Revision_destroy(arg1);
+}
+
+
+SWIGEXPORT jobject JNICALL Java_org_dash_sdk_exampleJNI_crateIdentityIdentityRevisionGet0(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jobject jresult = 0 ;
+  crate_identity_identity_Revision *arg1 = (crate_identity_identity_Revision *) 0 ;
+  uint64_t result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_identity_identity_Revision **)&jarg1; 
+  result = (uint64_t)crate_identity_identity_Revision_get_0((crate_identity_identity_Revision const *)arg1);
+  {
+    jbyteArray ba = jenv->NewByteArray(9);
+    jbyte* bae = jenv->GetByteArrayElements(ba, 0);
+    jclass clazz = jenv->FindClass("java/math/BigInteger");
+    jmethodID mid = jenv->GetMethodID(clazz, "<init>", "([B)V");
+    jobject bigint;
+    int i;
+    
+    bae[0] = 0;
+    for(i=1; i<9; i++ ) {
+      bae[i] = (jbyte)(result>>8*(8-i));
+    }
+    
+    jenv->ReleaseByteArrayElements(ba, bae, 0);
+    bigint = jenv->NewObject(clazz, mid, ba);
+    jenv->DeleteLocalRef(ba);
+    jresult = bigint;
+  }
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_crateIdentityIdentityRevisionSet0(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jobject jarg2) {
+  crate_identity_identity_Revision *arg1 = (crate_identity_identity_Revision *) 0 ;
+  uint64_t arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_identity_identity_Revision **)&jarg1; 
+  {
+    jclass clazz;
+    jmethodID mid;
+    jbyteArray ba;
+    jbyte* bae;
+    jsize sz;
+    int i;
+    
+    if (!jarg2) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "BigInteger null");
+      return ;
+    }
+    clazz = jenv->GetObjectClass(jarg2);
+    mid = jenv->GetMethodID(clazz, "toByteArray", "()[B");
+    ba = (jbyteArray)jenv->CallObjectMethod(jarg2, mid);
+    bae = jenv->GetByteArrayElements(ba, 0);
+    sz = jenv->GetArrayLength(ba);
+    arg2 = 0;
+    if (sz > 0) {
+      arg2 = (uint64_t)(signed char)bae[0];
+      for(i=1; i<sz; i++) {
+        arg2 = (arg2 << 8) | (uint64_t)(unsigned char)bae[i];
+      }
+    }
+    jenv->ReleaseByteArrayElements(ba, bae, 0);
+  }
+  crate_identity_identity_Revision_set_0(arg1,arg2);
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_createOuter(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  jlong jresult = 0 ;
+  crate_example_mine_InnerStruct *arg1 = (crate_example_mine_InnerStruct *) 0 ;
+  crate_example_mine_InnerStruct *arg2 = (crate_example_mine_InnerStruct *) 0 ;
+  crate_example_mine_OuterStruct *result = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   (void)jarg2_;
-  arg1 = *(IdentityPublicKeyV0 **)&jarg1; 
-  arg2 = *(KeyID **)&jarg2; 
-  IdentityPublicKeyV0_set_id(arg1,arg2);
-}
-
-
-SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_identityPublicKeyV0SetPurpose(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
-  IdentityPublicKeyV0 *arg1 = (IdentityPublicKeyV0 *) 0 ;
-  enum Purpose *arg2 = (enum Purpose *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(IdentityPublicKeyV0 **)&jarg1; 
-  arg2 = *(enum Purpose **)&jarg2; 
-  IdentityPublicKeyV0_set_purpose(arg1,arg2);
-}
-
-
-SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_identityPublicKeyV0SetSecurityLevel(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
-  IdentityPublicKeyV0 *arg1 = (IdentityPublicKeyV0 *) 0 ;
-  enum SecurityLevel *arg2 = (enum SecurityLevel *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(IdentityPublicKeyV0 **)&jarg1; 
-  arg2 = *(enum SecurityLevel **)&jarg2; 
-  IdentityPublicKeyV0_set_security_level(arg1,arg2);
-}
-
-
-SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_identityPublicKeyV0SetContractBounds(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  IdentityPublicKeyV0 *arg1 = (IdentityPublicKeyV0 *) 0 ;
-  ContractBounds *arg2 = (ContractBounds *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg2_;
-  arg1 = *(IdentityPublicKeyV0 **)&jarg1; 
-  arg2 = *(ContractBounds **)&jarg2; 
-  IdentityPublicKeyV0_set_contract_bounds(arg1,arg2);
-}
-
-
-SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_identityPublicKeyV0SetKeyType(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
-  IdentityPublicKeyV0 *arg1 = (IdentityPublicKeyV0 *) 0 ;
-  enum KeyType *arg2 = (enum KeyType *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(IdentityPublicKeyV0 **)&jarg1; 
-  arg2 = *(enum KeyType **)&jarg2; 
-  IdentityPublicKeyV0_set_key_type(arg1,arg2);
-}
-
-
-SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_identityPublicKeyV0SetReadOnly(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jboolean jarg2) {
-  IdentityPublicKeyV0 *arg1 = (IdentityPublicKeyV0 *) 0 ;
-  bool arg2 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(IdentityPublicKeyV0 **)&jarg1; 
-  arg2 = jarg2 ? true : false; 
-  IdentityPublicKeyV0_set_read_only(arg1,arg2);
-}
-
-
-SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_identityPublicKeyV0SetData(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  IdentityPublicKeyV0 *arg1 = (IdentityPublicKeyV0 *) 0 ;
-  BinaryData *arg2 = (BinaryData *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg2_;
-  arg1 = *(IdentityPublicKeyV0 **)&jarg1; 
-  arg2 = *(BinaryData **)&jarg2; 
-  IdentityPublicKeyV0_set_data(arg1,arg2);
-}
-
-
-SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_identityPublicKeyV0SetDisabledAt(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  IdentityPublicKeyV0 *arg1 = (IdentityPublicKeyV0 *) 0 ;
-  TimestampMillis *arg2 = (TimestampMillis *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg2_;
-  arg1 = *(IdentityPublicKeyV0 **)&jarg1; 
-  arg2 = *(TimestampMillis **)&jarg2; 
-  IdentityPublicKeyV0_set_disabled_at(arg1,arg2);
-}
-
-
-SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_getIdentityContractBounds(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  jlong jresult = 0 ;
-  Identifier *arg1 = (Identifier *) 0 ;
-  Identifier *arg2 = (Identifier *) 0 ;
-  Identity *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg2_;
-  arg1 = *(Identifier **)&jarg1; 
-  arg2 = *(Identifier **)&jarg2; 
-  result = (Identity *)get_identity_contract_bounds(arg1,arg2);
-  *(Identity **)&jresult = result; 
+  arg1 = *(crate_example_mine_InnerStruct **)&jarg1; 
+  arg2 = *(crate_example_mine_InnerStruct **)&jarg2; 
+  result = (crate_example_mine_OuterStruct *)create_outer(arg1,arg2);
+  *(crate_example_mine_OuterStruct **)&jresult = result; 
   return jresult;
 }
 
 
-SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_randomKey(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_crateExampleMineVecU8HolderCtor(JNIEnv *jenv, jclass jcls, jbyteArray jarg1) {
   jlong jresult = 0 ;
-  KeyID *arg1 = (KeyID *) 0 ;
-  IdentityPublicKeyV0 *result = 0 ;
+  Vec_u8 *arg1 = (Vec_u8 *) 0 ;
+  crate_example_mine_VecU8Holder *result = 0 ;
   
   (void)jenv;
   (void)jcls;
-  (void)jarg1_;
-  arg1 = *(KeyID **)&jarg1; 
-  result = (IdentityPublicKeyV0 *)random_key(arg1);
-  *(IdentityPublicKeyV0 **)&jresult = result; 
+  
+  uint8_t * _buffer_arg1 = (uint8_t*)(jenv)->GetByteArrayElements(jarg1, 0);
+  int size_arg1 = (jenv)->GetArrayLength(jarg1);
+  uint8_t * byteArray_arg1 = (uint8_t *)memoryFactory.alloc(size_arg1);
+  memcpy(byteArray_arg1, _buffer_arg1, size_arg1);
+  arg1 = Vec_u8_ctor(byteArray_arg1, size_arg1);
+  printf("typemap(in) Vec_u8 *: %ld, [%lx]%d\n", arg1->count, (long)arg1->values, arg1->values[0]);
+  
+  result = (crate_example_mine_VecU8Holder *)crate_example_mine_VecU8Holder_ctor(arg1);
+  *(crate_example_mine_VecU8Holder **)&jresult = result; 
+  
+  printf("typemap(argout) Vec_u8 *: %ld, [%lx]%d\n", arg1->count, (long)arg1->values, arg1->values[0]);
+  //JCALL3(ReleaseByteArrayElements, jenv, jarg1, (jbyte *) _buffer_arg1, 0);
+  jenv->ReleaseByteArrayElements(jarg1, (jbyte *) _buffer_arg1, 0);
+  printf("typemap(argout) Vec_u8 *: %ld, [%lx]%d\n", arg1->count, (long)arg1->values, arg1->values[0]);
+  
   return jresult;
 }
 
 
-SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_randomKeyArgs(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3, jobject jarg3_) {
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_crateExampleMineVecU8HolderDestroy(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  crate_example_mine_VecU8Holder *arg1 = (crate_example_mine_VecU8Holder *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_example_mine_VecU8Holder **)&jarg1; 
+  crate_example_mine_VecU8Holder_destroy(arg1);
+}
+
+
+SWIGEXPORT jbyteArray JNICALL Java_org_dash_sdk_exampleJNI_crateExampleMineVecU8HolderGetFirst(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jbyteArray jresult = 0 ;
+  crate_example_mine_VecU8Holder *arg1 = (crate_example_mine_VecU8Holder *) 0 ;
+  Vec_u8 *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_example_mine_VecU8Holder **)&jarg1; 
+  result = (Vec_u8 *)crate_example_mine_VecU8Holder_get_first((crate_example_mine_VecU8Holder const *)arg1);
+  {
+    printf("typemap(out) Vec_u8* %lx\n", (long)result);
+    if (!result) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Vec_u8* null array");
+      return 0;
+    }
+    if (!result->values) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Vec_u8.values null array");
+      return 0;
+    }
+    printf("  (count: %ld, values: [%lx], %d)\n", result->count, (long)result->values, result->values[0]);
+    jresult = jenv->NewByteArray(result->count);
+    jenv->SetByteArrayRegion(jresult, 0, result->count, (jbyte *) result->values);
+  }
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_crateExampleMineVecU8HolderSetFirst(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jbyteArray jarg2) {
+  crate_example_mine_VecU8Holder *arg1 = (crate_example_mine_VecU8Holder *) 0 ;
+  Vec_u8 *arg2 = (Vec_u8 *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_example_mine_VecU8Holder **)&jarg1; 
+  
+  uint8_t * _buffer_arg2 = (uint8_t*)(jenv)->GetByteArrayElements(jarg2, 0);
+  int size_arg2 = (jenv)->GetArrayLength(jarg2);
+  uint8_t * byteArray_arg2 = (uint8_t *)memoryFactory.alloc(size_arg2);
+  memcpy(byteArray_arg2, _buffer_arg2, size_arg2);
+  arg2 = Vec_u8_ctor(byteArray_arg2, size_arg2);
+  printf("typemap(in) Vec_u8 *: %ld, [%lx]%d\n", arg2->count, (long)arg2->values, arg2->values[0]);
+  
+  crate_example_mine_VecU8Holder_set_first(arg1,arg2);
+  
+  printf("typemap(argout) Vec_u8 *: %ld, [%lx]%d\n", arg2->count, (long)arg2->values, arg2->values[0]);
+  //JCALL3(ReleaseByteArrayElements, jenv, jarg2, (jbyte *) _buffer_arg2, 0);
+  jenv->ReleaseByteArrayElements(jarg2, (jbyte *) _buffer_arg2, 0);
+  printf("typemap(argout) Vec_u8 *: %ld, [%lx]%d\n", arg2->count, (long)arg2->values, arg2->values[0]);
+  
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_crateExampleMineOuterStructCtor(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
   jlong jresult = 0 ;
-  KeyID *arg1 = (KeyID *) 0 ;
-  Identifier *arg2 = (Identifier *) 0 ;
-  TimestampMillis *arg3 = (TimestampMillis *) 0 ;
-  IdentityPublicKeyV0 *result = 0 ;
+  crate_example_mine_InnerStruct *arg1 = (crate_example_mine_InnerStruct *) 0 ;
+  crate_example_mine_InnerStruct *arg2 = (crate_example_mine_InnerStruct *) 0 ;
+  crate_example_mine_OuterStruct *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(crate_example_mine_InnerStruct **)&jarg1; 
+  arg2 = *(crate_example_mine_InnerStruct **)&jarg2; 
+  result = (crate_example_mine_OuterStruct *)crate_example_mine_OuterStruct_ctor(arg1,arg2);
+  *(crate_example_mine_OuterStruct **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_crateExampleMineOuterStructDestroy(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  crate_example_mine_OuterStruct *arg1 = (crate_example_mine_OuterStruct *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_example_mine_OuterStruct **)&jarg1; 
+  crate_example_mine_OuterStruct_destroy(arg1);
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_crateExampleMineOuterStructGetFirst(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  crate_example_mine_OuterStruct *arg1 = (crate_example_mine_OuterStruct *) 0 ;
+  crate_example_mine_InnerStruct *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_example_mine_OuterStruct **)&jarg1; 
+  result = (crate_example_mine_InnerStruct *)crate_example_mine_OuterStruct_get_first((crate_example_mine_OuterStruct const *)arg1);
+  *(crate_example_mine_InnerStruct **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_crateExampleMineOuterStructGetSecond(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  crate_example_mine_OuterStruct *arg1 = (crate_example_mine_OuterStruct *) 0 ;
+  crate_example_mine_InnerStruct *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_example_mine_OuterStruct **)&jarg1; 
+  result = (crate_example_mine_InnerStruct *)crate_example_mine_OuterStruct_get_second((crate_example_mine_OuterStruct const *)arg1);
+  *(crate_example_mine_InnerStruct **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_crateExampleMineOuterStructSetFirst(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  crate_example_mine_OuterStruct *arg1 = (crate_example_mine_OuterStruct *) 0 ;
+  crate_example_mine_InnerStruct *arg2 = (crate_example_mine_InnerStruct *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(crate_example_mine_OuterStruct **)&jarg1; 
+  arg2 = *(crate_example_mine_InnerStruct **)&jarg2; 
+  crate_example_mine_OuterStruct_set_first(arg1,arg2);
+}
+
+
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_crateExampleMineOuterStructSetSecond(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  crate_example_mine_OuterStruct *arg1 = (crate_example_mine_OuterStruct *) 0 ;
+  crate_example_mine_InnerStruct *arg2 = (crate_example_mine_InnerStruct *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(crate_example_mine_OuterStruct **)&jarg1; 
+  arg2 = *(crate_example_mine_InnerStruct **)&jarg2; 
+  crate_example_mine_OuterStruct_set_second(arg1,arg2);
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_crateExampleMineInnerStructCtor(JNIEnv *jenv, jclass jcls, jobject jarg1, jobject jarg2) {
+  jlong jresult = 0 ;
+  uint64_t arg1 ;
+  uint64_t arg2 ;
+  crate_example_mine_InnerStruct *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  {
+    jclass clazz;
+    jmethodID mid;
+    jbyteArray ba;
+    jbyte* bae;
+    jsize sz;
+    int i;
+    
+    if (!jarg1) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "BigInteger null");
+      return 0;
+    }
+    clazz = jenv->GetObjectClass(jarg1);
+    mid = jenv->GetMethodID(clazz, "toByteArray", "()[B");
+    ba = (jbyteArray)jenv->CallObjectMethod(jarg1, mid);
+    bae = jenv->GetByteArrayElements(ba, 0);
+    sz = jenv->GetArrayLength(ba);
+    arg1 = 0;
+    if (sz > 0) {
+      arg1 = (uint64_t)(signed char)bae[0];
+      for(i=1; i<sz; i++) {
+        arg1 = (arg1 << 8) | (uint64_t)(unsigned char)bae[i];
+      }
+    }
+    jenv->ReleaseByteArrayElements(ba, bae, 0);
+  }
+  {
+    jclass clazz;
+    jmethodID mid;
+    jbyteArray ba;
+    jbyte* bae;
+    jsize sz;
+    int i;
+    
+    if (!jarg2) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "BigInteger null");
+      return 0;
+    }
+    clazz = jenv->GetObjectClass(jarg2);
+    mid = jenv->GetMethodID(clazz, "toByteArray", "()[B");
+    ba = (jbyteArray)jenv->CallObjectMethod(jarg2, mid);
+    bae = jenv->GetByteArrayElements(ba, 0);
+    sz = jenv->GetArrayLength(ba);
+    arg2 = 0;
+    if (sz > 0) {
+      arg2 = (uint64_t)(signed char)bae[0];
+      for(i=1; i<sz; i++) {
+        arg2 = (arg2 << 8) | (uint64_t)(unsigned char)bae[i];
+      }
+    }
+    jenv->ReleaseByteArrayElements(ba, bae, 0);
+  }
+  result = (crate_example_mine_InnerStruct *)crate_example_mine_InnerStruct_ctor(arg1,arg2);
+  *(crate_example_mine_InnerStruct **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_crateExampleMineInnerStructDestroy(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  crate_example_mine_InnerStruct *arg1 = (crate_example_mine_InnerStruct *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_example_mine_InnerStruct **)&jarg1; 
+  crate_example_mine_InnerStruct_destroy(arg1);
+}
+
+
+SWIGEXPORT jobject JNICALL Java_org_dash_sdk_exampleJNI_crateExampleMineInnerStructGetFirst(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jobject jresult = 0 ;
+  crate_example_mine_InnerStruct *arg1 = (crate_example_mine_InnerStruct *) 0 ;
+  uint64_t result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_example_mine_InnerStruct **)&jarg1; 
+  result = (uint64_t)crate_example_mine_InnerStruct_get_first((crate_example_mine_InnerStruct const *)arg1);
+  {
+    jbyteArray ba = jenv->NewByteArray(9);
+    jbyte* bae = jenv->GetByteArrayElements(ba, 0);
+    jclass clazz = jenv->FindClass("java/math/BigInteger");
+    jmethodID mid = jenv->GetMethodID(clazz, "<init>", "([B)V");
+    jobject bigint;
+    int i;
+    
+    bae[0] = 0;
+    for(i=1; i<9; i++ ) {
+      bae[i] = (jbyte)(result>>8*(8-i));
+    }
+    
+    jenv->ReleaseByteArrayElements(ba, bae, 0);
+    bigint = jenv->NewObject(clazz, mid, ba);
+    jenv->DeleteLocalRef(ba);
+    jresult = bigint;
+  }
+  return jresult;
+}
+
+
+SWIGEXPORT jobject JNICALL Java_org_dash_sdk_exampleJNI_crateExampleMineInnerStructGetSecond(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jobject jresult = 0 ;
+  crate_example_mine_InnerStruct *arg1 = (crate_example_mine_InnerStruct *) 0 ;
+  uint64_t result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_example_mine_InnerStruct **)&jarg1; 
+  result = (uint64_t)crate_example_mine_InnerStruct_get_second((crate_example_mine_InnerStruct const *)arg1);
+  {
+    jbyteArray ba = jenv->NewByteArray(9);
+    jbyte* bae = jenv->GetByteArrayElements(ba, 0);
+    jclass clazz = jenv->FindClass("java/math/BigInteger");
+    jmethodID mid = jenv->GetMethodID(clazz, "<init>", "([B)V");
+    jobject bigint;
+    int i;
+    
+    bae[0] = 0;
+    for(i=1; i<9; i++ ) {
+      bae[i] = (jbyte)(result>>8*(8-i));
+    }
+    
+    jenv->ReleaseByteArrayElements(ba, bae, 0);
+    bigint = jenv->NewObject(clazz, mid, ba);
+    jenv->DeleteLocalRef(ba);
+    jresult = bigint;
+  }
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_crateExampleMineInnerStructSetFirst(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jobject jarg2) {
+  crate_example_mine_InnerStruct *arg1 = (crate_example_mine_InnerStruct *) 0 ;
+  uint64_t arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_example_mine_InnerStruct **)&jarg1; 
+  {
+    jclass clazz;
+    jmethodID mid;
+    jbyteArray ba;
+    jbyte* bae;
+    jsize sz;
+    int i;
+    
+    if (!jarg2) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "BigInteger null");
+      return ;
+    }
+    clazz = jenv->GetObjectClass(jarg2);
+    mid = jenv->GetMethodID(clazz, "toByteArray", "()[B");
+    ba = (jbyteArray)jenv->CallObjectMethod(jarg2, mid);
+    bae = jenv->GetByteArrayElements(ba, 0);
+    sz = jenv->GetArrayLength(ba);
+    arg2 = 0;
+    if (sz > 0) {
+      arg2 = (uint64_t)(signed char)bae[0];
+      for(i=1; i<sz; i++) {
+        arg2 = (arg2 << 8) | (uint64_t)(unsigned char)bae[i];
+      }
+    }
+    jenv->ReleaseByteArrayElements(ba, bae, 0);
+  }
+  crate_example_mine_InnerStruct_set_first(arg1,arg2);
+}
+
+
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_crateExampleMineInnerStructSetSecond(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jobject jarg2) {
+  crate_example_mine_InnerStruct *arg1 = (crate_example_mine_InnerStruct *) 0 ;
+  uint64_t arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_example_mine_InnerStruct **)&jarg1; 
+  {
+    jclass clazz;
+    jmethodID mid;
+    jbyteArray ba;
+    jbyte* bae;
+    jsize sz;
+    int i;
+    
+    if (!jarg2) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "BigInteger null");
+      return ;
+    }
+    clazz = jenv->GetObjectClass(jarg2);
+    mid = jenv->GetMethodID(clazz, "toByteArray", "()[B");
+    ba = (jbyteArray)jenv->CallObjectMethod(jarg2, mid);
+    bae = jenv->GetByteArrayElements(ba, 0);
+    sz = jenv->GetArrayLength(ba);
+    arg2 = 0;
+    if (sz > 0) {
+      arg2 = (uint64_t)(signed char)bae[0];
+      for(i=1; i<sz; i++) {
+        arg2 = (arg2 << 8) | (uint64_t)(unsigned char)bae[i];
+      }
+    }
+    jenv->ReleaseByteArrayElements(ba, bae, 0);
+  }
+  crate_example_mine_InnerStruct_set_second(arg1,arg2);
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_crateNestedBinaryDataCtor(JNIEnv *jenv, jclass jcls, jbyteArray jarg1) {
+  jlong jresult = 0 ;
+  Vec_u8 *arg1 = (Vec_u8 *) 0 ;
+  crate_nested_BinaryData *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  
+  uint8_t * _buffer_arg1 = (uint8_t*)(jenv)->GetByteArrayElements(jarg1, 0);
+  int size_arg1 = (jenv)->GetArrayLength(jarg1);
+  uint8_t * byteArray_arg1 = (uint8_t *)memoryFactory.alloc(size_arg1);
+  memcpy(byteArray_arg1, _buffer_arg1, size_arg1);
+  arg1 = Vec_u8_ctor(byteArray_arg1, size_arg1);
+  printf("typemap(in) Vec_u8 *: %ld, [%lx]%d\n", arg1->count, (long)arg1->values, arg1->values[0]);
+  
+  result = (crate_nested_BinaryData *)crate_nested_BinaryData_ctor(arg1);
+  *(crate_nested_BinaryData **)&jresult = result; 
+  
+  printf("typemap(argout) Vec_u8 *: %ld, [%lx]%d\n", arg1->count, (long)arg1->values, arg1->values[0]);
+  //JCALL3(ReleaseByteArrayElements, jenv, jarg1, (jbyte *) _buffer_arg1, 0);
+  jenv->ReleaseByteArrayElements(jarg1, (jbyte *) _buffer_arg1, 0);
+  printf("typemap(argout) Vec_u8 *: %ld, [%lx]%d\n", arg1->count, (long)arg1->values, arg1->values[0]);
+  
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_crateNestedBinaryDataDestroy(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  crate_nested_BinaryData *arg1 = (crate_nested_BinaryData *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_nested_BinaryData **)&jarg1; 
+  crate_nested_BinaryData_destroy(arg1);
+}
+
+
+SWIGEXPORT jbyteArray JNICALL Java_org_dash_sdk_exampleJNI_crateNestedBinaryDataGet0(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jbyteArray jresult = 0 ;
+  crate_nested_BinaryData *arg1 = (crate_nested_BinaryData *) 0 ;
+  Vec_u8 *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_nested_BinaryData **)&jarg1; 
+  result = (Vec_u8 *)crate_nested_BinaryData_get_0((crate_nested_BinaryData const *)arg1);
+  {
+    printf("typemap(out) Vec_u8* %lx\n", (long)result);
+    if (!result) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Vec_u8* null array");
+      return 0;
+    }
+    if (!result->values) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Vec_u8.values null array");
+      return 0;
+    }
+    printf("  (count: %ld, values: [%lx], %d)\n", result->count, (long)result->values, result->values[0]);
+    jresult = jenv->NewByteArray(result->count);
+    jenv->SetByteArrayRegion(jresult, 0, result->count, (jbyte *) result->values);
+  }
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_crateNestedBinaryDataSet0(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jbyteArray jarg2) {
+  crate_nested_BinaryData *arg1 = (crate_nested_BinaryData *) 0 ;
+  Vec_u8 *arg2 = (Vec_u8 *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_nested_BinaryData **)&jarg1; 
+  
+  uint8_t * _buffer_arg2 = (uint8_t*)(jenv)->GetByteArrayElements(jarg2, 0);
+  int size_arg2 = (jenv)->GetArrayLength(jarg2);
+  uint8_t * byteArray_arg2 = (uint8_t *)memoryFactory.alloc(size_arg2);
+  memcpy(byteArray_arg2, _buffer_arg2, size_arg2);
+  arg2 = Vec_u8_ctor(byteArray_arg2, size_arg2);
+  printf("typemap(in) Vec_u8 *: %ld, [%lx]%d\n", arg2->count, (long)arg2->values, arg2->values[0]);
+  
+  crate_nested_BinaryData_set_0(arg1,arg2);
+  
+  printf("typemap(argout) Vec_u8 *: %ld, [%lx]%d\n", arg2->count, (long)arg2->values, arg2->values[0]);
+  //JCALL3(ReleaseByteArrayElements, jenv, jarg2, (jbyte *) _buffer_arg2, 0);
+  jenv->ReleaseByteArrayElements(jarg2, (jbyte *) _buffer_arg2, 0);
+  printf("typemap(argout) Vec_u8 *: %ld, [%lx]%d\n", arg2->count, (long)arg2->values, arg2->values[0]);
+  
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_crateNestedIdentifierCtor(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  crate_nested_IdentifierBytes32 *arg1 = (crate_nested_IdentifierBytes32 *) 0 ;
+  crate_nested_Identifier *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_nested_IdentifierBytes32 **)&jarg1; 
+  result = (crate_nested_Identifier *)crate_nested_Identifier_ctor(arg1);
+  *(crate_nested_Identifier **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_crateNestedIdentifierDestroy(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  crate_nested_Identifier *arg1 = (crate_nested_Identifier *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_nested_Identifier **)&jarg1; 
+  crate_nested_Identifier_destroy(arg1);
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_crateNestedIdentifierGet0(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  crate_nested_Identifier *arg1 = (crate_nested_Identifier *) 0 ;
+  crate_nested_IdentifierBytes32 *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_nested_Identifier **)&jarg1; 
+  result = (crate_nested_IdentifierBytes32 *)crate_nested_Identifier_get_0((crate_nested_Identifier const *)arg1);
+  *(crate_nested_IdentifierBytes32 **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_crateNestedIdentifierSet0(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  crate_nested_Identifier *arg1 = (crate_nested_Identifier *) 0 ;
+  crate_nested_IdentifierBytes32 *arg2 = (crate_nested_IdentifierBytes32 *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(crate_nested_Identifier **)&jarg1; 
+  arg2 = *(crate_nested_IdentifierBytes32 **)&jarg2; 
+  crate_nested_Identifier_set_0(arg1,arg2);
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_crateNestedOptionalFeatureVersionCtor(JNIEnv *jenv, jclass jcls, jint jarg1) {
+  jlong jresult = 0 ;
+  uint16_t arg1 ;
+  crate_nested_OptionalFeatureVersion *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = (uint16_t)jarg1; 
+  result = (crate_nested_OptionalFeatureVersion *)crate_nested_OptionalFeatureVersion_ctor(arg1);
+  *(crate_nested_OptionalFeatureVersion **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_crateNestedOptionalFeatureVersionDestroy(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  crate_nested_OptionalFeatureVersion *arg1 = (crate_nested_OptionalFeatureVersion *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_nested_OptionalFeatureVersion **)&jarg1; 
+  crate_nested_OptionalFeatureVersion_destroy(arg1);
+}
+
+
+SWIGEXPORT jint JNICALL Java_org_dash_sdk_exampleJNI_crateNestedOptionalFeatureVersionGet0(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  crate_nested_OptionalFeatureVersion *arg1 = (crate_nested_OptionalFeatureVersion *) 0 ;
+  uint16_t result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_nested_OptionalFeatureVersion **)&jarg1; 
+  result = (uint16_t)crate_nested_OptionalFeatureVersion_get_0((crate_nested_OptionalFeatureVersion const *)arg1);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_crateNestedOptionalFeatureVersionSet0(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  crate_nested_OptionalFeatureVersion *arg1 = (crate_nested_OptionalFeatureVersion *) 0 ;
+  uint16_t arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_nested_OptionalFeatureVersion **)&jarg1; 
+  arg2 = (uint16_t)jarg2; 
+  crate_nested_OptionalFeatureVersion_set_0(arg1,arg2);
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_crateNestedProtocolErrorIdentifierErrorCtor(JNIEnv *jenv, jclass jcls, jstring jarg1) {
+  jlong jresult = 0 ;
+  char *arg1 = (char *) 0 ;
+  crate_nested_ProtocolError *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = 0;
+  if (jarg1) {
+    arg1 = (char *)jenv->GetStringUTFChars(jarg1, 0);
+    if (!arg1) return 0;
+  }
+  result = (crate_nested_ProtocolError *)crate_nested_ProtocolError_IdentifierError_ctor(arg1);
+  *(crate_nested_ProtocolError **)&jresult = result; 
+  if (arg1) jenv->ReleaseStringUTFChars(jarg1, (const char *)arg1);
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_crateNestedProtocolErrorStringDecodeErrorCtor(JNIEnv *jenv, jclass jcls, jstring jarg1) {
+  jlong jresult = 0 ;
+  char *arg1 = (char *) 0 ;
+  crate_nested_ProtocolError *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = 0;
+  if (jarg1) {
+    arg1 = (char *)jenv->GetStringUTFChars(jarg1, 0);
+    if (!arg1) return 0;
+  }
+  result = (crate_nested_ProtocolError *)crate_nested_ProtocolError_StringDecodeError_ctor(arg1);
+  *(crate_nested_ProtocolError **)&jresult = result; 
+  if (arg1) jenv->ReleaseStringUTFChars(jarg1, (const char *)arg1);
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_crateNestedProtocolErrorStringDecodeError2Ctor(JNIEnv *jenv, jclass jcls, jstring jarg1, jlong jarg2) {
+  jlong jresult = 0 ;
+  char *arg1 = (char *) 0 ;
+  uint32_t arg2 ;
+  crate_nested_ProtocolError *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = 0;
+  if (jarg1) {
+    arg1 = (char *)jenv->GetStringUTFChars(jarg1, 0);
+    if (!arg1) return 0;
+  }
+  arg2 = (uint32_t)jarg2; 
+  result = (crate_nested_ProtocolError *)crate_nested_ProtocolError_StringDecodeError2_ctor(arg1,arg2);
+  *(crate_nested_ProtocolError **)&jresult = result; 
+  if (arg1) jenv->ReleaseStringUTFChars(jarg1, (const char *)arg1);
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_crateNestedProtocolErrorEmptyPublicKeyDataErrorCtor(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  crate_nested_ProtocolError *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (crate_nested_ProtocolError *)crate_nested_ProtocolError_EmptyPublicKeyDataError_ctor();
+  *(crate_nested_ProtocolError **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_crateNestedProtocolErrorMaxEncodedBytesReachedErrorCtor(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2) {
+  jlong jresult = 0 ;
+  uintptr_t arg1 ;
+  uintptr_t arg2 ;
+  crate_nested_ProtocolError *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = (uintptr_t)jarg1; 
+  arg2 = (uintptr_t)jarg2; 
+  result = (crate_nested_ProtocolError *)crate_nested_ProtocolError_MaxEncodedBytesReachedError_ctor(arg1,arg2);
+  *(crate_nested_ProtocolError **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_crateNestedProtocolErrorEncodingErrorCtor(JNIEnv *jenv, jclass jcls, jstring jarg1) {
+  jlong jresult = 0 ;
+  char *arg1 = (char *) 0 ;
+  crate_nested_ProtocolError *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = 0;
+  if (jarg1) {
+    arg1 = (char *)jenv->GetStringUTFChars(jarg1, 0);
+    if (!arg1) return 0;
+  }
+  result = (crate_nested_ProtocolError *)crate_nested_ProtocolError_EncodingError_ctor(arg1);
+  *(crate_nested_ProtocolError **)&jresult = result; 
+  if (arg1) jenv->ReleaseStringUTFChars(jarg1, (const char *)arg1);
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_crateNestedProtocolErrorEncodingError2Ctor(JNIEnv *jenv, jclass jcls, jstring jarg1) {
+  jlong jresult = 0 ;
+  char *arg1 = (char *) 0 ;
+  crate_nested_ProtocolError *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = 0;
+  if (jarg1) {
+    arg1 = (char *)jenv->GetStringUTFChars(jarg1, 0);
+    if (!arg1) return 0;
+  }
+  result = (crate_nested_ProtocolError *)crate_nested_ProtocolError_EncodingError2_ctor(arg1);
+  *(crate_nested_ProtocolError **)&jresult = result; 
+  if (arg1) jenv->ReleaseStringUTFChars(jarg1, (const char *)arg1);
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_crateNestedProtocolErrorDataContractNotPresentErrorCtor(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  crate_nested_DataContractNotPresentError *arg1 = (crate_nested_DataContractNotPresentError *) 0 ;
+  crate_nested_ProtocolError *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_nested_DataContractNotPresentError **)&jarg1; 
+  result = (crate_nested_ProtocolError *)crate_nested_ProtocolError_DataContractNotPresentError_ctor(arg1);
+  *(crate_nested_ProtocolError **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_crateNestedProtocolErrorUnknownVersionMismatchCtor(JNIEnv *jenv, jclass jcls, jstring jarg1, jlong jarg2, jlong jarg3, jobject jarg3_) {
+  jlong jresult = 0 ;
+  char *arg1 = (char *) 0 ;
+  Vec_crate_nested_FeatureVersion *arg2 = (Vec_crate_nested_FeatureVersion *) 0 ;
+  crate_nested_FeatureVersion *arg3 = (crate_nested_FeatureVersion *) 0 ;
+  crate_nested_ProtocolError *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg3_;
+  arg1 = 0;
+  if (jarg1) {
+    arg1 = (char *)jenv->GetStringUTFChars(jarg1, 0);
+    if (!arg1) return 0;
+  }
+  arg2 = *(Vec_crate_nested_FeatureVersion **)&jarg2; 
+  arg3 = *(crate_nested_FeatureVersion **)&jarg3; 
+  result = (crate_nested_ProtocolError *)crate_nested_ProtocolError_UnknownVersionMismatch_ctor(arg1,arg2,arg3);
+  *(crate_nested_ProtocolError **)&jresult = result; 
+  if (arg1) jenv->ReleaseStringUTFChars(jarg1, (const char *)arg1);
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_crateNestedProtocolErrorDestroy(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  crate_nested_ProtocolError *arg1 = (crate_nested_ProtocolError *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_nested_ProtocolError **)&jarg1; 
+  crate_nested_ProtocolError_destroy(arg1);
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_crateNestedPlatformVersionCtor(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2, jobject jarg2_, jlong jarg3, jobject jarg3_) {
+  jlong jresult = 0 ;
+  uint32_t arg1 ;
+  crate_nested_FeatureVersionBounds *arg2 = (crate_nested_FeatureVersionBounds *) 0 ;
+  crate_nested_FeatureVersionBounds *arg3 = (crate_nested_FeatureVersionBounds *) 0 ;
+  crate_nested_PlatformVersion *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg2_;
+  (void)jarg3_;
+  arg1 = (uint32_t)jarg1; 
+  arg2 = *(crate_nested_FeatureVersionBounds **)&jarg2; 
+  arg3 = *(crate_nested_FeatureVersionBounds **)&jarg3; 
+  result = (crate_nested_PlatformVersion *)crate_nested_PlatformVersion_ctor(arg1,arg2,arg3);
+  *(crate_nested_PlatformVersion **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_crateNestedPlatformVersionDestroy(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  crate_nested_PlatformVersion *arg1 = (crate_nested_PlatformVersion *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_nested_PlatformVersion **)&jarg1; 
+  crate_nested_PlatformVersion_destroy(arg1);
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_crateNestedPlatformVersionGetProtocolVersion(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  crate_nested_PlatformVersion *arg1 = (crate_nested_PlatformVersion *) 0 ;
+  uint32_t result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_nested_PlatformVersion **)&jarg1; 
+  result = (uint32_t)crate_nested_PlatformVersion_get_protocol_version((crate_nested_PlatformVersion const *)arg1);
+  jresult = (jlong)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_crateNestedPlatformVersionGetIdentity(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  crate_nested_PlatformVersion *arg1 = (crate_nested_PlatformVersion *) 0 ;
+  crate_nested_FeatureVersionBounds *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_nested_PlatformVersion **)&jarg1; 
+  result = (crate_nested_FeatureVersionBounds *)crate_nested_PlatformVersion_get_identity((crate_nested_PlatformVersion const *)arg1);
+  *(crate_nested_FeatureVersionBounds **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_crateNestedPlatformVersionGetProofs(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  crate_nested_PlatformVersion *arg1 = (crate_nested_PlatformVersion *) 0 ;
+  crate_nested_FeatureVersionBounds *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_nested_PlatformVersion **)&jarg1; 
+  result = (crate_nested_FeatureVersionBounds *)crate_nested_PlatformVersion_get_proofs((crate_nested_PlatformVersion const *)arg1);
+  *(crate_nested_FeatureVersionBounds **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_crateNestedPlatformVersionSetProtocolVersion(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  crate_nested_PlatformVersion *arg1 = (crate_nested_PlatformVersion *) 0 ;
+  uint32_t arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_nested_PlatformVersion **)&jarg1; 
+  arg2 = (uint32_t)jarg2; 
+  crate_nested_PlatformVersion_set_protocol_version(arg1,arg2);
+}
+
+
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_crateNestedPlatformVersionSetIdentity(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  crate_nested_PlatformVersion *arg1 = (crate_nested_PlatformVersion *) 0 ;
+  crate_nested_FeatureVersionBounds *arg2 = (crate_nested_FeatureVersionBounds *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(crate_nested_PlatformVersion **)&jarg1; 
+  arg2 = *(crate_nested_FeatureVersionBounds **)&jarg2; 
+  crate_nested_PlatformVersion_set_identity(arg1,arg2);
+}
+
+
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_crateNestedPlatformVersionSetProofs(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  crate_nested_PlatformVersion *arg1 = (crate_nested_PlatformVersion *) 0 ;
+  crate_nested_FeatureVersionBounds *arg2 = (crate_nested_FeatureVersionBounds *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(crate_nested_PlatformVersion **)&jarg1; 
+  arg2 = *(crate_nested_FeatureVersionBounds **)&jarg2; 
+  crate_nested_PlatformVersion_set_proofs(arg1,arg2);
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_crateNestedFeatureVersionBoundsCtor(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3, jobject jarg3_) {
+  jlong jresult = 0 ;
+  crate_nested_FeatureVersion *arg1 = (crate_nested_FeatureVersion *) 0 ;
+  crate_nested_FeatureVersion *arg2 = (crate_nested_FeatureVersion *) 0 ;
+  crate_nested_FeatureVersion *arg3 = (crate_nested_FeatureVersion *) 0 ;
+  crate_nested_FeatureVersionBounds *result = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   (void)jarg2_;
   (void)jarg3_;
-  arg1 = *(KeyID **)&jarg1; 
-  arg2 = *(Identifier **)&jarg2; 
-  arg3 = *(TimestampMillis **)&jarg3; 
-  result = (IdentityPublicKeyV0 *)random_key_args(arg1,arg2,arg3);
-  *(IdentityPublicKeyV0 **)&jresult = result; 
+  arg1 = *(crate_nested_FeatureVersion **)&jarg1; 
+  arg2 = *(crate_nested_FeatureVersion **)&jarg2; 
+  arg3 = *(crate_nested_FeatureVersion **)&jarg3; 
+  result = (crate_nested_FeatureVersionBounds *)crate_nested_FeatureVersionBounds_ctor(arg1,arg2,arg3);
+  *(crate_nested_FeatureVersionBounds **)&jresult = result; 
   return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_crateNestedFeatureVersionBoundsDestroy(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  crate_nested_FeatureVersionBounds *arg1 = (crate_nested_FeatureVersionBounds *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_nested_FeatureVersionBounds **)&jarg1; 
+  crate_nested_FeatureVersionBounds_destroy(arg1);
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_crateNestedFeatureVersionBoundsGetMinVersion(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  crate_nested_FeatureVersionBounds *arg1 = (crate_nested_FeatureVersionBounds *) 0 ;
+  crate_nested_FeatureVersion *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_nested_FeatureVersionBounds **)&jarg1; 
+  result = (crate_nested_FeatureVersion *)crate_nested_FeatureVersionBounds_get_min_version((crate_nested_FeatureVersionBounds const *)arg1);
+  *(crate_nested_FeatureVersion **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_crateNestedFeatureVersionBoundsGetMaxVersion(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  crate_nested_FeatureVersionBounds *arg1 = (crate_nested_FeatureVersionBounds *) 0 ;
+  crate_nested_FeatureVersion *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_nested_FeatureVersionBounds **)&jarg1; 
+  result = (crate_nested_FeatureVersion *)crate_nested_FeatureVersionBounds_get_max_version((crate_nested_FeatureVersionBounds const *)arg1);
+  *(crate_nested_FeatureVersion **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_crateNestedFeatureVersionBoundsGetDefaultCurrentVersion(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  crate_nested_FeatureVersionBounds *arg1 = (crate_nested_FeatureVersionBounds *) 0 ;
+  crate_nested_FeatureVersion *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_nested_FeatureVersionBounds **)&jarg1; 
+  result = (crate_nested_FeatureVersion *)crate_nested_FeatureVersionBounds_get_default_current_version((crate_nested_FeatureVersionBounds const *)arg1);
+  *(crate_nested_FeatureVersion **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_crateNestedFeatureVersionBoundsSetMinVersion(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  crate_nested_FeatureVersionBounds *arg1 = (crate_nested_FeatureVersionBounds *) 0 ;
+  crate_nested_FeatureVersion *arg2 = (crate_nested_FeatureVersion *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(crate_nested_FeatureVersionBounds **)&jarg1; 
+  arg2 = *(crate_nested_FeatureVersion **)&jarg2; 
+  crate_nested_FeatureVersionBounds_set_min_version(arg1,arg2);
+}
+
+
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_crateNestedFeatureVersionBoundsSetMaxVersion(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  crate_nested_FeatureVersionBounds *arg1 = (crate_nested_FeatureVersionBounds *) 0 ;
+  crate_nested_FeatureVersion *arg2 = (crate_nested_FeatureVersion *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(crate_nested_FeatureVersionBounds **)&jarg1; 
+  arg2 = *(crate_nested_FeatureVersion **)&jarg2; 
+  crate_nested_FeatureVersionBounds_set_max_version(arg1,arg2);
+}
+
+
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_crateNestedFeatureVersionBoundsSetDefaultCurrentVersion(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  crate_nested_FeatureVersionBounds *arg1 = (crate_nested_FeatureVersionBounds *) 0 ;
+  crate_nested_FeatureVersion *arg2 = (crate_nested_FeatureVersion *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(crate_nested_FeatureVersionBounds **)&jarg1; 
+  arg2 = *(crate_nested_FeatureVersion **)&jarg2; 
+  crate_nested_FeatureVersionBounds_set_default_current_version(arg1,arg2);
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_crateNestedHashIDCtor(JNIEnv *jenv, jclass jcls, jbyteArray jarg1) {
+  jlong jresult = 0 ;
+  uint8_t (*arg1)[32] = (uint8_t (*)[32]) 0 ;
+  uint8_t *byteArray1 ;
+  crate_nested_HashID *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  {
+    if (!jarg1) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null array");
+      return 0;
+    }
+    const jsize sz = jenv->GetArrayLength(jarg1);
+    jbyte* const jarr = jenv->GetByteArrayElements(jarg1, 0);
+    if (!jarr) return 0;
+    byteArray1 = (uint8_t *)memoryFactory.alloc(32); // this is a memory leak?
+    memcpy(byteArray1, jarr, sz);
+    
+    //memcpy(arg1, jarr, sz);
+    jenv->ReleaseByteArrayElements(jarg1, jarr, JNI_ABORT);
+    arg1 = (uint8_t (*) [32])byteArray1;
+  }
+  result = (crate_nested_HashID *)crate_nested_HashID_ctor((unsigned char (*)[32])arg1);
+  *(crate_nested_HashID **)&jresult = result; 
+  {
+    //JCALL3(ReleaseByteArrayElements, jenv, jarg1, (jbyte *) *arg1, 0);
+    
+  }
+  
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_crateNestedHashIDDestroy(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  crate_nested_HashID *arg1 = (crate_nested_HashID *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_nested_HashID **)&jarg1; 
+  crate_nested_HashID_destroy(arg1);
+}
+
+
+SWIGEXPORT jbyteArray JNICALL Java_org_dash_sdk_exampleJNI_crateNestedHashIDGet0(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jbyteArray jresult = 0 ;
+  crate_nested_HashID *arg1 = (crate_nested_HashID *) 0 ;
+  uint8_t (*result)[32] = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_nested_HashID **)&jarg1; 
+  result = (uint8_t (*)[32])crate_nested_HashID_get_0((crate_nested_HashID const *)arg1);
+  {
+    jresult = jenv->NewByteArray(32);
+    jenv->SetByteArrayRegion(jresult, 0, 32, (jbyte *)(*result));
+  }
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_crateNestedHashIDSet0(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jbyteArray jarg2) {
+  crate_nested_HashID *arg1 = (crate_nested_HashID *) 0 ;
+  uint8_t (*arg2)[32] = (uint8_t (*)[32]) 0 ;
+  uint8_t *byteArray2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_nested_HashID **)&jarg1; 
+  {
+    if (!jarg2) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null array");
+      return ;
+    }
+    const jsize sz = jenv->GetArrayLength(jarg2);
+    jbyte* const jarr = jenv->GetByteArrayElements(jarg2, 0);
+    if (!jarr) return ;
+    byteArray2 = (uint8_t *)memoryFactory.alloc(32); // this is a memory leak?
+    memcpy(byteArray2, jarr, sz);
+    
+    //memcpy(arg2, jarr, sz);
+    jenv->ReleaseByteArrayElements(jarg2, jarr, JNI_ABORT);
+    arg2 = (uint8_t (*) [32])byteArray2;
+  }
+  crate_nested_HashID_set_0(arg1,(unsigned char (*)[32])arg2);
+  {
+    //JCALL3(ReleaseByteArrayElements, jenv, jarg2, (jbyte *) *arg2, 0);
+    
+  }
+  
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_crateNestedIdentifierBytes32Ctor(JNIEnv *jenv, jclass jcls, jbyteArray jarg1) {
+  jlong jresult = 0 ;
+  uint8_t (*arg1)[32] = (uint8_t (*)[32]) 0 ;
+  uint8_t *byteArray1 ;
+  crate_nested_IdentifierBytes32 *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  {
+    if (!jarg1) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null array");
+      return 0;
+    }
+    const jsize sz = jenv->GetArrayLength(jarg1);
+    jbyte* const jarr = jenv->GetByteArrayElements(jarg1, 0);
+    if (!jarr) return 0;
+    byteArray1 = (uint8_t *)memoryFactory.alloc(32); // this is a memory leak?
+    memcpy(byteArray1, jarr, sz);
+    
+    //memcpy(arg1, jarr, sz);
+    jenv->ReleaseByteArrayElements(jarg1, jarr, JNI_ABORT);
+    arg1 = (uint8_t (*) [32])byteArray1;
+  }
+  result = (crate_nested_IdentifierBytes32 *)crate_nested_IdentifierBytes32_ctor((unsigned char (*)[32])arg1);
+  *(crate_nested_IdentifierBytes32 **)&jresult = result; 
+  {
+    //JCALL3(ReleaseByteArrayElements, jenv, jarg1, (jbyte *) *arg1, 0);
+    
+  }
+  
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_crateNestedIdentifierBytes32Destroy(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  crate_nested_IdentifierBytes32 *arg1 = (crate_nested_IdentifierBytes32 *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_nested_IdentifierBytes32 **)&jarg1; 
+  crate_nested_IdentifierBytes32_destroy(arg1);
+}
+
+
+SWIGEXPORT jbyteArray JNICALL Java_org_dash_sdk_exampleJNI_crateNestedIdentifierBytes32Get0(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jbyteArray jresult = 0 ;
+  crate_nested_IdentifierBytes32 *arg1 = (crate_nested_IdentifierBytes32 *) 0 ;
+  uint8_t (*result)[32] = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_nested_IdentifierBytes32 **)&jarg1; 
+  result = (uint8_t (*)[32])crate_nested_IdentifierBytes32_get_0((crate_nested_IdentifierBytes32 const *)arg1);
+  {
+    jresult = jenv->NewByteArray(32);
+    jenv->SetByteArrayRegion(jresult, 0, 32, (jbyte *)(*result));
+  }
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_crateNestedIdentifierBytes32Set0(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jbyteArray jarg2) {
+  crate_nested_IdentifierBytes32 *arg1 = (crate_nested_IdentifierBytes32 *) 0 ;
+  uint8_t (*arg2)[32] = (uint8_t (*)[32]) 0 ;
+  uint8_t *byteArray2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_nested_IdentifierBytes32 **)&jarg1; 
+  {
+    if (!jarg2) {
+      SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null array");
+      return ;
+    }
+    const jsize sz = jenv->GetArrayLength(jarg2);
+    jbyte* const jarr = jenv->GetByteArrayElements(jarg2, 0);
+    if (!jarr) return ;
+    byteArray2 = (uint8_t *)memoryFactory.alloc(32); // this is a memory leak?
+    memcpy(byteArray2, jarr, sz);
+    
+    //memcpy(arg2, jarr, sz);
+    jenv->ReleaseByteArrayElements(jarg2, jarr, JNI_ABORT);
+    arg2 = (uint8_t (*) [32])byteArray2;
+  }
+  crate_nested_IdentifierBytes32_set_0(arg1,(unsigned char (*)[32])arg2);
+  {
+    //JCALL3(ReleaseByteArrayElements, jenv, jarg2, (jbyte *) *arg2, 0);
+    
+  }
+  
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_crateNestedDataContractNotPresentErrorCtor(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  crate_nested_Identifier *arg1 = (crate_nested_Identifier *) 0 ;
+  crate_nested_DataContractNotPresentError *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_nested_Identifier **)&jarg1; 
+  result = (crate_nested_DataContractNotPresentError *)crate_nested_DataContractNotPresentError_ctor(arg1);
+  *(crate_nested_DataContractNotPresentError **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_crateNestedDataContractNotPresentErrorDestroy(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  crate_nested_DataContractNotPresentError *arg1 = (crate_nested_DataContractNotPresentError *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_nested_DataContractNotPresentError **)&jarg1; 
+  crate_nested_DataContractNotPresentError_destroy(arg1);
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_crateNestedDataContractNotPresentErrorGetDataContractId(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  crate_nested_DataContractNotPresentError *arg1 = (crate_nested_DataContractNotPresentError *) 0 ;
+  crate_nested_Identifier *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_nested_DataContractNotPresentError **)&jarg1; 
+  result = (crate_nested_Identifier *)crate_nested_DataContractNotPresentError_get_data_contract_id((crate_nested_DataContractNotPresentError const *)arg1);
+  *(crate_nested_Identifier **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_crateNestedDataContractNotPresentErrorSetDataContractId(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  crate_nested_DataContractNotPresentError *arg1 = (crate_nested_DataContractNotPresentError *) 0 ;
+  crate_nested_Identifier *arg2 = (crate_nested_Identifier *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(crate_nested_DataContractNotPresentError **)&jarg1; 
+  arg2 = *(crate_nested_Identifier **)&jarg2; 
+  crate_nested_DataContractNotPresentError_set_data_contract_id(arg1,arg2);
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_crateNestedFeatureVersionCtor(JNIEnv *jenv, jclass jcls, jint jarg1) {
+  jlong jresult = 0 ;
+  uint16_t arg1 ;
+  crate_nested_FeatureVersion *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = (uint16_t)jarg1; 
+  result = (crate_nested_FeatureVersion *)crate_nested_FeatureVersion_ctor(arg1);
+  *(crate_nested_FeatureVersion **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_crateNestedFeatureVersionDestroy(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  crate_nested_FeatureVersion *arg1 = (crate_nested_FeatureVersion *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_nested_FeatureVersion **)&jarg1; 
+  crate_nested_FeatureVersion_destroy(arg1);
+}
+
+
+SWIGEXPORT jint JNICALL Java_org_dash_sdk_exampleJNI_crateNestedFeatureVersionGet0(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  crate_nested_FeatureVersion *arg1 = (crate_nested_FeatureVersion *) 0 ;
+  uint16_t result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_nested_FeatureVersion **)&jarg1; 
+  result = (uint16_t)crate_nested_FeatureVersion_get_0((crate_nested_FeatureVersion const *)arg1);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_crateNestedFeatureVersionSet0(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  crate_nested_FeatureVersion *arg1 = (crate_nested_FeatureVersion *) 0 ;
+  uint16_t arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(crate_nested_FeatureVersion **)&jarg1; 
+  arg2 = (uint16_t)jarg2; 
+  crate_nested_FeatureVersion_set_0(arg1,arg2);
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_stdCollectionsMapKeysCrateIdentityIdentityKeyIDValuesCrateIdentityIdentityIdentityPublicKeyCtor(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2, jlong jarg3) {
+  jlong jresult = 0 ;
+  crate_identity_identity_KeyID **arg1 = (crate_identity_identity_KeyID **) 0 ;
+  crate_identity_identity_IdentityPublicKey **arg2 = (crate_identity_identity_IdentityPublicKey **) 0 ;
+  uintptr_t arg3 ;
+  std_collections_Map_keys_crate_identity_identity_KeyID_values_crate_identity_identity_IdentityPublicKey *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(crate_identity_identity_KeyID ***)&jarg1; 
+  arg2 = *(crate_identity_identity_IdentityPublicKey ***)&jarg2; 
+  arg3 = (uintptr_t)jarg3; 
+  result = (std_collections_Map_keys_crate_identity_identity_KeyID_values_crate_identity_identity_IdentityPublicKey *)std_collections_Map_keys_crate_identity_identity_KeyID_values_crate_identity_identity_IdentityPublicKey_ctor(arg1,arg2,arg3);
+  *(std_collections_Map_keys_crate_identity_identity_KeyID_values_crate_identity_identity_IdentityPublicKey **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_stdCollectionsMapKeysCrateIdentityIdentityKeyIDValuesCrateIdentityIdentityIdentityPublicKeyDestroy(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  std_collections_Map_keys_crate_identity_identity_KeyID_values_crate_identity_identity_IdentityPublicKey *arg1 = (std_collections_Map_keys_crate_identity_identity_KeyID_values_crate_identity_identity_IdentityPublicKey *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(std_collections_Map_keys_crate_identity_identity_KeyID_values_crate_identity_identity_IdentityPublicKey **)&jarg1; 
+  std_collections_Map_keys_crate_identity_identity_KeyID_values_crate_identity_identity_IdentityPublicKey_destroy(arg1);
 }
 
 
 SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_resultOkCrateIdentityIdentityIdentityErrCrateNestedProtocolErrorCtor(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
   jlong jresult = 0 ;
-  Identity *arg1 = (Identity *) 0 ;
-  ProtocolError *arg2 = (ProtocolError *) 0 ;
+  crate_identity_identity_Identity *arg1 = (crate_identity_identity_Identity *) 0 ;
+  crate_nested_ProtocolError *arg2 = (crate_nested_ProtocolError *) 0 ;
   Result_ok_crate_identity_identity_Identity_err_crate_nested_ProtocolError *result = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   (void)jarg2_;
-  arg1 = *(Identity **)&jarg1; 
-  arg2 = *(ProtocolError **)&jarg2; 
+  arg1 = *(crate_identity_identity_Identity **)&jarg1; 
+  arg2 = *(crate_nested_ProtocolError **)&jarg2; 
   result = (Result_ok_crate_identity_identity_Identity_err_crate_nested_ProtocolError *)Result_ok_crate_identity_identity_Identity_err_crate_nested_ProtocolError_ctor(arg1,arg2);
   *(Result_ok_crate_identity_identity_Identity_err_crate_nested_ProtocolError **)&jresult = result; 
   return jresult;
@@ -5629,6 +6103,32 @@ SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_resultOkCrateIdentityIdenti
   (void)jarg1_;
   arg1 = *(Result_ok_crate_identity_identity_Identity_err_crate_nested_ProtocolError **)&jarg1; 
   Result_ok_crate_identity_identity_Identity_err_crate_nested_ProtocolError_destroy(arg1);
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_vecCrateNestedFeatureVersionCtor(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2) {
+  jlong jresult = 0 ;
+  crate_nested_FeatureVersion **arg1 = (crate_nested_FeatureVersion **) 0 ;
+  uintptr_t arg2 ;
+  Vec_crate_nested_FeatureVersion *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(crate_nested_FeatureVersion ***)&jarg1; 
+  arg2 = (uintptr_t)jarg2; 
+  result = (Vec_crate_nested_FeatureVersion *)Vec_crate_nested_FeatureVersion_ctor(arg1,arg2);
+  *(Vec_crate_nested_FeatureVersion **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_vecCrateNestedFeatureVersionDestroy(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  Vec_crate_nested_FeatureVersion *arg1 = (Vec_crate_nested_FeatureVersion *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(Vec_crate_nested_FeatureVersion **)&jarg1; 
+  Vec_crate_nested_FeatureVersion_destroy(arg1);
 }
 
 
@@ -5681,61 +6181,6 @@ SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_vecU8Destroy(JNIEnv *jenv, 
   jenv->ReleaseByteArrayElements(jarg1, (jbyte *) _buffer_arg1, 0);
   printf("typemap(argout) Vec_u8 *: %ld, [%lx]%d\n", arg1->count, (long)arg1->values, arg1->values[0]);
   
-}
-
-
-SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_vecCrateNestedFeatureVersionCtor(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2) {
-  jlong jresult = 0 ;
-  FeatureVersion **arg1 = (FeatureVersion **) 0 ;
-  uintptr_t arg2 ;
-  Vec_crate_nested_FeatureVersion *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  arg1 = *(FeatureVersion ***)&jarg1; 
-  arg2 = (uintptr_t)jarg2; 
-  result = (Vec_crate_nested_FeatureVersion *)Vec_crate_nested_FeatureVersion_ctor(arg1,arg2);
-  *(Vec_crate_nested_FeatureVersion **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_vecCrateNestedFeatureVersionDestroy(JNIEnv *jenv, jclass jcls, jlong jarg1) {
-  Vec_crate_nested_FeatureVersion *arg1 = (Vec_crate_nested_FeatureVersion *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  arg1 = *(Vec_crate_nested_FeatureVersion **)&jarg1; 
-  Vec_crate_nested_FeatureVersion_destroy(arg1);
-}
-
-
-SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_stdCollectionsMapKeysCrateIdentityIdentityKeyIDValuesCrateIdentityIdentityIdentityPublicKeyCtor(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2, jlong jarg3) {
-  jlong jresult = 0 ;
-  KeyID **arg1 = (KeyID **) 0 ;
-  IdentityPublicKey **arg2 = (IdentityPublicKey **) 0 ;
-  uintptr_t arg3 ;
-  std_collections_Map_keys_crate_identity_identity_KeyID_values_crate_identity_identity_IdentityPublicKey *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  arg1 = *(KeyID ***)&jarg1; 
-  arg2 = *(IdentityPublicKey ***)&jarg2; 
-  arg3 = (uintptr_t)jarg3; 
-  result = (std_collections_Map_keys_crate_identity_identity_KeyID_values_crate_identity_identity_IdentityPublicKey *)std_collections_Map_keys_crate_identity_identity_KeyID_values_crate_identity_identity_IdentityPublicKey_ctor(arg1,arg2,arg3);
-  *(std_collections_Map_keys_crate_identity_identity_KeyID_values_crate_identity_identity_IdentityPublicKey **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_org_dash_sdk_exampleJNI_stdCollectionsMapKeysCrateIdentityIdentityKeyIDValuesCrateIdentityIdentityIdentityPublicKeyDestroy(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  std_collections_Map_keys_crate_identity_identity_KeyID_values_crate_identity_identity_IdentityPublicKey *arg1 = (std_collections_Map_keys_crate_identity_identity_KeyID_values_crate_identity_identity_IdentityPublicKey *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(std_collections_Map_keys_crate_identity_identity_KeyID_values_crate_identity_identity_IdentityPublicKey **)&jarg1; 
-  std_collections_Map_keys_crate_identity_identity_KeyID_values_crate_identity_identity_IdentityPublicKey_destroy(arg1);
 }
 
 
@@ -5916,51 +6361,51 @@ SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_memoryFactory_1get(JNIEnv 
 
 SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_identifierClone(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jlong jresult = 0 ;
-  Identifier *arg1 = (Identifier *) 0 ;
-  Identifier *result = 0 ;
+  crate_nested_Identifier *arg1 = (crate_nested_Identifier *) 0 ;
+  crate_nested_Identifier *result = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(Identifier **)&jarg1; 
-  result = (Identifier *)Identifier_clone(arg1);
-  *(Identifier **)&jresult = result; 
+  arg1 = *(crate_nested_Identifier **)&jarg1; 
+  result = (crate_nested_Identifier *)Identifier_clone(arg1);
+  *(crate_nested_Identifier **)&jresult = result; 
   return jresult;
 }
 
 
 SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_singleContract(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jlong jresult = 0 ;
-  Identifier *arg1 = (Identifier *) 0 ;
-  ContractBounds *result = 0 ;
+  crate_nested_Identifier *arg1 = (crate_nested_Identifier *) 0 ;
+  crate_identity_identity_ContractBounds *result = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(Identifier **)&jarg1; 
-  result = (ContractBounds *)singleContract(arg1);
-  *(ContractBounds **)&jresult = result; 
+  arg1 = *(crate_nested_Identifier **)&jarg1; 
+  result = (crate_identity_identity_ContractBounds *)singleContract(arg1);
+  *(crate_identity_identity_ContractBounds **)&jresult = result; 
   return jresult;
 }
 
 
-SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_singleContractDocumentType(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2) {
+SWIGEXPORT jlong JNICALL Java_org_dash_sdk_exampleJNI_singleContractDocument(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2) {
   jlong jresult = 0 ;
-  Identifier *arg1 = (Identifier *) 0 ;
+  crate_nested_Identifier *arg1 = (crate_nested_Identifier *) 0 ;
   char *arg2 = (char *) 0 ;
-  ContractBounds *result = 0 ;
+  crate_identity_identity_ContractBounds *result = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(Identifier **)&jarg1; 
+  arg1 = *(crate_nested_Identifier **)&jarg1; 
   arg2 = 0;
   if (jarg2) {
     arg2 = (char *)jenv->GetStringUTFChars(jarg2, 0);
     if (!arg2) return 0;
   }
-  result = (ContractBounds *)singleContractDocumentType(arg1,arg2);
-  *(ContractBounds **)&jresult = result; 
+  result = (crate_identity_identity_ContractBounds *)singleContractDocument(arg1,arg2);
+  *(crate_identity_identity_ContractBounds **)&jresult = result; 
   if (arg2) jenv->ReleaseStringUTFChars(jarg2, (const char *)arg2);
   return jresult;
 }

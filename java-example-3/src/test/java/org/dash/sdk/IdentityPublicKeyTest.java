@@ -21,9 +21,9 @@ public class IdentityPublicKeyTest extends BaseTest {
 
     @Test
     public void createKeyIDinRustAndDestroy() {
-        KeyID id = example.keyIDCtor(1);
+        KeyID id = example.crateIdentityIdentityKeyIDCtor(1);
         assertEquals(1, id.toInt());
-        example.keyIDDestroy(id);
+        example.crateIdentityIdentityKeyIDDestroy(id);
     }
 
     @Test
@@ -36,9 +36,9 @@ public class IdentityPublicKeyTest extends BaseTest {
     @Test
     public void createTimestampMillisinRustAndDestroy() {
         long timestamp = System.currentTimeMillis();
-        TimestampMillis ts = example.timestampMillisCtor(BigInteger.valueOf(timestamp));
+        TimestampMillis ts = example.crateIdentityIdentityTimestampMillisCtor(BigInteger.valueOf(timestamp));
         assertEquals(timestamp, ts.toLong());
-        example.timestampMillisDestroy(ts);
+        example.crateIdentityIdentityTimestampMillisDestroy(ts);
     }
 
     @Test
@@ -60,12 +60,12 @@ public class IdentityPublicKeyTest extends BaseTest {
 
     @Test
     public void enumTest() {
-        Purpose purpose = Purpose.Purpose_AUTHENTICATION;
-        KeyType keyType = KeyType.KeyType_ECDSA_SECP256K1;
-        SecurityLevel securityLevel = SecurityLevel.SecurityLevel_HIGH;
-        assertEquals(KeyType.KeyType_ECDSA_SECP256K1, keyType);
-        assertEquals(Purpose.Purpose_AUTHENTICATION, purpose);
-        assertEquals(SecurityLevel.SecurityLevel_HIGH, securityLevel);
+        Purpose purpose = Purpose.AUTHENTICATION;
+        KeyType keyType = KeyType.ECDSA_SECP256K1;
+        SecurityLevel securityLevel = SecurityLevel.HIGH;
+        assertEquals(KeyType.ECDSA_SECP256K1, keyType);
+        assertEquals(Purpose.AUTHENTICATION, purpose);
+        assertEquals(SecurityLevel.HIGH, securityLevel);
     }
 
     @Test
@@ -73,9 +73,9 @@ public class IdentityPublicKeyTest extends BaseTest {
         Identifier contract = new Identifier(contractIdentifier);
         KeyID keyId = new KeyID(2);
 
-        Purpose purpose = Purpose.Purpose_AUTHENTICATION;
-        KeyType keyType = KeyType.KeyType_ECDSA_SECP256K1;
-        SecurityLevel securityLevel = SecurityLevel.SecurityLevel_HIGH;
+        Purpose purpose = Purpose.AUTHENTICATION;
+        KeyType keyType = KeyType.ECDSA_SECP256K1;
+        SecurityLevel securityLevel = SecurityLevel.HIGH;
 
         BinaryData data = new BinaryData(publicKey);
         assertArrayEquals(publicKey, data.get_0());
@@ -93,9 +93,9 @@ public class IdentityPublicKeyTest extends BaseTest {
         System.out.printf("identitypublickeyv0 %x\n", IdentityPublicKeyV0.getCPtr(ipkv0));
         System.out.flush();
         assertEquals(2, ipkv0.getId().toInt());
-        assertEquals(Purpose.Purpose_AUTHENTICATION, ipkv0.getPurpose());
-        assertEquals(KeyType.KeyType_ECDSA_SECP256K1, ipkv0.getKeyType());
-        assertEquals(SecurityLevel.SecurityLevel_HIGH, ipkv0.getSecurityLevel());
+        assertEquals(Purpose.AUTHENTICATION, ipkv0.getPurpose());
+        assertEquals(KeyType.ECDSA_SECP256K1, ipkv0.getKeyType());
+        assertEquals(SecurityLevel.HIGH, ipkv0.getSecurityLevel());
         assertArrayEquals(publicKey, ipkv0.getData().get_0());
         assertFalse(ipkv0.getRead_only());
         assertNull(ipkv0.getDisabled_at());
@@ -110,9 +110,9 @@ public class IdentityPublicKeyTest extends BaseTest {
     @Test
     public void createIdentityPublicKeyInJavaAndDestroyTest() {
         KeyID keyId = new KeyID(0);
-        Purpose purpose = Purpose.Purpose_AUTHENTICATION;
-        KeyType keyType = KeyType.KeyType_ECDSA_SECP256K1;
-        SecurityLevel securityLevel = SecurityLevel.SecurityLevel_HIGH;
+        Purpose purpose = Purpose.AUTHENTICATION;
+        KeyType keyType = KeyType.ECDSA_SECP256K1;
+        SecurityLevel securityLevel = SecurityLevel.HIGH;
 
         BinaryData data = new BinaryData(publicKey);
         Identifier id = new Identifier(contractIdentifier);
@@ -240,7 +240,7 @@ public class IdentityPublicKeyTest extends BaseTest {
         assertEquals(id, ipkv0.getId());
         assertNotNull(ipkv0.getContract_bounds());
         assertNotNull(ipkv0.getDisabled_at());
-        assertEquals(ContractBounds_Tag.ContractBounds_SingleContract, ipkv0.getContract_bounds().getTag());
+        assertEquals(ContractBounds_Tag.SingleContract, ipkv0.getContract_bounds().getTag());
         assertEquals(timestampMillis, ipkv0.getDisabled_at());
 
         ipkv0.delete();

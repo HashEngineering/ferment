@@ -10,18 +10,18 @@ package org.dash.sdk;
 
 import org.dash.sdk.base.BaseObject;
 
-public class SWIGTYPE_p_Purpose extends BaseObject {
+public class SWIGTYPE_p_p_crate_nested_FeatureVersion extends BaseObject {
   private transient long swigCPtr;
 
-  protected SWIGTYPE_p_Purpose(long cPtr, @SuppressWarnings("unused") boolean futureUse) {
+  protected SWIGTYPE_p_p_crate_nested_FeatureVersion(long cPtr, @SuppressWarnings("unused") boolean futureUse) {
     swigCPtr = cPtr;
   }
 
-  protected SWIGTYPE_p_Purpose() {
+  protected SWIGTYPE_p_p_crate_nested_FeatureVersion() {
     swigCPtr = 0;
   }
 
-  protected static long getCPtr(SWIGTYPE_p_Purpose obj) {
+  protected static long getCPtr(SWIGTYPE_p_p_crate_nested_FeatureVersion obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 

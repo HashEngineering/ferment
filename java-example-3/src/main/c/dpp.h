@@ -138,10 +138,10 @@ public:
 extern MemoryFactory & memoryFactory;
 
 #define ENUM_CASE(enum_class, value) \
-    case enum_class##_##value: \
-        return enum_class##_##value##_ctor();
+    case crate_identity_identity_##enum_class##_##value: \
+        return crate_identity_identity_##enum_class##_##value##_ctor();
 
-KeyType * intToKeyType(int value) {
+crate_identity_identity_KeyType * intToKeyType(int value) {
     switch(value) {
         ENUM_CASE(KeyType, ECDSA_SECP256K1)
         ENUM_CASE(KeyType, BLS12_381)
@@ -151,7 +151,7 @@ KeyType * intToKeyType(int value) {
     }
 }
 
-SecurityLevel * intToSecurityLevel(int value) {
+crate_identity_identity_SecurityLevel * intToSecurityLevel(int value) {
     switch(value) {
         ENUM_CASE(SecurityLevel, MASTER)
         ENUM_CASE(SecurityLevel, CRITICAL)
@@ -159,7 +159,7 @@ SecurityLevel * intToSecurityLevel(int value) {
         ENUM_CASE(SecurityLevel, MEDIUM)
     }
 }
-Purpose * intToPurpose(int value) {
+crate_identity_identity_Purpose * intToPurpose(int value) {
      switch(value) {
         ENUM_CASE(Purpose, AUTHENTICATION)
         ENUM_CASE(Purpose, DECRYPTION)
@@ -170,22 +170,22 @@ Purpose * intToPurpose(int value) {
      }
 }
 
-Identifier * Identifier_clone(Identifier * id) {
+crate_nested_Identifier * Identifier_clone(crate_nested_Identifier * id) {
      uint8_t * bytesCopy = (uint8_t*)memoryFactory.alloc(32);
      memcpy(bytesCopy, id->_0->_0, 32);
-     return Identifier_ctor(IdentifierBytes32_ctor((uint8_t (*)[32])bytesCopy));
+     return crate_nested_Identifier_ctor(crate_nested_IdentifierBytes32_ctor((uint8_t (*)[32])bytesCopy));
 }
 
-ContractBounds * singleContract(Identifier * id) {
-        Identifier * idCopy = Identifier_clone(id);
-        ContractBounds * cb = ContractBounds_SingleContract_ctor(idCopy);
+crate_identity_identity_ContractBounds * singleContract(crate_nested_Identifier * id) {
+        crate_nested_Identifier * idCopy = Identifier_clone(id);
+        crate_identity_identity_ContractBounds * cb = crate_identity_identity_ContractBounds_SingleContract_ctor(idCopy);
         return cb;
 }
 
-static ContractBounds * singleContractDocumentType(Identifier * id, char * type) {
-    Identifier * idCopy = Identifier_clone(id);
+static crate_identity_identity_ContractBounds * singleContractDocument(crate_nested_Identifier * id, char * type) {
+    crate_nested_Identifier * idCopy = Identifier_clone(id);
     char * typeCopy = memoryFactory.clone(type);
-    return ContractBounds_SingleContractDocumentType_ctor(idCopy, typeCopy);
+    return crate_identity_identity_ContractBounds_SingleContractDocumentType_ctor(idCopy, typeCopy);
 }
 
 #endif // this file

@@ -10,16 +10,16 @@ package org.dash.sdk;
 
 import org.dash.sdk.base.BaseObject;
 
-public class RootStruct extends BaseObject {
+public class crate_identity_identity_ContractBounds_SingleContract_Body extends BaseObject {
   private transient long swigCPtr;
   protected transient boolean swigCMemOwn;
 
-  protected RootStruct(long cPtr, boolean cMemoryOwn) {
+  protected crate_identity_identity_ContractBounds_SingleContract_Body(long cPtr, boolean cMemoryOwn) {
     swigCMemOwn = cMemoryOwn;
     swigCPtr = cPtr;
   }
 
-  protected static long getCPtr(RootStruct obj) {
+  protected static long getCPtr(crate_identity_identity_ContractBounds_SingleContract_Body obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 
@@ -32,7 +32,7 @@ public class RootStruct extends BaseObject {
     if (swigCPtr != 0) {
       if (swigCMemOwn) {
         swigCMemOwn = false;
-        exampleJNI.delete_RootStruct(swigCPtr);
+        exampleJNI.delete_crate_identity_identity_ContractBounds_SingleContract_Body(swigCPtr);
       }
       swigCPtr = 0;
     }
@@ -42,12 +42,13 @@ public class RootStruct extends BaseObject {
     return swigCPtr;
   }
 
-  public void setName(String value) {
-    exampleJNI.RootStruct_name_set(swigCPtr, this, value);
+  public void setId(Identifier value) {
+    exampleJNI.crate_identity_identity_ContractBounds_SingleContract_Body_id_set(swigCPtr, this, Identifier.getCPtr(value), value);
   }
 
-  public String getName() {
-    return exampleJNI.RootStruct_name_get(swigCPtr, this);
+  public Identifier getId() {
+    long cPtr = exampleJNI.crate_identity_identity_ContractBounds_SingleContract_Body_id_get(swigCPtr, this);
+    return (cPtr == 0) ? null : new Identifier(cPtr, false);
   }
 
 }

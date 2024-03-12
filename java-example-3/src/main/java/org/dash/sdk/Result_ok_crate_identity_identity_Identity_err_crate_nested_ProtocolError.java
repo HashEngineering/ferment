@@ -51,13 +51,13 @@ public class Result_ok_crate_identity_identity_Identity_err_crate_nested_Protoco
     return (cPtr == 0) ? null : new Identity(cPtr, false);
   }
 
-  public void setError(ProtocolError value) {
-    exampleJNI.Result_ok_crate_identity_identity_Identity_err_crate_nested_ProtocolError_error_set(swigCPtr, this, ProtocolError.getCPtr(value), value);
+  public void setError(crate_nested_ProtocolError value) {
+    exampleJNI.Result_ok_crate_identity_identity_Identity_err_crate_nested_ProtocolError_error_set(swigCPtr, this, crate_nested_ProtocolError.getCPtr(value), value);
   }
 
-  public ProtocolError getError() {
+  public crate_nested_ProtocolError getError() {
     long cPtr = exampleJNI.Result_ok_crate_identity_identity_Identity_err_crate_nested_ProtocolError_error_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new ProtocolError(cPtr, false);
+    return (cPtr == 0) ? null : new crate_nested_ProtocolError(cPtr, false);
   }
 
 }

@@ -1,8 +1,9 @@
-%extend BinaryData {
-    BinaryData(Vec_u8 *o_0) {
-        return BinaryData_ctor(o_0);
+%rename (BinaryData) crate_nested_BinaryData;
+%extend crate_nested_BinaryData {
+    crate_nested_BinaryData(Vec_u8 *o_0) {
+        return crate_nested_BinaryData_ctor(o_0);
     }
-    ~BinaryData() {
+    ~crate_nested_BinaryData() {
         printf("~BinaryData(%lx)\n", (uint64_t)$self);
         printf("~BinaryData->_0(%lx)\n", (uint64_t)$self->_0);
 
@@ -12,7 +13,7 @@
 
         // Vec_u8_destroy($self->_0); // crash
         printf("~BinaryData->_0(%lx)\n", (uint64_t)$self->_0);
-        BinaryData_destroy($self);
+        crate_nested_BinaryData_destroy($self);
         //printf("~BinaryData complete(%lx)\n", (uint64_t)$self);
         //printf("~BinaryData->_0->values[0] = %d\n", (int)ptr[0]);
 

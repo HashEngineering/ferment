@@ -10,16 +10,16 @@ package org.dash.sdk;
 
 import org.dash.sdk.base.BaseObject;
 
-public class OptionalFeatureVersion extends BaseObject {
+public class crate_nested_DataContractNotPresentError extends BaseObject {
   private transient long swigCPtr;
   protected transient boolean swigCMemOwn;
 
-  protected OptionalFeatureVersion(long cPtr, boolean cMemoryOwn) {
+  protected crate_nested_DataContractNotPresentError(long cPtr, boolean cMemoryOwn) {
     swigCMemOwn = cMemoryOwn;
     swigCPtr = cPtr;
   }
 
-  protected static long getCPtr(OptionalFeatureVersion obj) {
+  protected static long getCPtr(crate_nested_DataContractNotPresentError obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 
@@ -32,7 +32,7 @@ public class OptionalFeatureVersion extends BaseObject {
     if (swigCPtr != 0) {
       if (swigCMemOwn) {
         swigCMemOwn = false;
-        exampleJNI.delete_OptionalFeatureVersion(swigCPtr);
+        exampleJNI.delete_crate_nested_DataContractNotPresentError(swigCPtr);
       }
       swigCPtr = 0;
     }
@@ -42,12 +42,13 @@ public class OptionalFeatureVersion extends BaseObject {
     return swigCPtr;
   }
 
-  public void set_0(int value) {
-    exampleJNI.OptionalFeatureVersion__0_set(swigCPtr, this, value);
+  public void setData_contract_id(Identifier value) {
+    exampleJNI.crate_nested_DataContractNotPresentError_data_contract_id_set(swigCPtr, this, Identifier.getCPtr(value), value);
   }
 
-  public int get_0() {
-    return exampleJNI.OptionalFeatureVersion__0_get(swigCPtr, this);
+  public Identifier getData_contract_id() {
+    long cPtr = exampleJNI.crate_nested_DataContractNotPresentError_data_contract_id_get(swigCPtr, this);
+    return (cPtr == 0) ? null : new Identifier(cPtr, false);
   }
 
 }

@@ -10,16 +10,16 @@ package org.dash.sdk;
 
 import org.dash.sdk.base.BaseObject;
 
-public class KeyID extends BaseObject {
+public class crate_RootStruct extends BaseObject {
   private transient long swigCPtr;
   protected transient boolean swigCMemOwn;
 
-  protected KeyID(long cPtr, boolean cMemoryOwn) {
+  protected crate_RootStruct(long cPtr, boolean cMemoryOwn) {
     swigCMemOwn = cMemoryOwn;
     swigCPtr = cPtr;
   }
 
-  protected static long getCPtr(KeyID obj) {
+  protected static long getCPtr(crate_RootStruct obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 
@@ -32,7 +32,7 @@ public class KeyID extends BaseObject {
     if (swigCPtr != 0) {
       if (swigCMemOwn) {
         swigCMemOwn = false;
-        exampleJNI.delete_KeyID(swigCPtr);
+        exampleJNI.delete_crate_RootStruct(swigCPtr);
       }
       swigCPtr = 0;
     }
@@ -42,24 +42,12 @@ public class KeyID extends BaseObject {
     return swigCPtr;
   }
 
-  public void set_0(long value) {
-    exampleJNI.KeyID__0_set(swigCPtr, this, value);
+  public void setName(String value) {
+    exampleJNI.crate_RootStruct_name_set(swigCPtr, this, value);
   }
 
-  public long get_0() {
-    return exampleJNI.KeyID__0_get(swigCPtr, this);
-  }
-
-  public KeyID(int id) {
-    this(exampleJNI.new_KeyID(id), true);
-  }
-
-  public int toInt() {
-    return exampleJNI.KeyID_toInt(swigCPtr, this);
-  }
-
-  public boolean objectEquals(KeyID other) {
-    return exampleJNI.KeyID_objectEquals(swigCPtr, this, KeyID.getCPtr(other), other);
+  public String getName() {
+    return exampleJNI.crate_RootStruct_name_get(swigCPtr, this);
   }
 
 }

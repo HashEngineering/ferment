@@ -9,7 +9,7 @@
 package org.dash.sdk;
 
 public final class Identity_Tag {
-  public final static Identity_Tag Identity_V0 = new Identity_Tag("Identity_V0");
+  public final static Identity_Tag IdentityV0Type = new Identity_Tag("IdentityV0Type");
 
   public final int swigValue() {
     return swigValue;
@@ -45,7 +45,7 @@ public final class Identity_Tag {
     swigNext = this.swigValue+1;
   }
 
-  private static Identity_Tag[] swigValues = { Identity_V0 };
+  private static Identity_Tag[] swigValues = { IdentityV0Type };
   private static int swigNext = 0;
   private final int swigValue;
   private final String swigName;

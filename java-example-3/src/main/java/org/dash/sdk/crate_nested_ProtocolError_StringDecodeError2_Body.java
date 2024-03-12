@@ -10,16 +10,16 @@ package org.dash.sdk;
 
 import org.dash.sdk.base.BaseObject;
 
-public class ContractBounds_SingleContract_Body extends BaseObject {
+public class crate_nested_ProtocolError_StringDecodeError2_Body extends BaseObject {
   private transient long swigCPtr;
   protected transient boolean swigCMemOwn;
 
-  protected ContractBounds_SingleContract_Body(long cPtr, boolean cMemoryOwn) {
+  protected crate_nested_ProtocolError_StringDecodeError2_Body(long cPtr, boolean cMemoryOwn) {
     swigCMemOwn = cMemoryOwn;
     swigCPtr = cPtr;
   }
 
-  protected static long getCPtr(ContractBounds_SingleContract_Body obj) {
+  protected static long getCPtr(crate_nested_ProtocolError_StringDecodeError2_Body obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 
@@ -32,7 +32,7 @@ public class ContractBounds_SingleContract_Body extends BaseObject {
     if (swigCPtr != 0) {
       if (swigCMemOwn) {
         swigCMemOwn = false;
-        exampleJNI.delete_ContractBounds_SingleContract_Body(swigCPtr);
+        exampleJNI.delete_crate_nested_ProtocolError_StringDecodeError2_Body(swigCPtr);
       }
       swigCPtr = 0;
     }
@@ -42,13 +42,20 @@ public class ContractBounds_SingleContract_Body extends BaseObject {
     return swigCPtr;
   }
 
-  public void setId(Identifier value) {
-    exampleJNI.ContractBounds_SingleContract_Body_id_set(swigCPtr, this, Identifier.getCPtr(value), value);
+  public void set_0(String value) {
+    exampleJNI.crate_nested_ProtocolError_StringDecodeError2_Body__0_set(swigCPtr, this, value);
   }
 
-  public Identifier getId() {
-    long cPtr = exampleJNI.ContractBounds_SingleContract_Body_id_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new Identifier(cPtr, false);
+  public String get_0() {
+    return exampleJNI.crate_nested_ProtocolError_StringDecodeError2_Body__0_get(swigCPtr, this);
+  }
+
+  public void set_1(long value) {
+    exampleJNI.crate_nested_ProtocolError_StringDecodeError2_Body__1_set(swigCPtr, this, value);
+  }
+
+  public long get_1() {
+    return exampleJNI.crate_nested_ProtocolError_StringDecodeError2_Body__1_get(swigCPtr, this);
   }
 
 }

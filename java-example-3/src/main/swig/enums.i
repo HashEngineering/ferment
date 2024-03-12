@@ -6,10 +6,10 @@
 %ignore Purpose_VOTING_ctor(void);
 %ignore Purpose_destroy(enum Purpose *ffi);
 %ignore intToPurpose(int);
-%ignore IdentityPublicKeyV0_ctor(struct KeyID *id,
+%ignore crate_identity_identity_IdentityPublicKeyV0_ctor(struct KeyID *id,
      enum Purpose *purpose,
      enum SecurityLevel* security_level,
-     struct ContractBounds *contract_bounds,
+     struct crate_identity_identity_ContractBounds *contract_bounds,
      enum KeyType *key_type,
      bool read_only,
      struct BinaryData *data,

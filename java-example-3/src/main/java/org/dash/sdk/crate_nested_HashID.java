@@ -10,16 +10,16 @@ package org.dash.sdk;
 
 import org.dash.sdk.base.BaseObject;
 
-public class ProtocolError_StringDecodeError2_Body extends BaseObject {
+public class crate_nested_HashID extends BaseObject {
   private transient long swigCPtr;
   protected transient boolean swigCMemOwn;
 
-  protected ProtocolError_StringDecodeError2_Body(long cPtr, boolean cMemoryOwn) {
+  protected crate_nested_HashID(long cPtr, boolean cMemoryOwn) {
     swigCMemOwn = cMemoryOwn;
     swigCPtr = cPtr;
   }
 
-  protected static long getCPtr(ProtocolError_StringDecodeError2_Body obj) {
+  protected static long getCPtr(crate_nested_HashID obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 
@@ -32,7 +32,7 @@ public class ProtocolError_StringDecodeError2_Body extends BaseObject {
     if (swigCPtr != 0) {
       if (swigCMemOwn) {
         swigCMemOwn = false;
-        exampleJNI.delete_ProtocolError_StringDecodeError2_Body(swigCPtr);
+        exampleJNI.delete_crate_nested_HashID(swigCPtr);
       }
       swigCPtr = 0;
     }
@@ -42,20 +42,12 @@ public class ProtocolError_StringDecodeError2_Body extends BaseObject {
     return swigCPtr;
   }
 
-  public void set_0(String value) {
-    exampleJNI.ProtocolError_StringDecodeError2_Body__0_set(swigCPtr, this, value);
+  public void set_0(byte[] value) {
+    exampleJNI.crate_nested_HashID__0_set(swigCPtr, this, value);
   }
 
-  public String get_0() {
-    return exampleJNI.ProtocolError_StringDecodeError2_Body__0_get(swigCPtr, this);
-  }
-
-  public void set_1(long value) {
-    exampleJNI.ProtocolError_StringDecodeError2_Body__1_set(swigCPtr, this, value);
-  }
-
-  public long get_1() {
-    return exampleJNI.ProtocolError_StringDecodeError2_Body__1_get(swigCPtr, this);
+  public byte[] get_0() {
+    return exampleJNI.crate_nested_HashID__0_get(swigCPtr, this);
   }
 
 }

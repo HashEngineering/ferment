@@ -20,7 +20,7 @@ public class IdentityTest extends BaseTest {
         Identity identity = example.getAnIdentity();
         assertNotNull(identity);
         assertTrue(identity.swigCMemOwn);
-        assertEquals(Identity_Tag.Identity_V0, identity.getTag());
+        assertEquals(Identity_Tag.IdentityV0Type, identity.getTag());
         assertEquals(0, identity.getV0().getPublicKeyCount());
         assertNull(identity.getV0().getPublicKey(0));
         assertNull(identity.getV0().getPublicKeyById(1));
@@ -33,14 +33,14 @@ public class IdentityTest extends BaseTest {
     @Test
     public void basicIdentityInRustAndDestroy() {
         Identity identity = example.createBasicIdentityV0(identifier);
-        assertEquals(Identity_Tag.Identity_V0, identity.getTag());
+        assertEquals(Identity_Tag.IdentityV0Type, identity.getTag());
         IdentityV0 identityV0 = identity.getV0();
         assertNotNull(identityV0);
         assertArrayEquals(identifier, identityV0.getId().get_0().get_0());
         assertEquals(0L, identityV0.getRevision().toLong());
         assertEquals(0L, identityV0.getBalance());
         assertNull(identityV0.getPublicKey(0));
-        example.identityDestroy(identity);
+        example.crateIdentityIdentityIdentityDestroy(identity);
     }
 
     @Test
@@ -49,7 +49,7 @@ public class IdentityTest extends BaseTest {
         Identity identity = example.getIdentity2(identifier);
         assertNotNull(identity);
         assertTrue(identity.swigCMemOwn);
-        assertEquals(Identity_Tag.Identity_V0, identity.getTag());
+        assertEquals(Identity_Tag.IdentityV0Type, identity.getTag());
         IdentityV0 identityV0 = identity.getV0();
 
         assertEquals(2, identityV0.getBalance());
@@ -63,9 +63,9 @@ public class IdentityTest extends BaseTest {
             IdentityPublicKeyV0 ipkv0 = identityV0.getPublicKey(i);
             assertEquals(1, ipkv0.getId().toInt());
             assertFalse(ipkv0.getRead_only());
-            assertEquals(Purpose.Purpose_AUTHENTICATION, ipkv0.getPurpose());
-            assertEquals(SecurityLevel.SecurityLevel_MASTER, ipkv0.getSecurityLevel());
-            assertEquals(KeyType.KeyType_ECDSA_SECP256K1, ipkv0.getKeyType());
+            assertEquals(Purpose.AUTHENTICATION, ipkv0.getPurpose());
+            assertEquals(SecurityLevel.MASTER, ipkv0.getSecurityLevel());
+            assertEquals(KeyType.ECDSA_SECP256K1, ipkv0.getKeyType());
             assertNull(ipkv0.getDisabled_at());
             assertEquals(33, ipkv0.getData().get_0().length);
             assertNull(ipkv0.getContract_bounds());
@@ -87,7 +87,7 @@ public class IdentityTest extends BaseTest {
         Identity identityWithBounds = example.getIdentityContractBounds(id, idContract);
         assertNotNull(identityWithBounds);
         assertTrue(identityWithBounds.swigCMemOwn);
-        assertEquals(Identity_Tag.Identity_V0, identityWithBounds.getTag());
+        assertEquals(Identity_Tag.IdentityV0Type, identityWithBounds.getTag());
         IdentityV0 identityV0 = identityWithBounds.getV0();
 
         assertEquals(2, identityV0.getBalance());
@@ -101,13 +101,13 @@ public class IdentityTest extends BaseTest {
             IdentityPublicKeyV0 ipkv0 = identityV0.getPublicKey(i);
             assertEquals(1, ipkv0.getId().toInt());
             assertFalse(ipkv0.getRead_only());
-            assertEquals(Purpose.Purpose_AUTHENTICATION, ipkv0.getPurpose());
-            assertEquals(SecurityLevel.SecurityLevel_MASTER, ipkv0.getSecurityLevel());
-            assertEquals(KeyType.KeyType_ECDSA_SECP256K1, ipkv0.getKeyType());
+            assertEquals(Purpose.AUTHENTICATION, ipkv0.getPurpose());
+            assertEquals(SecurityLevel.MASTER, ipkv0.getSecurityLevel());
+            assertEquals(KeyType.ECDSA_SECP256K1, ipkv0.getKeyType());
             assertNotNull(ipkv0.getDisabled_at());
             assertEquals(33, ipkv0.getData().get_0().length);
             assertNotNull(ipkv0.getContract_bounds());
-            assertEquals(ContractBounds_Tag.ContractBounds_SingleContract, ipkv0.getContract_bounds().getTag());
+            assertEquals(ContractBounds_Tag.SingleContract, ipkv0.getContract_bounds().getTag());
             assertArrayEquals(contractIdentifier, ipkv0.getContract_bounds().getSingle_contract_document_type().getId().get_0().get_0());
         }
 
@@ -128,13 +128,13 @@ public class IdentityTest extends BaseTest {
         Identity identity = example.createBasicIdentityV0(identifier.get_0().get_0());
         assertNotNull(identity);
         assertTrue(identity.swigCMemOwn);
-        assertEquals(Identity_Tag.Identity_V0, identity.getTag());
+        assertEquals(Identity_Tag.IdentityV0Type, identity.getTag());
         IdentityV0 identityV0 = identity.getV0();
         assertArrayEquals(contractIdentifier, identityV0.getId().get_0().get_0());
         assertEquals(0, identityV0.getRevision().toLong());
         assertEquals(0, identityV0.getBalance());
         assertEquals(0, identityV0.getPublicKeyCount());
-        example.identityDestroy(identity);
+        example.crateIdentityIdentityIdentityDestroy(identity);
         identifier.delete();
     }
 //
@@ -164,7 +164,7 @@ public class IdentityTest extends BaseTest {
 //        KeyID keyId = ipkv0.getId();
 //        assertEquals(1, keyId.get_0());
 //        assertFalse(ipkv0.getRead_only());
-//        assertEquals(Purpose.Purpose_AUTHENTICATION, ipkv0.getPurpose());
+//        assertEquals(Purpose.AUTHENTICATION, ipkv0.getPurpose());
 //
 //        IdentityPublicKeyV0 identityPublicKeyV0ById = identity.getV0().getPublicKeyById(1);
 //        assertEquals(ipkv0.getData().get_0().length, identityPublicKeyV0ById.getData().get_0().length);
