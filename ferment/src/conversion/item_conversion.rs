@@ -1,5 +1,5 @@
 use std::fmt::Formatter;
-use syn::{Expr, Field, Fields, FieldsNamed, FieldsUnnamed, Ident, ImplItem, ImplItemConst, ImplItemMethod, ImplItemType, Item, ItemEnum, ItemFn, ItemImpl, ItemMod, ItemStruct, ItemTrait, ItemType, parse_quote, Path, Signature, TraitBound, Type, TypeParamBound, TypePath, TypePtr, TypeReference, TypeTraitObject, UseGlob, UseGroup, UseName, UsePath, UseRename, UseTree, Variant};
+use syn::{Expr, Field, Fields, FieldsNamed, FieldsUnnamed, Ident, ImplItem, ImplItemConst, ImplItemMethod, ImplItemType, Item, ItemEnum, ItemFn, ItemImpl, ItemMod, ItemStruct, ItemTrait, ItemType, parse_quote, Path, Signature, TraitBound, Type, TypeArray, TypeParamBound, TypePath, TypePtr, TypeReference, TypeTraitObject, UseGlob, UseGroup, UseName, UsePath, UseRename, UseTree, Variant};
 use quote::{quote, ToTokens};
 use syn::__private::TokenStream2;
 use syn::punctuated::Punctuated;
@@ -10,7 +10,7 @@ use crate::composition::{AttrsComposition, Composition, context::FnSignatureComp
 use crate::composition::context::TraitDecompositionPart2Context;
 use crate::context::{ScopeChain, ScopeContext};
 use crate::conversion::FieldTypeConversion;
-use crate::ext::Pop;
+use crate::ext::{Mangle, Pop};
 use crate::naming::Name;
 use crate::presentation::{DocPresentation, Expansion, FFIObjectPresentation};
 use crate::presentation::context::{OwnedItemPresentableContext, OwnerIteratorPresentationContext};
@@ -71,7 +71,7 @@ impl<'a> TryFrom<(&'a Item, &'a ScopeChain)> for ItemConversion {
     }
 }
 
-fn path_ident_ref<'a>(path: &'a Path) -> Option<&'a Ident> {
+fn path_ident_ref(path: &Path) -> Option<&Ident> {
     path.segments.last().map(|last_segment| &last_segment.ident)
 }
 fn path_ident(path: &Path) -> Option<Ident> {
@@ -89,11 +89,12 @@ pub fn type_ident(ty: &Type) -> Option<Ident> {
                 TypeParamBound::Trait(TraitBound { path, ..}) => path_ident(path),
                 _ => None
             })
-        }
-        _ => panic!("DDDDD")
+        },
+        Type::Array(TypeArray { elem, .. }) => type_ident(elem),
+        _ => panic!("No ident for {}", ty.to_token_stream())
     }
 }
-pub fn type_ident_ref<'a>(ty: &'a Type) -> Option<&'a Ident> {
+pub fn type_ident_ref(ty: &Type) -> Option<&Ident> {
     match ty {
         Type::Path(TypePath { path, .. }) =>
             path_ident_ref(path),
@@ -105,8 +106,10 @@ pub fn type_ident_ref<'a>(ty: &'a Type) -> Option<&'a Ident> {
                 TypeParamBound::Trait(TraitBound { path, ..}) => path_ident_ref(path),
                 _ => None
             })
-        }
-        _ => panic!("DDDDD")
+        },
+        Type::Array(TypeArray { elem, .. }) => type_ident_ref(elem),
+
+        _ => panic!("No ident ref for {}", ty.to_token_stream())
     }
 }
 
@@ -154,64 +157,14 @@ impl ItemConversion {
             ItemConversion::Enum(ItemEnum { ident, .. }, ..) |
             ItemConversion::Type(ItemType { ident, .. }, ..) |
             ItemConversion::Fn(ItemFn { sig: Signature { ident, .. }, .. }, ..) |
-            ItemConversion::Trait(ItemTrait { ident, .. }, ..) => ScopeTreeExportID::Ident(ident.clone()),
-            // ItemConversion::Use(ItemUse { tree, .. }, ..) =>
-            //     ScopeTreeExportID::Ident(Self::fold_use(tree).first().cloned().unwrap().clone()),
-            ItemConversion::Impl(ItemImpl { self_ty, trait_, .. }, ..) => ScopeTreeExportID::Impl(*self_ty.clone(), trait_.clone().map(|(_, path, _)| path)),
-                // type_ident(self_ty).unwrap(),
+            ItemConversion::Trait(ItemTrait { ident, .. }, ..) =>
+                ScopeTreeExportID::Ident(ident.clone()),
+            ItemConversion::Impl(ItemImpl { self_ty, trait_, .. }, ..) =>
+                ScopeTreeExportID::Impl(*self_ty.clone(), trait_.clone().map(|(_, path, _)| path)),
         }
     }
 
-    // pub fn is_labeled_with_macro_type(path: &Path, macro_type: &str) -> bool {
-    //     path.segments
-    //         .iter()
-    //         .any(|segment| macro_type == segment.ident.to_string().as_str())
-    // }
-    //
-    //
-    // pub fn is_labeled_for_register(path: &Path) -> bool {
-    //     Self::is_labeled_with_macro_type(path, "register")
-    // }
-    //
-    // pub fn is_owner_labeled_with_trait_implementation(path: &Path) -> bool {
-    //     Self::is_labeled_with_macro_type(path, "export")
-    // }
-    //
-    // pub fn has_export_macro_attribute(&self) -> bool {
-    //     self.attrs().iter().filter(|Attribute { path, .. }| Self::is_labeled_for_export(path)).count() > 0
-    // }
-    //
-    // pub fn macro_type(&self) -> Option<MacroType> {
-    //     self.attrs()
-    //         .iter()
-    //         .find_map(|attr| {
-    //             let path = &attr.path;
-    //             let mut arguments = Vec::<Path>::new();
-    //             if let Ok(Meta::List(meta_list)) = attr.parse_meta() {
-    //                 meta_list.nested.iter().for_each(|meta| {
-    //                     if let NestedMeta::Meta(Meta::Path(path)) = meta {
-    //                         arguments.push(path.clone());
-    //                     }
-    //                 });
-    //             }
-    //             match path.segments.last().unwrap().ident.to_string().as_str() {
-    //                 "export" =>
-    //                     Some(MacroType::Export),
-    //                 "register" => {
-    //                     let first_path = arguments.first().unwrap();
-    //                     Some(MacroType::Register(parse_quote!(#first_path)))
-    //                 },
-    //                 _ =>
-    //                     None
-    //             }
-    //         })
-    // }
-    //
-    // pub fn has_register_macro_attribute(&self) -> bool {
-    //     self.attrs().iter().filter(|Attribute { path, .. }| Self::is_labeled_for_register(path)).count() > 0
-    // }
-
-    pub fn make_expansion<'a>(&self, scope_context: &ParentComposer<ScopeContext>) -> Expansion {
+    pub fn make_expansion(&self, scope_context: &ParentComposer<ScopeContext>) -> Expansion {
         match self {
             ItemConversion::Mod(..) => Expansion::Empty,
             ItemConversion::Struct(item, scope) =>
@@ -220,18 +173,15 @@ impl ItemConversion {
                 enum_expansion(item, scope, scope_context),
             ItemConversion::Type(item, scope) =>
                 type_expansion(item, scope, scope_context),
-            ItemConversion::Fn(item, scope) => fn_expansion(item, scope, scope_context),
+            ItemConversion::Fn(item, scope) =>
+                fn_expansion(item, scope, scope_context),
             ItemConversion::Trait(item, scope) =>
                 trait_expansion(item, scope, scope_context),
             ItemConversion::Impl(item, scope) =>
                 impl_expansion(item, scope, scope_context),
-            // ItemConversion::Use(_item, _scope) =>
-            //     Expansion::Use { comment: DocPresentation::Empty },
         }
     }
 }
-
-
 
 fn enum_expansion(item_enum: &ItemEnum, item_scope: &ScopeChain, context: &ParentComposer<ScopeContext>) -> Expansion {
     let ItemEnum { attrs, ident: target_name, variants, generics, .. } = item_enum;
@@ -287,6 +237,7 @@ fn enum_expansion(item_enum: &ItemEnum, item_scope: &ScopeChain, context: &Paren
 
 fn struct_expansion(item_struct: &ItemStruct, scope: &ScopeChain, scope_context: &ParentComposer<ScopeContext>) -> Expansion {
     let ItemStruct { attrs, fields: ref f, ident: target_name, generics, .. } = item_struct;
+    // println!("struct_expansion: {}: [{} --- {}]", item_struct.ident, scope.crate_scope(), scope.self_path_holder());
     match f {
         Fields::Unnamed(ref fields) =>
             ItemComposer::struct_composer_unnamed(target_name, attrs, generics, &fields.unnamed, scope, scope_context),
@@ -318,7 +269,10 @@ fn trait_expansion(item_trait: &ItemTrait, scope: &ScopeChain, context: &ParentC
     let source = context.borrow();
     let trait_decomposition = TraitDecompositionPart2::from_trait_items(items, Some(parse_quote!(#ident)), scope.self_path_holder(), &source);
     let fields = trait_decomposition.present(TraitDecompositionPart2Context::VTableInnerFunctions, &source);
-    let vtable_name = Name::Vtable(ident.clone());
+    println!("trait_expansion: {}: {}", scope, ident);
+    let full_ty = source.full_type_for(&parse_quote!(#ident));
+    let mangled_ty = full_ty.to_mangled_ident_default();
+    let vtable_name = Name::Vtable(mangled_ty.clone());
     Expansion::Trait {
         comment: DocPresentation::Empty,
         vtable: FFIObjectPresentation::TraitVTable {
@@ -326,7 +280,7 @@ fn trait_expansion(item_trait: &ItemTrait, scope: &ScopeChain, context: &ParentC
             fields
         },
         trait_object: FFIObjectPresentation::TraitObject {
-            name: Name::TraitObj(ident.clone()),
+            name: Name::TraitObj(mangled_ty),
             vtable_name
         }
     }

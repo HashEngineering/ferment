@@ -24,11 +24,14 @@ impl ImportResolver {
             },
             UseTree::Name(UseName { ident, .. }) |
             UseTree::Rename(UseRename { rename: ident, .. }) => {
-                current_path.push(ident.clone());
-                self.inner
-                    .entry(scope.clone())
-                    .or_default()
-                    .insert(parse_quote!(#ident), Path { leading_colon: None, segments: Punctuated::from_iter(current_path.into_iter().map(PathSegment::from)) });
+                if ident != "_" {
+                    current_path.push(ident.clone());
+                    // println!("ident: {}", ident);
+                    self.inner
+                        .entry(scope.clone())
+                        .or_default()
+                        .insert(parse_quote!(#ident), Path { leading_colon: None, segments: Punctuated::from_iter(current_path.into_iter().map(PathSegment::from)) });
+                }
             },
             UseTree::Group(UseGroup { items, .. }) =>
                 items.iter()
@@ -56,8 +59,7 @@ impl ImportResolver {
         // so smth like can_have_more_than_one_grandfather,
         // println!("maybe_import: {} in {}", ident, scope);
         match scope {
-            ScopeChain::CrateRoot { .. } =>
-                self.maybe_path(&scope, ident),
+            ScopeChain::CrateRoot { .. } |
             ScopeChain::Mod { .. } =>
                 self.maybe_path(&scope, ident),
             ScopeChain::Fn { parent_scope_chain, .. } =>

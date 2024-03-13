@@ -8,7 +8,7 @@ use crate::composition::{TraitDecompositionPart1, TypeComposition};
 use crate::context::{Scope, ScopeChain};
 use crate::conversion::{ObjectConversion, ScopeItemConversion, TypeConversion};
 use crate::ext::Join;
-use crate::helper::collect_bounds;
+use crate::helper::{collect_bounds, ItemExtension};
 use crate::holder::PathHolder;
 use crate::visitor::Visitor;
 
@@ -125,6 +125,7 @@ fn add_full_qualified_trait(visitor: &mut Visitor, item_trait: &ItemTrait, scope
                 add_local_type(visitor, sig_ident, scope);
                 let object = ObjectConversion::new_item(TypeConversion::Fn(TypeComposition::new(parse_quote!(#fn_self_scope), Some(sig.generics.clone()))), ScopeItemConversion::Fn(sig.clone()));
                 let fn_scope = ScopeChain::Fn {
+                    crate_scope: scope.crate_scope().clone(),
                     self_scope: Scope::new(fn_self_scope, object),
                     parent_scope_chain: Box::new(scope.clone())
                 };
@@ -173,26 +174,13 @@ fn add_full_qualified_signature(visitor: &mut Visitor, sig: &Signature, scope: &
 }
 
 fn add_inner_module_conversion(visitor: &mut Visitor, item_mod: &ItemMod, scope: &ScopeChain) {
-    println!("add_inner_module_conversion: {} in [{}]", item_mod.ident, scope);
     match &item_mod.content {
         None => {},
         Some((_, items)) => {
             items.into_iter().for_each(|item| match item {
                 Item::Use(node) =>
                     visitor.fold_import_tree(scope, &node.tree, vec![]),
-                Item::Trait(..) =>
-                    item.add_to_scope(&scope.joined(item), visitor),
-                Item::Fn(..) =>
-                    item.add_to_scope(&scope.joined(item), visitor),
-                Item::Struct(..) =>
-                    item.add_to_scope(&scope.joined(item), visitor),
-                Item::Enum(..) =>
-                    item.add_to_scope(&scope.joined(item), visitor),
-                Item::Type(..) =>
-                    item.add_to_scope(&scope.joined(item), visitor),
-                Item::Impl(..) =>
-                    item.add_to_scope(&scope.joined(item), visitor),
-                Item::Mod(..) =>
+                Item::Trait(..) | Item::Fn(..) | Item::Struct(..) | Item::Enum(..) | Item::Type(..) | Item::Impl(..) | Item::Mod(..) =>
                     item.add_to_scope(&scope.joined(item), visitor),
                 _ => {}
             })

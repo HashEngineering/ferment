@@ -102,11 +102,11 @@ impl Visitor {
     }
 
     pub fn merge_visitor_trees(&mut self) {
-        // Merge the trees of the inner visitors first.
+        // Merge the trees of the inner visitors first
         for inner_visitor in &mut self.inner_visitors {
             inner_visitor.merge_visitor_trees();
         }
-        // Now merge the trees of the inner visitors into the current visitor's tree.
+        // Now merge the trees of the inner visitors into the current visitor's tree
         for Visitor { tree, .. } in &self.inner_visitors {
             tree.merge_into(&mut self.tree);
         }
@@ -191,7 +191,7 @@ impl Visitor {
             },
             ScopeChain::Trait { parent_scope_chain, .. } |
             ScopeChain::Object { parent_scope_chain, .. } => {
-                println!("add_full_qualified_type_match: Obj or Trait: {} in {}", self_obj, scope);
+                // println!("add_full_qualified_type_match: Obj or Trait: {} in {}", self_obj, scope);
                 self.scope_add_many(type_chain.clone(), scope);
                 self.scope_add_one(parse_quote!(Self), self_obj.clone(), scope);
                 self.scope_add_many(type_chain.selfless(), parent_scope_chain);
@@ -259,18 +259,35 @@ impl Visitor {
             nprint!(1, Emoji::Local, "(Local Generic Bound) {}", bounds_composition);
             ObjectConversion::Type(TypeConversion::Bounds(bounds_composition))
         } else if let Some(replacement_path) = lock.maybe_import(scope, &import_seg).cloned() {
-            nprint!(1, Emoji::Local, "(ScopeImport) {}", format_token_stream(&replacement_path));
             let last_segment = segments.pop().unwrap();
-            segments.extend(replacement_path.segments.clone());
-            segments.last_mut().unwrap().arguments = last_segment.into_value().arguments;
-            ObjectConversion::Type(
-                TypeConversion::Unknown(
-                    TypeComposition::new(
-                        Type::Path(
-                            TypePath {
-                                qself: new_qself,
-                                path: Path { leading_colon: path.leading_colon, segments } }),
-                        None)))
+            if format_ident!("crate").eq(&replacement_path.segments.first().unwrap().ident) /*&& !lock.config.current_crate.ident().eq(crate_scope)*/ {
+                nprint!(1, Emoji::Local, "(ScopeImport Local) {}", format_token_stream(&replacement_path));
+                let crate_scope = scope.crate_scope();
+                let replaced: Vec<_> = replacement_path.segments.iter().skip(1).collect();
+                let mut new_path: Path = parse_quote!(#crate_scope::#(#replaced)::*);
+                new_path.segments.last_mut().unwrap().arguments = last_segment.into_value().arguments;
+                ObjectConversion::Type(
+                    TypeConversion::Unknown(
+                        TypeComposition::new(
+                            Type::Path(
+                                TypePath {
+                                    qself: new_qself,
+                                    path: new_path }),
+                            None)))
+            } else {
+                nprint!(1, Emoji::Local, "(ScopeImport External) {}", format_token_stream(&replacement_path));
+                segments.extend(replacement_path.segments.clone());
+                segments.last_mut().unwrap().arguments = last_segment.into_value().arguments;
+                ObjectConversion::Type(
+                    TypeConversion::Unknown(
+                        TypeComposition::new(
+                            Type::Path(
+                                TypePath {
+                                    qself: new_qself,
+                                    path: Path { leading_colon: path.leading_colon, segments } }),
+                            None)))
+            }
+
         } else if let Some(generic_bounds) = lock.generics.maybe_generic_bounds(scope, &import_seg) {
             let first_bound = generic_bounds.first().unwrap();
             let first_bound_as_scope = PathHolder::from(first_bound);
@@ -378,36 +395,32 @@ impl Visitor {
                     let obj_parent_scope = obj_scope.parent_scope();
                     let len = segments.len();
                     if len == 1 {
-                        match obj_parent_scope {
+                        nprint!(1, Emoji::Local, "(Local join single (has {} parent scope): {}) {} + {}", if obj_parent_scope.is_some() { "some" } else { "no" }, first_ident, scope, format_token_stream(&path));
+                        let last_segment = segments.pop().unwrap();
+                        let new_segments: Punctuated<PathSegment, Token![::]> = match obj_parent_scope {
                             None => {
                                 // Global
-                                nprint!(1, Emoji::Local, "(Local join single (has no parent scope): {}) {} + {}", first_ident, scope, format_token_stream(&path));
-                                let last_segment = segments.pop().unwrap();
-                                let new_segments: Punctuated<PathSegment, Token![::]> = parse_quote!(#scope::#path);
-                                segments.extend(new_segments);
-                                segments.last_mut().unwrap().arguments = last_segment.into_value().arguments;
-                                ObjectConversion::Type(TypeConversion::Unknown(TypeComposition::new(
-                                    Type::Path(
-                                        TypePath {
-                                            qself: new_qself,
-                                            path: Path { leading_colon: path.leading_colon, segments } }),
-                                    None)))
+                                if scope.is_crate_root() {
+                                    let scope = scope.crate_scope();
+                                    parse_quote!(#scope::#path)
+                                } else {
+                                    parse_quote!(#scope::#path)
+                                }
                             },
                             Some(parent) => {
                                 let scope = parent.self_path_holder();
-                                nprint!(1, Emoji::Local, "(Local join single (has parent scope): {}) {} + {}", first_ident, scope, format_token_stream(&path));
-                                let last_segment = segments.pop().unwrap();
-                                let new_segments: Punctuated<PathSegment, Token![::]> = parse_quote!(#scope::#path);
-                                segments.extend(new_segments);
-                                segments.last_mut().unwrap().arguments = last_segment.into_value().arguments;
-                                ObjectConversion::Type(TypeConversion::Unknown(TypeComposition::new(
-                                    Type::Path(
-                                        TypePath {
-                                            qself: new_qself,
-                                            path: Path { leading_colon: path.leading_colon, segments } }),
-                                    None)))
+                                // nprint!(1, Emoji::Local, "(Local join single (has parent scope): {}) {} + {}", first_ident, scope, format_token_stream(&path));
+                                parse_quote!(#scope::#path)
                             }
-                        }
+                        };
+                        segments.extend(new_segments);
+                        segments.last_mut().unwrap().arguments = last_segment.into_value().arguments;
+                        ObjectConversion::Type(TypeConversion::Unknown(TypeComposition::new(
+                            Type::Path(
+                                TypePath {
+                                    qself: new_qself,
+                                    path: Path { leading_colon: path.leading_colon, segments } }),
+                            None)))
 
                     } else {
                         let tail: Vec<_> = segments.iter().skip(1).cloned().collect();
@@ -460,7 +473,11 @@ impl Visitor {
                         } else {
                             nprint!(1, Emoji::Local, "(Local join multi: {}) {} + {}", first_ident, format_token_stream(scope), format_token_stream(&path));
                             let last_segment = segments.last().cloned().unwrap();
-                            let new_segments: Punctuated<PathSegment, Colon2> = parse_quote!(#scope::#path);
+                            let new_segments: Punctuated<PathSegment, Colon2> = if path.leading_colon.is_none() {
+                                parse_quote!(#scope::#path)
+                            } else {
+                                parse_quote!(#scope #path)
+                            };
                             segments.clear();
                             segments.extend(new_segments);
                             segments.last_mut().unwrap().arguments = last_segment.arguments;
