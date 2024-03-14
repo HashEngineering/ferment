@@ -1,5 +1,5 @@
-%ignore ferment_example_identity_identity_TimestampMillis::_0;
-%rename(TimestampMillis) ferment_example_identity_identity_TimestampMillis;
+%ignore dpp_identity_identity_public_key_TimestampMillis::_0;
+%rename(TimestampMillis) dpp_identity_identity_public_key_TimestampMillis;
 // TODO: apply this to all types or specific types
 // %typemap(javacode) SWIGTYPE %{
 //   public boolean equals(Object obj) {
@@ -14,15 +14,15 @@
 //   }
 // %}
 
-%extend ferment_example_identity_identity_TimestampMillis {
-    ferment_example_identity_identity_TimestampMillis() {
-        return ferment_example_identity_identity_TimestampMillis_ctor(time(NULL) * 1000);
+%extend dpp_identity_identity_public_key_TimestampMillis {
+    dpp_identity_identity_public_key_TimestampMillis() {
+        return dpp_identity_identity_public_key_TimestampMillis_ctor(time(NULL) * 1000);
     }
-    ferment_example_identity_identity_TimestampMillis(long long timestamp) {
-        return ferment_example_identity_identity_TimestampMillis_ctor(timestamp);
+    dpp_identity_identity_public_key_TimestampMillis(long long timestamp) {
+        return dpp_identity_identity_public_key_TimestampMillis_ctor(timestamp);
     }
-    ~ferment_example_identity_identity_TimestampMillis() {
-        ferment_example_identity_identity_TimestampMillis_destroy($self);
+    ~dpp_identity_identity_public_key_TimestampMillis() {
+        dpp_identity_identity_public_key_TimestampMillis_destroy($self);
     }
 
     long long toLong() {
@@ -33,7 +33,7 @@
 //         return (uint64_t)$self < 10;
 //     }
 
-    bool objectEquals(ferment_example_identity_identity_TimestampMillis* other) {
+    bool objectEquals(dpp_identity_identity_public_key_TimestampMillis* other) {
         if ($self == other) return true;
         if ($self == nullptr || other == nullptr) return false;
         return $self->_0 == other->_0;

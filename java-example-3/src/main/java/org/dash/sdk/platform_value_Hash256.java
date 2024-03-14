@@ -10,16 +10,16 @@ package org.dash.sdk;
 
 import org.dash.sdk.base.BaseObject;
 
-public class Identity extends BaseObject {
+public class platform_value_Hash256 extends BaseObject {
   private transient long swigCPtr;
   protected transient boolean swigCMemOwn;
 
-  protected Identity(long cPtr, boolean cMemoryOwn) {
+  protected platform_value_Hash256(long cPtr, boolean cMemoryOwn) {
     swigCMemOwn = cMemoryOwn;
     swigCPtr = cPtr;
   }
 
-  protected static long getCPtr(Identity obj) {
+  protected static long getCPtr(platform_value_Hash256 obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 
@@ -32,7 +32,7 @@ public class Identity extends BaseObject {
     if (swigCPtr != 0) {
       if (swigCMemOwn) {
         swigCMemOwn = false;
-        exampleJNI.delete_Identity(swigCPtr);
+        exampleJNI.delete_platform_value_Hash256(swigCPtr);
       }
       swigCPtr = 0;
     }
@@ -42,21 +42,12 @@ public class Identity extends BaseObject {
     return swigCPtr;
   }
 
-  public void setTag(Identity_Tag value) {
-    exampleJNI.Identity_tag_set(swigCPtr, this, value.swigValue());
+  public void set_0(byte[] value) {
+    exampleJNI.platform_value_Hash256__0_set(swigCPtr, this, value);
   }
 
-  public Identity_Tag getTag() {
-    return Identity_Tag.swigToEnum(exampleJNI.Identity_tag_get(swigCPtr, this));
-  }
-
-  public void setV0(IdentityV0 value) {
-    exampleJNI.Identity_v0_set(swigCPtr, this, IdentityV0.getCPtr(value), value);
-  }
-
-  public IdentityV0 getV0() {
-    long cPtr = exampleJNI.Identity_v0_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new IdentityV0(cPtr, false);
+  public byte[] get_0() {
+    return exampleJNI.platform_value_Hash256__0_get(swigCPtr, this);
   }
 
 }

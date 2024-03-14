@@ -9,692 +9,316 @@
 package org.dash.sdk;
 
 public class example {
-  public static ferment_example_RootStruct fermentExampleRootStructCtor(String name) {
-    long cPtr = exampleJNI.fermentExampleRootStructCtor(name);
-    return (cPtr == 0) ? null : new ferment_example_RootStruct(cPtr, false);
+  public static Revision dppPreludeRevisionCtor(java.math.BigInteger o_0) {
+    long cPtr = exampleJNI.dppPreludeRevisionCtor(o_0);
+    return (cPtr == 0) ? null : new Revision(cPtr, false);
   }
 
-  public static void fermentExampleRootStructDestroy(ferment_example_RootStruct ffi) {
-    exampleJNI.fermentExampleRootStructDestroy(ferment_example_RootStruct.getCPtr(ffi), ffi);
+  public static void dppPreludeRevisionDestroy(Revision ffi) {
+    exampleJNI.dppPreludeRevisionDestroy(Revision.getCPtr(ffi), ffi);
   }
 
-  public static String fermentExampleRootStructGetName(ferment_example_RootStruct obj) {
-    return exampleJNI.fermentExampleRootStructGetName(ferment_example_RootStruct.getCPtr(obj), obj);
+  public static java.math.BigInteger dppPreludeRevisionGet0(Revision obj) {
+    return exampleJNI.dppPreludeRevisionGet0(Revision.getCPtr(obj), obj);
   }
 
-  public static void fermentExampleRootStructSetName(ferment_example_RootStruct obj, String value) {
-    exampleJNI.fermentExampleRootStructSetName(ferment_example_RootStruct.getCPtr(obj), obj, value);
+  public static void dppPreludeRevisionSet0(Revision obj, java.math.BigInteger value) {
+    exampleJNI.dppPreludeRevisionSet0(Revision.getCPtr(obj), obj, value);
   }
 
-  public static ferment_example_RootStruct getRootStruct() {
-    long cPtr = exampleJNI.getRootStruct();
-    return (cPtr == 0) ? null : new ferment_example_RootStruct(cPtr, false);
-  }
-
-  public static ferment_example_nested_RootUser fermentExampleNestedRootUserCtor(ferment_example_RootStruct root) {
-    long cPtr = exampleJNI.fermentExampleNestedRootUserCtor(ferment_example_RootStruct.getCPtr(root), root);
-    return (cPtr == 0) ? null : new ferment_example_nested_RootUser(cPtr, false);
-  }
-
-  public static void fermentExampleNestedRootUserDestroy(ferment_example_nested_RootUser ffi) {
-    exampleJNI.fermentExampleNestedRootUserDestroy(ferment_example_nested_RootUser.getCPtr(ffi), ffi);
-  }
-
-  public static ferment_example_RootStruct fermentExampleNestedRootUserGetRoot(ferment_example_nested_RootUser obj) {
-    long cPtr = exampleJNI.fermentExampleNestedRootUserGetRoot(ferment_example_nested_RootUser.getCPtr(obj), obj);
-    return (cPtr == 0) ? null : new ferment_example_RootStruct(cPtr, false);
-  }
-
-  public static void fermentExampleNestedRootUserSetRoot(ferment_example_nested_RootUser obj, ferment_example_RootStruct value) {
-    exampleJNI.fermentExampleNestedRootUserSetRoot(ferment_example_nested_RootUser.getCPtr(obj), obj, ferment_example_RootStruct.getCPtr(value), value);
-  }
-
-  public static ferment_example_nested_FeatureVersionBounds fermentExampleNestedFeatureVersionBoundsCtor(ferment_example_nested_FeatureVersion min_version, ferment_example_nested_FeatureVersion max_version, ferment_example_nested_FeatureVersion default_current_version) {
-    long cPtr = exampleJNI.fermentExampleNestedFeatureVersionBoundsCtor(ferment_example_nested_FeatureVersion.getCPtr(min_version), min_version, ferment_example_nested_FeatureVersion.getCPtr(max_version), max_version, ferment_example_nested_FeatureVersion.getCPtr(default_current_version), default_current_version);
-    return (cPtr == 0) ? null : new ferment_example_nested_FeatureVersionBounds(cPtr, false);
-  }
-
-  public static void fermentExampleNestedFeatureVersionBoundsDestroy(ferment_example_nested_FeatureVersionBounds ffi) {
-    exampleJNI.fermentExampleNestedFeatureVersionBoundsDestroy(ferment_example_nested_FeatureVersionBounds.getCPtr(ffi), ffi);
-  }
-
-  public static ferment_example_nested_FeatureVersion fermentExampleNestedFeatureVersionBoundsGetMinVersion(ferment_example_nested_FeatureVersionBounds obj) {
-    long cPtr = exampleJNI.fermentExampleNestedFeatureVersionBoundsGetMinVersion(ferment_example_nested_FeatureVersionBounds.getCPtr(obj), obj);
-    return (cPtr == 0) ? null : new ferment_example_nested_FeatureVersion(cPtr, false);
-  }
-
-  public static ferment_example_nested_FeatureVersion fermentExampleNestedFeatureVersionBoundsGetMaxVersion(ferment_example_nested_FeatureVersionBounds obj) {
-    long cPtr = exampleJNI.fermentExampleNestedFeatureVersionBoundsGetMaxVersion(ferment_example_nested_FeatureVersionBounds.getCPtr(obj), obj);
-    return (cPtr == 0) ? null : new ferment_example_nested_FeatureVersion(cPtr, false);
-  }
-
-  public static ferment_example_nested_FeatureVersion fermentExampleNestedFeatureVersionBoundsGetDefaultCurrentVersion(ferment_example_nested_FeatureVersionBounds obj) {
-    long cPtr = exampleJNI.fermentExampleNestedFeatureVersionBoundsGetDefaultCurrentVersion(ferment_example_nested_FeatureVersionBounds.getCPtr(obj), obj);
-    return (cPtr == 0) ? null : new ferment_example_nested_FeatureVersion(cPtr, false);
-  }
-
-  public static void fermentExampleNestedFeatureVersionBoundsSetMinVersion(ferment_example_nested_FeatureVersionBounds obj, ferment_example_nested_FeatureVersion value) {
-    exampleJNI.fermentExampleNestedFeatureVersionBoundsSetMinVersion(ferment_example_nested_FeatureVersionBounds.getCPtr(obj), obj, ferment_example_nested_FeatureVersion.getCPtr(value), value);
-  }
-
-  public static void fermentExampleNestedFeatureVersionBoundsSetMaxVersion(ferment_example_nested_FeatureVersionBounds obj, ferment_example_nested_FeatureVersion value) {
-    exampleJNI.fermentExampleNestedFeatureVersionBoundsSetMaxVersion(ferment_example_nested_FeatureVersionBounds.getCPtr(obj), obj, ferment_example_nested_FeatureVersion.getCPtr(value), value);
-  }
-
-  public static void fermentExampleNestedFeatureVersionBoundsSetDefaultCurrentVersion(ferment_example_nested_FeatureVersionBounds obj, ferment_example_nested_FeatureVersion value) {
-    exampleJNI.fermentExampleNestedFeatureVersionBoundsSetDefaultCurrentVersion(ferment_example_nested_FeatureVersionBounds.getCPtr(obj), obj, ferment_example_nested_FeatureVersion.getCPtr(value), value);
-  }
-
-  public static Identifier fermentExampleNestedIdentifierCtor(IdentifierBytes32 o_0) {
-    long cPtr = exampleJNI.fermentExampleNestedIdentifierCtor(IdentifierBytes32.getCPtr(o_0), o_0);
-    return (cPtr == 0) ? null : new Identifier(cPtr, false);
-  }
-
-  public static void fermentExampleNestedIdentifierDestroy(Identifier ffi) {
-    exampleJNI.fermentExampleNestedIdentifierDestroy(Identifier.getCPtr(ffi), ffi);
-  }
-
-  public static IdentifierBytes32 fermentExampleNestedIdentifierGet0(Identifier obj) {
-    long cPtr = exampleJNI.fermentExampleNestedIdentifierGet0(Identifier.getCPtr(obj), obj);
-    return (cPtr == 0) ? null : new IdentifierBytes32(cPtr, false);
-  }
-
-  public static void fermentExampleNestedIdentifierSet0(Identifier obj, IdentifierBytes32 value) {
-    exampleJNI.fermentExampleNestedIdentifierSet0(Identifier.getCPtr(obj), obj, IdentifierBytes32.getCPtr(value), value);
-  }
-
-  public static ferment_example_nested_BinaryData fermentExampleNestedBinaryDataCtor(byte[] o_0) {
-    long cPtr = exampleJNI.fermentExampleNestedBinaryDataCtor(o_0);
-    return (cPtr == 0) ? null : new ferment_example_nested_BinaryData(cPtr, false);
-  }
-
-  public static void fermentExampleNestedBinaryDataDestroy(ferment_example_nested_BinaryData ffi) {
-    exampleJNI.fermentExampleNestedBinaryDataDestroy(ferment_example_nested_BinaryData.getCPtr(ffi), ffi);
-  }
-
-  public static byte[] fermentExampleNestedBinaryDataGet0(ferment_example_nested_BinaryData obj) {
-    return exampleJNI.fermentExampleNestedBinaryDataGet0(ferment_example_nested_BinaryData.getCPtr(obj), obj);
-  }
-
-  public static void fermentExampleNestedBinaryDataSet0(ferment_example_nested_BinaryData obj, byte[] value) {
-    exampleJNI.fermentExampleNestedBinaryDataSet0(ferment_example_nested_BinaryData.getCPtr(obj), obj, value);
-  }
-
-  public static ferment_example_nested_HashID fermentExampleNestedHashIDCtor(byte[] o_0) {
-    long cPtr = exampleJNI.fermentExampleNestedHashIDCtor(o_0);
-    return (cPtr == 0) ? null : new ferment_example_nested_HashID(cPtr, false);
-  }
-
-  public static void fermentExampleNestedHashIDDestroy(ferment_example_nested_HashID ffi) {
-    exampleJNI.fermentExampleNestedHashIDDestroy(ferment_example_nested_HashID.getCPtr(ffi), ffi);
-  }
-
-  public static byte[] fermentExampleNestedHashIDGet0(ferment_example_nested_HashID obj) {
-    return exampleJNI.fermentExampleNestedHashIDGet0(ferment_example_nested_HashID.getCPtr(obj), obj);
-  }
-
-  public static void fermentExampleNestedHashIDSet0(ferment_example_nested_HashID obj, byte[] value) {
-    exampleJNI.fermentExampleNestedHashIDSet0(ferment_example_nested_HashID.getCPtr(obj), obj, value);
-  }
-
-  public static ferment_example_nested_FeatureVersion fermentExampleNestedFeatureVersionCtor(int o_0) {
-    long cPtr = exampleJNI.fermentExampleNestedFeatureVersionCtor(o_0);
-    return (cPtr == 0) ? null : new ferment_example_nested_FeatureVersion(cPtr, false);
-  }
-
-  public static void fermentExampleNestedFeatureVersionDestroy(ferment_example_nested_FeatureVersion ffi) {
-    exampleJNI.fermentExampleNestedFeatureVersionDestroy(ferment_example_nested_FeatureVersion.getCPtr(ffi), ffi);
-  }
-
-  public static int fermentExampleNestedFeatureVersionGet0(ferment_example_nested_FeatureVersion obj) {
-    return exampleJNI.fermentExampleNestedFeatureVersionGet0(ferment_example_nested_FeatureVersion.getCPtr(obj), obj);
-  }
-
-  public static void fermentExampleNestedFeatureVersionSet0(ferment_example_nested_FeatureVersion obj, int value) {
-    exampleJNI.fermentExampleNestedFeatureVersionSet0(ferment_example_nested_FeatureVersion.getCPtr(obj), obj, value);
-  }
-
-  public static ferment_example_nested_OptionalFeatureVersion fermentExampleNestedOptionalFeatureVersionCtor(int o_0) {
-    long cPtr = exampleJNI.fermentExampleNestedOptionalFeatureVersionCtor(o_0);
-    return (cPtr == 0) ? null : new ferment_example_nested_OptionalFeatureVersion(cPtr, false);
-  }
-
-  public static void fermentExampleNestedOptionalFeatureVersionDestroy(ferment_example_nested_OptionalFeatureVersion ffi) {
-    exampleJNI.fermentExampleNestedOptionalFeatureVersionDestroy(ferment_example_nested_OptionalFeatureVersion.getCPtr(ffi), ffi);
-  }
-
-  public static int fermentExampleNestedOptionalFeatureVersionGet0(ferment_example_nested_OptionalFeatureVersion obj) {
-    return exampleJNI.fermentExampleNestedOptionalFeatureVersionGet0(ferment_example_nested_OptionalFeatureVersion.getCPtr(obj), obj);
-  }
-
-  public static void fermentExampleNestedOptionalFeatureVersionSet0(ferment_example_nested_OptionalFeatureVersion obj, int value) {
-    exampleJNI.fermentExampleNestedOptionalFeatureVersionSet0(ferment_example_nested_OptionalFeatureVersion.getCPtr(obj), obj, value);
-  }
-
-  public static IdentifierBytes32 fermentExampleNestedIdentifierBytes32Ctor(byte[] o_0) {
-    long cPtr = exampleJNI.fermentExampleNestedIdentifierBytes32Ctor(o_0);
-    return (cPtr == 0) ? null : new IdentifierBytes32(cPtr, false);
-  }
-
-  public static void fermentExampleNestedIdentifierBytes32Destroy(IdentifierBytes32 ffi) {
-    exampleJNI.fermentExampleNestedIdentifierBytes32Destroy(IdentifierBytes32.getCPtr(ffi), ffi);
-  }
-
-  public static byte[] fermentExampleNestedIdentifierBytes32Get0(IdentifierBytes32 obj) {
-    return exampleJNI.fermentExampleNestedIdentifierBytes32Get0(IdentifierBytes32.getCPtr(obj), obj);
-  }
-
-  public static void fermentExampleNestedIdentifierBytes32Set0(IdentifierBytes32 obj, byte[] value) {
-    exampleJNI.fermentExampleNestedIdentifierBytes32Set0(IdentifierBytes32.getCPtr(obj), obj, value);
-  }
-
-  public static ferment_example_RootStruct getRootStruct2() {
-    long cPtr = exampleJNI.getRootStruct2();
-    return (cPtr == 0) ? null : new ferment_example_RootStruct(cPtr, false);
-  }
-
-  public static ferment_example_nested_ProtocolError fermentExampleNestedProtocolErrorIdentifierErrorCtor(String o_0) {
-    long cPtr = exampleJNI.fermentExampleNestedProtocolErrorIdentifierErrorCtor(o_0);
-    return (cPtr == 0) ? null : new ferment_example_nested_ProtocolError(cPtr, false);
-  }
-
-  public static ferment_example_nested_ProtocolError fermentExampleNestedProtocolErrorStringDecodeErrorCtor(String o_0) {
-    long cPtr = exampleJNI.fermentExampleNestedProtocolErrorStringDecodeErrorCtor(o_0);
-    return (cPtr == 0) ? null : new ferment_example_nested_ProtocolError(cPtr, false);
-  }
-
-  public static ferment_example_nested_ProtocolError fermentExampleNestedProtocolErrorStringDecodeError2Ctor(String o_0, long o_1) {
-    long cPtr = exampleJNI.fermentExampleNestedProtocolErrorStringDecodeError2Ctor(o_0, o_1);
-    return (cPtr == 0) ? null : new ferment_example_nested_ProtocolError(cPtr, false);
-  }
-
-  public static ferment_example_nested_ProtocolError fermentExampleNestedProtocolErrorEmptyPublicKeyDataErrorCtor() {
-    long cPtr = exampleJNI.fermentExampleNestedProtocolErrorEmptyPublicKeyDataErrorCtor();
-    return (cPtr == 0) ? null : new ferment_example_nested_ProtocolError(cPtr, false);
-  }
-
-  public static ferment_example_nested_ProtocolError fermentExampleNestedProtocolErrorMaxEncodedBytesReachedErrorCtor(long max_size_kbytes, long size_hit) {
-    long cPtr = exampleJNI.fermentExampleNestedProtocolErrorMaxEncodedBytesReachedErrorCtor(max_size_kbytes, size_hit);
-    return (cPtr == 0) ? null : new ferment_example_nested_ProtocolError(cPtr, false);
-  }
-
-  public static ferment_example_nested_ProtocolError fermentExampleNestedProtocolErrorEncodingErrorCtor(String o_0) {
-    long cPtr = exampleJNI.fermentExampleNestedProtocolErrorEncodingErrorCtor(o_0);
-    return (cPtr == 0) ? null : new ferment_example_nested_ProtocolError(cPtr, false);
-  }
-
-  public static ferment_example_nested_ProtocolError fermentExampleNestedProtocolErrorEncodingError2Ctor(String o_0) {
-    long cPtr = exampleJNI.fermentExampleNestedProtocolErrorEncodingError2Ctor(o_0);
-    return (cPtr == 0) ? null : new ferment_example_nested_ProtocolError(cPtr, false);
-  }
-
-  public static ferment_example_nested_ProtocolError fermentExampleNestedProtocolErrorDataContractNotPresentErrorCtor(ferment_example_nested_DataContractNotPresentError o_0) {
-    long cPtr = exampleJNI.fermentExampleNestedProtocolErrorDataContractNotPresentErrorCtor(ferment_example_nested_DataContractNotPresentError.getCPtr(o_0), o_0);
-    return (cPtr == 0) ? null : new ferment_example_nested_ProtocolError(cPtr, false);
-  }
-
-  public static ferment_example_nested_ProtocolError fermentExampleNestedProtocolErrorUnknownVersionMismatchCtor(String method, SWIGTYPE_p_Vec_ferment_example_nested_FeatureVersion known_versions, ferment_example_nested_FeatureVersion received) {
-    long cPtr = exampleJNI.fermentExampleNestedProtocolErrorUnknownVersionMismatchCtor(method, SWIGTYPE_p_Vec_ferment_example_nested_FeatureVersion.getCPtr(known_versions), ferment_example_nested_FeatureVersion.getCPtr(received), received);
-    return (cPtr == 0) ? null : new ferment_example_nested_ProtocolError(cPtr, false);
-  }
-
-  public static void fermentExampleNestedProtocolErrorDestroy(ferment_example_nested_ProtocolError ffi) {
-    exampleJNI.fermentExampleNestedProtocolErrorDestroy(ferment_example_nested_ProtocolError.getCPtr(ffi), ffi);
-  }
-
-  public static ferment_example_nested_DataContractNotPresentError fermentExampleNestedDataContractNotPresentErrorCtor(Identifier data_contract_id) {
-    long cPtr = exampleJNI.fermentExampleNestedDataContractNotPresentErrorCtor(Identifier.getCPtr(data_contract_id), data_contract_id);
-    return (cPtr == 0) ? null : new ferment_example_nested_DataContractNotPresentError(cPtr, false);
-  }
-
-  public static void fermentExampleNestedDataContractNotPresentErrorDestroy(ferment_example_nested_DataContractNotPresentError ffi) {
-    exampleJNI.fermentExampleNestedDataContractNotPresentErrorDestroy(ferment_example_nested_DataContractNotPresentError.getCPtr(ffi), ffi);
-  }
-
-  public static Identifier fermentExampleNestedDataContractNotPresentErrorGetDataContractId(ferment_example_nested_DataContractNotPresentError obj) {
-    long cPtr = exampleJNI.fermentExampleNestedDataContractNotPresentErrorGetDataContractId(ferment_example_nested_DataContractNotPresentError.getCPtr(obj), obj);
-    return (cPtr == 0) ? null : new Identifier(cPtr, false);
-  }
-
-  public static void fermentExampleNestedDataContractNotPresentErrorSetDataContractId(ferment_example_nested_DataContractNotPresentError obj, Identifier value) {
-    exampleJNI.fermentExampleNestedDataContractNotPresentErrorSetDataContractId(ferment_example_nested_DataContractNotPresentError.getCPtr(obj), obj, Identifier.getCPtr(value), value);
-  }
-
-  public static ferment_example_nested_PlatformVersion fermentExampleNestedPlatformVersionCtor(long protocol_version, ferment_example_nested_FeatureVersionBounds identity, ferment_example_nested_FeatureVersionBounds proofs) {
-    long cPtr = exampleJNI.fermentExampleNestedPlatformVersionCtor(protocol_version, ferment_example_nested_FeatureVersionBounds.getCPtr(identity), identity, ferment_example_nested_FeatureVersionBounds.getCPtr(proofs), proofs);
-    return (cPtr == 0) ? null : new ferment_example_nested_PlatformVersion(cPtr, false);
-  }
-
-  public static void fermentExampleNestedPlatformVersionDestroy(ferment_example_nested_PlatformVersion ffi) {
-    exampleJNI.fermentExampleNestedPlatformVersionDestroy(ferment_example_nested_PlatformVersion.getCPtr(ffi), ffi);
-  }
-
-  public static long fermentExampleNestedPlatformVersionGetProtocolVersion(ferment_example_nested_PlatformVersion obj) {
-    return exampleJNI.fermentExampleNestedPlatformVersionGetProtocolVersion(ferment_example_nested_PlatformVersion.getCPtr(obj), obj);
-  }
-
-  public static ferment_example_nested_FeatureVersionBounds fermentExampleNestedPlatformVersionGetIdentity(ferment_example_nested_PlatformVersion obj) {
-    long cPtr = exampleJNI.fermentExampleNestedPlatformVersionGetIdentity(ferment_example_nested_PlatformVersion.getCPtr(obj), obj);
-    return (cPtr == 0) ? null : new ferment_example_nested_FeatureVersionBounds(cPtr, false);
-  }
-
-  public static ferment_example_nested_FeatureVersionBounds fermentExampleNestedPlatformVersionGetProofs(ferment_example_nested_PlatformVersion obj) {
-    long cPtr = exampleJNI.fermentExampleNestedPlatformVersionGetProofs(ferment_example_nested_PlatformVersion.getCPtr(obj), obj);
-    return (cPtr == 0) ? null : new ferment_example_nested_FeatureVersionBounds(cPtr, false);
-  }
-
-  public static void fermentExampleNestedPlatformVersionSetProtocolVersion(ferment_example_nested_PlatformVersion obj, long value) {
-    exampleJNI.fermentExampleNestedPlatformVersionSetProtocolVersion(ferment_example_nested_PlatformVersion.getCPtr(obj), obj, value);
-  }
-
-  public static void fermentExampleNestedPlatformVersionSetIdentity(ferment_example_nested_PlatformVersion obj, ferment_example_nested_FeatureVersionBounds value) {
-    exampleJNI.fermentExampleNestedPlatformVersionSetIdentity(ferment_example_nested_PlatformVersion.getCPtr(obj), obj, ferment_example_nested_FeatureVersionBounds.getCPtr(value), value);
-  }
-
-  public static void fermentExampleNestedPlatformVersionSetProofs(ferment_example_nested_PlatformVersion obj, ferment_example_nested_FeatureVersionBounds value) {
-    exampleJNI.fermentExampleNestedPlatformVersionSetProofs(ferment_example_nested_PlatformVersion.getCPtr(obj), obj, ferment_example_nested_FeatureVersionBounds.getCPtr(value), value);
-  }
-
-  public static SWIGTYPE_p_ferment_example_identity_identity_SecurityLevel fermentExampleIdentityIdentitySecurityLevelMASTERCtor() {
-    long cPtr = exampleJNI.fermentExampleIdentityIdentitySecurityLevelMASTERCtor();
-    return (cPtr == 0) ? null : new SWIGTYPE_p_ferment_example_identity_identity_SecurityLevel(cPtr, false);
-  }
-
-  public static SWIGTYPE_p_ferment_example_identity_identity_SecurityLevel fermentExampleIdentityIdentitySecurityLevelCRITICALCtor() {
-    long cPtr = exampleJNI.fermentExampleIdentityIdentitySecurityLevelCRITICALCtor();
-    return (cPtr == 0) ? null : new SWIGTYPE_p_ferment_example_identity_identity_SecurityLevel(cPtr, false);
-  }
-
-  public static SWIGTYPE_p_ferment_example_identity_identity_SecurityLevel fermentExampleIdentityIdentitySecurityLevelHIGHCtor() {
-    long cPtr = exampleJNI.fermentExampleIdentityIdentitySecurityLevelHIGHCtor();
-    return (cPtr == 0) ? null : new SWIGTYPE_p_ferment_example_identity_identity_SecurityLevel(cPtr, false);
-  }
-
-  public static SWIGTYPE_p_ferment_example_identity_identity_SecurityLevel fermentExampleIdentityIdentitySecurityLevelMEDIUMCtor() {
-    long cPtr = exampleJNI.fermentExampleIdentityIdentitySecurityLevelMEDIUMCtor();
-    return (cPtr == 0) ? null : new SWIGTYPE_p_ferment_example_identity_identity_SecurityLevel(cPtr, false);
-  }
-
-  public static void fermentExampleIdentityIdentitySecurityLevelDestroy(SWIGTYPE_p_ferment_example_identity_identity_SecurityLevel ffi) {
-    exampleJNI.fermentExampleIdentityIdentitySecurityLevelDestroy(SWIGTYPE_p_ferment_example_identity_identity_SecurityLevel.getCPtr(ffi));
-  }
-
-  public static IdentityPublicKeyV0 randomKey(KeyID id) {
-    long cPtr = exampleJNI.randomKey(KeyID.getCPtr(id), id);
-    return (cPtr == 0) ? null : new IdentityPublicKeyV0(cPtr, true);
-  }
-
-  public static IdentityPublicKeyV0 randomKeyArgs(KeyID id, Identifier contract_id, TimestampMillis timestamp_millis) {
-    long cPtr = exampleJNI.randomKeyArgs(KeyID.getCPtr(id), id, Identifier.getCPtr(contract_id), contract_id, TimestampMillis.getCPtr(timestamp_millis), timestamp_millis);
-    return (cPtr == 0) ? null : new IdentityPublicKeyV0(cPtr, true);
-  }
-
-  public static Identity getAnIdentity() {
-    long cPtr = exampleJNI.getAnIdentity();
-    return (cPtr == 0) ? null : new Identity(cPtr, true);
-  }
-
-  public static SWIGTYPE_p_ferment_example_identity_identity_KeyType fermentExampleIdentityIdentityKeyTypeECDSASECP256K1Ctor() {
-    long cPtr = exampleJNI.fermentExampleIdentityIdentityKeyTypeECDSASECP256K1Ctor();
-    return (cPtr == 0) ? null : new SWIGTYPE_p_ferment_example_identity_identity_KeyType(cPtr, false);
-  }
-
-  public static SWIGTYPE_p_ferment_example_identity_identity_KeyType fermentExampleIdentityIdentityKeyTypeBLS12381Ctor() {
-    long cPtr = exampleJNI.fermentExampleIdentityIdentityKeyTypeBLS12381Ctor();
-    return (cPtr == 0) ? null : new SWIGTYPE_p_ferment_example_identity_identity_KeyType(cPtr, false);
-  }
-
-  public static SWIGTYPE_p_ferment_example_identity_identity_KeyType fermentExampleIdentityIdentityKeyTypeECDSAHASH160Ctor() {
-    long cPtr = exampleJNI.fermentExampleIdentityIdentityKeyTypeECDSAHASH160Ctor();
-    return (cPtr == 0) ? null : new SWIGTYPE_p_ferment_example_identity_identity_KeyType(cPtr, false);
-  }
-
-  public static SWIGTYPE_p_ferment_example_identity_identity_KeyType fermentExampleIdentityIdentityKeyTypeBIP13SCRIPTHASHCtor() {
-    long cPtr = exampleJNI.fermentExampleIdentityIdentityKeyTypeBIP13SCRIPTHASHCtor();
-    return (cPtr == 0) ? null : new SWIGTYPE_p_ferment_example_identity_identity_KeyType(cPtr, false);
-  }
-
-  public static SWIGTYPE_p_ferment_example_identity_identity_KeyType fermentExampleIdentityIdentityKeyTypeEDDSA25519HASH160Ctor() {
-    long cPtr = exampleJNI.fermentExampleIdentityIdentityKeyTypeEDDSA25519HASH160Ctor();
-    return (cPtr == 0) ? null : new SWIGTYPE_p_ferment_example_identity_identity_KeyType(cPtr, false);
-  }
-
-  public static void fermentExampleIdentityIdentityKeyTypeDestroy(SWIGTYPE_p_ferment_example_identity_identity_KeyType ffi) {
-    exampleJNI.fermentExampleIdentityIdentityKeyTypeDestroy(SWIGTYPE_p_ferment_example_identity_identity_KeyType.getCPtr(ffi));
-  }
-
-  public static Identity getIdentityContractBounds(Identifier identifier, Identifier contract_identifier) {
-    long cPtr = exampleJNI.getIdentityContractBounds(Identifier.getCPtr(identifier), identifier, Identifier.getCPtr(contract_identifier), contract_identifier);
-    return (cPtr == 0) ? null : new Identity(cPtr, true);
-  }
-
-  public static void fermentExampleIdentityIdentityContractBoundsDestroy(ContractBounds ffi) {
-    exampleJNI.fermentExampleIdentityIdentityContractBoundsDestroy(ContractBounds.getCPtr(ffi), ffi);
-  }
-
-  public static IdentityPublicKey fermentExampleIdentityIdentityIdentityPublicKeyV0Ctor(IdentityPublicKeyV0 o_0) {
-    long cPtr = exampleJNI.fermentExampleIdentityIdentityIdentityPublicKeyV0Ctor__SWIG_0(IdentityPublicKeyV0.getCPtr(o_0), o_0);
-    return (cPtr == 0) ? null : new IdentityPublicKey(cPtr, false);
-  }
-
-  public static void fermentExampleIdentityIdentityIdentityPublicKeyDestroy(IdentityPublicKey ffi) {
-    exampleJNI.fermentExampleIdentityIdentityIdentityPublicKeyDestroy(IdentityPublicKey.getCPtr(ffi), ffi);
-  }
-
-  public static TimestampMillis fermentExampleIdentityIdentityTimestampMillisCtor(java.math.BigInteger o_0) {
-    long cPtr = exampleJNI.fermentExampleIdentityIdentityTimestampMillisCtor(o_0);
-    return (cPtr == 0) ? null : new TimestampMillis(cPtr, false);
-  }
-
-  public static void fermentExampleIdentityIdentityTimestampMillisDestroy(TimestampMillis ffi) {
-    exampleJNI.fermentExampleIdentityIdentityTimestampMillisDestroy(TimestampMillis.getCPtr(ffi), ffi);
-  }
-
-  public static java.math.BigInteger fermentExampleIdentityIdentityTimestampMillisGet0(TimestampMillis obj) {
-    return exampleJNI.fermentExampleIdentityIdentityTimestampMillisGet0(TimestampMillis.getCPtr(obj), obj);
-  }
-
-  public static void fermentExampleIdentityIdentityTimestampMillisSet0(TimestampMillis obj, java.math.BigInteger value) {
-    exampleJNI.fermentExampleIdentityIdentityTimestampMillisSet0(TimestampMillis.getCPtr(obj), obj, value);
-  }
-
-  public static Result_ok_ferment_example_identity_identity_Identity_err_ferment_example_nested_ProtocolError createBasicIdentity(byte[] id, ferment_example_nested_PlatformVersion _platform_version) {
-    long cPtr = exampleJNI.createBasicIdentity(id, ferment_example_nested_PlatformVersion.getCPtr(_platform_version), _platform_version);
-    return (cPtr == 0) ? null : new Result_ok_ferment_example_identity_identity_Identity_err_ferment_example_nested_ProtocolError(cPtr, false);
-  }
-
-  public static Identity createBasicIdentityV0(byte[] id) {
-    long cPtr = exampleJNI.createBasicIdentityV0(id);
-    return (cPtr == 0) ? null : new Identity(cPtr, true);
-  }
-
-  public static java.math.BigInteger getBalance(Identity obj) {
-    return exampleJNI.getBalance(Identity.getCPtr(obj), obj);
-  }
-
-  public static KeyID fermentExampleIdentityIdentityKeyIDCtor(long o_0) {
-    long cPtr = exampleJNI.fermentExampleIdentityIdentityKeyIDCtor(o_0);
-    return (cPtr == 0) ? null : new KeyID(cPtr, false);
-  }
-
-  public static void fermentExampleIdentityIdentityKeyIDDestroy(KeyID ffi) {
-    exampleJNI.fermentExampleIdentityIdentityKeyIDDestroy(KeyID.getCPtr(ffi), ffi);
-  }
-
-  public static long fermentExampleIdentityIdentityKeyIDGet0(KeyID obj) {
-    return exampleJNI.fermentExampleIdentityIdentityKeyIDGet0(KeyID.getCPtr(obj), obj);
-  }
-
-  public static void fermentExampleIdentityIdentityKeyIDSet0(KeyID obj, long value) {
-    exampleJNI.fermentExampleIdentityIdentityKeyIDSet0(KeyID.getCPtr(obj), obj, value);
-  }
-
-  public static ferment_example_nested_PlatformVersion createPlatformV0(ferment_example_nested_FeatureVersionBounds identity, ferment_example_nested_FeatureVersionBounds proofs) {
-    long cPtr = exampleJNI.createPlatformV0(ferment_example_nested_FeatureVersionBounds.getCPtr(identity), identity, ferment_example_nested_FeatureVersionBounds.getCPtr(proofs), proofs);
-    return (cPtr == 0) ? null : new ferment_example_nested_PlatformVersion(cPtr, false);
-  }
-
-  public static Identity fermentExampleIdentityIdentityIdentityV0Ctor(IdentityV0 o_0) {
-    long cPtr = exampleJNI.fermentExampleIdentityIdentityIdentityV0Ctor__SWIG_0(IdentityV0.getCPtr(o_0), o_0);
+  public static Identity dppIdentityIdentityIdentityV0Ctor(IdentityV0 o_0) {
+    long cPtr = exampleJNI.dppIdentityIdentityIdentityV0Ctor(IdentityV0.getCPtr(o_0), o_0);
     return (cPtr == 0) ? null : new Identity(cPtr, false);
   }
 
-  public static void fermentExampleIdentityIdentityIdentityDestroy(Identity ffi) {
-    exampleJNI.fermentExampleIdentityIdentityIdentityDestroy(Identity.getCPtr(ffi), ffi);
+  public static void dppIdentityIdentityIdentityDestroy(Identity ffi) {
+    exampleJNI.dppIdentityIdentityIdentityDestroy(Identity.getCPtr(ffi), ffi);
   }
 
-  public static IdentityPublicKeyV0 fermentExampleIdentityIdentityIdentityPublicKeyV0Ctor(KeyID id, SWIGTYPE_p_ferment_example_identity_identity_Purpose purpose, SWIGTYPE_p_ferment_example_identity_identity_SecurityLevel security_level, ContractBounds contract_bounds, SWIGTYPE_p_ferment_example_identity_identity_KeyType key_type, boolean read_only, ferment_example_nested_BinaryData data, TimestampMillis disabled_at) {
-    long cPtr = exampleJNI.fermentExampleIdentityIdentityIdentityPublicKeyV0Ctor__SWIG_1(KeyID.getCPtr(id), id, SWIGTYPE_p_ferment_example_identity_identity_Purpose.getCPtr(purpose), SWIGTYPE_p_ferment_example_identity_identity_SecurityLevel.getCPtr(security_level), ContractBounds.getCPtr(contract_bounds), contract_bounds, SWIGTYPE_p_ferment_example_identity_identity_KeyType.getCPtr(key_type), read_only, ferment_example_nested_BinaryData.getCPtr(data), data, TimestampMillis.getCPtr(disabled_at), disabled_at);
-    return (cPtr == 0) ? null : new IdentityPublicKeyV0(cPtr, false);
-  }
-
-  public static void fermentExampleIdentityIdentityIdentityPublicKeyV0Destroy(IdentityPublicKeyV0 ffi) {
-    exampleJNI.fermentExampleIdentityIdentityIdentityPublicKeyV0Destroy(IdentityPublicKeyV0.getCPtr(ffi), ffi);
-  }
-
-  public static KeyID fermentExampleIdentityIdentityIdentityPublicKeyV0GetId(IdentityPublicKeyV0 obj) {
-    long cPtr = exampleJNI.fermentExampleIdentityIdentityIdentityPublicKeyV0GetId(IdentityPublicKeyV0.getCPtr(obj), obj);
+  public static KeyID dppIdentityIdentityPublicKeyKeyIDCtor(long o_0) {
+    long cPtr = exampleJNI.dppIdentityIdentityPublicKeyKeyIDCtor(o_0);
     return (cPtr == 0) ? null : new KeyID(cPtr, false);
   }
 
-  public static SWIGTYPE_p_ferment_example_identity_identity_Purpose fermentExampleIdentityIdentityIdentityPublicKeyV0GetPurpose(IdentityPublicKeyV0 obj) {
-    long cPtr = exampleJNI.fermentExampleIdentityIdentityIdentityPublicKeyV0GetPurpose(IdentityPublicKeyV0.getCPtr(obj), obj);
-    return (cPtr == 0) ? null : new SWIGTYPE_p_ferment_example_identity_identity_Purpose(cPtr, false);
+  public static void dppIdentityIdentityPublicKeyKeyIDDestroy(KeyID ffi) {
+    exampleJNI.dppIdentityIdentityPublicKeyKeyIDDestroy(KeyID.getCPtr(ffi), ffi);
   }
 
-  public static SWIGTYPE_p_ferment_example_identity_identity_SecurityLevel fermentExampleIdentityIdentityIdentityPublicKeyV0GetSecurityLevel(IdentityPublicKeyV0 obj) {
-    long cPtr = exampleJNI.fermentExampleIdentityIdentityIdentityPublicKeyV0GetSecurityLevel(IdentityPublicKeyV0.getCPtr(obj), obj);
-    return (cPtr == 0) ? null : new SWIGTYPE_p_ferment_example_identity_identity_SecurityLevel(cPtr, false);
+  public static long dppIdentityIdentityPublicKeyKeyIDGet0(KeyID obj) {
+    return exampleJNI.dppIdentityIdentityPublicKeyKeyIDGet0(KeyID.getCPtr(obj), obj);
   }
 
-  public static ContractBounds fermentExampleIdentityIdentityIdentityPublicKeyV0GetContractBounds(IdentityPublicKeyV0 obj) {
-    long cPtr = exampleJNI.fermentExampleIdentityIdentityIdentityPublicKeyV0GetContractBounds(IdentityPublicKeyV0.getCPtr(obj), obj);
-    return (cPtr == 0) ? null : new ContractBounds(cPtr, false);
+  public static void dppIdentityIdentityPublicKeyKeyIDSet0(KeyID obj, long value) {
+    exampleJNI.dppIdentityIdentityPublicKeyKeyIDSet0(KeyID.getCPtr(obj), obj, value);
   }
 
-  public static SWIGTYPE_p_ferment_example_identity_identity_KeyType fermentExampleIdentityIdentityIdentityPublicKeyV0GetKeyType(IdentityPublicKeyV0 obj) {
-    long cPtr = exampleJNI.fermentExampleIdentityIdentityIdentityPublicKeyV0GetKeyType(IdentityPublicKeyV0.getCPtr(obj), obj);
-    return (cPtr == 0) ? null : new SWIGTYPE_p_ferment_example_identity_identity_KeyType(cPtr, false);
-  }
-
-  public static boolean fermentExampleIdentityIdentityIdentityPublicKeyV0GetReadOnly(IdentityPublicKeyV0 obj) {
-    return exampleJNI.fermentExampleIdentityIdentityIdentityPublicKeyV0GetReadOnly(IdentityPublicKeyV0.getCPtr(obj), obj);
-  }
-
-  public static ferment_example_nested_BinaryData fermentExampleIdentityIdentityIdentityPublicKeyV0GetData(IdentityPublicKeyV0 obj) {
-    long cPtr = exampleJNI.fermentExampleIdentityIdentityIdentityPublicKeyV0GetData(IdentityPublicKeyV0.getCPtr(obj), obj);
-    return (cPtr == 0) ? null : new ferment_example_nested_BinaryData(cPtr, false);
-  }
-
-  public static TimestampMillis fermentExampleIdentityIdentityIdentityPublicKeyV0GetDisabledAt(IdentityPublicKeyV0 obj) {
-    long cPtr = exampleJNI.fermentExampleIdentityIdentityIdentityPublicKeyV0GetDisabledAt(IdentityPublicKeyV0.getCPtr(obj), obj);
+  public static TimestampMillis dppIdentityIdentityPublicKeyTimestampMillisCtor(java.math.BigInteger o_0) {
+    long cPtr = exampleJNI.dppIdentityIdentityPublicKeyTimestampMillisCtor(o_0);
     return (cPtr == 0) ? null : new TimestampMillis(cPtr, false);
   }
 
-  public static void fermentExampleIdentityIdentityIdentityPublicKeyV0SetId(IdentityPublicKeyV0 obj, KeyID value) {
-    exampleJNI.fermentExampleIdentityIdentityIdentityPublicKeyV0SetId(IdentityPublicKeyV0.getCPtr(obj), obj, KeyID.getCPtr(value), value);
+  public static void dppIdentityIdentityPublicKeyTimestampMillisDestroy(TimestampMillis ffi) {
+    exampleJNI.dppIdentityIdentityPublicKeyTimestampMillisDestroy(TimestampMillis.getCPtr(ffi), ffi);
   }
 
-  public static void fermentExampleIdentityIdentityIdentityPublicKeyV0SetPurpose(IdentityPublicKeyV0 obj, SWIGTYPE_p_ferment_example_identity_identity_Purpose value) {
-    exampleJNI.fermentExampleIdentityIdentityIdentityPublicKeyV0SetPurpose(IdentityPublicKeyV0.getCPtr(obj), obj, SWIGTYPE_p_ferment_example_identity_identity_Purpose.getCPtr(value));
+  public static java.math.BigInteger dppIdentityIdentityPublicKeyTimestampMillisGet0(TimestampMillis obj) {
+    return exampleJNI.dppIdentityIdentityPublicKeyTimestampMillisGet0(TimestampMillis.getCPtr(obj), obj);
   }
 
-  public static void fermentExampleIdentityIdentityIdentityPublicKeyV0SetSecurityLevel(IdentityPublicKeyV0 obj, SWIGTYPE_p_ferment_example_identity_identity_SecurityLevel value) {
-    exampleJNI.fermentExampleIdentityIdentityIdentityPublicKeyV0SetSecurityLevel(IdentityPublicKeyV0.getCPtr(obj), obj, SWIGTYPE_p_ferment_example_identity_identity_SecurityLevel.getCPtr(value));
+  public static void dppIdentityIdentityPublicKeyTimestampMillisSet0(TimestampMillis obj, java.math.BigInteger value) {
+    exampleJNI.dppIdentityIdentityPublicKeyTimestampMillisSet0(TimestampMillis.getCPtr(obj), obj, value);
   }
 
-  public static void fermentExampleIdentityIdentityIdentityPublicKeyV0SetContractBounds(IdentityPublicKeyV0 obj, ContractBounds value) {
-    exampleJNI.fermentExampleIdentityIdentityIdentityPublicKeyV0SetContractBounds(IdentityPublicKeyV0.getCPtr(obj), obj, ContractBounds.getCPtr(value), value);
+  public static dpp_identity_identity_public_key_KeyCount dppIdentityIdentityPublicKeyKeyCountCtor(KeyID o_0) {
+    long cPtr = exampleJNI.dppIdentityIdentityPublicKeyKeyCountCtor(KeyID.getCPtr(o_0), o_0);
+    return (cPtr == 0) ? null : new dpp_identity_identity_public_key_KeyCount(cPtr, false);
   }
 
-  public static void fermentExampleIdentityIdentityIdentityPublicKeyV0SetKeyType(IdentityPublicKeyV0 obj, SWIGTYPE_p_ferment_example_identity_identity_KeyType value) {
-    exampleJNI.fermentExampleIdentityIdentityIdentityPublicKeyV0SetKeyType(IdentityPublicKeyV0.getCPtr(obj), obj, SWIGTYPE_p_ferment_example_identity_identity_KeyType.getCPtr(value));
+  public static void dppIdentityIdentityPublicKeyKeyCountDestroy(dpp_identity_identity_public_key_KeyCount ffi) {
+    exampleJNI.dppIdentityIdentityPublicKeyKeyCountDestroy(dpp_identity_identity_public_key_KeyCount.getCPtr(ffi), ffi);
   }
 
-  public static void fermentExampleIdentityIdentityIdentityPublicKeyV0SetReadOnly(IdentityPublicKeyV0 obj, boolean value) {
-    exampleJNI.fermentExampleIdentityIdentityIdentityPublicKeyV0SetReadOnly(IdentityPublicKeyV0.getCPtr(obj), obj, value);
+  public static KeyID dppIdentityIdentityPublicKeyKeyCountGet0(dpp_identity_identity_public_key_KeyCount obj) {
+    long cPtr = exampleJNI.dppIdentityIdentityPublicKeyKeyCountGet0(dpp_identity_identity_public_key_KeyCount.getCPtr(obj), obj);
+    return (cPtr == 0) ? null : new KeyID(cPtr, false);
   }
 
-  public static void fermentExampleIdentityIdentityIdentityPublicKeyV0SetData(IdentityPublicKeyV0 obj, ferment_example_nested_BinaryData value) {
-    exampleJNI.fermentExampleIdentityIdentityIdentityPublicKeyV0SetData(IdentityPublicKeyV0.getCPtr(obj), obj, ferment_example_nested_BinaryData.getCPtr(value), value);
+  public static void dppIdentityIdentityPublicKeyKeyCountSet0(dpp_identity_identity_public_key_KeyCount obj, KeyID value) {
+    exampleJNI.dppIdentityIdentityPublicKeyKeyCountSet0(dpp_identity_identity_public_key_KeyCount.getCPtr(obj), obj, KeyID.getCPtr(value), value);
   }
 
-  public static void fermentExampleIdentityIdentityIdentityPublicKeyV0SetDisabledAt(IdentityPublicKeyV0 obj, TimestampMillis value) {
-    exampleJNI.fermentExampleIdentityIdentityIdentityPublicKeyV0SetDisabledAt(IdentityPublicKeyV0.getCPtr(obj), obj, TimestampMillis.getCPtr(value), value);
+  public static IdentityPublicKey dppIdentityIdentityPublicKeyIdentityPublicKeyV0Ctor(IdentityPublicKeyV0 o_0) {
+    long cPtr = exampleJNI.dppIdentityIdentityPublicKeyIdentityPublicKeyV0Ctor(IdentityPublicKeyV0.getCPtr(o_0), o_0);
+    return (cPtr == 0) ? null : new IdentityPublicKey(cPtr, false);
   }
 
-  public static Revision fermentExampleIdentityIdentityRevisionCtor(java.math.BigInteger o_0) {
-    long cPtr = exampleJNI.fermentExampleIdentityIdentityRevisionCtor(o_0);
-    return (cPtr == 0) ? null : new Revision(cPtr, false);
+  public static void dppIdentityIdentityPublicKeyIdentityPublicKeyDestroy(IdentityPublicKey ffi) {
+    exampleJNI.dppIdentityIdentityPublicKeyIdentityPublicKeyDestroy(IdentityPublicKey.getCPtr(ffi), ffi);
   }
 
-  public static void fermentExampleIdentityIdentityRevisionDestroy(Revision ffi) {
-    exampleJNI.fermentExampleIdentityIdentityRevisionDestroy(Revision.getCPtr(ffi), ffi);
+  public static SWIGTYPE_p_dpp_identity_identity_public_key_security_level_SecurityLevel dppIdentityIdentityPublicKeySecurityLevelSecurityLevelMASTERCtor() {
+    long cPtr = exampleJNI.dppIdentityIdentityPublicKeySecurityLevelSecurityLevelMASTERCtor();
+    return (cPtr == 0) ? null : new SWIGTYPE_p_dpp_identity_identity_public_key_security_level_SecurityLevel(cPtr, false);
   }
 
-  public static java.math.BigInteger fermentExampleIdentityIdentityRevisionGet0(Revision obj) {
-    return exampleJNI.fermentExampleIdentityIdentityRevisionGet0(Revision.getCPtr(obj), obj);
+  public static SWIGTYPE_p_dpp_identity_identity_public_key_security_level_SecurityLevel dppIdentityIdentityPublicKeySecurityLevelSecurityLevelCRITICALCtor() {
+    long cPtr = exampleJNI.dppIdentityIdentityPublicKeySecurityLevelSecurityLevelCRITICALCtor();
+    return (cPtr == 0) ? null : new SWIGTYPE_p_dpp_identity_identity_public_key_security_level_SecurityLevel(cPtr, false);
   }
 
-  public static void fermentExampleIdentityIdentityRevisionSet0(Revision obj, java.math.BigInteger value) {
-    exampleJNI.fermentExampleIdentityIdentityRevisionSet0(Revision.getCPtr(obj), obj, value);
+  public static SWIGTYPE_p_dpp_identity_identity_public_key_security_level_SecurityLevel dppIdentityIdentityPublicKeySecurityLevelSecurityLevelHIGHCtor() {
+    long cPtr = exampleJNI.dppIdentityIdentityPublicKeySecurityLevelSecurityLevelHIGHCtor();
+    return (cPtr == 0) ? null : new SWIGTYPE_p_dpp_identity_identity_public_key_security_level_SecurityLevel(cPtr, false);
   }
 
-  public static SWIGTYPE_p_ferment_example_identity_identity_Purpose fermentExampleIdentityIdentityPurposeAUTHENTICATIONCtor() {
-    long cPtr = exampleJNI.fermentExampleIdentityIdentityPurposeAUTHENTICATIONCtor();
-    return (cPtr == 0) ? null : new SWIGTYPE_p_ferment_example_identity_identity_Purpose(cPtr, false);
+  public static SWIGTYPE_p_dpp_identity_identity_public_key_security_level_SecurityLevel dppIdentityIdentityPublicKeySecurityLevelSecurityLevelMEDIUMCtor() {
+    long cPtr = exampleJNI.dppIdentityIdentityPublicKeySecurityLevelSecurityLevelMEDIUMCtor();
+    return (cPtr == 0) ? null : new SWIGTYPE_p_dpp_identity_identity_public_key_security_level_SecurityLevel(cPtr, false);
   }
 
-  public static SWIGTYPE_p_ferment_example_identity_identity_Purpose fermentExampleIdentityIdentityPurposeENCRYPTIONCtor() {
-    long cPtr = exampleJNI.fermentExampleIdentityIdentityPurposeENCRYPTIONCtor();
-    return (cPtr == 0) ? null : new SWIGTYPE_p_ferment_example_identity_identity_Purpose(cPtr, false);
+  public static void dppIdentityIdentityPublicKeySecurityLevelSecurityLevelDestroy(SWIGTYPE_p_dpp_identity_identity_public_key_security_level_SecurityLevel ffi) {
+    exampleJNI.dppIdentityIdentityPublicKeySecurityLevelSecurityLevelDestroy(SWIGTYPE_p_dpp_identity_identity_public_key_security_level_SecurityLevel.getCPtr(ffi));
   }
 
-  public static SWIGTYPE_p_ferment_example_identity_identity_Purpose fermentExampleIdentityIdentityPurposeDECRYPTIONCtor() {
-    long cPtr = exampleJNI.fermentExampleIdentityIdentityPurposeDECRYPTIONCtor();
-    return (cPtr == 0) ? null : new SWIGTYPE_p_ferment_example_identity_identity_Purpose(cPtr, false);
+  public static ContractBounds dppIdentityIdentityPublicKeyContractBoundsContractBoundsSingleContractCtor(Identifier id) {
+    long cPtr = exampleJNI.dppIdentityIdentityPublicKeyContractBoundsContractBoundsSingleContractCtor(Identifier.getCPtr(id), id);
+    return (cPtr == 0) ? null : new ContractBounds(cPtr, false);
   }
 
-  public static SWIGTYPE_p_ferment_example_identity_identity_Purpose fermentExampleIdentityIdentityPurposeWITHDRAWCtor() {
-    long cPtr = exampleJNI.fermentExampleIdentityIdentityPurposeWITHDRAWCtor();
-    return (cPtr == 0) ? null : new SWIGTYPE_p_ferment_example_identity_identity_Purpose(cPtr, false);
+  public static ContractBounds dppIdentityIdentityPublicKeyContractBoundsContractBoundsSingleContractDocumentTypeCtor(Identifier id, String document_type_name) {
+    long cPtr = exampleJNI.dppIdentityIdentityPublicKeyContractBoundsContractBoundsSingleContractDocumentTypeCtor(Identifier.getCPtr(id), id, document_type_name);
+    return (cPtr == 0) ? null : new ContractBounds(cPtr, false);
   }
 
-  public static SWIGTYPE_p_ferment_example_identity_identity_Purpose fermentExampleIdentityIdentityPurposeSYSTEMCtor() {
-    long cPtr = exampleJNI.fermentExampleIdentityIdentityPurposeSYSTEMCtor();
-    return (cPtr == 0) ? null : new SWIGTYPE_p_ferment_example_identity_identity_Purpose(cPtr, false);
+  public static void dppIdentityIdentityPublicKeyContractBoundsContractBoundsDestroy(ContractBounds ffi) {
+    exampleJNI.dppIdentityIdentityPublicKeyContractBoundsContractBoundsDestroy(ContractBounds.getCPtr(ffi), ffi);
   }
 
-  public static SWIGTYPE_p_ferment_example_identity_identity_Purpose fermentExampleIdentityIdentityPurposeVOTINGCtor() {
-    long cPtr = exampleJNI.fermentExampleIdentityIdentityPurposeVOTINGCtor();
-    return (cPtr == 0) ? null : new SWIGTYPE_p_ferment_example_identity_identity_Purpose(cPtr, false);
+  public static IdentityPublicKeyV0 dppIdentityIdentityPublicKeyV0IdentityPublicKeyV0Ctor(KeyID id, SWIGTYPE_p_dpp_identity_identity_public_key_purpose_Purpose purpose, SWIGTYPE_p_dpp_identity_identity_public_key_security_level_SecurityLevel security_level, ContractBounds contract_bounds, SWIGTYPE_p_dpp_identity_identity_public_key_key_type_KeyType key_type, boolean read_only, BinaryData data, TimestampMillis disabled_at) {
+    long cPtr = exampleJNI.dppIdentityIdentityPublicKeyV0IdentityPublicKeyV0Ctor(KeyID.getCPtr(id), id, SWIGTYPE_p_dpp_identity_identity_public_key_purpose_Purpose.getCPtr(purpose), SWIGTYPE_p_dpp_identity_identity_public_key_security_level_SecurityLevel.getCPtr(security_level), ContractBounds.getCPtr(contract_bounds), contract_bounds, SWIGTYPE_p_dpp_identity_identity_public_key_key_type_KeyType.getCPtr(key_type), read_only, BinaryData.getCPtr(data), data, TimestampMillis.getCPtr(disabled_at), disabled_at);
+    return (cPtr == 0) ? null : new IdentityPublicKeyV0(cPtr, false);
   }
 
-  public static void fermentExampleIdentityIdentityPurposeDestroy(SWIGTYPE_p_ferment_example_identity_identity_Purpose ffi) {
-    exampleJNI.fermentExampleIdentityIdentityPurposeDestroy(SWIGTYPE_p_ferment_example_identity_identity_Purpose.getCPtr(ffi));
+  public static void dppIdentityIdentityPublicKeyV0IdentityPublicKeyV0Destroy(IdentityPublicKeyV0 ffi) {
+    exampleJNI.dppIdentityIdentityPublicKeyV0IdentityPublicKeyV0Destroy(IdentityPublicKeyV0.getCPtr(ffi), ffi);
   }
 
-  public static IdentityV0 fermentExampleIdentityIdentityIdentityV0Ctor(Identifier id, std_collections_Map_keys_ferment_example_identity_identity_KeyID_values_ferment_example_identity_identity_IdentityPublicKey public_keys, java.math.BigInteger balance, Revision revision) {
-    long cPtr = exampleJNI.fermentExampleIdentityIdentityIdentityV0Ctor__SWIG_1(Identifier.getCPtr(id), id, std_collections_Map_keys_ferment_example_identity_identity_KeyID_values_ferment_example_identity_identity_IdentityPublicKey.getCPtr(public_keys), public_keys, balance, Revision.getCPtr(revision), revision);
+  public static KeyID dppIdentityIdentityPublicKeyV0IdentityPublicKeyV0GetId(IdentityPublicKeyV0 obj) {
+    long cPtr = exampleJNI.dppIdentityIdentityPublicKeyV0IdentityPublicKeyV0GetId(IdentityPublicKeyV0.getCPtr(obj), obj);
+    return (cPtr == 0) ? null : new KeyID(cPtr, false);
+  }
+
+  public static SWIGTYPE_p_dpp_identity_identity_public_key_purpose_Purpose dppIdentityIdentityPublicKeyV0IdentityPublicKeyV0GetPurpose(IdentityPublicKeyV0 obj) {
+    long cPtr = exampleJNI.dppIdentityIdentityPublicKeyV0IdentityPublicKeyV0GetPurpose(IdentityPublicKeyV0.getCPtr(obj), obj);
+    return (cPtr == 0) ? null : new SWIGTYPE_p_dpp_identity_identity_public_key_purpose_Purpose(cPtr, false);
+  }
+
+  public static SWIGTYPE_p_dpp_identity_identity_public_key_security_level_SecurityLevel dppIdentityIdentityPublicKeyV0IdentityPublicKeyV0GetSecurityLevel(IdentityPublicKeyV0 obj) {
+    long cPtr = exampleJNI.dppIdentityIdentityPublicKeyV0IdentityPublicKeyV0GetSecurityLevel(IdentityPublicKeyV0.getCPtr(obj), obj);
+    return (cPtr == 0) ? null : new SWIGTYPE_p_dpp_identity_identity_public_key_security_level_SecurityLevel(cPtr, false);
+  }
+
+  public static ContractBounds dppIdentityIdentityPublicKeyV0IdentityPublicKeyV0GetContractBounds(IdentityPublicKeyV0 obj) {
+    long cPtr = exampleJNI.dppIdentityIdentityPublicKeyV0IdentityPublicKeyV0GetContractBounds(IdentityPublicKeyV0.getCPtr(obj), obj);
+    return (cPtr == 0) ? null : new ContractBounds(cPtr, false);
+  }
+
+  public static SWIGTYPE_p_dpp_identity_identity_public_key_key_type_KeyType dppIdentityIdentityPublicKeyV0IdentityPublicKeyV0GetKeyType(IdentityPublicKeyV0 obj) {
+    long cPtr = exampleJNI.dppIdentityIdentityPublicKeyV0IdentityPublicKeyV0GetKeyType(IdentityPublicKeyV0.getCPtr(obj), obj);
+    return (cPtr == 0) ? null : new SWIGTYPE_p_dpp_identity_identity_public_key_key_type_KeyType(cPtr, false);
+  }
+
+  public static boolean dppIdentityIdentityPublicKeyV0IdentityPublicKeyV0GetReadOnly(IdentityPublicKeyV0 obj) {
+    return exampleJNI.dppIdentityIdentityPublicKeyV0IdentityPublicKeyV0GetReadOnly(IdentityPublicKeyV0.getCPtr(obj), obj);
+  }
+
+  public static BinaryData dppIdentityIdentityPublicKeyV0IdentityPublicKeyV0GetData(IdentityPublicKeyV0 obj) {
+    long cPtr = exampleJNI.dppIdentityIdentityPublicKeyV0IdentityPublicKeyV0GetData(IdentityPublicKeyV0.getCPtr(obj), obj);
+    return (cPtr == 0) ? null : new BinaryData(cPtr, false);
+  }
+
+  public static TimestampMillis dppIdentityIdentityPublicKeyV0IdentityPublicKeyV0GetDisabledAt(IdentityPublicKeyV0 obj) {
+    long cPtr = exampleJNI.dppIdentityIdentityPublicKeyV0IdentityPublicKeyV0GetDisabledAt(IdentityPublicKeyV0.getCPtr(obj), obj);
+    return (cPtr == 0) ? null : new TimestampMillis(cPtr, false);
+  }
+
+  public static void dppIdentityIdentityPublicKeyV0IdentityPublicKeyV0SetId(IdentityPublicKeyV0 obj, KeyID value) {
+    exampleJNI.dppIdentityIdentityPublicKeyV0IdentityPublicKeyV0SetId(IdentityPublicKeyV0.getCPtr(obj), obj, KeyID.getCPtr(value), value);
+  }
+
+  public static void dppIdentityIdentityPublicKeyV0IdentityPublicKeyV0SetPurpose(IdentityPublicKeyV0 obj, SWIGTYPE_p_dpp_identity_identity_public_key_purpose_Purpose value) {
+    exampleJNI.dppIdentityIdentityPublicKeyV0IdentityPublicKeyV0SetPurpose(IdentityPublicKeyV0.getCPtr(obj), obj, SWIGTYPE_p_dpp_identity_identity_public_key_purpose_Purpose.getCPtr(value));
+  }
+
+  public static void dppIdentityIdentityPublicKeyV0IdentityPublicKeyV0SetSecurityLevel(IdentityPublicKeyV0 obj, SWIGTYPE_p_dpp_identity_identity_public_key_security_level_SecurityLevel value) {
+    exampleJNI.dppIdentityIdentityPublicKeyV0IdentityPublicKeyV0SetSecurityLevel(IdentityPublicKeyV0.getCPtr(obj), obj, SWIGTYPE_p_dpp_identity_identity_public_key_security_level_SecurityLevel.getCPtr(value));
+  }
+
+  public static void dppIdentityIdentityPublicKeyV0IdentityPublicKeyV0SetContractBounds(IdentityPublicKeyV0 obj, ContractBounds value) {
+    exampleJNI.dppIdentityIdentityPublicKeyV0IdentityPublicKeyV0SetContractBounds(IdentityPublicKeyV0.getCPtr(obj), obj, ContractBounds.getCPtr(value), value);
+  }
+
+  public static void dppIdentityIdentityPublicKeyV0IdentityPublicKeyV0SetKeyType(IdentityPublicKeyV0 obj, SWIGTYPE_p_dpp_identity_identity_public_key_key_type_KeyType value) {
+    exampleJNI.dppIdentityIdentityPublicKeyV0IdentityPublicKeyV0SetKeyType(IdentityPublicKeyV0.getCPtr(obj), obj, SWIGTYPE_p_dpp_identity_identity_public_key_key_type_KeyType.getCPtr(value));
+  }
+
+  public static void dppIdentityIdentityPublicKeyV0IdentityPublicKeyV0SetReadOnly(IdentityPublicKeyV0 obj, boolean value) {
+    exampleJNI.dppIdentityIdentityPublicKeyV0IdentityPublicKeyV0SetReadOnly(IdentityPublicKeyV0.getCPtr(obj), obj, value);
+  }
+
+  public static void dppIdentityIdentityPublicKeyV0IdentityPublicKeyV0SetData(IdentityPublicKeyV0 obj, BinaryData value) {
+    exampleJNI.dppIdentityIdentityPublicKeyV0IdentityPublicKeyV0SetData(IdentityPublicKeyV0.getCPtr(obj), obj, BinaryData.getCPtr(value), value);
+  }
+
+  public static void dppIdentityIdentityPublicKeyV0IdentityPublicKeyV0SetDisabledAt(IdentityPublicKeyV0 obj, TimestampMillis value) {
+    exampleJNI.dppIdentityIdentityPublicKeyV0IdentityPublicKeyV0SetDisabledAt(IdentityPublicKeyV0.getCPtr(obj), obj, TimestampMillis.getCPtr(value), value);
+  }
+
+  public static SWIGTYPE_p_dpp_identity_identity_public_key_purpose_Purpose dppIdentityIdentityPublicKeyPurposePurposeAUTHENTICATIONCtor() {
+    long cPtr = exampleJNI.dppIdentityIdentityPublicKeyPurposePurposeAUTHENTICATIONCtor();
+    return (cPtr == 0) ? null : new SWIGTYPE_p_dpp_identity_identity_public_key_purpose_Purpose(cPtr, false);
+  }
+
+  public static SWIGTYPE_p_dpp_identity_identity_public_key_purpose_Purpose dppIdentityIdentityPublicKeyPurposePurposeENCRYPTIONCtor() {
+    long cPtr = exampleJNI.dppIdentityIdentityPublicKeyPurposePurposeENCRYPTIONCtor();
+    return (cPtr == 0) ? null : new SWIGTYPE_p_dpp_identity_identity_public_key_purpose_Purpose(cPtr, false);
+  }
+
+  public static SWIGTYPE_p_dpp_identity_identity_public_key_purpose_Purpose dppIdentityIdentityPublicKeyPurposePurposeDECRYPTIONCtor() {
+    long cPtr = exampleJNI.dppIdentityIdentityPublicKeyPurposePurposeDECRYPTIONCtor();
+    return (cPtr == 0) ? null : new SWIGTYPE_p_dpp_identity_identity_public_key_purpose_Purpose(cPtr, false);
+  }
+
+  public static SWIGTYPE_p_dpp_identity_identity_public_key_purpose_Purpose dppIdentityIdentityPublicKeyPurposePurposeWITHDRAWCtor() {
+    long cPtr = exampleJNI.dppIdentityIdentityPublicKeyPurposePurposeWITHDRAWCtor();
+    return (cPtr == 0) ? null : new SWIGTYPE_p_dpp_identity_identity_public_key_purpose_Purpose(cPtr, false);
+  }
+
+  public static SWIGTYPE_p_dpp_identity_identity_public_key_purpose_Purpose dppIdentityIdentityPublicKeyPurposePurposeSYSTEMCtor() {
+    long cPtr = exampleJNI.dppIdentityIdentityPublicKeyPurposePurposeSYSTEMCtor();
+    return (cPtr == 0) ? null : new SWIGTYPE_p_dpp_identity_identity_public_key_purpose_Purpose(cPtr, false);
+  }
+
+  public static SWIGTYPE_p_dpp_identity_identity_public_key_purpose_Purpose dppIdentityIdentityPublicKeyPurposePurposeVOTINGCtor() {
+    long cPtr = exampleJNI.dppIdentityIdentityPublicKeyPurposePurposeVOTINGCtor();
+    return (cPtr == 0) ? null : new SWIGTYPE_p_dpp_identity_identity_public_key_purpose_Purpose(cPtr, false);
+  }
+
+  public static void dppIdentityIdentityPublicKeyPurposePurposeDestroy(SWIGTYPE_p_dpp_identity_identity_public_key_purpose_Purpose ffi) {
+    exampleJNI.dppIdentityIdentityPublicKeyPurposePurposeDestroy(SWIGTYPE_p_dpp_identity_identity_public_key_purpose_Purpose.getCPtr(ffi));
+  }
+
+  public static SWIGTYPE_p_dpp_identity_identity_public_key_key_type_KeyType dppIdentityIdentityPublicKeyKeyTypeKeyTypeECDSASECP256K1Ctor() {
+    long cPtr = exampleJNI.dppIdentityIdentityPublicKeyKeyTypeKeyTypeECDSASECP256K1Ctor();
+    return (cPtr == 0) ? null : new SWIGTYPE_p_dpp_identity_identity_public_key_key_type_KeyType(cPtr, false);
+  }
+
+  public static SWIGTYPE_p_dpp_identity_identity_public_key_key_type_KeyType dppIdentityIdentityPublicKeyKeyTypeKeyTypeBLS12381Ctor() {
+    long cPtr = exampleJNI.dppIdentityIdentityPublicKeyKeyTypeKeyTypeBLS12381Ctor();
+    return (cPtr == 0) ? null : new SWIGTYPE_p_dpp_identity_identity_public_key_key_type_KeyType(cPtr, false);
+  }
+
+  public static SWIGTYPE_p_dpp_identity_identity_public_key_key_type_KeyType dppIdentityIdentityPublicKeyKeyTypeKeyTypeECDSAHASH160Ctor() {
+    long cPtr = exampleJNI.dppIdentityIdentityPublicKeyKeyTypeKeyTypeECDSAHASH160Ctor();
+    return (cPtr == 0) ? null : new SWIGTYPE_p_dpp_identity_identity_public_key_key_type_KeyType(cPtr, false);
+  }
+
+  public static SWIGTYPE_p_dpp_identity_identity_public_key_key_type_KeyType dppIdentityIdentityPublicKeyKeyTypeKeyTypeBIP13SCRIPTHASHCtor() {
+    long cPtr = exampleJNI.dppIdentityIdentityPublicKeyKeyTypeKeyTypeBIP13SCRIPTHASHCtor();
+    return (cPtr == 0) ? null : new SWIGTYPE_p_dpp_identity_identity_public_key_key_type_KeyType(cPtr, false);
+  }
+
+  public static SWIGTYPE_p_dpp_identity_identity_public_key_key_type_KeyType dppIdentityIdentityPublicKeyKeyTypeKeyTypeEDDSA25519HASH160Ctor() {
+    long cPtr = exampleJNI.dppIdentityIdentityPublicKeyKeyTypeKeyTypeEDDSA25519HASH160Ctor();
+    return (cPtr == 0) ? null : new SWIGTYPE_p_dpp_identity_identity_public_key_key_type_KeyType(cPtr, false);
+  }
+
+  public static void dppIdentityIdentityPublicKeyKeyTypeKeyTypeDestroy(SWIGTYPE_p_dpp_identity_identity_public_key_key_type_KeyType ffi) {
+    exampleJNI.dppIdentityIdentityPublicKeyKeyTypeKeyTypeDestroy(SWIGTYPE_p_dpp_identity_identity_public_key_key_type_KeyType.getCPtr(ffi));
+  }
+
+  public static IdentityV0 dppIdentityV0IdentityV0Ctor(Identifier id, std_collections_Map_keys_dpp_identity_identity_public_key_KeyID_values_dpp_identity_identity_public_key_IdentityPublicKey public_keys, java.math.BigInteger balance, Revision revision) {
+    long cPtr = exampleJNI.dppIdentityV0IdentityV0Ctor(Identifier.getCPtr(id), id, std_collections_Map_keys_dpp_identity_identity_public_key_KeyID_values_dpp_identity_identity_public_key_IdentityPublicKey.getCPtr(public_keys), public_keys, balance, Revision.getCPtr(revision), revision);
     return (cPtr == 0) ? null : new IdentityV0(cPtr, false);
   }
 
-  public static void fermentExampleIdentityIdentityIdentityV0Destroy(IdentityV0 ffi) {
-    exampleJNI.fermentExampleIdentityIdentityIdentityV0Destroy(IdentityV0.getCPtr(ffi), ffi);
+  public static void dppIdentityV0IdentityV0Destroy(IdentityV0 ffi) {
+    exampleJNI.dppIdentityV0IdentityV0Destroy(IdentityV0.getCPtr(ffi), ffi);
   }
 
-  public static Identifier fermentExampleIdentityIdentityIdentityV0GetId(IdentityV0 obj) {
-    long cPtr = exampleJNI.fermentExampleIdentityIdentityIdentityV0GetId(IdentityV0.getCPtr(obj), obj);
+  public static Identifier dppIdentityV0IdentityV0GetId(IdentityV0 obj) {
+    long cPtr = exampleJNI.dppIdentityV0IdentityV0GetId(IdentityV0.getCPtr(obj), obj);
     return (cPtr == 0) ? null : new Identifier(cPtr, false);
   }
 
-  public static std_collections_Map_keys_ferment_example_identity_identity_KeyID_values_ferment_example_identity_identity_IdentityPublicKey fermentExampleIdentityIdentityIdentityV0GetPublicKeys(IdentityV0 obj) {
-    long cPtr = exampleJNI.fermentExampleIdentityIdentityIdentityV0GetPublicKeys(IdentityV0.getCPtr(obj), obj);
-    return (cPtr == 0) ? null : new std_collections_Map_keys_ferment_example_identity_identity_KeyID_values_ferment_example_identity_identity_IdentityPublicKey(cPtr, false);
+  public static std_collections_Map_keys_dpp_identity_identity_public_key_KeyID_values_dpp_identity_identity_public_key_IdentityPublicKey dppIdentityV0IdentityV0GetPublicKeys(IdentityV0 obj) {
+    long cPtr = exampleJNI.dppIdentityV0IdentityV0GetPublicKeys(IdentityV0.getCPtr(obj), obj);
+    return (cPtr == 0) ? null : new std_collections_Map_keys_dpp_identity_identity_public_key_KeyID_values_dpp_identity_identity_public_key_IdentityPublicKey(cPtr, false);
   }
 
-  public static java.math.BigInteger fermentExampleIdentityIdentityIdentityV0GetBalance(IdentityV0 obj) {
-    return exampleJNI.fermentExampleIdentityIdentityIdentityV0GetBalance(IdentityV0.getCPtr(obj), obj);
+  public static java.math.BigInteger dppIdentityV0IdentityV0GetBalance(IdentityV0 obj) {
+    return exampleJNI.dppIdentityV0IdentityV0GetBalance(IdentityV0.getCPtr(obj), obj);
   }
 
-  public static Revision fermentExampleIdentityIdentityIdentityV0GetRevision(IdentityV0 obj) {
-    long cPtr = exampleJNI.fermentExampleIdentityIdentityIdentityV0GetRevision(IdentityV0.getCPtr(obj), obj);
+  public static Revision dppIdentityV0IdentityV0GetRevision(IdentityV0 obj) {
+    long cPtr = exampleJNI.dppIdentityV0IdentityV0GetRevision(IdentityV0.getCPtr(obj), obj);
     return (cPtr == 0) ? null : new Revision(cPtr, false);
   }
 
-  public static void fermentExampleIdentityIdentityIdentityV0SetId(IdentityV0 obj, Identifier value) {
-    exampleJNI.fermentExampleIdentityIdentityIdentityV0SetId(IdentityV0.getCPtr(obj), obj, Identifier.getCPtr(value), value);
+  public static void dppIdentityV0IdentityV0SetId(IdentityV0 obj, Identifier value) {
+    exampleJNI.dppIdentityV0IdentityV0SetId(IdentityV0.getCPtr(obj), obj, Identifier.getCPtr(value), value);
   }
 
-  public static void fermentExampleIdentityIdentityIdentityV0SetPublicKeys(IdentityV0 obj, std_collections_Map_keys_ferment_example_identity_identity_KeyID_values_ferment_example_identity_identity_IdentityPublicKey value) {
-    exampleJNI.fermentExampleIdentityIdentityIdentityV0SetPublicKeys(IdentityV0.getCPtr(obj), obj, std_collections_Map_keys_ferment_example_identity_identity_KeyID_values_ferment_example_identity_identity_IdentityPublicKey.getCPtr(value), value);
+  public static void dppIdentityV0IdentityV0SetPublicKeys(IdentityV0 obj, std_collections_Map_keys_dpp_identity_identity_public_key_KeyID_values_dpp_identity_identity_public_key_IdentityPublicKey value) {
+    exampleJNI.dppIdentityV0IdentityV0SetPublicKeys(IdentityV0.getCPtr(obj), obj, std_collections_Map_keys_dpp_identity_identity_public_key_KeyID_values_dpp_identity_identity_public_key_IdentityPublicKey.getCPtr(value), value);
   }
 
-  public static void fermentExampleIdentityIdentityIdentityV0SetBalance(IdentityV0 obj, java.math.BigInteger value) {
-    exampleJNI.fermentExampleIdentityIdentityIdentityV0SetBalance(IdentityV0.getCPtr(obj), obj, value);
+  public static void dppIdentityV0IdentityV0SetBalance(IdentityV0 obj, java.math.BigInteger value) {
+    exampleJNI.dppIdentityV0IdentityV0SetBalance(IdentityV0.getCPtr(obj), obj, value);
   }
 
-  public static void fermentExampleIdentityIdentityIdentityV0SetRevision(IdentityV0 obj, Revision value) {
-    exampleJNI.fermentExampleIdentityIdentityIdentityV0SetRevision(IdentityV0.getCPtr(obj), obj, Revision.getCPtr(value), value);
-  }
-
-  public static Identity getIdentity2(Identifier identifier) {
-    long cPtr = exampleJNI.getIdentity2(Identifier.getCPtr(identifier), identifier);
-    return (cPtr == 0) ? null : new Identity(cPtr, true);
-  }
-
-  public static VecU8Holder fermentExampleExampleMineVecU8HolderCtor(byte[] first) {
-    long cPtr = exampleJNI.fermentExampleExampleMineVecU8HolderCtor(first);
-    return (cPtr == 0) ? null : new VecU8Holder(cPtr, false);
-  }
-
-  public static void fermentExampleExampleMineVecU8HolderDestroy(VecU8Holder ffi) {
-    exampleJNI.fermentExampleExampleMineVecU8HolderDestroy(VecU8Holder.getCPtr(ffi), ffi);
-  }
-
-  public static byte[] fermentExampleExampleMineVecU8HolderGetFirst(VecU8Holder obj) {
-    return exampleJNI.fermentExampleExampleMineVecU8HolderGetFirst(VecU8Holder.getCPtr(obj), obj);
-  }
-
-  public static void fermentExampleExampleMineVecU8HolderSetFirst(VecU8Holder obj, byte[] value) {
-    exampleJNI.fermentExampleExampleMineVecU8HolderSetFirst(VecU8Holder.getCPtr(obj), obj, value);
-  }
-
-  public static OuterStruct fermentExampleExampleMineOuterStructCtor(InnerStruct first, InnerStruct second) {
-    long cPtr = exampleJNI.fermentExampleExampleMineOuterStructCtor(InnerStruct.getCPtr(first), first, InnerStruct.getCPtr(second), second);
-    return (cPtr == 0) ? null : new OuterStruct(cPtr, false);
-  }
-
-  public static void fermentExampleExampleMineOuterStructDestroy(OuterStruct ffi) {
-    exampleJNI.fermentExampleExampleMineOuterStructDestroy(OuterStruct.getCPtr(ffi), ffi);
-  }
-
-  public static InnerStruct fermentExampleExampleMineOuterStructGetFirst(OuterStruct obj) {
-    long cPtr = exampleJNI.fermentExampleExampleMineOuterStructGetFirst(OuterStruct.getCPtr(obj), obj);
-    return (cPtr == 0) ? null : new InnerStruct(cPtr, false);
-  }
-
-  public static InnerStruct fermentExampleExampleMineOuterStructGetSecond(OuterStruct obj) {
-    long cPtr = exampleJNI.fermentExampleExampleMineOuterStructGetSecond(OuterStruct.getCPtr(obj), obj);
-    return (cPtr == 0) ? null : new InnerStruct(cPtr, false);
-  }
-
-  public static void fermentExampleExampleMineOuterStructSetFirst(OuterStruct obj, InnerStruct value) {
-    exampleJNI.fermentExampleExampleMineOuterStructSetFirst(OuterStruct.getCPtr(obj), obj, InnerStruct.getCPtr(value), value);
-  }
-
-  public static void fermentExampleExampleMineOuterStructSetSecond(OuterStruct obj, InnerStruct value) {
-    exampleJNI.fermentExampleExampleMineOuterStructSetSecond(OuterStruct.getCPtr(obj), obj, InnerStruct.getCPtr(value), value);
-  }
-
-  public static InnerStruct fermentExampleExampleMineInnerStructCtor(java.math.BigInteger first, java.math.BigInteger second) {
-    long cPtr = exampleJNI.fermentExampleExampleMineInnerStructCtor(first, second);
-    return (cPtr == 0) ? null : new InnerStruct(cPtr, false);
-  }
-
-  public static void fermentExampleExampleMineInnerStructDestroy(InnerStruct ffi) {
-    exampleJNI.fermentExampleExampleMineInnerStructDestroy(InnerStruct.getCPtr(ffi), ffi);
-  }
-
-  public static java.math.BigInteger fermentExampleExampleMineInnerStructGetFirst(InnerStruct obj) {
-    return exampleJNI.fermentExampleExampleMineInnerStructGetFirst(InnerStruct.getCPtr(obj), obj);
-  }
-
-  public static java.math.BigInteger fermentExampleExampleMineInnerStructGetSecond(InnerStruct obj) {
-    return exampleJNI.fermentExampleExampleMineInnerStructGetSecond(InnerStruct.getCPtr(obj), obj);
-  }
-
-  public static void fermentExampleExampleMineInnerStructSetFirst(InnerStruct obj, java.math.BigInteger value) {
-    exampleJNI.fermentExampleExampleMineInnerStructSetFirst(InnerStruct.getCPtr(obj), obj, value);
-  }
-
-  public static void fermentExampleExampleMineInnerStructSetSecond(InnerStruct obj, java.math.BigInteger value) {
-    exampleJNI.fermentExampleExampleMineInnerStructSetSecond(InnerStruct.getCPtr(obj), obj, value);
-  }
-
-  public static OuterStruct createOuter(InnerStruct is1, InnerStruct is2) {
-    long cPtr = exampleJNI.createOuter(InnerStruct.getCPtr(is1), is1, InnerStruct.getCPtr(is2), is2);
-    return (cPtr == 0) ? null : new OuterStruct(cPtr, false);
+  public static void dppIdentityV0IdentityV0SetRevision(IdentityV0 obj, Revision value) {
+    exampleJNI.dppIdentityV0IdentityV0SetRevision(IdentityV0.getCPtr(obj), obj, Revision.getCPtr(value), value);
   }
 
   public static platform_value_Hash256 platformValueHash256Ctor(byte[] o_0) {
@@ -712,6 +336,41 @@ public class example {
 
   public static void platformValueHash256Set0(platform_value_Hash256 obj, byte[] value) {
     exampleJNI.platformValueHash256Set0(platform_value_Hash256.getCPtr(obj), obj, value);
+  }
+
+  public static Identifier platformValueTypesIdentifierIdentifierCtor(IdentifierBytes32 o_0) {
+    long cPtr = exampleJNI.platformValueTypesIdentifierIdentifierCtor(IdentifierBytes32.getCPtr(o_0), o_0);
+    return (cPtr == 0) ? null : new Identifier(cPtr, false);
+  }
+
+  public static void platformValueTypesIdentifierIdentifierDestroy(Identifier ffi) {
+    exampleJNI.platformValueTypesIdentifierIdentifierDestroy(Identifier.getCPtr(ffi), ffi);
+  }
+
+  public static IdentifierBytes32 platformValueTypesIdentifierIdentifierGet0(Identifier obj) {
+    long cPtr = exampleJNI.platformValueTypesIdentifierIdentifierGet0(Identifier.getCPtr(obj), obj);
+    return (cPtr == 0) ? null : new IdentifierBytes32(cPtr, false);
+  }
+
+  public static void platformValueTypesIdentifierIdentifierSet0(Identifier obj, IdentifierBytes32 value) {
+    exampleJNI.platformValueTypesIdentifierIdentifierSet0(Identifier.getCPtr(obj), obj, IdentifierBytes32.getCPtr(value), value);
+  }
+
+  public static IdentifierBytes32 platformValueTypesIdentifierIdentifierBytes32Ctor(byte[] o_0) {
+    long cPtr = exampleJNI.platformValueTypesIdentifierIdentifierBytes32Ctor(o_0);
+    return (cPtr == 0) ? null : new IdentifierBytes32(cPtr, false);
+  }
+
+  public static void platformValueTypesIdentifierIdentifierBytes32Destroy(IdentifierBytes32 ffi) {
+    exampleJNI.platformValueTypesIdentifierIdentifierBytes32Destroy(IdentifierBytes32.getCPtr(ffi), ffi);
+  }
+
+  public static byte[] platformValueTypesIdentifierIdentifierBytes32Get0(IdentifierBytes32 obj) {
+    return exampleJNI.platformValueTypesIdentifierIdentifierBytes32Get0(IdentifierBytes32.getCPtr(obj), obj);
+  }
+
+  public static void platformValueTypesIdentifierIdentifierBytes32Set0(IdentifierBytes32 obj, byte[] value) {
+    exampleJNI.platformValueTypesIdentifierIdentifierBytes32Set0(IdentifierBytes32.getCPtr(obj), obj, value);
   }
 
   public static BinaryData platformValueTypesBinaryDataBinaryDataCtor(byte[] o_0) {
@@ -753,38 +412,9 @@ public class example {
     return (cPtr == 0) ? null : new BinaryData(cPtr, false);
   }
 
-  public static platform_value_Hash256 getHash256() {
-    long cPtr = exampleJNI.getHash256();
-    return (cPtr == 0) ? null : new platform_value_Hash256(cPtr, false);
-  }
-
-  public static ferment_example_nested_HashID getHashIdFormSnapshot(ferment_example_nested_model_snapshot_LLMQSnapshot _snapshot) {
-    long cPtr = exampleJNI.getHashIdFormSnapshot(ferment_example_nested_model_snapshot_LLMQSnapshot.getCPtr(_snapshot), _snapshot);
-    return (cPtr == 0) ? null : new ferment_example_nested_HashID(cPtr, false);
-  }
-
-  public static SWIGTYPE_p_ferment_example_nested_model_snapshot_LLMQSnapshotSkipMode fermentExampleNestedModelSnapshotLLMQSnapshotSkipModeNoSkippingCtor() {
-    long cPtr = exampleJNI.fermentExampleNestedModelSnapshotLLMQSnapshotSkipModeNoSkippingCtor();
-    return (cPtr == 0) ? null : new SWIGTYPE_p_ferment_example_nested_model_snapshot_LLMQSnapshotSkipMode(cPtr, false);
-  }
-
-  public static SWIGTYPE_p_ferment_example_nested_model_snapshot_LLMQSnapshotSkipMode fermentExampleNestedModelSnapshotLLMQSnapshotSkipModeSkipFirstCtor() {
-    long cPtr = exampleJNI.fermentExampleNestedModelSnapshotLLMQSnapshotSkipModeSkipFirstCtor();
-    return (cPtr == 0) ? null : new SWIGTYPE_p_ferment_example_nested_model_snapshot_LLMQSnapshotSkipMode(cPtr, false);
-  }
-
-  public static SWIGTYPE_p_ferment_example_nested_model_snapshot_LLMQSnapshotSkipMode fermentExampleNestedModelSnapshotLLMQSnapshotSkipModeSkipExceptCtor() {
-    long cPtr = exampleJNI.fermentExampleNestedModelSnapshotLLMQSnapshotSkipModeSkipExceptCtor();
-    return (cPtr == 0) ? null : new SWIGTYPE_p_ferment_example_nested_model_snapshot_LLMQSnapshotSkipMode(cPtr, false);
-  }
-
-  public static SWIGTYPE_p_ferment_example_nested_model_snapshot_LLMQSnapshotSkipMode fermentExampleNestedModelSnapshotLLMQSnapshotSkipModeSkipAllCtor() {
-    long cPtr = exampleJNI.fermentExampleNestedModelSnapshotLLMQSnapshotSkipModeSkipAllCtor();
-    return (cPtr == 0) ? null : new SWIGTYPE_p_ferment_example_nested_model_snapshot_LLMQSnapshotSkipMode(cPtr, false);
-  }
-
-  public static void fermentExampleNestedModelSnapshotLLMQSnapshotSkipModeDestroy(SWIGTYPE_p_ferment_example_nested_model_snapshot_LLMQSnapshotSkipMode ffi) {
-    exampleJNI.fermentExampleNestedModelSnapshotLLMQSnapshotSkipModeDestroy(SWIGTYPE_p_ferment_example_nested_model_snapshot_LLMQSnapshotSkipMode.getCPtr(ffi));
+  public static BinaryData getBinaryData2() {
+    long cPtr = exampleJNI.getBinaryData2();
+    return (cPtr == 0) ? null : new BinaryData(cPtr, false);
   }
 
   public static ferment_example_nested_model_snapshot_LLMQSnapshot fermentExampleNestedModelSnapshotLLMQSnapshotCtor(byte[] member_list, Vec_i32 skip_list, SWIGTYPE_p_ferment_example_nested_model_snapshot_LLMQSnapshotSkipMode skip_list_mode, byte[] option_vec) {
@@ -830,22 +460,28 @@ public class example {
     exampleJNI.fermentExampleNestedModelSnapshotLLMQSnapshotSetOptionVec(ferment_example_nested_model_snapshot_LLMQSnapshot.getCPtr(obj), obj, value);
   }
 
-  public static SWIGTYPE_p_Vec_ferment_example_nested_FeatureVersion vecFermentExampleNestedFeatureVersionCtor(long count, SWIGTYPE_p_p_ferment_example_nested_FeatureVersion values) {
-    long cPtr = exampleJNI.vecFermentExampleNestedFeatureVersionCtor(count, SWIGTYPE_p_p_ferment_example_nested_FeatureVersion.getCPtr(values));
-    return (cPtr == 0) ? null : new SWIGTYPE_p_Vec_ferment_example_nested_FeatureVersion(cPtr, false);
+  public static SWIGTYPE_p_ferment_example_nested_model_snapshot_LLMQSnapshotSkipMode fermentExampleNestedModelSnapshotLLMQSnapshotSkipModeNoSkippingCtor() {
+    long cPtr = exampleJNI.fermentExampleNestedModelSnapshotLLMQSnapshotSkipModeNoSkippingCtor();
+    return (cPtr == 0) ? null : new SWIGTYPE_p_ferment_example_nested_model_snapshot_LLMQSnapshotSkipMode(cPtr, false);
   }
 
-  public static void vecFermentExampleNestedFeatureVersionDestroy(SWIGTYPE_p_Vec_ferment_example_nested_FeatureVersion ffi) {
-    exampleJNI.vecFermentExampleNestedFeatureVersionDestroy(SWIGTYPE_p_Vec_ferment_example_nested_FeatureVersion.getCPtr(ffi));
+  public static SWIGTYPE_p_ferment_example_nested_model_snapshot_LLMQSnapshotSkipMode fermentExampleNestedModelSnapshotLLMQSnapshotSkipModeSkipFirstCtor() {
+    long cPtr = exampleJNI.fermentExampleNestedModelSnapshotLLMQSnapshotSkipModeSkipFirstCtor();
+    return (cPtr == 0) ? null : new SWIGTYPE_p_ferment_example_nested_model_snapshot_LLMQSnapshotSkipMode(cPtr, false);
   }
 
-  public static std_collections_Map_keys_ferment_example_identity_identity_KeyID_values_ferment_example_identity_identity_IdentityPublicKey stdCollectionsMapKeysFermentExampleIdentityIdentityKeyIDValuesFermentExampleIdentityIdentityIdentityPublicKeyCtor(long count, SWIGTYPE_p_p_ferment_example_identity_identity_KeyID keys, SWIGTYPE_p_p_ferment_example_identity_identity_IdentityPublicKey values) {
-    long cPtr = exampleJNI.stdCollectionsMapKeysFermentExampleIdentityIdentityKeyIDValuesFermentExampleIdentityIdentityIdentityPublicKeyCtor(count, SWIGTYPE_p_p_ferment_example_identity_identity_KeyID.getCPtr(keys), SWIGTYPE_p_p_ferment_example_identity_identity_IdentityPublicKey.getCPtr(values));
-    return (cPtr == 0) ? null : new std_collections_Map_keys_ferment_example_identity_identity_KeyID_values_ferment_example_identity_identity_IdentityPublicKey(cPtr, false);
+  public static SWIGTYPE_p_ferment_example_nested_model_snapshot_LLMQSnapshotSkipMode fermentExampleNestedModelSnapshotLLMQSnapshotSkipModeSkipExceptCtor() {
+    long cPtr = exampleJNI.fermentExampleNestedModelSnapshotLLMQSnapshotSkipModeSkipExceptCtor();
+    return (cPtr == 0) ? null : new SWIGTYPE_p_ferment_example_nested_model_snapshot_LLMQSnapshotSkipMode(cPtr, false);
   }
 
-  public static void stdCollectionsMapKeysFermentExampleIdentityIdentityKeyIDValuesFermentExampleIdentityIdentityIdentityPublicKeyDestroy(std_collections_Map_keys_ferment_example_identity_identity_KeyID_values_ferment_example_identity_identity_IdentityPublicKey ffi) {
-    exampleJNI.stdCollectionsMapKeysFermentExampleIdentityIdentityKeyIDValuesFermentExampleIdentityIdentityIdentityPublicKeyDestroy(std_collections_Map_keys_ferment_example_identity_identity_KeyID_values_ferment_example_identity_identity_IdentityPublicKey.getCPtr(ffi), ffi);
+  public static SWIGTYPE_p_ferment_example_nested_model_snapshot_LLMQSnapshotSkipMode fermentExampleNestedModelSnapshotLLMQSnapshotSkipModeSkipAllCtor() {
+    long cPtr = exampleJNI.fermentExampleNestedModelSnapshotLLMQSnapshotSkipModeSkipAllCtor();
+    return (cPtr == 0) ? null : new SWIGTYPE_p_ferment_example_nested_model_snapshot_LLMQSnapshotSkipMode(cPtr, false);
+  }
+
+  public static void fermentExampleNestedModelSnapshotLLMQSnapshotSkipModeDestroy(SWIGTYPE_p_ferment_example_nested_model_snapshot_LLMQSnapshotSkipMode ffi) {
+    exampleJNI.fermentExampleNestedModelSnapshotLLMQSnapshotSkipModeDestroy(SWIGTYPE_p_ferment_example_nested_model_snapshot_LLMQSnapshotSkipMode.getCPtr(ffi));
   }
 
   public static byte[] vecU8Ctor(long count, SWIGTYPE_p_unsigned_char values) {
@@ -856,13 +492,13 @@ public class example {
     exampleJNI.vecU8Destroy(ffi);
   }
 
-  public static Result_ok_ferment_example_identity_identity_Identity_err_ferment_example_nested_ProtocolError resultOkFermentExampleIdentityIdentityIdentityErrFermentExampleNestedProtocolErrorCtor(Identity ok, ferment_example_nested_ProtocolError error) {
-    long cPtr = exampleJNI.resultOkFermentExampleIdentityIdentityIdentityErrFermentExampleNestedProtocolErrorCtor(Identity.getCPtr(ok), ok, ferment_example_nested_ProtocolError.getCPtr(error), error);
-    return (cPtr == 0) ? null : new Result_ok_ferment_example_identity_identity_Identity_err_ferment_example_nested_ProtocolError(cPtr, false);
+  public static std_collections_Map_keys_dpp_identity_identity_public_key_KeyID_values_dpp_identity_identity_public_key_IdentityPublicKey stdCollectionsMapKeysDppIdentityIdentityPublicKeyKeyIDValuesDppIdentityIdentityPublicKeyIdentityPublicKeyCtor(long count, SWIGTYPE_p_p_dpp_identity_identity_public_key_KeyID keys, SWIGTYPE_p_p_dpp_identity_identity_public_key_IdentityPublicKey values) {
+    long cPtr = exampleJNI.stdCollectionsMapKeysDppIdentityIdentityPublicKeyKeyIDValuesDppIdentityIdentityPublicKeyIdentityPublicKeyCtor(count, SWIGTYPE_p_p_dpp_identity_identity_public_key_KeyID.getCPtr(keys), SWIGTYPE_p_p_dpp_identity_identity_public_key_IdentityPublicKey.getCPtr(values));
+    return (cPtr == 0) ? null : new std_collections_Map_keys_dpp_identity_identity_public_key_KeyID_values_dpp_identity_identity_public_key_IdentityPublicKey(cPtr, false);
   }
 
-  public static void resultOkFermentExampleIdentityIdentityIdentityErrFermentExampleNestedProtocolErrorDestroy(Result_ok_ferment_example_identity_identity_Identity_err_ferment_example_nested_ProtocolError ffi) {
-    exampleJNI.resultOkFermentExampleIdentityIdentityIdentityErrFermentExampleNestedProtocolErrorDestroy(Result_ok_ferment_example_identity_identity_Identity_err_ferment_example_nested_ProtocolError.getCPtr(ffi), ffi);
+  public static void stdCollectionsMapKeysDppIdentityIdentityPublicKeyKeyIDValuesDppIdentityIdentityPublicKeyIdentityPublicKeyDestroy(std_collections_Map_keys_dpp_identity_identity_public_key_KeyID_values_dpp_identity_identity_public_key_IdentityPublicKey ffi) {
+    exampleJNI.stdCollectionsMapKeysDppIdentityIdentityPublicKeyKeyIDValuesDppIdentityIdentityPublicKeyIdentityPublicKeyDestroy(std_collections_Map_keys_dpp_identity_identity_public_key_KeyID_values_dpp_identity_identity_public_key_IdentityPublicKey.getCPtr(ffi), ffi);
   }
 
   public static Vec_i32 vecI32Ctor(long count, SWIGTYPE_p_int values) {

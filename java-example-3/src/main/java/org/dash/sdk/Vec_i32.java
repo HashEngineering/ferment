@@ -10,16 +10,16 @@ package org.dash.sdk;
 
 import org.dash.sdk.base.BaseObject;
 
-public class Identity extends BaseObject {
+public class Vec_i32 extends BaseObject {
   private transient long swigCPtr;
   protected transient boolean swigCMemOwn;
 
-  protected Identity(long cPtr, boolean cMemoryOwn) {
+  protected Vec_i32(long cPtr, boolean cMemoryOwn) {
     swigCMemOwn = cMemoryOwn;
     swigCPtr = cPtr;
   }
 
-  protected static long getCPtr(Identity obj) {
+  protected static long getCPtr(Vec_i32 obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 
@@ -32,7 +32,7 @@ public class Identity extends BaseObject {
     if (swigCPtr != 0) {
       if (swigCMemOwn) {
         swigCMemOwn = false;
-        exampleJNI.delete_Identity(swigCPtr);
+        exampleJNI.delete_Vec_i32(swigCPtr);
       }
       swigCPtr = 0;
     }
@@ -42,21 +42,21 @@ public class Identity extends BaseObject {
     return swigCPtr;
   }
 
-  public void setTag(Identity_Tag value) {
-    exampleJNI.Identity_tag_set(swigCPtr, this, value.swigValue());
+  public void setCount(long value) {
+    exampleJNI.Vec_i32_count_set(swigCPtr, this, value);
   }
 
-  public Identity_Tag getTag() {
-    return Identity_Tag.swigToEnum(exampleJNI.Identity_tag_get(swigCPtr, this));
+  public long getCount() {
+    return exampleJNI.Vec_i32_count_get(swigCPtr, this);
   }
 
-  public void setV0(IdentityV0 value) {
-    exampleJNI.Identity_v0_set(swigCPtr, this, IdentityV0.getCPtr(value), value);
+  public void setValues(SWIGTYPE_p_int value) {
+    exampleJNI.Vec_i32_values_set(swigCPtr, this, SWIGTYPE_p_int.getCPtr(value));
   }
 
-  public IdentityV0 getV0() {
-    long cPtr = exampleJNI.Identity_v0_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new IdentityV0(cPtr, false);
+  public SWIGTYPE_p_int getValues() {
+    long cPtr = exampleJNI.Vec_i32_values_get(swigCPtr, this);
+    return (cPtr == 0) ? null : new SWIGTYPE_p_int(cPtr, false);
   }
 
 }

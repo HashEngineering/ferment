@@ -1,16 +1,16 @@
-%ignore KeyID::_0;
-%rename(KeyID) ferment_example_identity_identity_KeyID;
-%extend ferment_example_identity_identity_KeyID {
-    ferment_example_identity_identity_KeyID(int id) {
-        return ferment_example_identity_identity_KeyID_ctor(id);
+%ignore dpp_identity_identity_public_key_KeyID::_0;
+%rename(KeyID) dpp_identity_identity_public_key_KeyID;
+%extend dpp_identity_identity_public_key_KeyID {
+    dpp_identity_identity_public_key_KeyID(int id) {
+        return dpp_identity_identity_public_key_KeyID_ctor(id);
     }
-    ~ferment_example_identity_identity_KeyID() {
-        ferment_example_identity_identity_KeyID_destroy($self);
+    ~dpp_identity_identity_public_key_KeyID() {
+        dpp_identity_identity_public_key_KeyID_destroy($self);
     }
     int toInt() {
         return $self->_0;
     }
-    bool objectEquals(ferment_example_identity_identity_KeyID* other) {
+    bool objectEquals(dpp_identity_identity_public_key_KeyID* other) {
         if ($self == other) return true;
         if ($self == nullptr || other == nullptr) return false;
         return $self->_0 == other->_0;

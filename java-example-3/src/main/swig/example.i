@@ -19,8 +19,8 @@ MemoryFactory & memoryFactory = *MemoryFactory::getInstance();
 //%rename(renameCamelCase) "";
 //%rename("renameCamelCase") "^(ffi_)?(.+)$";
 //%rename("%(camelcase)s",%$isfunction) "";
-%ignore ferment_example_identity_identity_IdentityFactory_TraitObject::object;
-%ignore ferment_example_identity_identity_IdentityFactory_TraitObject::vtable;
+%ignore dpp_identity_identity_IdentityFactory_TraitObject::object;
+%ignore dpp_identity_identity_IdentityFactory_TraitObject::vtable;
 %ignore IdentityFactory_VTable;
 %ignore IHaveChainSettings_TraitObject::object;
 %ignore IHaveChainSettings_TraitObject::vtable;
@@ -56,7 +56,7 @@ MemoryFactory & memoryFactory = *MemoryFactory::getInstance();
 
 %ignore Vec_u8;
 
-//%ignore ferment_example_nested_IdentifierBytes32;
+//%ignore platform_value_types_identifier_IdentifierBytes32;
 //%rename("%(lowercamelcase)s") "";
 %include "stdint.i"
 // %include "arrays_java.i"
@@ -93,70 +93,70 @@ MemoryFactory & memoryFactory = *MemoryFactory::getInstance();
 
 %ignore FeatureVersion;
 %ignore Vec_ferment_example_nested_FeatureVersion;
-%ignore HashID;
-%ignore HashID_destroy(struct HashID *ffi);
-%ignore HashID_ctor(uint8_t (*o_0)[32]);
-
-// %extend HashID {
-//     HashID(uint8_t (*o_0)[32]) {
-//         return HashID_ctor(o_0);
+// %ignore HashID;
+// %ignore HashID_destroy(struct HashID *ffi);
+// %ignore HashID_ctor(uint8_t (*o_0)[32]);
+//
+// // %extend HashID {
+// //     HashID(uint8_t (*o_0)[32]) {
+// //         return HashID_ctor(o_0);
+// //     }
+// //     ~HashID() {
+// //         printf("~HashID(%lx)\n", $self);
+// //         memoryFactory.destroyItem($self->_0);
+// //         HashID_destroy($self);
+// //     }
+// // }
+// %rename (VecU8Holder) ferment_example_example_mine_VecU8Holder;
+// %extend ferment_example_example_mine_VecU8Holder {
+//     ferment_example_example_mine_VecU8Holder(Vec_u8 * vec_u8) {
+//         return ferment_example_example_mine_VecU8Holder_ctor(vec_u8);
 //     }
-//     ~HashID() {
-//         printf("~HashID(%lx)\n", $self);
-//         memoryFactory.destroyItem($self->_0);
-//         HashID_destroy($self);
+//
+//     ~ferment_example_example_mine_VecU8Holder() {
+//         //memoryFactory.destroyItem($self->first->values); //above
+//         ferment_example_example_mine_VecU8Holder_destroy($self); // causes crash with above, no crash if this is the only line, order doesn't matter
+//         //memoryFactory.destroyItem($self->first->values); //above
 //     }
 // }
-%rename (VecU8Holder) ferment_example_example_mine_VecU8Holder;
-%extend ferment_example_example_mine_VecU8Holder {
-    ferment_example_example_mine_VecU8Holder(Vec_u8 * vec_u8) {
-        return ferment_example_example_mine_VecU8Holder_ctor(vec_u8);
-    }
-
-    ~ferment_example_example_mine_VecU8Holder() {
-        //memoryFactory.destroyItem($self->first->values); //above
-        ferment_example_example_mine_VecU8Holder_destroy($self); // causes crash with above, no crash if this is the only line, order doesn't matter
-        //memoryFactory.destroyItem($self->first->values); //above
-    }
-}
-%rename (InnerStruct) ferment_example_example_mine_InnerStruct;
-%extend ferment_example_example_mine_InnerStruct {
-    ferment_example_example_mine_InnerStruct(long a, long b) {
-        return ferment_example_example_mine_InnerStruct_ctor(a, b);
-    }
-
-    ~ferment_example_example_mine_InnerStruct() {
-        ferment_example_example_mine_InnerStruct_destroy($self);
-    }
-}
-%rename (OuterStruct) ferment_example_example_mine_OuterStruct;
-%extend ferment_example_example_mine_OuterStruct {
-    ferment_example_example_mine_OuterStruct(ferment_example_example_mine_InnerStruct * is1, ferment_example_example_mine_InnerStruct * is2) {
-        ferment_example_example_mine_OuterStruct * os = create_outer(is1, is2);
-        printf("is1 (%lx)\n", (uint64_t)is1);
-        printf("is2 (%lx)\n", (uint64_t)is2);
-        printf("os  (%lx)\n", (uint64_t)os);
-        printf("os->is1 (%lx)\n", (uint64_t)os->first);
-        printf("os->is2 (%lx)\n", (uint64_t)os->second);
-        return os;
-    }
-    ferment_example_example_mine_OuterStruct(long a, long b, long c, long d) {
-        ferment_example_example_mine_InnerStruct * is1 = ferment_example_example_mine_InnerStruct_ctor(a, b);
-        ferment_example_example_mine_InnerStruct * is2 = ferment_example_example_mine_InnerStruct_ctor(c, d);
-        ferment_example_example_mine_OuterStruct * os = ferment_example_example_mine_OuterStruct_ctor(is1, is2);
-        printf("is1 (%lx)\n", (uint64_t)is1);
-        printf("is2 (%lx)\n", (uint64_t)is2);
-        printf("os  (%lx)\n", (uint64_t)os);
-        printf("os->is1 (%lx)\n", (uint64_t)os->first);
-        printf("os->is2 (%lx)\n", (uint64_t)os->second);
-        return os;
-    }
-    ~ferment_example_example_mine_OuterStruct() {
-        //InnerStruct * first = $self->first;
-        ferment_example_example_mine_OuterStruct_destroy($self);
-        //InnerStruct_destroy(first);
-    }
-}
+// %rename (InnerStruct) ferment_example_example_mine_InnerStruct;
+// %extend ferment_example_example_mine_InnerStruct {
+//     ferment_example_example_mine_InnerStruct(long a, long b) {
+//         return ferment_example_example_mine_InnerStruct_ctor(a, b);
+//     }
+//
+//     ~ferment_example_example_mine_InnerStruct() {
+//         ferment_example_example_mine_InnerStruct_destroy($self);
+//     }
+// }
+// %rename (OuterStruct) ferment_example_example_mine_OuterStruct;
+// %extend ferment_example_example_mine_OuterStruct {
+//     ferment_example_example_mine_OuterStruct(ferment_example_example_mine_InnerStruct * is1, ferment_example_example_mine_InnerStruct * is2) {
+//         ferment_example_example_mine_OuterStruct * os = create_outer(is1, is2);
+//         printf("is1 (%lx)\n", (uint64_t)is1);
+//         printf("is2 (%lx)\n", (uint64_t)is2);
+//         printf("os  (%lx)\n", (uint64_t)os);
+//         printf("os->is1 (%lx)\n", (uint64_t)os->first);
+//         printf("os->is2 (%lx)\n", (uint64_t)os->second);
+//         return os;
+//     }
+//     ferment_example_example_mine_OuterStruct(long a, long b, long c, long d) {
+//         ferment_example_example_mine_InnerStruct * is1 = ferment_example_example_mine_InnerStruct_ctor(a, b);
+//         ferment_example_example_mine_InnerStruct * is2 = ferment_example_example_mine_InnerStruct_ctor(c, d);
+//         ferment_example_example_mine_OuterStruct * os = ferment_example_example_mine_OuterStruct_ctor(is1, is2);
+//         printf("is1 (%lx)\n", (uint64_t)is1);
+//         printf("is2 (%lx)\n", (uint64_t)is2);
+//         printf("os  (%lx)\n", (uint64_t)os);
+//         printf("os->is1 (%lx)\n", (uint64_t)os->first);
+//         printf("os->is2 (%lx)\n", (uint64_t)os->second);
+//         return os;
+//     }
+//     ~ferment_example_example_mine_OuterStruct() {
+//         //InnerStruct * first = $self->first;
+//         ferment_example_example_mine_OuterStruct_destroy($self);
+//         //InnerStruct_destroy(first);
+//     }
+// }
 
 
 

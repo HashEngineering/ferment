@@ -10,16 +10,16 @@ package org.dash.sdk;
 
 import org.dash.sdk.base.BaseObject;
 
-public class VecU8Holder extends BaseObject {
+public class dpp_identity_identity_public_key_KeyCount extends BaseObject {
   private transient long swigCPtr;
   protected transient boolean swigCMemOwn;
 
-  protected VecU8Holder(long cPtr, boolean cMemoryOwn) {
+  protected dpp_identity_identity_public_key_KeyCount(long cPtr, boolean cMemoryOwn) {
     swigCMemOwn = cMemoryOwn;
     swigCPtr = cPtr;
   }
 
-  protected static long getCPtr(VecU8Holder obj) {
+  protected static long getCPtr(dpp_identity_identity_public_key_KeyCount obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 
@@ -32,7 +32,7 @@ public class VecU8Holder extends BaseObject {
     if (swigCPtr != 0) {
       if (swigCMemOwn) {
         swigCMemOwn = false;
-        exampleJNI.delete_VecU8Holder(swigCPtr);
+        exampleJNI.delete_dpp_identity_identity_public_key_KeyCount(swigCPtr);
       }
       swigCPtr = 0;
     }
@@ -42,16 +42,13 @@ public class VecU8Holder extends BaseObject {
     return swigCPtr;
   }
 
-  public void setFirst(byte[] value) {
-    exampleJNI.VecU8Holder_first_set(swigCPtr, this, value);
+  public void set_0(KeyID value) {
+    exampleJNI.dpp_identity_identity_public_key_KeyCount__0_set(swigCPtr, this, KeyID.getCPtr(value), value);
   }
 
-  public byte[] getFirst() {
-    return exampleJNI.VecU8Holder_first_get(swigCPtr, this);
-  }
-
-  public VecU8Holder(byte[] vec_u8) {
-    this(exampleJNI.new_VecU8Holder(vec_u8), true);
+  public KeyID get_0() {
+    long cPtr = exampleJNI.dpp_identity_identity_public_key_KeyCount__0_get(swigCPtr, this);
+    return (cPtr == 0) ? null : new KeyID(cPtr, false);
   }
 
 }

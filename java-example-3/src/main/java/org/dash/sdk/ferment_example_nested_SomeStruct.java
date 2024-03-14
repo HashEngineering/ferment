@@ -10,16 +10,16 @@ package org.dash.sdk;
 
 import org.dash.sdk.base.BaseObject;
 
-public class InnerStruct extends BaseObject {
+public class ferment_example_nested_SomeStruct extends BaseObject {
   private transient long swigCPtr;
   protected transient boolean swigCMemOwn;
 
-  protected InnerStruct(long cPtr, boolean cMemoryOwn) {
+  protected ferment_example_nested_SomeStruct(long cPtr, boolean cMemoryOwn) {
     swigCMemOwn = cMemoryOwn;
     swigCPtr = cPtr;
   }
 
-  protected static long getCPtr(InnerStruct obj) {
+  protected static long getCPtr(ferment_example_nested_SomeStruct obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 
@@ -32,7 +32,7 @@ public class InnerStruct extends BaseObject {
     if (swigCPtr != 0) {
       if (swigCMemOwn) {
         swigCMemOwn = false;
-        exampleJNI.delete_InnerStruct(swigCPtr);
+        exampleJNI.delete_ferment_example_nested_SomeStruct(swigCPtr);
       }
       swigCPtr = 0;
     }
@@ -42,24 +42,12 @@ public class InnerStruct extends BaseObject {
     return swigCPtr;
   }
 
-  public void setFirst(java.math.BigInteger value) {
-    exampleJNI.InnerStruct_first_set(swigCPtr, this, value);
+  public void setName(String value) {
+    exampleJNI.ferment_example_nested_SomeStruct_name_set(swigCPtr, this, value);
   }
 
-  public java.math.BigInteger getFirst() {
-    return exampleJNI.InnerStruct_first_get(swigCPtr, this);
-  }
-
-  public void setSecond(java.math.BigInteger value) {
-    exampleJNI.InnerStruct_second_set(swigCPtr, this, value);
-  }
-
-  public java.math.BigInteger getSecond() {
-    return exampleJNI.InnerStruct_second_get(swigCPtr, this);
-  }
-
-  public InnerStruct(int a, int b) {
-    this(exampleJNI.new_InnerStruct(a, b), true);
+  public String getName() {
+    return exampleJNI.ferment_example_nested_SomeStruct_name_get(swigCPtr, this);
   }
 
 }

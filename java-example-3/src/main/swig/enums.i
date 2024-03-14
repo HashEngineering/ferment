@@ -6,7 +6,7 @@
 %ignore Purpose_VOTING_ctor(void);
 %ignore Purpose_destroy(enum Purpose *ffi);
 %ignore intToPurpose(int);
-%ignore ferment_example_identity_identity_IdentityPublicKeyV0_ctor(struct KeyID *id,
+%ignore dpp_identity_identity_Identity_V0_ctor(struct KeyID *id,
      enum Purpose *purpose,
      enum SecurityLevel* security_level,
      struct ferment_example_identity_identity_ContractBounds *contract_bounds,

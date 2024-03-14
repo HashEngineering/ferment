@@ -68,13 +68,13 @@ public class IdentityPublicKeyV0 extends BaseObject {
     return exampleJNI.IdentityPublicKeyV0_read_only_get(swigCPtr, this);
   }
 
-  public void setData(ferment_example_nested_BinaryData value) {
-    exampleJNI.IdentityPublicKeyV0_data_set(swigCPtr, this, ferment_example_nested_BinaryData.getCPtr(value), value);
+  public void setData(BinaryData value) {
+    exampleJNI.IdentityPublicKeyV0_data_set(swigCPtr, this, BinaryData.getCPtr(value), value);
   }
 
-  public ferment_example_nested_BinaryData getData() {
+  public BinaryData getData() {
     long cPtr = exampleJNI.IdentityPublicKeyV0_data_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new ferment_example_nested_BinaryData(cPtr, false);
+    return (cPtr == 0) ? null : new BinaryData(cPtr, false);
   }
 
   public void setDisabled_at(TimestampMillis value) {
@@ -86,8 +86,8 @@ public class IdentityPublicKeyV0 extends BaseObject {
     return (cPtr == 0) ? null : new TimestampMillis(cPtr, false);
   }
 
-  public IdentityPublicKeyV0(KeyID keyId, Purpose purpose, SecurityLevel securityLevel, ContractBounds contract_bounds, KeyType key_type, boolean read_only, ferment_example_nested_BinaryData data, TimestampMillis disabled_at) {
-    this(exampleJNI.new_IdentityPublicKeyV0(KeyID.getCPtr(keyId), keyId, purpose.swigValue(), securityLevel.swigValue(), ContractBounds.getCPtr(contract_bounds), contract_bounds, key_type.swigValue(), read_only, ferment_example_nested_BinaryData.getCPtr(data), data, TimestampMillis.getCPtr(disabled_at), disabled_at), true);
+  public IdentityPublicKeyV0(KeyID keyId, Purpose purpose, SecurityLevel securityLevel, ContractBounds contract_bounds, KeyType key_type, boolean read_only, BinaryData data, TimestampMillis disabled_at) {
+    this(exampleJNI.new_IdentityPublicKeyV0(KeyID.getCPtr(keyId), keyId, purpose.swigValue(), securityLevel.swigValue(), ContractBounds.getCPtr(contract_bounds), contract_bounds, key_type.swigValue(), read_only, BinaryData.getCPtr(data), data, TimestampMillis.getCPtr(disabled_at), disabled_at), true);
   }
 
   public KeyType getKeyType() {

@@ -42,14 +42,6 @@ public class KeyID extends BaseObject {
     return swigCPtr;
   }
 
-  public void set_0(long value) {
-    exampleJNI.KeyID__0_set(swigCPtr, this, value);
-  }
-
-  public long get_0() {
-    return exampleJNI.KeyID__0_get(swigCPtr, this);
-  }
-
   public KeyID(int id) {
     this(exampleJNI.new_KeyID(id), true);
   }
