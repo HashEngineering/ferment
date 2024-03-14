@@ -10,7 +10,7 @@ fn main() {
    let crates = vec![Crate::new("ferment_example_traits", PathBuf::from("../ferment-example/src"))];
    match ferment::Builder::new(Crate::current_with_name(NAME))
        .with_mod_name("fermented")
-       .with_crates(crates)
+       //.with_crates(crates)
        .generate() {
       Ok(()) => match Command::new("cbindgen")
           .args(["--config", "cbindgen.toml", "-o", c_header.as_str()])

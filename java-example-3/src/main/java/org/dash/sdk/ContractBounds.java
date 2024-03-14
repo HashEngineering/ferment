@@ -50,22 +50,22 @@ public class ContractBounds extends BaseObject {
     return ContractBounds_Tag.swigToEnum(exampleJNI.ContractBounds_tag_get(swigCPtr, this));
   }
 
-  public void setSingle_contract(SWIGTYPE_p_dpp_identity_identity_public_key_contract_bounds_ContractBounds_SingleContract_Body value) {
-    exampleJNI.ContractBounds_single_contract_set(swigCPtr, this, SWIGTYPE_p_dpp_identity_identity_public_key_contract_bounds_ContractBounds_SingleContract_Body.getCPtr(value));
+  public void setSingle_contract(SingleContractStruct value) {
+    exampleJNI.ContractBounds_single_contract_set(swigCPtr, this, SingleContractStruct.getCPtr(value), value);
   }
 
-  public SWIGTYPE_p_dpp_identity_identity_public_key_contract_bounds_ContractBounds_SingleContract_Body getSingle_contract() {
+  public SingleContractStruct getSingle_contract() {
     long cPtr = exampleJNI.ContractBounds_single_contract_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new SWIGTYPE_p_dpp_identity_identity_public_key_contract_bounds_ContractBounds_SingleContract_Body(cPtr, false);
+    return (cPtr == 0) ? null : new SingleContractStruct(cPtr, false);
   }
 
-  public void setSingle_contract_document_type(SWIGTYPE_p_dpp_identity_identity_public_key_contract_bounds_ContractBounds_SingleContractDocumentType_Body value) {
-    exampleJNI.ContractBounds_single_contract_document_type_set(swigCPtr, this, SWIGTYPE_p_dpp_identity_identity_public_key_contract_bounds_ContractBounds_SingleContractDocumentType_Body.getCPtr(value));
+  public void setSingle_contract_document_type(SingleContractDocumentTypeStruct value) {
+    exampleJNI.ContractBounds_single_contract_document_type_set(swigCPtr, this, SingleContractDocumentTypeStruct.getCPtr(value), value);
   }
 
-  public SWIGTYPE_p_dpp_identity_identity_public_key_contract_bounds_ContractBounds_SingleContractDocumentType_Body getSingle_contract_document_type() {
+  public SingleContractDocumentTypeStruct getSingle_contract_document_type() {
     long cPtr = exampleJNI.ContractBounds_single_contract_document_type_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new SWIGTYPE_p_dpp_identity_identity_public_key_contract_bounds_ContractBounds_SingleContractDocumentType_Body(cPtr, false);
+    return (cPtr == 0) ? null : new SingleContractDocumentTypeStruct(cPtr, false);
   }
 
   public ContractBounds(Identifier id) {
