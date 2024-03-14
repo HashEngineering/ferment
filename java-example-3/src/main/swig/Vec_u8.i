@@ -16,8 +16,13 @@ struct Vec_u8;
      int size_$1 = (jenv)->GetArrayLength($input);
      uint8_t * byteArray_$1 = (uint8_t *)memoryFactory.alloc(size_$1);
      memcpy(byteArray_$1, _buffer_$1, size_$1);
-     $1 = Vec_u8_ctor(byteArray_$1, size_$1);
-     printf("typemap(in) Vec_u8 *: %ld, [%lx]%d\n", $1->count, (long)$1->values, $1->values[0]);
+     printf("typemap(in) Vec_u8 *: %ld, [%lx]%d\n", size_$1, (long)_buffer_$1, _buffer_$1[0]);
+     $1 = Vec_u8_ctor(size_$1, byteArray_$1);
+     //$1 = Vec_u8_ctor((uintptr_t)byteArray_$1, (uint8_t*)size_$1); // problem with order of parameters
+     printf("typemap(in) Vec_u8 *: %lx\n", $1);
+     printf("typemap(in) Vec_u8 *: count: %ld\n", $1->count);
+     printf("typemap(in) Vec_u8 *: count: %ld, values: [%lx]\n", $1->count, (long)$1->values);
+     printf("typemap(in) Vec_u8 *: count: %ld, values: [%lx]%d\n", $1->count, (long)$1->values, $1->values[0]);
 %}
 
 %typemap(argout) Vec_u8 *

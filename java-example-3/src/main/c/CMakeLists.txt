@@ -11,7 +11,7 @@ project(sdk)
 set(C_SOURCE_FILE sdk.cpp)
 
 # Define the pre-built Rust library
-set(RUST_LIBRARY ${CMAKE_SOURCE_DIR}/../../../../target/debug/libferment_example.a)
+set(RUST_LIBRARY ${CMAKE_SOURCE_DIR}/../../../../target/debug/libferment_example_nested.a)
 find_package(JNI REQUIRED)
 include_directories(${JNI_INCLUDE_DIRS})
 # Create an executable that links C and Rust code

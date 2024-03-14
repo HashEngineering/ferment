@@ -42,9 +42,9 @@ public class GenericsTest extends BaseTest {
 
     @Test
     public void createVecU8InRustAndDestroy() {
-        VecU8Holder holder = example.crateExampleMineVecU8HolderCtor(identifier);
+        VecU8Holder holder = example.fermentExampleExampleMineVecU8HolderCtor(identifier);
         assertArrayEquals(identifier, holder.getFirst());
-        example.crateExampleMineVecU8HolderDestroy(holder);
+        example.fermentExampleExampleMineVecU8HolderDestroy(holder);
         // does this leak Vec_u8
     }
 
@@ -53,5 +53,10 @@ public class GenericsTest extends BaseTest {
         VecU8Holder holder = new VecU8Holder(identifier);
         assertArrayEquals(identifier, holder.getFirst());
         holder.delete();
+    }
+
+    @Test
+    public void hash256Test() {
+        platform_value_Hash256 hash256 = example.getHash256();
     }
 }

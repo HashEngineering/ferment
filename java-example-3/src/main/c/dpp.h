@@ -138,10 +138,10 @@ public:
 extern MemoryFactory & memoryFactory;
 
 #define ENUM_CASE(enum_class, value) \
-    case crate_identity_identity_##enum_class##_##value: \
-        return crate_identity_identity_##enum_class##_##value##_ctor();
+    case ferment_example_identity_identity_##enum_class##_##value: \
+        return ferment_example_identity_identity_##enum_class##_##value##_ctor();
 
-crate_identity_identity_KeyType * intToKeyType(int value) {
+ferment_example_identity_identity_KeyType * intToKeyType(int value) {
     switch(value) {
         ENUM_CASE(KeyType, ECDSA_SECP256K1)
         ENUM_CASE(KeyType, BLS12_381)
@@ -151,7 +151,7 @@ crate_identity_identity_KeyType * intToKeyType(int value) {
     }
 }
 
-crate_identity_identity_SecurityLevel * intToSecurityLevel(int value) {
+ferment_example_identity_identity_SecurityLevel * intToSecurityLevel(int value) {
     switch(value) {
         ENUM_CASE(SecurityLevel, MASTER)
         ENUM_CASE(SecurityLevel, CRITICAL)
@@ -159,7 +159,7 @@ crate_identity_identity_SecurityLevel * intToSecurityLevel(int value) {
         ENUM_CASE(SecurityLevel, MEDIUM)
     }
 }
-crate_identity_identity_Purpose * intToPurpose(int value) {
+ferment_example_identity_identity_Purpose * intToPurpose(int value) {
      switch(value) {
         ENUM_CASE(Purpose, AUTHENTICATION)
         ENUM_CASE(Purpose, DECRYPTION)
@@ -170,22 +170,22 @@ crate_identity_identity_Purpose * intToPurpose(int value) {
      }
 }
 
-crate_nested_Identifier * Identifier_clone(crate_nested_Identifier * id) {
+ferment_example_nested_Identifier * Identifier_clone(ferment_example_nested_Identifier * id) {
      uint8_t * bytesCopy = (uint8_t*)memoryFactory.alloc(32);
      memcpy(bytesCopy, id->_0->_0, 32);
-     return crate_nested_Identifier_ctor(crate_nested_IdentifierBytes32_ctor((uint8_t (*)[32])bytesCopy));
+     return ferment_example_nested_Identifier_ctor(ferment_example_nested_IdentifierBytes32_ctor((uint8_t (*)[32])bytesCopy));
 }
 
-crate_identity_identity_ContractBounds * singleContract(crate_nested_Identifier * id) {
-        crate_nested_Identifier * idCopy = Identifier_clone(id);
-        crate_identity_identity_ContractBounds * cb = crate_identity_identity_ContractBounds_SingleContract_ctor(idCopy);
+ferment_example_identity_identity_ContractBounds * singleContract(ferment_example_nested_Identifier * id) {
+        ferment_example_nested_Identifier * idCopy = Identifier_clone(id);
+        ferment_example_identity_identity_ContractBounds * cb = ferment_example_identity_identity_ContractBounds_SingleContract_ctor(idCopy);
         return cb;
 }
 
-static crate_identity_identity_ContractBounds * singleContractDocument(crate_nested_Identifier * id, char * type) {
-    crate_nested_Identifier * idCopy = Identifier_clone(id);
+static ferment_example_identity_identity_ContractBounds * singleContractDocument(ferment_example_nested_Identifier * id, char * type) {
+    ferment_example_nested_Identifier * idCopy = Identifier_clone(id);
     char * typeCopy = memoryFactory.clone(type);
-    return crate_identity_identity_ContractBounds_SingleContractDocumentType_ctor(idCopy, typeCopy);
+    return ferment_example_identity_identity_ContractBounds_SingleContractDocumentType_ctor(idCopy, typeCopy);
 }
 
 #endif // this file

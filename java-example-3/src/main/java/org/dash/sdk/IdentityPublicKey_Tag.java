@@ -9,7 +9,7 @@
 package org.dash.sdk;
 
 public final class IdentityPublicKey_Tag {
-  public final static IdentityPublicKey_Tag crate_identity_identity_IdentityPublicKey_V0 = new IdentityPublicKey_Tag("crate_identity_identity_IdentityPublicKey_V0");
+  public final static IdentityPublicKey_Tag ferment_example_identity_identity_IdentityPublicKey_V0 = new IdentityPublicKey_Tag("ferment_example_identity_identity_IdentityPublicKey_V0");
 
   public final int swigValue() {
     return swigValue;
@@ -45,7 +45,7 @@ public final class IdentityPublicKey_Tag {
     swigNext = this.swigValue+1;
   }
 
-  private static IdentityPublicKey_Tag[] swigValues = { crate_identity_identity_IdentityPublicKey_V0 };
+  private static IdentityPublicKey_Tag[] swigValues = { ferment_example_identity_identity_IdentityPublicKey_V0 };
   private static int swigNext = 0;
   private final int swigValue;
   private final String swigName;

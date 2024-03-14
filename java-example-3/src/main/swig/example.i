@@ -2,7 +2,9 @@
 
 %{
 extern "C" {
-#include "../../../../ferment-example/target/example.h"
+// #include "../../../../ferment-example/target/example.h"
+#include "../../../../ferment-example-nested/target/ferment_example_nested.h"
+
 }
 #include <stdlib.h>
 #include "dpp.h"
@@ -17,8 +19,8 @@ MemoryFactory & memoryFactory = *MemoryFactory::getInstance();
 //%rename(renameCamelCase) "";
 //%rename("renameCamelCase") "^(ffi_)?(.+)$";
 //%rename("%(camelcase)s",%$isfunction) "";
-%ignore crate_identity_identity_IdentityFactory_TraitObject::object;
-%ignore crate_identity_identity_IdentityFactory_TraitObject::vtable;
+%ignore ferment_example_identity_identity_IdentityFactory_TraitObject::object;
+%ignore ferment_example_identity_identity_IdentityFactory_TraitObject::vtable;
 %ignore IdentityFactory_VTable;
 %ignore IHaveChainSettings_TraitObject::object;
 %ignore IHaveChainSettings_TraitObject::vtable;
@@ -28,33 +30,33 @@ MemoryFactory & memoryFactory = *MemoryFactory::getInstance();
                                            struct Vec_u32 *vec_u32,
                                            struct Vec_Vec_u32 *vec_vec_u32,
                                            struct std_collections_Map_keys_u32_values_u32 *map_key_simple_value_simple,
-                                           struct std_collections_Map_keys_u32_values_crate_nested_HashID *map_key_simple_value_complex,
+                                           struct std_collections_Map_keys_u32_values_ferment_example_nested_HashID *map_key_simple_value_complex,
                                            struct std_collections_Map_keys_u32_values_Vec_u32 *map_key_simple_value_vec_simple,
-                                           struct std_collections_Map_keys_u32_values_Vec_crate_nested_HashID *map_key_simple_value_vec_complex,
+                                           struct std_collections_Map_keys_u32_values_Vec_ferment_example_nested_HashID *map_key_simple_value_vec_complex,
                                            struct std_collections_Map_keys_u32_values_std_collections_Map_keys_u32_values_u32 *map_key_simple_value_map_key_simple_value_simple,
-                                           struct std_collections_Map_keys_u32_values_std_collections_Map_keys_u32_values_crate_nested_HashID *map_key_simple_value_map_key_simple_value_complex,
+                                           struct std_collections_Map_keys_u32_values_std_collections_Map_keys_u32_values_ferment_example_nested_HashID *map_key_simple_value_map_key_simple_value_complex,
                                            struct std_collections_Map_keys_u32_values_std_collections_Map_keys_u32_values_Vec_u32 *map_key_simple_value_map_key_simple_value_vec_simple,
-                                           struct std_collections_Map_keys_u32_values_std_collections_Map_keys_u32_values_Vec_crate_nested_HashID *map_key_simple_value_map_key_simple_value_vec_complex,
-                                           struct std_collections_Map_keys_crate_nested_HashID_values_u32 *map_key_complex_value_simple,
-                                           struct std_collections_Map_keys_crate_nested_HashID_values_crate_nested_HashID *map_key_complex_value_complex,
-                                           struct std_collections_Map_keys_crate_nested_HashID_values_Vec_u32 *map_key_complex_value_vec_simple,
-                                           struct std_collections_Map_keys_crate_nested_HashID_values_Vec_crate_nested_HashID *map_key_complex_value_vec_complex,
-                                           struct std_collections_Map_keys_crate_nested_HashID_values_std_collections_Map_keys_u32_values_Vec_u32 *map_key_complex_value_map_key_simple_value_vec_simple,
-                                           struct std_collections_Map_keys_crate_nested_HashID_values_std_collections_Map_keys_u32_values_Vec_crate_nested_HashID *map_key_complex_value_map_key_simple_value_vec_complex,
-                                           struct std_collections_Map_keys_crate_nested_HashID_values_std_collections_Map_keys_u32_values_std_collections_Map_keys_crate_nested_HashID_values_crate_nested_HashID *map_key_complex_value_map_key_simple_value_map_key_complex_value_complex,
+                                           struct std_collections_Map_keys_u32_values_std_collections_Map_keys_u32_values_Vec_ferment_example_nested_HashID *map_key_simple_value_map_key_simple_value_vec_complex,
+                                           struct std_collections_Map_keys_ferment_example_nested_HashID_values_u32 *map_key_complex_value_simple,
+                                           struct std_collections_Map_keys_ferment_example_nested_HashID_values_ferment_example_nested_HashID *map_key_complex_value_complex,
+                                           struct std_collections_Map_keys_ferment_example_nested_HashID_values_Vec_u32 *map_key_complex_value_vec_simple,
+                                           struct std_collections_Map_keys_ferment_example_nested_HashID_values_Vec_ferment_example_nested_HashID *map_key_complex_value_vec_complex,
+                                           struct std_collections_Map_keys_ferment_example_nested_HashID_values_std_collections_Map_keys_u32_values_Vec_u32 *map_key_complex_value_map_key_simple_value_vec_simple,
+                                           struct std_collections_Map_keys_ferment_example_nested_HashID_values_std_collections_Map_keys_u32_values_Vec_ferment_example_nested_HashID *map_key_complex_value_map_key_simple_value_vec_complex,
+                                           struct std_collections_Map_keys_ferment_example_nested_HashID_values_std_collections_Map_keys_u32_values_std_collections_Map_keys_ferment_example_nested_HashID_values_ferment_example_nested_HashID *map_key_complex_value_map_key_simple_value_map_key_complex_value_complex,
                                            uint8_t opt_primitive,
                                            char *opt_string,
                                            struct Vec_u8 *opt_vec_primitive,
                                            struct Vec_String *opt_vec_string,
-                                           struct Vec_crate_nested_HashID *opt_vec_complex,
-                                           struct Vec_Vec_crate_nested_HashID *opt_vec_vec_complex);
+                                           struct Vec_ferment_example_nested_HashID *opt_vec_complex,
+                                           struct Vec_Vec_ferment_example_nested_HashID *opt_vec_vec_complex);
 %nodefaultctor;
 
 %rename("%(lowercamelcase)s", %$isfunction) "";
 
 %ignore Vec_u8;
 
-//%ignore crate_nested_IdentifierBytes32;
+//%ignore ferment_example_nested_IdentifierBytes32;
 //%rename("%(lowercamelcase)s") "";
 %include "stdint.i"
 // %include "arrays_java.i"
@@ -90,7 +92,7 @@ MemoryFactory & memoryFactory = *MemoryFactory::getInstance();
 // ignore
 
 %ignore FeatureVersion;
-%ignore Vec_crate_nested_FeatureVersion;
+%ignore Vec_ferment_example_nested_FeatureVersion;
 %ignore HashID;
 %ignore HashID_destroy(struct HashID *ffi);
 %ignore HashID_ctor(uint8_t (*o_0)[32]);
@@ -105,32 +107,32 @@ MemoryFactory & memoryFactory = *MemoryFactory::getInstance();
 //         HashID_destroy($self);
 //     }
 // }
-%rename (VecU8Holder) crate_example_mine_VecU8Holder;
-%extend crate_example_mine_VecU8Holder {
-    crate_example_mine_VecU8Holder(Vec_u8 * vec_u8) {
-        return crate_example_mine_VecU8Holder_ctor(vec_u8);
+%rename (VecU8Holder) ferment_example_example_mine_VecU8Holder;
+%extend ferment_example_example_mine_VecU8Holder {
+    ferment_example_example_mine_VecU8Holder(Vec_u8 * vec_u8) {
+        return ferment_example_example_mine_VecU8Holder_ctor(vec_u8);
     }
 
-    ~crate_example_mine_VecU8Holder() {
+    ~ferment_example_example_mine_VecU8Holder() {
         //memoryFactory.destroyItem($self->first->values); //above
-        crate_example_mine_VecU8Holder_destroy($self); // causes crash with above, no crash if this is the only line, order doesn't matter
+        ferment_example_example_mine_VecU8Holder_destroy($self); // causes crash with above, no crash if this is the only line, order doesn't matter
         //memoryFactory.destroyItem($self->first->values); //above
     }
 }
-%rename (InnerStruct) crate_example_mine_InnerStruct;
-%extend crate_example_mine_InnerStruct {
-    crate_example_mine_InnerStruct(long a, long b) {
-        return crate_example_mine_InnerStruct_ctor(a, b);
+%rename (InnerStruct) ferment_example_example_mine_InnerStruct;
+%extend ferment_example_example_mine_InnerStruct {
+    ferment_example_example_mine_InnerStruct(long a, long b) {
+        return ferment_example_example_mine_InnerStruct_ctor(a, b);
     }
 
-    ~crate_example_mine_InnerStruct() {
-        crate_example_mine_InnerStruct_destroy($self);
+    ~ferment_example_example_mine_InnerStruct() {
+        ferment_example_example_mine_InnerStruct_destroy($self);
     }
 }
-%rename (OuterStruct) crate_example_mine_OuterStruct;
-%extend crate_example_mine_OuterStruct {
-    crate_example_mine_OuterStruct(crate_example_mine_InnerStruct * is1, crate_example_mine_InnerStruct * is2) {
-        crate_example_mine_OuterStruct * os = create_outer(is1, is2);
+%rename (OuterStruct) ferment_example_example_mine_OuterStruct;
+%extend ferment_example_example_mine_OuterStruct {
+    ferment_example_example_mine_OuterStruct(ferment_example_example_mine_InnerStruct * is1, ferment_example_example_mine_InnerStruct * is2) {
+        ferment_example_example_mine_OuterStruct * os = create_outer(is1, is2);
         printf("is1 (%lx)\n", (uint64_t)is1);
         printf("is2 (%lx)\n", (uint64_t)is2);
         printf("os  (%lx)\n", (uint64_t)os);
@@ -138,10 +140,10 @@ MemoryFactory & memoryFactory = *MemoryFactory::getInstance();
         printf("os->is2 (%lx)\n", (uint64_t)os->second);
         return os;
     }
-    crate_example_mine_OuterStruct(long a, long b, long c, long d) {
-        crate_example_mine_InnerStruct * is1 = crate_example_mine_InnerStruct_ctor(a, b);
-        crate_example_mine_InnerStruct * is2 = crate_example_mine_InnerStruct_ctor(c, d);
-        crate_example_mine_OuterStruct * os = crate_example_mine_OuterStruct_ctor(is1, is2);
+    ferment_example_example_mine_OuterStruct(long a, long b, long c, long d) {
+        ferment_example_example_mine_InnerStruct * is1 = ferment_example_example_mine_InnerStruct_ctor(a, b);
+        ferment_example_example_mine_InnerStruct * is2 = ferment_example_example_mine_InnerStruct_ctor(c, d);
+        ferment_example_example_mine_OuterStruct * os = ferment_example_example_mine_OuterStruct_ctor(is1, is2);
         printf("is1 (%lx)\n", (uint64_t)is1);
         printf("is2 (%lx)\n", (uint64_t)is2);
         printf("os  (%lx)\n", (uint64_t)os);
@@ -149,9 +151,9 @@ MemoryFactory & memoryFactory = *MemoryFactory::getInstance();
         printf("os->is2 (%lx)\n", (uint64_t)os->second);
         return os;
     }
-    ~crate_example_mine_OuterStruct() {
+    ~ferment_example_example_mine_OuterStruct() {
         //InnerStruct * first = $self->first;
-        crate_example_mine_OuterStruct_destroy($self);
+        ferment_example_example_mine_OuterStruct_destroy($self);
         //InnerStruct_destroy(first);
     }
 }
@@ -173,6 +175,8 @@ import org.dash.sdk.base.BaseObject;
 %}
 
 extern "C" {
-%include "../ferment-example/target/example.h"
+//%include "../ferment-example/target/example.h"
+%include "../../../../ferment-example-nested/target/ferment_example_nested.h"
+
 }
 %include "src/main/c/dpp.h"

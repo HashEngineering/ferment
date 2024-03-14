@@ -18,3 +18,4 @@ toml = "0.8.8"
 
 [lib]
 name = "ferment_example_nested"
+crate-type = ["staticlib"]

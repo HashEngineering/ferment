@@ -21,9 +21,9 @@ public class IdentityPublicKeyTest extends BaseTest {
 
     @Test
     public void createKeyIDinRustAndDestroy() {
-        KeyID id = example.crateIdentityIdentityKeyIDCtor(1);
+        KeyID id = example.fermentExampleIdentityIdentityKeyIDCtor(1);
         assertEquals(1, id.toInt());
-        example.crateIdentityIdentityKeyIDDestroy(id);
+        example.fermentExampleIdentityIdentityKeyIDDestroy(id);
     }
 
     @Test
@@ -36,9 +36,9 @@ public class IdentityPublicKeyTest extends BaseTest {
     @Test
     public void createTimestampMillisinRustAndDestroy() {
         long timestamp = System.currentTimeMillis();
-        TimestampMillis ts = example.crateIdentityIdentityTimestampMillisCtor(BigInteger.valueOf(timestamp));
+        TimestampMillis ts = example.fermentExampleIdentityIdentityTimestampMillisCtor(BigInteger.valueOf(timestamp));
         assertEquals(timestamp, ts.toLong());
-        example.crateIdentityIdentityTimestampMillisDestroy(ts);
+        example.fermentExampleIdentityIdentityTimestampMillisDestroy(ts);
     }
 
     @Test
@@ -87,7 +87,8 @@ public class IdentityPublicKeyTest extends BaseTest {
                 null,
                 keyType,
                 false,
-                data,
+                //data,
+                new ferment_example_nested_BinaryData(data.getCPointer(), false),
                 null
         );
         System.out.printf("identitypublickeyv0 %x\n", IdentityPublicKeyV0.getCPtr(ipkv0));
@@ -129,7 +130,8 @@ public class IdentityPublicKeyTest extends BaseTest {
                 singleContract,
                 keyType,
                 false,
-                data,
+                //data,
+                new ferment_example_nested_BinaryData(data.getCPointer(), false),
                 timestampMillis
         );
 
@@ -156,7 +158,8 @@ public class IdentityPublicKeyTest extends BaseTest {
                 singleContractDocumentType,
                 keyType,
                 false,
-                data,
+                //data,
+                new ferment_example_nested_BinaryData(data.getCPointer(), false),
                 timestampMillis
         );
         assertEquals(singleContractDocumentType.getTag(), ipkv0a.getContract_bounds().getTag());

@@ -1,9 +1,10 @@
-%rename (BinaryData) crate_nested_BinaryData;
-%extend crate_nested_BinaryData {
-    crate_nested_BinaryData(Vec_u8 *o_0) {
-        return crate_nested_BinaryData_ctor(o_0);
+%rename (BinaryData) platform_value_types_binary_data_BinaryData;
+%extend platform_value_types_binary_data_BinaryData {
+    platform_value_types_binary_data_BinaryData(Vec_u8 *o_0) {
+        printf("BinaryData(%lx)\n", (uint64_t)o_0);
+        return platform_value_types_binary_data_BinaryData_ctor(o_0);
     }
-    ~crate_nested_BinaryData() {
+    ~platform_value_types_binary_data_BinaryData() {
         printf("~BinaryData(%lx)\n", (uint64_t)$self);
         printf("~BinaryData->_0(%lx)\n", (uint64_t)$self->_0);
 
@@ -13,7 +14,7 @@
 
         // Vec_u8_destroy($self->_0); // crash
         printf("~BinaryData->_0(%lx)\n", (uint64_t)$self->_0);
-        crate_nested_BinaryData_destroy($self);
+        platform_value_types_binary_data_BinaryData_destroy($self);
         //printf("~BinaryData complete(%lx)\n", (uint64_t)$self);
         //printf("~BinaryData->_0->values[0] = %d\n", (int)ptr[0]);
 

@@ -50,22 +50,22 @@ public class ContractBounds extends BaseObject {
     return ContractBounds_Tag.swigToEnum(exampleJNI.ContractBounds_tag_get(swigCPtr, this));
   }
 
-  public void setSingle_contract(crate_identity_identity_ContractBounds_SingleContract_Body value) {
-    exampleJNI.ContractBounds_single_contract_set(swigCPtr, this, crate_identity_identity_ContractBounds_SingleContract_Body.getCPtr(value), value);
+  public void setSingle_contract(ferment_example_identity_identity_ContractBounds_SingleContract_Body value) {
+    exampleJNI.ContractBounds_single_contract_set(swigCPtr, this, ferment_example_identity_identity_ContractBounds_SingleContract_Body.getCPtr(value), value);
   }
 
-  public crate_identity_identity_ContractBounds_SingleContract_Body getSingle_contract() {
+  public ferment_example_identity_identity_ContractBounds_SingleContract_Body getSingle_contract() {
     long cPtr = exampleJNI.ContractBounds_single_contract_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new crate_identity_identity_ContractBounds_SingleContract_Body(cPtr, false);
+    return (cPtr == 0) ? null : new ferment_example_identity_identity_ContractBounds_SingleContract_Body(cPtr, false);
   }
 
-  public void setSingle_contract_document_type(crate_identity_identity_ContractBounds_SingleContractDocumentType_Body value) {
-    exampleJNI.ContractBounds_single_contract_document_type_set(swigCPtr, this, crate_identity_identity_ContractBounds_SingleContractDocumentType_Body.getCPtr(value), value);
+  public void setSingle_contract_document_type(ferment_example_identity_identity_ContractBounds_SingleContractDocumentType_Body value) {
+    exampleJNI.ContractBounds_single_contract_document_type_set(swigCPtr, this, ferment_example_identity_identity_ContractBounds_SingleContractDocumentType_Body.getCPtr(value), value);
   }
 
-  public crate_identity_identity_ContractBounds_SingleContractDocumentType_Body getSingle_contract_document_type() {
+  public ferment_example_identity_identity_ContractBounds_SingleContractDocumentType_Body getSingle_contract_document_type() {
     long cPtr = exampleJNI.ContractBounds_single_contract_document_type_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new crate_identity_identity_ContractBounds_SingleContractDocumentType_Body(cPtr, false);
+    return (cPtr == 0) ? null : new ferment_example_identity_identity_ContractBounds_SingleContractDocumentType_Body(cPtr, false);
   }
 
   public ContractBounds(Identifier id) {

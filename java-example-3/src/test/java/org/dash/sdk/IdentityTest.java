@@ -40,7 +40,7 @@ public class IdentityTest extends BaseTest {
         assertEquals(0L, identityV0.getRevision().toLong());
         assertEquals(0L, identityV0.getBalance());
         assertNull(identityV0.getPublicKey(0));
-        example.crateIdentityIdentityIdentityDestroy(identity);
+        example.fermentExampleIdentityIdentityIdentityDestroy(identity);
     }
 
     @Test
@@ -134,7 +134,7 @@ public class IdentityTest extends BaseTest {
         assertEquals(0, identityV0.getRevision().toLong());
         assertEquals(0, identityV0.getBalance());
         assertEquals(0, identityV0.getPublicKeyCount());
-        example.crateIdentityIdentityIdentityDestroy(identity);
+        example.fermentExampleIdentityIdentityIdentityDestroy(identity);
         identifier.delete();
     }
 //
