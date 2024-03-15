@@ -16,11 +16,24 @@ find_package(JNI REQUIRED)
 include_directories(${JNI_INCLUDE_DIRS})
 # Create an executable that links C and Rust code
 add_library(sdklib SHARED ${C_SOURCE_FILE})
-find_library(CORE_FOUNDATION_FRAMEWORK CoreFoundation)
-if(CORE_FOUNDATION_FRAMEWORK)
-    target_link_libraries(sdklib PRIVATE "${CORE_FOUNDATION_FRAMEWORK}" ${RUST_LIBRARY})
+
+# Check if building on macOS
+if(APPLE)
+    # Find the Core Foundation framework
+    find_library(CORE_FOUNDATION_FRAMEWORK CoreFoundation)
+    if(NOT CORE_FOUNDATION_FRAMEWORK)
+        message(FATAL_ERROR "CoreFoundation framework not found")
+    endif()
+
+    # Find the Security framework
+    find_library(SECURITY_FRAMEWORK Security)
+    if(NOT SECURITY_FRAMEWORK)
+        message(FATAL_ERROR "Security framework not found")
+    endif()
+
+    # Link the frameworks only on macOS
+    target_link_libraries(sdklib PRIVATE "${CORE_FOUNDATION_FRAMEWORK}" "${SECURITY_FRAMEWORK}" ${RUST_LIBRARY})
 else()
- # Link the pre-built Rust library
- target_link_libraries(sdklib PRIVATE ${RUST_LIBRARY})
+    target_link_libraries(sdklib PRIVATE ${RUST_LIBRARY})
 endif()
 

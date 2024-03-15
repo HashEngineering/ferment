@@ -10,7 +10,7 @@ fn main() {
    let c_header = format!("target/{}.h", SELF_NAME);
    match Builder::new(Crate::current_with_name(SELF_NAME))
        .with_mod_name("fermented")
-       .with_crates(vec!["platform-value", "dpp"])
+       .with_crates(vec!["platform-value", "dpp", "platform-version", "rs-sdk", "rs-dapi-client"])
        .generate() {
       Ok(()) => match Command::new("cbindgen")
           .args(["--config", "cbindgen.toml", "-o", c_header.as_str()])
