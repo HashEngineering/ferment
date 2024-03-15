@@ -30,18 +30,20 @@ public class IdentityTest extends BaseTest {
 //        identity.delete(); // identity doesn't own the rust object
 //        // example.identityDestroy(identity); // crash in Identity::drop
 //    }
-//    @Test
-//    public void basicIdentityInRustAndDestroy() {
-//        Identity identity = example.createBasicIdentityV0(identifier);
-//        assertEquals(Identity_Tag.IdentityV0Type, identity.getTag());
-//        IdentityV0 identityV0 = identity.getV0();
-//        assertNotNull(identityV0);
-//        assertArrayEquals(identifier, identityV0.getId().get_0().get_0());
-//        assertEquals(0L, identityV0.getRevision().toLong());
-//        assertEquals(0L, identityV0.getBalance());
-//        assertNull(identityV0.getPublicKey(0));
-//        example.fermentExampleIdentityIdentityIdentityDestroy(identity);
-//    }
+    @Test
+    public void basicIdentityInRustAndDestroy() {
+        Identifier identifier1 = new Identifier(identifier);
+        Identity identity = example.fetchIdentity(identifier1);
+        assertEquals(Identity_Tag.IdentityV0Type, identity.getTag());
+        IdentityV0 identityV0 = identity.getV0();
+        assertNotNull(identityV0);
+        assertArrayEquals(identifier, identityV0.getId().get_0().get_0());
+        assertEquals(0L, identityV0.getRevision().toLong());
+        assertEquals(0L, identityV0.getBalance());
+        assertNull(identityV0.getPublicKey(0));
+        example.dppIdentityIdentityIdentityDestroy(identity);
+        identifier1.delete();
+    }
 //
 //    @Test
 //    public void getIdentityTest() {

@@ -9,8 +9,14 @@ ferment-interfaces = { path = "../ferment-interfaces" }
 ferment-macro = { path = "../ferment-macro" }
 ferment-example = { path = "../ferment-example" }
 platform-value = { path = "../../platform/packages/rs-platform-value" }
+data-contracts = { path = "../../platform/packages/data-contracts" }
 dpp = { path = "../../platform/packages/rs-dpp" }
+rs-sdk = { path = "../../platform/packages/rs-sdk" }
+#rs-dapi-client = { path = "../../platform/packages/rs-dapi-client" }
+platform-version = { path = "../../platform/packages/rs-platform-version" }
 
+dotenvy = { version = "0.15.7", optional = true }
+http = { version = "0.2.9" }
 
 [build-dependencies]
 cbindgen = "0.26.0"

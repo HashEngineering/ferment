@@ -1,6 +1,6 @@
 mod fermented;
 mod model;
-
+mod fetch_identity;
 
 extern crate ferment_macro;
 

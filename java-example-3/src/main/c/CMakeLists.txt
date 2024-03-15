@@ -16,6 +16,11 @@ find_package(JNI REQUIRED)
 include_directories(${JNI_INCLUDE_DIRS})
 # Create an executable that links C and Rust code
 add_library(sdklib SHARED ${C_SOURCE_FILE})
+find_library(CORE_FOUNDATION_FRAMEWORK CoreFoundation)
+if(CORE_FOUNDATION_FRAMEWORK)
+    target_link_libraries(sdklib PRIVATE "${CORE_FOUNDATION_FRAMEWORK}" ${RUST_LIBRARY})
+else()
+ # Link the pre-built Rust library
+ target_link_libraries(sdklib PRIVATE ${RUST_LIBRARY})
+endif()
 
-# Link the pre-built Rust library
-target_link_libraries(sdklib PRIVATE ${RUST_LIBRARY})
