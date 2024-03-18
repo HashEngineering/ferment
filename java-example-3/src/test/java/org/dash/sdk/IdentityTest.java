@@ -61,6 +61,33 @@ public class IdentityTest extends BaseTest {
     }
 
     @Test
+    public void fetchIdentity3AndDestroy() {
+        Identifier identifier1 = new Identifier(contractIdentifier);
+        Result_ok_dpp_identity_identity_Identity_err_String result = example.fetchIdentity3(identifier1);
+        Identity identity = result.getOk();
+        assertEquals(Identity_Tag.IdentityV0Type, identity.getTag());
+        IdentityV0 identityV0 = identity.getV0();
+        assertNotNull(identityV0);
+        assertArrayEquals(contractIdentifier, identityV0.getId().get_0().get_0());
+        assertEquals(0L, identityV0.getRevision().toLong());
+        assertEquals(0L, identityV0.getBalance());
+        assertNotNull(identityV0.getPublicKey(0));
+        example.dppIdentityIdentityIdentityDestroy(identity);
+        identifier1.delete();
+    }
+
+    @Test
+    public void fetchIdentity3FailAndDestroy() {
+        Identifier identifier1 = new Identifier(identifier);
+        Result_ok_dpp_identity_identity_Identity_err_String result = example.fetchIdentity3(identifier1);
+        assertNull(result.getOk());
+        String error = result.getError();
+        assertNotNull(error);
+        result.delete();
+        identifier1.delete();
+    }
+
+    @Test
     public void getDocument() {
         Identifier identifier1 = example.getDocument();
 

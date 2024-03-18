@@ -1,8 +1,8 @@
 use platform_value::types::identifier::{Identifier, IdentifierBytes32};
 use dpp::identity::identity::Identity;
-use dpp::ProtocolError;
+use dpp::errors::protocol_error::ProtocolError;
 use platform_version::version::PlatformVersion;
-use dpp::document::{Document, DocumentV0, DocumentV0Getters};
+use dpp::document::{Document, DocumentV0Getters};
 use rs_sdk::platform::{DocumentQuery, Fetch, FetchMany};
 use dpp::prelude::{DataContract};
 
@@ -17,11 +17,16 @@ pub fn fetch_identity(identifier: Identifier) -> Identity {
 pub fn fetch_identity2(identifier: Identifier) -> Identity {
     identity_read(&identifier).expect("not found")
 }
-
 //#[ferment_macro::export]
-// pub fn fetch_identity3(identifier: Identifier) -> Result<Identity, ProtocolError> {
-//     identity_read(&identifier)
-// }
+pub struct FermentError { error_message: String }
+#[ferment_macro::export]
+pub fn fetch_identity3(identifier: Identifier) -> Result<Identity, String> {
+    match identity_read(&identifier) {
+        Ok(identity) => Ok(identity),
+        Err(err) => Err(err.to_string())
+    }
+}
+
 #[ferment_macro::export]
 pub fn get_document()-> Identifier {
     let it = document_read();
