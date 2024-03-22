@@ -1,5 +1,7 @@
 use quote::{quote, ToTokens};
 use syn::__private::TokenStream2;
+use syn::punctuated::Punctuated;
+use syn::token::Comma;
 use crate::context::ScopeContext;
 use crate::conversion::FieldTypeConversion;
 use crate::interface::{ffi_from_conversion, ffi_to_conversion, package_unbox_any_expression, package_unbox_any_expression_terminated};
@@ -32,13 +34,14 @@ pub enum FieldTypePresentableContext {
     FromOpt(Box<FieldTypePresentableContext>),
     AsRef(TokenStream2),
     AsMutRef(TokenStream2),
-    IfThenSome(Box<FieldTypePresentableContext>, TokenStream2),
+    IfThen(Box<FieldTypePresentableContext>, TokenStream2),
     Named((TokenStream2, Box<FieldTypePresentableContext>)),
     Deref(TokenStream2),
     DerefContext(Box<FieldTypePresentableContext>),
     FfiRefWithFieldName(Box<FieldTypePresentableContext>),
     FfiRefWithConversion(FieldTypeConversion),
     Match(Box<FieldTypePresentableContext>),
+    FromTuple(Box<FieldTypePresentableContext>, Punctuated<FieldTypePresentableContext, Comma>),
 }
 
 impl ScopeContextPresentable for FieldTypePresentableContext {
@@ -121,7 +124,7 @@ impl ScopeContextPresentable for FieldTypePresentableContext {
             FieldTypePresentableContext::AsMutRef(field_path) => {
                 quote!(&mut #field_path)
             },
-            FieldTypePresentableContext::IfThenSome(presentation_context, condition) => {
+            FieldTypePresentableContext::IfThen(presentation_context, condition) => {
                 let field_path = presentation_context.present(source);
                 quote!((#field_path #condition).then(|| #field_path))
             }
@@ -153,6 +156,11 @@ impl ScopeContextPresentable for FieldTypePresentableContext {
             FieldTypePresentableContext::FfiRefWithConversion(field_type) => {
                 FieldTypePresentableContext::FfiRefWithFieldName(FieldTypePresentableContext::FieldTypeConversionName(field_type.clone()).into())
                     .present(source)
+            }
+            FieldTypePresentableContext::FromTuple(field_path, items) => {
+                let root_path = field_path.present(source);
+                let items = items.present(source);
+                quote!({ let ffi_ref = &*#root_path; (#items) })
             }
         }
     }
